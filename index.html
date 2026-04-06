@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>זמני שבת וחג בישראל</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+
+      <div class="hero-top">
+        <div class="hero-top-left">
+          <div class="logo-area">
+            <span class="logo-icon">✡</span>
+            <span class="logo-text">זמני שבת וחג</span>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" aria-label="שנה ערכת צבעים">
+            <!-- icon injected by JS -->
+          </button>
+        </div>
+        <div class="hebrew-date-area">
+          <span id="hebrew-date" class="hebrew-date">טוען...</span>
+          <span id="greg-date"   class="greg-date"></span>
+          <span id="parasha"     class="parasha-name"></span>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="countdown-section">
+          <div id="holiday-banner" class="holiday-banner hidden"></div>
+          <div class="countdown-label" id="countdown-label">זמן לכניסת שבת</div>
+          <div class="countdown-display">
+            <div class="countdown-unit">
+              <span id="cd-days"    class="cd-num">00</span>
+              <span class="cd-lbl">ימים</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit">
+              <span id="cd-hours"   class="cd-num">00</span>
+              <span class="cd-lbl">שעות</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit">
+              <span id="cd-minutes" class="cd-num">00</span>
+              <span class="cd-lbl">דקות</span>
+            </div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit">
+              <span id="cd-seconds" class="cd-num">00</span>
+              <span class="cd-lbl">שניות</span>
+            </div>
+          </div>
+          <div class="candle-time-ref">
+            <span class="dot candles-dot"></span>
+            <span id="ref-city-time">הדלקת נרות בירושלים: טוען...</span>
+          </div>
+        </div>
+
+        <!-- Shabbat illustration SVG -->
+        <div class="hero-illustration" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 210" fill="none">
+            <defs>
+              <linearGradient id="chal-top" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#e8a030"/>
+                <stop offset="100%" stop-color="#b07020"/>
+              </linearGradient>
+              <linearGradient id="chal-side" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#c08828"/>
+                <stop offset="100%" stop-color="#906018"/>
+              </linearGradient>
+              <linearGradient id="cup-metal" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"   stop-color="#b08820"/>
+                <stop offset="38%"  stop-color="#e8cc60"/>
+                <stop offset="100%" stop-color="#a07818"/>
+              </linearGradient>
+              <linearGradient id="cup-base" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#d0aa40"/>
+                <stop offset="100%" stop-color="#907020"/>
+              </linearGradient>
+              <linearGradient id="wine-grad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#c0284a"/>
+                <stop offset="100%" stop-color="#780020"/>
+              </linearGradient>
+            </defs>
+
+            <!-- ── Left challah (background) ── -->
+            <ellipse cx="96" cy="168" rx="82" ry="26" fill="url(#chal-side)"/>
+            <ellipse cx="96" cy="160" rx="82" ry="24" fill="url(#chal-top)"/>
+            <!-- braid texture -->
+            <path d="M22 158 Q48 146 74 158 Q100 170 126 158 Q152 146 168 156"
+                  stroke="#8a5808" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M22 163 Q48 151 74 163 Q100 175 126 163 Q152 151 168 161"
+                  stroke="#8a5808" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.45"/>
+            <path d="M34 154 Q60 144 86 154 Q112 164 138 154 Q155 148 168 152"
+                  stroke="#8a5808" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.3"/>
+
+            <!-- ── Right challah (foreground) ── -->
+            <ellipse cx="188" cy="162" rx="82" ry="26" fill="url(#chal-side)"/>
+            <ellipse cx="188" cy="154" rx="82" ry="24" fill="url(#chal-top)"/>
+            <!-- braid texture -->
+            <path d="M116 152 Q142 140 168 152 Q194 164 220 152 Q246 140 262 150"
+                  stroke="#8a5808" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M116 157 Q142 145 168 157 Q194 169 220 157 Q246 145 262 155"
+                  stroke="#8a5808" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.45"/>
+            <path d="M128 148 Q154 138 180 148 Q206 158 232 148 Q248 142 262 146"
+                  stroke="#8a5808" stroke-width="1.1" stroke-linecap="round" fill="none" opacity="0.3"/>
+
+            <!-- ── Kiddush Cup ── -->
+            <!-- Base -->
+            <ellipse cx="248" cy="178" rx="30" ry="8"  fill="url(#cup-base)"/>
+            <ellipse cx="248" cy="175" rx="26" ry="6"  fill="#d0aa40"/>
+            <!-- Stem -->
+            <path d="M241 148 L241 175 Q244 178 248 178 Q252 178 255 175 L255 148 Z"
+                  fill="url(#cup-metal)"/>
+            <!-- Stem node -->
+            <ellipse cx="248" cy="148" rx="8"  ry="4"  fill="#d8b848"/>
+            <!-- Bowl -->
+            <path d="M222 68 Q218 110 228 140 Q236 148 248 148 Q260 148 268 140 Q278 110 274 68 Z"
+                  fill="url(#cup-metal)"/>
+            <!-- Wine fill -->
+            <path d="M224 82 Q220 112 228 140 Q236 148 248 148 Q260 148 268 140 Q276 112 272 82
+                     Q265 88 248 88 Q231 88 224 82 Z"
+                  fill="url(#wine-grad)" opacity="0.92"/>
+            <!-- Wine surface -->
+            <ellipse cx="248" cy="82" rx="24" ry="6.5" fill="#d03050" opacity="0.85"/>
+            <!-- Rim -->
+            <ellipse cx="248" cy="68" rx="26" ry="7"   fill="#ecd868"/>
+            <ellipse cx="248" cy="67" rx="24" ry="5.5" fill="#f0e070"/>
+            <!-- Highlight on bowl -->
+            <path d="M228 90 Q230 112 232 132"
+                  stroke="rgba(255,255,255,0.32)" stroke-width="2.8"
+                  stroke-linecap="round" fill="none"/>
+
+            <!-- ── Table surface line ── -->
+            <line x1="8" y1="188" x2="292" y2="188"
+                  stroke="currentColor" stroke-width="1" opacity="0.12"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="section-header">
+      <h2 class="section-title">זמנים לפי עיר</h2>
+      <p class="section-sub" id="shabbat-date-sub">הדלקת נרות והבדלה לשבת הקרובה</p>
+    </div>
+
+    <div id="city-grid" class="city-grid">
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+      <div class="city-card skeleton"></div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="section-header">
+      <h2 class="section-title">חגים קרובים</h2>
+      <p class="section-sub">זמני כניסת חג ויציאת חג לפי עיר · שישה חודשים קדימה</p>
+    </div>
+    <div id="holiday-cards-grid" class="holiday-cards-grid">
+      <div class="holiday-event-card skeleton-hol"></div>
+      <div class="holiday-event-card skeleton-hol"></div>
+      <div class="holiday-event-card skeleton-hol"></div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>הזמנים מחושבים לפי <a href="https://www.hebcal.com" target="_blank" rel="noopener">Hebcal</a> · הדלקת נרות 18 דק׳ לפני השקיעה · הבדלה 50 דק׳ אחרי השקיעה</p>
+    <p class="footer-update" id="footer-update"></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

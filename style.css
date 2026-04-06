@@ -1,0 +1,701 @@
+/* ─── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Light Theme (default) ─────────────────────────────────── */
+:root {
+  --bg:               #faf7ef;
+  --bg2:              #f2ecda;
+  --card:             #ffffff;
+  --card-border:      rgba(150,112,30,0.18);
+  --card-hover-border:rgba(150,112,30,0.42);
+  --gold:             #8a6800;
+  --gold-light:       #a67c00;
+  --candle:           #c47005;
+  --havdalah:         #6d28d9;
+  --text:             #1c1810;
+  --muted:            #6b6050;
+  --red:              #b91c1c;
+  --radius:           18px;
+  --shadow:           0 4px 24px rgba(0,0,0,0.09);
+  --glass-bg:         rgba(0,0,0,0.025);
+  --glass-border:     rgba(0,0,0,0.07);
+  --hero-bg:          rgba(150,112,30,0.04);
+  --hero-border:      rgba(150,112,30,0.12);
+  --skeleton-bg:      #ede8da;
+  --skeleton-shine:   rgba(255,255,255,0.65);
+  --footer-border:    rgba(0,0,0,0.08);
+  --hol-card-border:  rgba(109,40,217,0.15);
+  --hol-card-border-h:rgba(109,40,217,0.38);
+  --hol-stripe:       rgba(0,0,0,0.025);
+  --hol-row-hover:    rgba(0,0,0,0.03);
+  --hol-header-bg:    rgba(0,0,0,0.02);
+  --divider-color:    rgba(150,112,30,0.18);
+  --badge-bg:         rgba(150,112,30,0.1);
+  --badge-border:     rgba(150,112,30,0.3);
+  --countdown-color:  #1c1810;
+  --sep-color:        rgba(0,0,0,0.07);
+  --toggle-bg:        rgba(0,0,0,0.07);
+  --toggle-color:     #5a4a2a;
+  --glow1:            rgba(150,112,30,0.06);
+  --glow2:            rgba(109,40,217,0.04);
+}
+
+/* ─── Dark Theme ─────────────────────────────────────────────── */
+body.dark {
+  --bg:               #0c0c18;
+  --bg2:              #13132a;
+  --card:             #161628;
+  --card-border:      rgba(212,168,67,0.14);
+  --card-hover-border:rgba(212,168,67,0.38);
+  --gold:             #d4a843;
+  --gold-light:       #f0c84a;
+  --candle:           #f59e0b;
+  --havdalah:         #a78bfa;
+  --text:             #f0eee6;
+  --muted:            #8a88a0;
+  --shadow:           0 8px 40px rgba(0,0,0,0.45);
+  --glass-bg:         rgba(255,255,255,0.03);
+  --glass-border:     rgba(255,255,255,0.055);
+  --hero-bg:          rgba(212,168,67,0.04);
+  --hero-border:      rgba(212,168,67,0.1);
+  --skeleton-bg:      #161628;
+  --skeleton-shine:   rgba(255,255,255,0.035);
+  --footer-border:    rgba(255,255,255,0.07);
+  --hol-card-border:  rgba(167,139,250,0.18);
+  --hol-card-border-h:rgba(167,139,250,0.42);
+  --hol-stripe:       rgba(255,255,255,0.02);
+  --hol-row-hover:    rgba(255,255,255,0.03);
+  --hol-header-bg:    rgba(255,255,255,0.02);
+  --divider-color:    rgba(212,168,67,0.18);
+  --badge-bg:         rgba(212,168,67,0.15);
+  --badge-border:     rgba(212,168,67,0.38);
+  --countdown-color:  #f0eee6;
+  --sep-color:        rgba(255,255,255,0.06);
+  --toggle-bg:        rgba(255,255,255,0.08);
+  --toggle-color:     #d4a843;
+  --glow1:            rgba(212,168,67,0.07);
+  --glow2:            rgba(167,139,250,0.06);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  direction: rtl;
+  overflow-x: hidden;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+/* ─── Background Glow ───────────────────────────────────────── */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 10%, var(--glow1) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 80%, var(--glow2) 0%, transparent 70%);
+}
+
+/* ─── Theme Toggle ──────────────────────────────────────────── */
+.theme-toggle {
+  background: var(--toggle-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 50px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--toggle-color);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  background: var(--card-border);
+  border-color: var(--gold);
+}
+
+.theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ─── Hero Header ──────────────────────────────────────────── */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 2.5rem 1.5rem 3rem;
+  border-bottom: 1px solid var(--hero-border);
+  background: linear-gradient(180deg, var(--hero-bg) 0%, transparent 100%);
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.hero-top-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.logo-icon {
+  font-size: 1.8rem;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px color-mix(in srgb, var(--gold) 60%, transparent));
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+}
+
+.hebrew-date-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+}
+
+.hebrew-date {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  opacity: 0.85;
+}
+
+.greg-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+.parasha-name {
+  font-size: 0.82rem;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+/* ─── Hero Bottom (countdown + illustration) ─────────────────── */
+.hero-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+/* ─── Countdown ─────────────────────────────────────────────── */
+.countdown-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.holiday-banner {
+  background: linear-gradient(135deg, var(--badge-bg), rgba(109,40,217,0.08));
+  border: 1px solid var(--badge-border);
+  border-radius: 50px;
+  padding: 0.4rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  letter-spacing: 0.02em;
+}
+
+.holiday-banner.hidden { display: none; }
+
+.countdown-label {
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+.countdown-display {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  direction: ltr;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cd-num {
+  font-size: clamp(2.8rem, 7vw, 4.5rem);
+  font-weight: 900;
+  color: var(--countdown-color);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  transition: color 0.3s;
+}
+
+.cd-num.urgent    { color: var(--candle); }
+.cd-num.shabbat-in { color: var(--gold); }
+
+.cd-lbl {
+  font-size: 0.68rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+.cd-sep {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 300;
+  color: var(--divider-color);
+  line-height: 1;
+  margin-top: 0.1rem;
+}
+
+.candle-time-ref {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.candles-dot {
+  background: var(--candle);
+  box-shadow: 0 0 5px var(--candle);
+}
+
+/* ─── Hero Illustration ─────────────────────────────────────── */
+.hero-illustration {
+  flex-shrink: 0;
+  width: 260px;
+  opacity: 0.88;
+  transition: opacity 0.3s;
+}
+
+.hero-illustration:hover { opacity: 1; }
+
+.hero-illustration svg {
+  width: 100%;
+  height: auto;
+}
+
+/* ─── Main Content ──────────────────────────────────────────── */
+.main-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.section-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.section-sub {
+  font-size: 0.88rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ─── City Grid ─────────────────────────────────────────────── */
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* ─── City Card ─────────────────────────────────────────────── */
+.city-card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.3rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.35s;
+  opacity: 0;
+  animation: cardIn 0.5s ease forwards;
+  box-shadow: var(--shadow);
+}
+
+.city-card::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 60px; height: 60px;
+  background: radial-gradient(ellipse at top right, var(--glass-bg), transparent 70%);
+  pointer-events: none;
+}
+
+.city-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-hover-border);
+  box-shadow: var(--shadow), 0 0 0 1px var(--card-hover-border);
+}
+
+/* Skeleton */
+.city-card.skeleton {
+  opacity: 1;
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg,
+    var(--skeleton-bg) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-bg) 75%);
+  background-size: 200% 100%;
+  min-height: 175px;
+  box-shadow: none;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger */
+.city-card:nth-child(1) { animation-delay: 0.00s; }
+.city-card:nth-child(2) { animation-delay: 0.06s; }
+.city-card:nth-child(3) { animation-delay: 0.12s; }
+.city-card:nth-child(4) { animation-delay: 0.18s; }
+.city-card:nth-child(5) { animation-delay: 0.24s; }
+.city-card:nth-child(6) { animation-delay: 0.30s; }
+.city-card:nth-child(7) { animation-delay: 0.36s; }
+.city-card:nth-child(8) { animation-delay: 0.42s; }
+
+/* Card header */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.city-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.holiday-badge {
+  background: var(--badge-bg);
+  border: 1px solid var(--badge-border);
+  border-radius: 50px;
+  padding: 0.12rem 0.6rem;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+/* Card times */
+.card-times {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.8rem;
+  border-radius: 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+}
+
+.time-label {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.time-value {
+  font-size: 1.22rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  direction: ltr;
+}
+
+.candles-value  { color: var(--candle); }
+.havdalah-value { color: var(--havdalah); }
+
+.card-holiday-name {
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 500;
+  text-align: center;
+}
+
+.card-shabbat-date {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 300;
+  text-align: center;
+}
+
+/* ─── Section Divider ───────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--divider-color), transparent);
+  margin: 3.5rem 0;
+}
+
+/* ─── Holiday Cards Grid ────────────────────────────────────── */
+.holiday-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+/* ─── Holiday Event Card ────────────────────────────────────── */
+.holiday-event-card {
+  background: var(--card);
+  border: 1px solid var(--hol-card-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  opacity: 0;
+  animation: cardIn 0.5s ease forwards;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease, background 0.35s;
+  box-shadow: var(--shadow);
+}
+
+.holiday-event-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), var(--havdalah));
+}
+
+.holiday-event-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--hol-card-border-h);
+  box-shadow: var(--shadow);
+}
+
+.holiday-event-card.skeleton-hol {
+  opacity: 1;
+  animation: shimmer 1.5s infinite;
+  background: linear-gradient(90deg,
+    var(--skeleton-bg) 25%,
+    var(--skeleton-shine) 50%,
+    var(--skeleton-bg) 75%);
+  background-size: 200% 100%;
+  min-height: 300px;
+  box-shadow: none;
+}
+
+/* Card header */
+.hol-card-header {
+  padding: 1.3rem 1.4rem 1rem;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.hol-name {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  margin-bottom: 0.35rem;
+  line-height: 1.3;
+}
+
+.hol-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  align-items: center;
+}
+
+.hol-heb-date {
+  font-size: 0.8rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.hol-greg-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+  opacity: 0.7;
+  font-weight: 300;
+}
+
+/* City table */
+.hol-table-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0 1rem;
+  padding: 0.5rem 1.3rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--hol-header-bg);
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.hol-city-table {
+  padding: 0.35rem 0 0.5rem;
+}
+
+.hol-city-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0 1rem;
+  padding: 0.4rem 1.3rem;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.hol-city-row:nth-child(even) {
+  background: var(--hol-stripe);
+}
+
+.hol-city-row:hover {
+  background: var(--hol-row-hover);
+}
+
+.hol-city-name {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.hol-candle-time {
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--candle);
+  direction: ltr;
+  min-width: 42px;
+  text-align: center;
+}
+
+.hol-havdalah-time {
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--havdalah);
+  direction: ltr;
+  min-width: 42px;
+  text-align: center;
+}
+
+.hol-no-time {
+  color: var(--muted);
+  opacity: 0.45;
+  font-weight: 300;
+}
+
+/* ─── Footer ────────────────────────────────────────────────── */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 2rem 1.5rem 3rem;
+  border-top: 1px solid var(--footer-border);
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.9;
+  transition: border-color 0.35s;
+}
+
+.footer a {
+  color: var(--gold);
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.footer a:hover { opacity: 1; }
+
+.footer-update {
+  font-size: 0.7rem;
+  opacity: 0.45;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1000px) {
+  .hero-illustration { width: 200px; }
+}
+
+@media (max-width: 820px) {
+  .hero-illustration { display: none; }
+  .hero-bottom       { justify-content: center; }
+  .city-grid         { grid-template-columns: repeat(2, 1fr); }
+  .holiday-cards-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .city-grid        { grid-template-columns: 1fr; }
+  .hero             { padding: 2rem 1rem 2.5rem; }
+  .hero-top         { flex-direction: column-reverse; align-items: flex-start; }
+  .hero-top-left    { flex-wrap: wrap; }
+  .hebrew-date-area { align-items: flex-start; }
+  .main-content     { padding: 2rem 1rem 3rem; }
+  .cd-num           { font-size: 2.5rem; }
+  .hol-table-header,
+  .hol-city-row     { padding-right: 1rem; padding-left: 1rem; gap: 0 0.7rem; }
+}
