@@ -89,7 +89,10 @@ function parseItems(items) {
   for (const item of (items || [])) {
     if (item.category === 'candles')  candles  = item;
     if (item.category === 'havdalah') havdalah = item;
-    if (item.category === 'holiday')  holidays.push(item);
+    if (item.category === 'holiday' && item.subcat !== 'modern' && item.date) {
+      const day = new Date(new Date(item.date).toLocaleString('en-US', { timeZone: 'Asia/Jerusalem' })).getDay();
+      if (day === 5 || day === 6) holidays.push(item); // 5=שישי, 6=שבת
+    }
     if (item.category === 'parashat') parasha  = item;
   }
   return { candles, havdalah, holidays, parasha };
