@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מזג האוויר</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="weather.css" />
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">מזג האוויר</h1>
+
+    <div class="search-area">
+      <input
+        type="text"
+        id="city-input"
+        class="city-input"
+        placeholder="הקלד שם עיר..."
+        autocomplete="off"
+      />
+      <button id="search-btn" class="search-btn">חפש</button>
+    </div>
+
+    <div id="weather-display" class="weather-display hidden">
+      <div id="city-name"    class="weather-city"></div>
+      <div id="weather-icon" class="weather-icon"></div>
+      <div id="temperature"  class="weather-temp"></div>
+      <div id="description"  class="weather-desc"></div>
+      <div id="extra-info"   class="weather-extra"></div>
+    </div>
+
+    <div id="error-msg" class="error-msg hidden"></div>
+  </div>
+
+  <script src="weather.js"></script>
+</body>
+</html>
