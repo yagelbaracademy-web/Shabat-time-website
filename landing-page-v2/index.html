@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>יגל בר | סדנת ילדים ברשת – לבתי ספר יסודיים</title>
+  <meta name="description" content="סדנה חווייתית שמדברת עם ילדים בשפה שלהם – על רשתות חברתיות, לחץ חברתי, אלימות ברשת ושימוש חיובי בדיגיטל.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #FAFAF8;
+      --bg-warm:   #F5F2EE;
+      --bg-dark:   #111111;
+      --text:      #111111;
+      --text-mid:  #444444;
+      --text-soft: #888888;
+      --accent:    #1A56DB;
+      --accent-soft: rgba(26,86,219,.08);
+      --orange:    #EA580C;
+      --orange-soft: rgba(234,88,12,.09);
+      --border:    #E8E4DF;
+      --white:     #FFFFFF;
+      --radius:    14px;
+      --radius-lg: 24px;
+      --max:       720px;
+      --max-wide:  1040px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ── UTILITIES ── */
+    .container       { max-width: var(--max);      margin: 0 auto; padding: 0 24px; }
+    .container-wide  { max-width: var(--max-wide); margin: 0 auto; padding: 0 24px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 16px 24px;
+      transition: background .4s, box-shadow .4s;
+    }
+    nav.solid {
+      background: rgba(250,250,248,.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-inner {
+      max-width: var(--max-wide); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 15px; font-weight: 700; color: var(--text);
+      text-decoration: none; letter-spacing: -.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-cta {
+      font-family: 'Heebo', sans-serif;
+      font-size: 14px; font-weight: 700;
+      color: var(--white);
+      background: var(--text);
+      padding: 9px 22px; border-radius: 100px;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #333; transform: translateY(-1px); }
+
+    /* ── HERO (chapter 0 — the hook) ── */
+    #hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 24px 80px;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-image-col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-img-blob {
+      width: 88%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.18);
+    }
+    .hero-eyebrow {
+      font-size: 13px; font-weight: 600;
+      color: var(--text-soft);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-h1 {
+      font-size: clamp(28px, 4.5vw, 56px);
+      font-weight: 900;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+      max-width: 680px;
+    }
+    .hero-h1 .underline {
+      position: relative;
+      display: inline;
+      color: var(--orange);
+    }
+    .hero-h1 .underline::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; right: 0; left: 0;
+      height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      z-index: 1;
+      transform: scaleX(0);
+      transform-origin: right;
+      animation: drawUnderline 0.9s cubic-bezier(.4,0,.2,1) 0.6s forwards;
+    }
+    @keyframes drawUnderline {
+      to { transform: scaleX(1); }
+    }
+    .hero-attr {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin-bottom: 28px;
+    }
+    .hero-lead {
+      font-size: clamp(17px, 2vw, 21px);
+      font-weight: 400;
+      color: var(--text-mid);
+      line-height: 1.65;
+      max-width: 580px;
+      margin-bottom: 48px;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--white);
+      background: var(--orange);
+      padding: 14px 32px; border-radius: 100px;
+      border: none; cursor: pointer;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      background: #C2460A;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(234,88,12,.3);
+    }
+    .btn-ghost {
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px; font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: color .2s;
+    }
+    .btn-ghost:hover { color: var(--text); }
+    .btn-ghost svg { transition: transform .2s; }
+    .btn-ghost:hover svg { transform: translateY(3px); }
+
+    .hero-scroll-hint {
+      margin-top: 64px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--text-soft);
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: var(--border);
+    }
+
+    /* ── CHAPTER LABEL ── */
+    .chapter-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      color: var(--text-soft);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .chapter-label span {
+      width: 20px; height: 1px;
+      background: var(--text-soft);
+      display: inline-block;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 48px; height: 3px;
+      background: var(--orange);
+      border-radius: 2px;
+      margin-bottom: 28px;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 96px 24px; }
+    section.tight { padding: 64px 24px; }
+    section.dark {
+      background: var(--bg-dark);
+      color: var(--white);
+    }
+    section.warm { background: var(--bg-warm); }
+
+    .section-h2 {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      margin-bottom: 20px;
+    }
+    .section-lead {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    section.dark .section-lead { color: rgba(255,255,255,.6); }
+
+    /* ── REALITY ── */
+    #reality { background: var(--bg); }
+    .reality-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .reality-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+      cursor: default;
+    }
+    .reality-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,.07); }
+    .reality-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; left: 0;
+      height: 3px;
+    }
+    .reality-card.c1::before { background: #EF4444; }
+    .reality-card.c2::before { background: #F97316; }
+    .reality-card.c3::before { background: #3B82F6; }
+    .reality-card.c4::before { background: #8B5CF6; }
+    .reality-card.c5::before { background: #EC4899; }
+    .reality-card.c6::before { background: #10B981; }
+    .reality-card-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 12px;
+    }
+    .reality-card-icon svg { width: 18px; height: 18px; }
+    .c1 .reality-card-icon { background: #FEF2F2; }
+    .c2 .reality-card-icon { background: #FFF7ED; }
+    .c3 .reality-card-icon { background: #EFF6FF; }
+    .c4 .reality-card-icon { background: #F5F3FF; }
+    .c5 .reality-card-icon { background: #FDF2F8; }
+    .c6 .reality-card-icon { background: #ECFDF5; }
+    .reality-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    .reality-card p  { font-size: 13px; color: var(--text-mid); line-height: 1.55; }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+      padding: 80px 24px;
+    }
+    .pull-quote-mark {
+      font-size: 80px;
+      line-height: .8;
+      color: var(--border);
+      font-family: Georgia, serif;
+      margin-bottom: 16px;
+    }
+    .pull-quote-text {
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 800;
+      line-height: 1.3;
+      letter-spacing: -.02em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+    .pull-quote-text em {
+      font-style: normal;
+      color: var(--orange);
+    }
+    .pull-quote-source { font-size: 14px; color: var(--text-soft); }
+
+    /* ── WHY NOT ── */
+    #why-not { background: var(--bg-warm); }
+    .why-not-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+    .why-not-item {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .why-not-item:last-child { border-bottom: none; }
+    .why-not-num {
+      font-size: 13px; font-weight: 700;
+      color: var(--text-soft);
+      padding-top: 3px;
+    }
+    .why-not-item h3 {
+      font-size: 18px; font-weight: 700;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .why-not-item p { font-size: 15px; color: var(--text-mid); line-height: 1.65; }
+
+    /* ── THE WORKSHOP ── */
+    #workshop {}
+    .workshop-intro-quote {
+      background: var(--accent-soft);
+      border-right: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 24px;
+      margin-bottom: 48px;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .workshop-modules {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .module {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 20px;
+      align-items: start;
+      padding: 28px 24px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      transition: box-shadow .2s;
+      cursor: default;
+    }
+    .module:hover { box-shadow: 0 6px 24px rgba(0,0,0,.07); }
+    .module-num {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 900;
+      flex-shrink: 0;
+    }
+    .module:nth-child(1) .module-num { background: #EFF6FF; color: #1D4ED8; }
+    .module:nth-child(2) .module-num { background: #FFF7ED; color: #C2410C; }
+    .module:nth-child(3) .module-num { background: #F5F3FF; color: #7C3AED; }
+    .module h3 { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
+    .module p  { font-size: 15px; color: var(--text-mid); line-height: 1.65; margin-bottom: 14px; }
+    .module-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .module-tag {
+      font-size: 12px; font-weight: 600;
+      padding: 4px 12px; border-radius: 100px;
+      background: var(--bg-warm);
+      color: var(--text-mid);
+      border: 1px solid var(--border);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--bg); }
+    .about-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 56px;
+      align-items: start;
+      max-width: var(--max-wide);
+      margin: 0 auto;
+    }
+    .about-photo-col { position: sticky; top: 100px; }
+    .about-img-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--bg-warm);
+    }
+    .about-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      display: block;
+    }
+    .about-badge {
+      margin-top: 14px;
+      padding: 12px 16px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .badge-icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: #FEE2E2;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .badge-icon svg { width: 16px; height: 16px; }
+    .badge-text p { font-size: 13px; font-weight: 700; color: var(--text); }
+    .badge-text span { font-size: 12px; color: var(--text-soft); }
+
+    .about-col { }
+    .about-col .chapter-label { margin-bottom: 16px; }
+    .about-col h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .about-role {
+      font-size: 16px; font-weight: 500;
+      color: var(--text-soft);
+      margin-bottom: 32px;
+    }
+    .about-story {
+      font-size: clamp(16px, 1.6vw, 18px);
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .about-story strong { color: var(--text); font-weight: 700; }
+
+    .creds-list { display: flex; flex-direction: column; gap: 12px; }
+    .cred-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; color: var(--text-mid);
+    }
+    .cred-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* ── LEZICHRAM ── */
+    #lezichram { background: var(--bg-dark); }
+    .lezichram-inner {
+      max-width: var(--max-wide); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
+    }
+    .lezichram-content {}
+    .lezichram-content .chapter-label { color: rgba(255,255,255,.4); }
+    .lezichram-content .chapter-label span { background: rgba(255,255,255,.3); }
+    .lezichram-content h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 900; color: var(--white); letter-spacing: -.025em; line-height: 1.2; margin-bottom: 20px; }
+    .lezichram-content p { font-size: 17px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 16px; }
+    .lezichram-content p strong { color: rgba(255,255,255,.9); font-weight: 700; }
+    .lezichram-stat {
+      margin-top: 32px;
+      padding: 24px 28px;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius);
+    }
+    .lezichram-stat-num {
+      font-size: 42px; font-weight: 900;
+      color: var(--white); letter-spacing: -.03em;
+      line-height: 1;
+    }
+    .lezichram-stat-num span { color: var(--orange); }
+    .lezichram-stat p { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 6px; margin-bottom: 0; }
+
+    .lezichram-image { position: relative; }
+    .lezichram-img-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+    }
+    .lezichram-img-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .lezichram-insta-row {
+      display: flex; gap: 10px; margin-top: 14px;
+    }
+    .insta-thumb {
+      flex: 1; aspect-ratio: 1; border-radius: 10px;
+      overflow: hidden; cursor: pointer; position: relative; margin: 0;
+    }
+    .insta-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.25s;
+    }
+    .insta-thumb:hover img { transform: scale(1.06); }
+    .insta-overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,.35);
+      opacity: 0; transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .insta-thumb:hover .insta-overlay { opacity: 1; }
+    .insta-overlay svg { width: 32px; height: 32px; stroke: #fff; }
+
+    /* Lightbox */
+    #lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.88); z-index: 9999;
+      align-items: center; justify-content: center; cursor: pointer;
+    }
+    #lightbox.open { display: flex; }
+    #lightbox img {
+      max-width: 92vw; max-height: 88vh;
+      border-radius: 10px; object-fit: contain;
+      box-shadow: 0 24px 64px rgba(0,0,0,.6);
+      cursor: default;
+    }
+    .lb-close {
+      position: fixed; top: 18px; left: 22px;
+      background: rgba(255,255,255,.12); border: none;
+      color: #fff; font-size: 28px; line-height: 1;
+      width: 44px; height: 44px; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,.25); }
+    .lezichram-badge {
+      position: absolute;
+      bottom: -20px; right: -20px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.25);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .lezichram-badge-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: #FEE2E2;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .lezichram-badge-icon svg { width: 18px; height: 18px; }
+    .lezichram-badge p { font-size: 13px; font-weight: 700; color: var(--text); }
+    .lezichram-badge span { font-size: 11px; color: var(--text-soft); }
+
+    /* ── VIDEO ── */
+    #video { background: var(--bg-warm); text-align: center; }
+    .video-wrap {
+      margin: 48px auto 0;
+      max-width: 700px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--bg-dark);
+      position: relative;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+    }
+    .video-wrap video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play-btn {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.95);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .video-play-btn:hover { transform: translate(-50%, -50%) scale(1.08); box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    .video-play-btn svg { width: 28px; height: 28px; color: var(--text); margin-right: -3px; }
+    .scroll-arrow {
+      display: flex; justify-content: center; margin-top: 32px;
+    }
+    .scroll-arrow svg {
+      width: 28px; height: 28px; color: #bbb;
+      animation: bounceDown 1.8s ease-in-out infinite;
+    }
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); opacity: .5; }
+      50% { transform: translateY(8px); opacity: 1; }
+    }
+
+    /* ── GALLERY ── */
+    #gallery { background: var(--bg); padding: 80px 24px; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+      max-width: var(--max-wide);
+      margin-inline: auto;
+    }
+    .gallery-item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%; height: 320px;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.03); }
+    .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,.7), transparent);
+      color: var(--white);
+      font-size: 14px; font-weight: 600;
+    }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--bg-warm); }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin-top: 48px;
+      max-width: var(--max);
+      margin-inline: auto;
+    }
+    .tcard {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      transition: box-shadow .2s;
+    }
+    .tcard:hover { box-shadow: 0 6px 24px rgba(0,0,0,.07); }
+    .tcard-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .tcard-org { font-size: 13px; font-weight: 700; color: var(--accent); }
+    .tcard-stars { display: flex; gap: 2px; }
+    .tcard-stars svg { width: 15px; height: 15px; fill: #FBBF24; color: #FBBF24; }
+    .tcard-quote {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text-mid);
+      font-style: italic;
+      margin-bottom: 24px;
+    }
+    .tcard-quote strong { color: var(--text); font-style: normal; }
+    .tcard-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .author-av {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 800; color: var(--white);
+      flex-shrink: 0;
+    }
+    .av1 { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+    .av2 { background: linear-gradient(135deg, #F97316, #EA580C); }
+    .av3 { background: linear-gradient(135deg, #8B5CF6, #6D28D9); }
+    .author-name { font-size: 15px; font-weight: 700; color: var(--text); }
+    .author-role { font-size: 13px; color: var(--text-soft); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+      max-width: var(--max-wide);
+      margin: 0 auto;
+    }
+    .contact-info h2 { font-size: clamp(28px, 3.5vw, 42px); font-weight: 900; letter-spacing: -.025em; line-height: 1.2; margin-bottom: 16px; }
+    .contact-info p { font-size: 17px; color: var(--text-mid); line-height: 1.7; margin-bottom: 36px; }
+    .contact-promises { display: flex; flex-direction: column; gap: 14px; }
+    .promise {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 15px; color: var(--text-mid);
+    }
+    .promise-check {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--orange-soft);
+      border: 1.5px solid rgba(234,88,12,.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .promise-check svg { width: 12px; height: 12px; color: var(--orange); }
+
+    /* Philosophy quote */
+    .philosophy-quote {
+      border-right: 4px solid var(--accent);
+      padding: 16px 24px;
+      margin: 32px 0 0;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: var(--text);
+      font-style: normal;
+      background: rgba(26,86,219,.04);
+      border-radius: 0 8px 8px 0;
+    }
+    .philosophy-attr {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-soft);
+      margin-top: 8px;
+    }
+
+    /* Feelings section */
+    .feelings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-top: 36px; }
+    .feeling-card { background: var(--white); border-radius: 14px; padding: 22px 20px; box-shadow: 0 2px 12px rgba(0,0,0,.05); border-top: 3px solid var(--accent); }
+    .feeling-card h4 { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .feeling-card p { font-size: 14px; color: var(--text-mid); line-height: 1.6; margin: 0; }
+
+    .gapan-banner {
+      display: flex; align-items: center; gap: 10px;
+      background: #f0fdf4; border: 1.5px solid #86efac;
+      border-radius: 10px; padding: 12px 18px;
+      font-size: 14px; color: #166534;
+      margin-bottom: 14px;
+    }
+    .gapan-banner svg { color: #16a34a; flex-shrink: 0; }
+    .contact-form {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+    }
+    .contact-form h3 {
+      font-size: 20px; font-weight: 800;
+      color: var(--text); margin-bottom: 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .fg label { font-size: 13px; font-weight: 600; color: var(--text-mid); }
+    .fg input, .fg textarea {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 15px; color: var(--text);
+      outline: none;
+      transition: border-color .2s, background .2s;
+      direction: rtl;
+    }
+    .fg input::placeholder, .fg textarea::placeholder { color: #C4BAB0; }
+    .fg input:focus, .fg textarea:focus {
+      border-color: var(--accent);
+      background: var(--white);
+    }
+    .fg textarea { resize: vertical; min-height: 96px; }
+    .btn-submit {
+      width: 100%;
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px; font-weight: 700;
+      color: var(--white);
+      background: var(--orange);
+      padding: 15px 32px; border-radius: 100px;
+      border: none; cursor: pointer;
+      margin-top: 8px;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-submit:hover { background: #C2460A; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(234,88,12,.3); }
+    .form-note { font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 12px; }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px 16px;
+    }
+    .form-success-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #D1FAE5;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .form-success-icon svg { width: 28px; height: 28px; color: #059669; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 8px; }
+    .form-success p  { font-size: 15px; color: var(--text-mid); }
+
+    /* ── MID-PAGE CTA ── */
+    .mid-cta {
+      padding: 72px 24px;
+      text-align: center;
+      background: var(--bg-warm);
+    }
+    .mid-cta p {
+      font-size: clamp(20px, 3vw, 30px);
+      font-weight: 800; color: var(--text);
+      letter-spacing: -.02em; line-height: 1.3;
+      max-width: 560px; margin: 0 auto 28px;
+    }
+
+    /* ── STATS RIBBON ── */
+    .stats-ribbon {
+      background: var(--text);
+      padding: 48px 24px;
+    }
+    .stats-ribbon-inner {
+      max-width: var(--max-wide); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    }
+    .ribbon-stat {
+      text-align: center;
+      padding: 16px 20px;
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+    .ribbon-stat:last-child { border-left: none; }
+    .ribbon-num { font-size: 36px; font-weight: 900; color: var(--white); letter-spacing: -.03em; line-height: 1; margin-bottom: 6px; }
+    .ribbon-num .accent { color: var(--white); }
+    .ribbon-desc { font-size: 13px; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-dark);
+      padding: 40px 24px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner {
+      max-width: var(--max-wide); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-size: 16px; font-weight: 800; color: var(--white); }
+    .footer-logo span { color: var(--orange); }
+    .footer-right {
+      display: flex; align-items: center; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-right a {
+      font-size: 14px; color: rgba(255,255,255,.4);
+      text-decoration: none; transition: color .2s;
+    }
+    .footer-right a:hover { color: rgba(255,255,255,.8); }
+    .footer-copy { font-size: 13px; color: rgba(255,255,255,.25); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .reality-grid { grid-template-columns: 1fr; }
+      .about-layout { grid-template-columns: 1fr; }
+      .about-photo-col { position: static; }
+      .about-img-wrap { aspect-ratio: 16/9; }
+      .lezichram-inner { grid-template-columns: 1fr; }
+      .lezichram-badge { right: 16px; bottom: 16px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item img { height: 260px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .stats-ribbon-inner { grid-template-columns: 1fr 1fr; }
+      .ribbon-stat { border-left: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-image-col { display: flex; }
+      .hero-img-blob { width: 100%; aspect-ratio: 4/3; object-position: center 20%; }
+      .about-img-wrap { aspect-ratio: 3/4; }
+    }
+    @media (max-width: 480px) {
+      section { padding: 72px 20px; }
+      .hero-h1 { font-size: 34px; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .stats-ribbon-inner { grid-template-columns: 1fr 1fr; }
+      .module { grid-template-columns: 1fr; }
+      .module-num { width: 44px; height: 44px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav" class="solid">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">יגל בר <span>×</span> ילדים ברשת</a>
+    <a href="#contact" class="nav-cta">בואו נדבר</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- HERO — THE HOOK                         -->
+<!-- ═══════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-text reveal in">
+      <div class="hero-eyebrow">סדנה חינוכית · בתי ספר יסודיים</div>
+      <h1 class="hero-h1">
+        "ילדים לא נולדים אלימים או רעים.
+        הם גדלים בתוך עולם שמפעיל עליהם המון לחץ והשפעה.
+        <span style="color:var(--orange)">והם צריכים <span class="underline">כלים להבין אותו</span>.</span>"
+      </h1>
+      <p class="hero-attr">— יגל בר</p>
+      <p class="hero-lead">
+        סדנה לתלמידי יסודי שפותחת שיחה אמיתית על רשתות חברתיות, לחץ חברתי ואלימות ברשת — בשפה שלהם, בגובה העיניים.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">להזמנת הסדנה</a>
+        <a href="#reality" class="btn-ghost">
+          קראו עוד
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-image-col reveal reveal-delay-1 in">
+      <img src="images/hero-kids.png" alt="ילד מול הטלפון" class="hero-img-blob">
+    </div>
+  </div>
+</section>
+
+<!-- STATS RIBBON -->
+<div class="stats-ribbon">
+  <div class="stats-ribbon-inner">
+    <div class="ribbon-stat reveal in">
+      <div class="ribbon-num">85<span class="accent">%</span></div>
+      <div class="ribbon-desc">מילדי ישראל חשופים<br>לאלימות ברשת</div>
+    </div>
+    <div class="ribbon-stat reveal reveal-delay-1 in">
+      <div class="ribbon-num">6<span class="accent">h</span></div>
+      <div class="ribbon-desc">מסך ביום בממוצע<br>לילד יסודי</div>
+    </div>
+    <div class="ribbon-stat reveal reveal-delay-2 in">
+      <div class="ribbon-num">3<span class="accent">/4</span></div>
+      <div class="ribbon-desc">ילדים מכירים מישהו<br>שנפגע ברשת</div>
+    </div>
+    <div class="ribbon-stat reveal reveal-delay-3 in">
+      <div class="ribbon-num">67<span class="accent">%</span></div>
+      <div class="ribbon-desc">מהסרטונים לילדים —<br>פרסום סמוי</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CHAPTER 1 — THE REALITY                 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="reality">
+  <div class="container">
+    <div class="reveal in">
+      <div class="section-divider"></div>
+      <h2 class="section-h2">מה שקורה ברשת<br>נשאר עם הילדים.</h2>
+      <p class="section-lead">
+        בפעם האחרונה שישבתם בישיבת צוות ושמעתם על ילד שנפגע בצ'אט —
+        זה לא היה "אירוע חריג". זה קורה כל יום, בכל בית ספר.
+        הרשת היא לא מקום שילדים בוחרים ללכת אליו — זה הסביבה שהם גדלים בתוכה.
+      </p>
+    </div>
+    <div class="reality-grid">
+      <div class="reality-card c1 reveal in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2"><path d="M12 9v4M12 17h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"></path></svg>
+        </div>
+        <h3>חרמות על ילדים</h3>
+        <p>ילד שלא מוזמן לקבוצה, שמוחקים אותו מהצ'אט, שצוחקים עליו מאחורי המסך — חווה פגיעה רגשית שמלווה אותו גם בזמן השיעורים.</p>
+      </div>
+      <div class="reality-card c2 reveal reveal-delay-1 in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"></path></svg>
+        </div>
+        <h3>לחץ חברתי ברשת</h3>
+        <p>"כולם עשו את הטרנד הזה." "אם לא תצטרף — אתה לא שייך." הלחץ לא נגמר כשיוצאים מהבית — הוא ממשיך בכיס.</p>
+      </div>
+      <div class="reality-card c3 reveal in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        </div>
+        <h3>תוכן שתוכנן להתמכר אליו</h3>
+        <p>האלגוריתמים של הרשתות בנויים כדי לגרום לנו להמשיך לגלול ולצפות. ילדים לרוב לא מודעים לכמה זה משפיע עליהם ועל הזמן שהם מבלים מול המסך.</p>
+      </div>
+      <div class="reality-card c4 reveal reveal-delay-1 in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>פרסום סמוי ומניפולציה</h3>
+        <p>"היוטיובר האהוב אמר שהמוצר הזה מדהים." ילדים לא מזהים שזה פרסומת. הם פשוט רוצים לקנות.</p>
+      </div>
+      <div class="reality-card c5 reveal in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#EC4899" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg>
+        </div>
+        <h3>השפעה על דימוי עצמי</h3>
+        <p>כמה לייקים קיבלתי? למה לאחרת יש יותר תגובות? הרשת הפכה לאמצעי מדידה של ערך עצמי — במיוחד בגילאי בית ספר יסודי.</p>
+      </div>
+      <div class="reality-card c6 reveal reveal-delay-1 in">
+        <div class="reality-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        </div>
+        <h3>טרנדים מסוכנים</h3>
+        <p>אתגרי רשת שנראים כיף — ויכולים להיות מסוכנים. ילדים מצטרפים בגלל לחץ חברתי, בלי להבין את הסיכון.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE 1 -->
+<div class="pull-quote reveal in" style="padding-top:44px">
+  <div class="pull-quote-mark">"</div>
+  <p class="pull-quote-text">אוריינות דיגיטלית היא לא רק לדעת להשתמש בטכנולוגיה —<br><em>אלא להבין אותה, לשאול שאלות ולהשתמש בה באחריות.</em></p>
+  <div class="pull-quote-source">— מייק ריבל, חוקר ומרצה בתחום האזרחות הדיגיטלית</div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CHAPTER 2 — WHY THE USUAL DOESN'T WORK -->
+<!-- ═══════════════════════════════════════ -->
+<section id="why-not" class="warm">
+  <div class="container">
+    <div class="reveal in">
+      <div class="section-divider"></div>
+      <h2 class="section-h2">למה ההרצאות הרגילות<br>כבר לא עובדות.</h2>
+      <p class="section-lead">
+        הילדים של היום חכמים.
+        הם מרגישים מיד כשמדברים אליהם בצורה מרוחקת או מתנשאת.
+        הם לא מתחברים להפחדות או לסיסמאות כלליות.
+        כדי באמת להגיע אליהם, צריך לדבר איתם בגובה העיניים ובשפה שהם מבינים ומרגישים מחוברים אליה.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- PULL QUOTE — GINOTT -->
+<div class="pull-quote reveal in">
+  <div class="pull-quote-mark">"</div>
+  <p class="pull-quote-text">ילדים צריכים שיקשיבו להם —<br><em>לא שיטיפו להם.</em></p>
+  <div class="pull-quote-source">— חיים גינות, פסיכולוג ילדים</div>
+</div>
+
+<section class="warm">
+  <div class="container">
+    <div class="why-not-list">
+      <div class="why-not-item reveal in">
+        <div class="why-not-num">01</div>
+        <div>
+          <h3>"הרשת מסוכנת — אל תשתמשו בה"</h3>
+          <p>גישה שמשיגה את ההפך. ילדים שמרגישים שמטיפים להם — יסגרו. הפחדות מייצרות התנגדות, לא שינוי. ילדים לא צריכים להפחד מהרשת. הם צריכים להבין אותה.</p>
+        </div>
+      </div>
+      <div class="why-not-item reveal in">
+        <div class="why-not-num">02</div>
+        <div>
+          <h3>הרצאה חד-כיוונית שמדברת עליהם</h3>
+          <p>ילד שיושב ומקשיב לבוגר שמדבר על "סכנות האינטרנט" — הולך לאיבוד אחרי 7 דקות. הם צריכים שידברו איתם במשוגים שהם מכירים, ולקחת חלק בשיחה, לדבר, לשאול, לשתף.</p>
+        </div>
+      </div>
+      <div class="why-not-item reveal in">
+        <div class="why-not-num">03</div>
+        <div>
+          <h3>מי שמגיע מ"בחוץ" — פחות אמין</h3>
+          <p>ילדים מחוברים להבנה אמיתית. מרצה שלמד על הנושא בספרים שונה ממרצה שחי בתוך עולם התוכן הדיגיטלי. הם מרגישים את ההבדל.</p>
+        </div>
+      </div>
+      <div class="why-not-item reveal in">
+        <div class="why-not-num">04</div>
+        <div>
+          <h3>לדבר על הרשת מבחוץ</h3>
+          <p>מי שלא יודע איך TikTok באמת עובד, למה סרטון מסוים הפך ויראלי, מה זה "בועת פילטר" — לא יכול לדבר עם ילדים בגובה העיניים על הנושאים האלה.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CHAPTER 3 — THE WORKSHOP               -->
+<!-- ═══════════════════════════════════════ -->
+<section id="workshop">
+  <div class="container">
+    <div class="reveal in">
+      <div class="section-divider"></div>
+      <h2 class="section-h2">הסדנה הזאת שונה.</h2>
+    </div>
+    <div class="workshop-intro-quote reveal in">
+      היא לא באה להפחיד. היא לא "אנטי טכנולוגיה". היא פותחת שיחה אמיתית —
+      בשפה שהילדים מכירים, עם דוגמאות מהעולם שלהם, ומסבירה להם איך הכל עובד מאחורי הקלעים.
+    </div>
+    <div class="workshop-modules">
+      <div class="module reveal in">
+        <div class="module-num">1</div>
+        <div>
+          <h3>איך תוכן משפיע עלינו</h3>
+          <p>ילדים לומדים לראשונה מה קורה מאחורי כל סרטון, מדוע קשה להפסיק לגלול, איך אלגוריתמים עובדים — ומה זה אומר לגביהם.</p>
+          <div class="module-tags">
+            <span class="module-tag">בועת פילטר</span>
+            <span class="module-tag">פרסום סמוי</span>
+            <span class="module-tag">התמכרות למסך</span>
+            <span class="module-tag">משפיענים</span>
+          </div>
+        </div>
+      </div>
+      <div class="module reveal in">
+        <div class="module-num">2</div>
+        <div>
+          <h3>אלימות ברשת, חרמות ולחץ חברתי</h3>
+          <p>שיחה פתוחה על מה שקורה בצ'אטים, בקבוצות ובמשחקים. ילדים מבינים שלמילים ברשת יש משמעות אמיתית — ואיך עוזרים כשמישהו נפגע.</p>
+          <div class="module-tags">
+            <span class="module-tag">חרמות</span>
+            <span class="module-tag">שיימינג</span>
+            <span class="module-tag">לחץ חברתי</span>
+            <span class="module-tag">גבולות ופרטיות</span>
+          </div>
+        </div>
+      </div>
+      <div class="module reveal in">
+        <div class="module-num">3</div>
+        <div>
+          <h3>לבחור להיות טובים — גם מאחורי המסך</h3>
+          <p>הילדים יוצאים עם תחושת מסוגלות: אני לא קורבן ולא תוקף — אני יכול לבחור. להשפיע לטובה. להשתמש ברשתות החברתיות כדי לעשות דברים שמשנים.</p>
+          <div class="module-tags">
+            <span class="module-tag">מסוגלות</span>
+            <span class="module-tag">אחריות דיגיטלית</span>
+            <span class="module-tag">השפעה חיובית</span>
+            <span class="module-tag">חשיבה ביקורתית</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEELINGS AFTER THE WORKSHOP -->
+<section class="warm">
+  <div class="container">
+    <div class="reveal in">
+      <div class="section-divider"></div>
+      <h2 class="section-h2">מה הילדים מרגישים<br>אחרי הסדנה.</h2>
+      <p class="section-lead">לא רק מה שהם לומדים. מה שהם יוצאים איתו.</p>
+    </div>
+    <div class="feelings-grid">
+      <div class="feeling-card reveal in">
+        <h4>תחושה שמבינים אותם</h4>
+        <p>מישהו סוף סוף דיבר איתם, לא עליהם ולא מגבוה.</p>
+      </div>
+      <div class="feeling-card reveal reveal-delay-1 in">
+        <h4>הבנה חדשה של הרשת</h4>
+        <p>הם רואים אחרת איך האלגוריתמים משפיעים עליהם ולמה קשה להפסיק לגלול.</p>
+      </div>
+      <div class="feeling-card reveal in">
+        <h4>הסתכלות אחרת על מילים בצ'אטים</h4>
+        <p>הם מבינים שמה שנראה "כיף" עשוי לפגוע באמת.</p>
+      </div>
+      <div class="feeling-card reveal reveal-delay-1 in">
+        <h4>מודעות ללחץ חברתי</h4>
+        <p>הם מזהים מתי הרשת דוחפת אותם להיות מישהו שהם לא.</p>
+      </div>
+      <div class="feeling-card reveal in">
+        <h4>תחושת מסוגלות</h4>
+        <p>אני לא קורבן ולא תוקף. אני יכול לבחור איך להתנהג.</p>
+      </div>
+      <div class="feeling-card reveal reveal-delay-1 in">
+        <h4>השראה להשפיע לטובה</h4>
+        <p>הם יוצאים עם מוטיבציה לעשות משהו טוב גם ברשת.</p>
+      </div>
+      <div class="feeling-card reveal in">
+        <h4>בחירה מודעת</h4>
+        <p>הבנה שאפשר לבחור להיות טובים גם מאחורי המסך.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MID CTA -->
+<div class="mid-cta">
+  <p class="reveal in">הסדנה הזאת יכולה להגיע גם אליכם.</p>
+  <a href="#contact" class="btn-primary reveal reveal-delay-1 in">להזמנת הסדנה ←</a>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CHAPTER 4 — ABOUT YAGEL                -->
+<!-- ═══════════════════════════════════════ -->
+<section id="about">
+  <div class="about-layout">
+    <div class="about-photo-col reveal in">
+      <div class="about-img-wrap">
+        <img src="images/yagel-headshot.PNG" alt="יגל בר">
+      </div>
+    </div>
+    <div class="about-col">
+      <h2 class="reveal in">יגל בר</h2>
+      <p class="about-role reveal in">יוצר תוכן, יזם חברתי ומנחה סדנאות</p>
+      <div class="about-story reveal in">
+        <p>
+          במשך שנים עבדתי בעולם התוכן והרשתות החברתיות,
+          וראיתי מקרוב כמה תוכן משפיע על הדרך שבה ילדים חושבים, מדברים ומתנהגים.
+        </p>
+        <br>
+        <p>
+          בשלב מסוים הבנתי שילדים לא צריכים עוד מישהו שיגיד להם מה לא לעשות.
+          הם צריכים מישהו שיעזור להם להבין <strong>איך העולם הזה באמת עובד</strong> —
+          ויתן להם כלים לנווט בו בעצמם.
+        </p>
+        <br>
+        <p>
+          אני עדיין זוכר איך זה מרגיש להיות הילד שמרגיש שלא באמת מבינים אותו.
+          אולי בגלל זה היה לי כל כך חשוב לבנות סדנה שלא מדברת <strong>מעל</strong>&nbsp;הראש של הילדים,
+          אלא <strong>איתם</strong>.
+        </p>
+      </div>
+      <div class="creds-list reveal in">
+        <div class="cred-item"><div class="cred-dot"></div> 7+ שנות ניסיון ביצירת תוכן ורשתות חברתיות</div>
+        <div class="cred-item"><div class="cred-dot"></div> בוגר ניהול מוצר — הטכניון</div>
+        <div class="cred-item"><div class="cred-dot"></div> מייסד "לזכרם" — 140 מיליון צפיות באינסטגרם</div>
+        <div class="cred-item"><div class="cred-dot"></div> עבד עם חברות בינלאומיות ומשפיענים מובילים</div>
+        <div class="cred-item"><div class="cred-dot"></div> ראיון על מיזם "לזכרם" בערוץ i24 NEWS</div>
+        <div class="cred-item"><div class="cred-dot"></div> מנחה סדנאות ביסודיים, חטיב ותיכון</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- LEZICHRAM — PROOF SOCIAL CAN DO GOOD   -->
+<!-- ═══════════════════════════════════════ -->
+<section id="lezichram" class="dark">
+  <div class="lezichram-inner container-wide">
+    <div class="lezichram-content reveal in">
+      <div class="chapter-label">כי רשתות חברתיות יכולות לעשות טוב</div>
+      <h2>מיזם <span style="color:var(--orange)">"לזכרם"</span> —<br>ההוכחה שתוכן<br>יכול לרגש ולחבר.</h2>
+      <p>
+        ב-2022, בגיל 21, הקמתי מיזם שהפך ל<strong>מיזם ההנצחה הגדול ברשתות החברתיות בישראל.</strong>&nbsp;אלפי פוסטים, כל פוסט עוסק בנופל אחר — שמו, תמונתו, סיפורו.
+        אנשים קוראים, מגיבים, מתרגשים, ומשתפים.
+      </p>
+      <p>
+        הרעיון היה פשוט: לדבר עם הדור הצעיר בשפה שלו,
+        ולהנגיש את הזיכרון הלאומי דרך פלטפורמות שהוא כבר חי בהן.
+      </p>
+      <p>
+        "לזכרם" נולד מתוך אמונה שתוכן לא חייב רק למשוך תשומת לב.
+        הוא יכול גם לחבר בין אנשים, לרגש ולעשות טוב.
+      </p>
+      <p>
+        וזה בדיוק מה שאני מנסה להעביר לילדים:
+        <strong>שלרשתות חברתיות יש כוח. והשאלה היא איך בוחרים להשתמש בו.</strong>
+      </p>
+      <div class="lezichram-stat">
+        <div class="lezichram-stat-num">140<span>M</span></div>
+        <p>צפיות באינסטגרם · 20,000+ נופלים מונצחים · מיזם לאומי</p>
+      </div>
+    </div>
+    <div class="lezichram-image reveal reveal-delay-1 in">
+      <div class="lezichram-img-card">
+        <img src="images/yagel-lecture.jpg" alt="יגל בר מציג את מיזם &quot;לזכרם&quot;">
+      </div>
+      <div class="lezichram-insta-row">
+        <figure class="insta-thumb" onclick="openLightbox('images/lezichram post screenshot.jpg')" title="לחץ להגדלה">
+          <img src="images/lezichram post screenshot.jpg" alt="פוסט מאינסטגרם לזכרם">
+          <div class="insta-overlay">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+          </div>
+        </figure>
+        <figure class="insta-thumb" onclick="openLightbox('images/lezichram instagram page .jpg')" title="לחץ להגדלה">
+          <img src="images/lezichram instagram page .jpg" alt="עמוד לזכרם באינסטגרם">
+          <div class="insta-overlay">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
+          </div>
+        </figure>
+      </div>
+      <div class="lezichram-badge">
+        <div class="lezichram-badge-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+        </div>
+        <div>
+          <p>ערוץ i24 NEWS</p>
+          <span>ראיון על המיזם</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- VIDEO                                   -->
+<!-- ═══════════════════════════════════════ -->
+<section id="video" class="warm">
+  <div class="container">
+    <div class="reveal in" style="text-align:center">
+      <h2 class="section-h2">רגע להכיר.</h2>
+      <p class="section-lead" style="margin-inline:auto;text-align:center;max-width:480px">
+        ראיון שלי בערוץ i24 על מיזם "לזכרם".
+      </p>
+    </div>
+    <div class="video-wrap reveal in">
+      <video id="mainVideo" preload="metadata" poster="">
+        <source src="images/i24-interview.mov" type="video/mp4">
+      </video>
+      <button class="video-play-btn" id="playBtn" aria-label="הפעל וידאו">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+      </button>
+    </div>
+    <div class="scroll-arrow">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- GALLERY                                 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="gallery">
+  <div class="container-wide">
+    <div class="reveal in" style="text-align:center;margin-bottom:0">
+      <div class="chapter-label" style="justify-content:center">מהשטח</div>
+      <h2 class="section-h2">ראו את הסדנה<br>בפעולה.</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal in">
+        <img src="images/workshop-audience.jpg" alt="אולם מלא תלמידים בסדנה">
+        <div class="gallery-caption">אולם מלא — ילדים שמשתתפים ומגיבים</div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1 in">
+        <img src="images/yagel-lecture.jpg" alt="יגל בר מרצה">
+        <div class="gallery-caption">בגובה העיניים — לא הרצאה, שיחה</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TESTIMONIALS                            -->
+<!-- ═══════════════════════════════════════ -->
+<section id="testimonials" class="warm">
+  <div class="container">
+    <div class="reveal in" style="text-align:center">
+      <div class="chapter-label" style="justify-content:center">מה אומרים</div>
+      <h2 class="section-h2" style="text-align:center">אנשי חינוך<br>שכבר ראו את הסדנה.</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard reveal in">
+        <div class="tcard-header">
+          <div class="tcard-org">בית ספר ברנדיס הרצליה</div>
+          <div class="tcard-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+        </div>
+        <p class="tcard-quote">"מדובר בתוכנית חשובה, רלוונטית ומעצימה. התוכנית חושפת את התלמידים באופן חווייתי להשפעות הרגשיות והחברתיות של תכנים ברשתות חברתיות ובמשחקים. <strong>מומלצת מאוד לשילוב בתוכנית החינוכית של בית הספר.</strong>"</p>
+        <div class="tcard-author">
+          <div class="author-av av1">ל</div>
+          <div>
+            <div class="author-name">ליאת</div>
+            <div class="author-role">רכזת תקשוב, בית ספר ברנדיס הרצליה</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal in">
+        <div class="tcard-header">
+          <div class="tcard-org">אופק חינוכי — עיריית אלעד</div>
+          <div class="tcard-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+        </div>
+        <p class="tcard-quote">"יגל מצליח לא רק להזהיר מהסכנות, אלא <strong>להעצים את הילדים לחשוב באופן ביקורתי ויזמי,</strong> לזהות את החוזקות שלהם, לחזק תחושת מסוגלות ושייכות, ולהשפיע לטובה על סביבתם ועל הקהילה — וכל זאת ביצירתיות רבה, בגישה חווייתית ובשפה נגישה, מכבדת ומרתקת."</p>
+        <div class="tcard-author">
+          <div class="author-av av2">ט</div>
+          <div>
+            <div class="author-name">טליה בן דוד</div>
+            <div class="author-role">עו"ס קלינית MSW, עיריית אלעד</div>
+          </div>
+        </div>
+      </div>
+      <div class="tcard reveal in">
+        <div class="tcard-header">
+          <div class="tcard-org">בית ספר אבני החושן — שוהם</div>
+          <div class="tcard-stars">
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+        </div>
+        <p class="tcard-quote">"מדובר בתוכנית חינוכית-חברתית משמעותית. ניכר כי התוכנית מעניקה לתלמידים כלים לפיתוח חשיבה ביקורתית, אחריות אישית וחברתית ושמירה על גבולות ופרטיות. <strong>ממליצה מאוד על שילובה במסגרת התוכניות החינוכיות.</strong>"</p>
+        <div class="tcard-author">
+          <div class="author-av av3">מ</div>
+          <div>
+            <div class="author-name">מירהבל כהן</div>
+            <div class="author-role">מנהלת בית חינוך, אבני החושן שוהם</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- CONTACT                                 -->
+<!-- ═══════════════════════════════════════ -->
+<section id="contact">
+  <div class="contact-layout">
+    <div class="contact-info reveal in">
+      <div class="chapter-label">בואו נדבר</div>
+      <div class="section-divider"></div>
+      <h2>רוצים לשמוע יותר?<br>בואו נדבר.</h2>
+      <p>
+        אם גם אתם מבינים כמה רשתות חברתיות, לחץ חברתי ואלימות ברשת משפיעים היום על ילדים,
+        וכמה חשוב לדבר איתם על זה בצורה שהם באמת יקשיבו לה,
+        השאירו פרטים ואחזור אליכם בהקדם.
+      </p>
+      <div class="contact-promises">
+        <div class="promise">
+          <div class="promise-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          שיחת ייעוץ ראשונית ללא עלות
+        </div>
+        <div class="promise">
+          <div class="promise-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          מותאם ללוח הזמנים של בית הספר
+        </div>
+        <div class="promise">
+          <div class="promise-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          לכיתה אחת, שכבה שלמה או כל בית הספר
+        </div>
+        <div class="promise">
+          <div class="promise-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          חומרי הכנה לצוות החינוכי — ללא עלות
+        </div>
+      </div>
+    </div>
+    <div class="gapan-banner reveal reveal-delay-1">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      הסדנה ניתנת למימון דרך <strong>תקציב גפן</strong>
+    </div>
+    <div class="contact-form reveal reveal-delay-1">
+      <h3>השאירו פרטים</h3>
+      <form id="contactForm" action="https://formspree.io/f/mlgzapeo" method="POST" novalidate="">
+        <div class="form-row">
+          <div class="fg">
+            <label for="f-name">שם מלא</label>
+            <input type="text" id="f-name" name="name" placeholder="ישראל ישראלי" required="">
+          </div>
+          <div class="fg">
+            <label for="f-school">שם בית הספר</label>
+            <input type="text" id="f-school" name="school" placeholder="בית ספר..." required="">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label for="f-role">תפקיד</label>
+            <input type="text" id="f-role" name="role" placeholder="מנהל/ת, יועץ/ת..." required="">
+          </div>
+          <div class="fg">
+            <label for="f-phone">טלפון</label>
+            <input type="tel" id="f-phone" name="phone" placeholder="05X-XXXXXXX" required="">
+          </div>
+        </div>
+        <div class="fg">
+          <label for="f-msg">מה הכי מעניין אתכם לשמוע?</label>
+          <textarea id="f-msg" name="message" placeholder="ספרו לי קצת על בית הספר שלכם, מה מעניין אתכם בסדנה, שאלות שיש לכם..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">שלחו — ואחזור תוך 24 שעות</button>
+        <p class="form-note">ללא לחץ. ללא מחויבות. רק שיחה.</p>
+        <div class="form-success" id="formSuccess">
+          <div class="form-success-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+          <h3>קיבלתי!</h3>
+          <p>אחזור אליכם תוך 24 שעות לתיאום שיחת היכרות.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">יגל בר <span>×</span> ילדים ברשת</div>
+    <div class="footer-right">
+      <a href="mailto:yagelbar.academy@gmail.com">yagelbar.academy@gmail.com</a>
+      <span class="footer-copy">© 2025 יגל בר · כל הזכויות שמורות</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 30);
+  }, { passive: true });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
+    });
+  });
+
+  // Video
+  const video = document.getElementById('mainVideo');
+  const playBtn = document.getElementById('playBtn');
+  if (video && playBtn) {
+    playBtn.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playBtn.style.opacity = '0';
+        playBtn.style.pointerEvents = 'none';
+      }
+    });
+    video.addEventListener('pause', () => {
+      playBtn.style.opacity = '1';
+      playBtn.style.pointerEvents = 'auto';
+    });
+    video.addEventListener('ended', () => {
+      playBtn.style.opacity = '1';
+      playBtn.style.pointerEvents = 'auto';
+    });
+  }
+
+  // Form
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const required = ['f-name', 'f-school', 'f-role', 'f-phone'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#EF4444';
+        el.addEventListener('input', () => el.style.borderColor = '', { once: true });
+        if (valid) { el.focus(); valid = false; }
+      }
+    });
+    if (!valid) return;
+
+    const btn = form.querySelector('.btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        form.querySelector('.form-success').style.display = 'block';
+        Array.from(form.elements).forEach(el => {
+          if (el !== form.querySelector('.form-success')) el.style.display = 'none';
+        });
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'שלחו — ואחזור תוך 24 שעות';
+        alert('אירעה שגיאה בשליחה. אנא נסו שוב או צרו קשר ישירות.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.textContent = 'שלחו — ואחזור תוך 24 שעות';
+      alert('אירעה שגיאה בשליחה. אנא נסו שוב או צרו קשר ישירות.');
+    }
+  });
+</script>
+
+<script>
+// Visual Editor — activated via ?edit=yagel2025
+(function () {
+  const PASS = 'yagel2025';
+  const REPO = 'yagelbaracademy-web/elementary-school-workshop';
+  if (new URLSearchParams(location.search).get('edit') !== PASS) return;
+
+  // Inject edit-mode styles
+  const s = document.createElement('style');
+  s.id = 'edit-mode-style';
+  s.textContent = `
+    body { padding-bottom: 68px !important; }
+    .edit-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: #0f172a; color: #fff;
+      padding: 10px 24px; display: flex; align-items: center; justify-content: space-between;
+      z-index: 99999; font-family: system-ui, sans-serif; direction: ltr;
+      box-shadow: 0 -2px 24px rgba(0,0,0,.5);
+    }
+    .eb-btn { padding: 8px 20px; border-radius: 6px; border: none; cursor: pointer; font-size: 13px; font-weight: 700; transition: .15s; }
+    .eb-publish { background: #22c55e; color: #fff; }
+    .eb-publish:hover { background: #16a34a; }
+    .eb-publish:disabled { background: #475569; cursor: default; }
+    .eb-cancel { background: #334155; color: #fff; margin-right: 10px; }
+    .eb-cancel:hover { background: #475569; }
+    [contenteditable]:hover { outline: 2px dashed #60a5fa !important; outline-offset: 3px; cursor: text; }
+    [contenteditable]:focus { outline: 2px solid #3b82f6 !important; outline-offset: 3px; }
+  `;
+  document.head.appendChild(s);
+
+  // Make text elements editable (excluding nav, form, footer)
+  document.querySelectorAll('h1,h2,h3,h4,p,li,blockquote').forEach(el => {
+    if (!el.closest('nav, form, footer')) {
+      el.contentEditable = 'true';
+      el.spellcheck = false;
+    }
+  });
+
+  // Build floating bar
+  const bar = document.createElement('div');
+  bar.className = 'edit-bar';
+  bar.innerHTML = `
+    <span style="color:#fbbf24;font-size:13px;">✏️ &nbsp;מצב עריכה פעיל</span>
+    <span id="eb-status" style="font-size:12px;color:#94a3b8;margin:0 20px;flex:1;text-align:center;">לחץ על כל טקסט בדף כדי לערוך</span>
+    <div>
+      <button class="eb-btn eb-cancel" id="eb-cancel">ביטול</button>
+      <button class="eb-btn eb-publish" id="eb-publish">פרסם שינויים ▶</button>
+    </div>`;
+  document.body.appendChild(bar);
+
+  document.getElementById('eb-cancel').onclick = () => location.href = location.pathname;
+
+  document.getElementById('eb-publish').onclick = async () => {
+    let token = localStorage.getItem('gh_pat');
+    if (!token) {
+      token = prompt('הדבק כאן GitHub Personal Access Token\n(יישמר בדפדפן שלך בלבד ולא יועלה לשום מקום):');
+      if (!token) return;
+      localStorage.setItem('gh_pat', token.trim());
+      token = token.trim();
+    }
+
+    const btn = document.getElementById('eb-publish');
+    const status = document.getElementById('eb-status');
+    btn.disabled = true;
+    status.textContent = 'מפרסם שינויים...';
+
+    try {
+      // Get current file SHA from GitHub
+      const shaRes = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      if (!shaRes.ok) throw new Error('Bad credentials');
+      const { sha } = await shaRes.json();
+
+      // Build clean HTML (strip edit-mode artifacts)
+      const clone = document.documentElement.cloneNode(true);
+      clone.querySelector('#edit-mode-style')?.remove();
+      clone.querySelector('.edit-bar')?.remove();
+      clone.querySelectorAll('[contenteditable]').forEach(el => {
+        el.removeAttribute('contenteditable');
+        el.removeAttribute('spellcheck');
+      });
+      const html = '<!DOCTYPE html>\n' + clone.outerHTML;
+
+      // Push updated file to GitHub
+      const res = await fetch(`https://api.github.com/repos/${REPO}/contents/index.html`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: 'Update content via visual editor',
+          content: btoa(unescape(encodeURIComponent(html))),
+          sha
+        })
+      });
+
+      if (res.ok) {
+        status.textContent = '✓ פורסם! האתר יתעדכן תוך כ־60 שניות';
+        btn.textContent = '✓ פורסם';
+        btn.style.background = '#16a34a';
+      } else {
+        const e = await res.json();
+        throw new Error(e.message);
+      }
+    } catch (e) {
+      if (e.message?.includes('Bad credentials')) {
+        localStorage.removeItem('gh_pat');
+        status.textContent = 'Token שגוי — נוקה. לחץ "פרסם" שוב והכנס token חדש.';
+      } else {
+        status.textContent = 'שגיאה: ' + (e.message || 'נסה שוב');
+      }
+      btn.disabled = false;
+      btn.textContent = 'פרסם שינויים ▶';
+    }
+  };
+})();
+</script>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="event.stopPropagation();closeLightbox()" aria-label="סגור">✕</button>
+  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
+</div>
+<script>
+  function openLightbox(src) {
+    document.getElementById('lb-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+</script>
+
+</body></html>
