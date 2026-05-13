@@ -1,0 +1,29 @@
+{
+  "name": "yagel-x-claude-first-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "remotion:studio": "remotion studio remotion/src/index.jsx",
+    "remotion:render": "remotion render remotion/src/index.jsx LezichramDemo out/video.mp4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yagelbaracademy-web/Shabat-time-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/yagelbaracademy-web/Shabat-time-website/issues"
+  },
+  "homepage": "https://github.com/yagelbaracademy-web/Shabat-time-website#readme",
+  "dependencies": {
+    "@remotion/cli": "^4.0.448",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "remotion": "^4.0.448"
+  }
+}
