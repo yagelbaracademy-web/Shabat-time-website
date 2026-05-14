@@ -1077,14 +1077,11 @@
     #who { background: #f8f8f6; }
     .who-grid {
       display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 20px; max-width: 860px; margin: 48px auto 0;
+      gap: 28px; max-width: 860px; margin: 52px auto 0;
     }
     .who-chip {
-      background: #fff;
-      border-radius: 16px;
-      padding: 22px 32px;
-      font-size: 18px; font-weight: 800; color: var(--text);
-      box-shadow: 0 8px 28px rgba(0,0,0,.09);
+      font-size: 20px; font-weight: 800;
+      color: #2563eb;
       animation: floatChip 3.6s ease-in-out infinite;
       cursor: default;
     }
@@ -1095,17 +1092,34 @@
     .who-chip:nth-child(5) { animation-delay: 0.8s; }
     .who-chip:nth-child(6) { animation-delay: 1.3s; }
     @keyframes floatChip {
-      0%, 100% { transform: translateY(0);    box-shadow: 0 8px 28px rgba(0,0,0,.09); }
-      50%       { transform: translateY(-10px); box-shadow: 0 20px 44px rgba(0,0,0,.13); }
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-10px); }
     }
 
     /* ── FAQ ── */
     #faq { background: var(--bg); }
     .faq-list { max-width: 720px; margin: 48px auto 0; }
-    .faq-item { border-bottom: 1px solid var(--border); padding: 28px 0; }
+    .faq-item { border-bottom: 1px solid var(--border); }
     .faq-item:last-child { border-bottom: none; }
-    .faq-q { font-size: 17px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
-    .faq-a { font-size: 16px; color: var(--text-soft); line-height: 1.75; }
+    .faq-btn {
+      width: 100%; background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 24px 0; text-align: right;
+    }
+    .faq-q { font-size: 17px; font-weight: 800; color: var(--text); }
+    .faq-arrow {
+      flex-shrink: 0; width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.3s;
+    }
+    .faq-arrow svg { width: 18px; height: 18px; stroke: var(--text-soft); }
+    .faq-item.open .faq-arrow { transform: rotate(180deg); }
+    .faq-a {
+      font-size: 16px; color: var(--text-soft); line-height: 1.75;
+      padding-bottom: 22px;
+      display: none;
+    }
+    .faq-item.open .faq-a { display: block; }
   </style>
 </head>
 <body>
@@ -1308,6 +1322,25 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- WHO                                     -->
+<!-- ═══════════════════════════════════════ -->
+<section id="who">
+  <div class="container">
+    <div class="reveal in" style="text-align:center">
+      <h2 class="section-h2">למי מיועדת הסדנה?</h2>
+    </div>
+    <ul class="who-grid" aria-label="קהלי יעד לסדנת ילדים ברשת" style="list-style:none;padding:0">
+      <li class="who-chip reveal in">בתי ספר יסודיים</li>
+      <li class="who-chip reveal in">מתנסים ומרכזי קהילה</li>
+      <li class="who-chip reveal in">עיריות ורשויות מקומיות</li>
+      <li class="who-chip reveal in">מועצות אזוריות</li>
+      <li class="who-chip reveal in">קייטנות</li>
+      <li class="who-chip reveal in">ערבי הורים</li>
+    </ul>
   </div>
 </section>
 
@@ -1641,25 +1674,6 @@
 </section>
 
 <!-- ═══════════════════════════════════════ -->
-<!-- WHO                                     -->
-<!-- ═══════════════════════════════════════ -->
-<section id="who">
-  <div class="container">
-    <div class="reveal in" style="text-align:center">
-      <h2 class="section-h2">למי מיועדת הסדנה?</h2>
-    </div>
-    <ul class="who-grid" aria-label="קהלי יעד לסדנת ילדים ברשת" style="list-style:none;padding:0">
-      <li class="who-chip reveal in">בתי ספר יסודיים</li>
-      <li class="who-chip reveal in">מתנסים ומרכזי קהילה</li>
-      <li class="who-chip reveal in">עיריות ורשויות מקומיות</li>
-      <li class="who-chip reveal in">מועצות אזוריות</li>
-      <li class="who-chip reveal in">קייטנות</li>
-      <li class="who-chip reveal in">ערבי הורים</li>
-    </ul>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════ -->
 <!-- FAQ                                     -->
 <!-- ═══════════════════════════════════════ -->
 <section id="faq" class="warm">
@@ -1669,27 +1683,45 @@
     </div>
     <div class="faq-list">
       <div class="faq-item reveal in">
-        <p class="faq-q">כמה זמן נמשכת הסדנה?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">כמה זמן נמשכת הסדנה?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">סדנה חד-פעמית נמשכת כשעה. ניתן להזמין סדנה מתמשכת של מספר מפגשים, לבניית תהליך עמוק יותר עם התלמידים.</p>
       </div>
       <div class="faq-item reveal in">
-        <p class="faq-q">לכמה תלמידים בסדנה?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">לכמה תלמידים בסדנה?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">גמיש. אפשר כיתה אחת, שכבה שלמה, ואפילו כל בית הספר.</p>
       </div>
       <div class="faq-item reveal in">
-        <p class="faq-q">לאיזה גילאים הסדנה מתאימה?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">לאיזה גילאים הסדנה מתאימה?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">התכנים, הדוגמאות והשפה מותאמים לגילאי בית ספר יסודי, בעיקר לכיתות ג׳–ו׳.</p>
       </div>
       <div class="faq-item reveal in">
-        <p class="faq-q">האם ניתן לממן דרך תקציב גפן?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">האם ניתן לממן דרך תקציב גפן?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">כן. הסדנה מאושרת למימון דרך תקציב גפן.</p>
       </div>
       <div class="faq-item reveal in">
-        <p class="faq-q">מה ההבדל מהרצאה רגילה?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">מה ההבדל מהרצאה רגילה?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">הסדנה לא מטיפה ולא מאיימת — היא חוויתית ומדברת עם הילדים בגובה העיניים, בשפה ובדוגמאות שהם מכירים מהחיים שלהם. ופותחת להם את העיניים בחכמה על מה שקורה מאחורי הקלעים ברשתות החברתיות, ואיך הן משפיעות עלינו (לטוב, ולפחות טוב).</p>
       </div>
       <div class="faq-item reveal in">
-        <p class="faq-q">האם אפשר לקבל סדנה גם להורים או לצוות המורים?</p>
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">האם אפשר לקבל סדנה גם להורים או לצוות המורים?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
         <p class="faq-a">בוודאי. ניתן להזמין סדנה להורים או לצוות החינוכי, שנותנת להם כלים להמשיך את השיחה בבית ובכיתה.</p>
       </div>
     </div>
@@ -2017,6 +2049,22 @@
   }
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeLightbox();
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    });
   });
 </script>
 
