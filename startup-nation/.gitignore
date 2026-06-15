@@ -1,0 +1,24 @@
+# Secrets - NEVER commit
+.env
+.env.local
+*.key
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+logs/
+output/cache/
+output/hero_images/
+output/iran_images/
+output/slide_images/
+output/slides/
+output/posts/
+
+# OS
+.DS_Store

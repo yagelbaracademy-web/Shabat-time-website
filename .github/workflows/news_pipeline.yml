@@ -1,0 +1,47 @@
+name: Startup Nation News Pipeline
+
+on:
+  schedule:
+    # 07:00 Israel time (UTC+3 in summer)
+    - cron: '0 4 * * *'
+    # 16:00 Israel time
+    - cron: '0 13 * * *'
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: startup-nation
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: startup-nation/requirements_pipeline.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements_pipeline.txt
+
+      - name: Fetch articles
+        run: python3 fetch_news.py
+
+      - name: Score articles
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python3 score_articles.py
+
+      - name: Build viewer
+        run: python3 build_viewer.py
+
+      - name: Commit updated files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/articles_latest.json output/articles_scored.json output/articles_archive.json output/viewer.html
+          git diff --cached --quiet || git commit -m "chore: auto-update news pipeline [skip ci]"
+          git push

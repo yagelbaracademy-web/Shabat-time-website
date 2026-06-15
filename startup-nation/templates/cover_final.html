@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --cyan: #2FBEF6; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+
+  /* ── 1. BACKGROUND IMAGE ── */
+  .bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('{{BG_IMAGE}}');
+    background-size: cover;
+    background-position: center top;
+  }
+
+  /* ── 2. GRADIENT ── */
+  .gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 33%,
+      rgba(0,0,0,0.08) 47%,
+      rgba(0,0,0,0.38) 58%,
+      rgba(0,0,0,0.80) 67%,
+      #000 74%
+    );
+  }
+
+  /* ── 3. TEMPLATE OVERLAY (footer bar stays exact) ── */
+  .template-overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1080px;
+    height: 1350px;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  /* ── 4. LOGO: cropped to content area, 432px wide, 324px from each side ──
+     PNG content: x=606–1369 (763px), y=695–1104 (409px) in 2000x2000
+     Scale = 432/763 = 0.5662 → display img at 1132x1132px, offset left=-343, top=-394
+  ── */
+  /* Logo: 560px wide, bar=432px, margins=324px each side, no cropping */
+  .logo-wrap {
+    position: absolute;
+    top: 672px;
+    left: 260px;
+    width: 560px;
+    z-index: 5;
+  }
+  .logo-wrap img {
+    width: 560px;
+    height: auto;
+    display: block;
+  }
+
+  /* ── 5. HEADLINE: sits on the black footer bar ── */
+  .headline {
+    position: absolute;
+    top: 1032px;
+    left: 54px;
+    right: 54px;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 700;
+    font-size: 68px;
+    line-height: 0.99;
+    color: #fff;
+    text-align: center;
+    z-index: 15;
+  }
+  .headline em {
+    color: var(--cyan);
+    font-style: normal;
+  }
+
+  /* ── 6. HOOK: Heebo 400 regular, centered, 50px from slide bottom ── */
+  .hook {
+    position: absolute;
+    bottom: 50px;
+    left: 54px;
+    right: 54px;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 0.99;
+    color: rgba(255,255,255,0.80);
+    text-align: center;
+    z-index: 15; /* above template overlay */
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="gradient"></div>
+
+<div class="logo-wrap">
+  <img src="{{LOGO_IMAGE}}" alt="Startup Nation">
+</div>
+
+<div class="headline">{{HEADLINE_HTML}}</div>
+<div class="hook">{{HOOK_HTML}}</div>
+
+<img class="template-overlay" src="{{TEMPLATE_IMAGE}}">
+
+</body>
+</html>

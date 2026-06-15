@@ -1,0 +1,109 @@
+{
+  "feeds": [
+    {
+      "id": "ynet_digital",
+      "name": "Ynet דיגיטל",
+      "url": "https://www.ynet.co.il/Integration/StoryRss544.xml",
+      "lang": "he",
+      "priority": "high"
+    },
+    {
+      "id": "ynet_economy",
+      "name": "Ynet כלכלה",
+      "url": "https://www.ynet.co.il/Integration/StoryRss6.xml",
+      "lang": "he",
+      "priority": "high"
+    },
+    {
+      "id": "walla_tech",
+      "name": "Walla טכנולוגיה",
+      "url": "https://rss.walla.co.il/feed/22",
+      "lang": "he",
+      "priority": "medium"
+    },
+    {
+      "id": "maariv_business",
+      "name": "Maariv עסקים",
+      "url": "https://www.maariv.co.il/Rss/RssChadashot",
+      "lang": "he",
+      "priority": "medium"
+    },
+    {
+      "id": "nocamels",
+      "name": "NoCamels",
+      "url": "https://nocamels.com/feed/",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "techcrunch_israel",
+      "name": "TechCrunch Israel",
+      "url": "https://techcrunch.com/tag/israel/feed/",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "globes_tech_en",
+      "name": "Globes EN Tech",
+      "url": "https://www.globes.co.il/webservice/rss/rssfeeder.asmx/FeederNode?iID=1725",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "techcrunch",
+      "name": "TechCrunch",
+      "url": "https://techcrunch.com/feed/",
+      "lang": "en",
+      "priority": "medium"
+    },
+    {
+      "id": "crunchbase",
+      "name": "Crunchbase News",
+      "url": "https://news.crunchbase.com/feed/",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "venturebeat",
+      "name": "VentureBeat",
+      "url": "https://venturebeat.com/feed/",
+      "lang": "en",
+      "priority": "low"
+    },
+    {
+      "id": "ihls",
+      "name": "iHLS - Israeli Homeland Security",
+      "url": "https://i-hls.com/feed/",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "timesofisrael_tech",
+      "name": "Times of Israel Tech",
+      "url": "https://www.timesofisrael.com/feed/?category=tech-israel",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "cyberscoop",
+      "name": "CyberScoop",
+      "url": "https://cyberscoop.com/feed/",
+      "lang": "en",
+      "priority": "high"
+    },
+    {
+      "id": "calcalist",
+      "name": "כלכליסט טכנולוגיה",
+      "url": "https://www.calcalist.co.il/rss/AjaxPage,7340,L-4,00.xml",
+      "lang": "he",
+      "priority": "high"
+    },
+    {
+      "id": "jpost_tech",
+      "name": "Jerusalem Post Tech",
+      "url": "https://www.jpost.com/Rss/RssFeedsBusinessAndTech.aspx",
+      "lang": "en",
+      "priority": "medium"
+    }
+  ]
+}

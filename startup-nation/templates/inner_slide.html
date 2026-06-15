@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+
+  /* ─── LOCKED: never change bg/gradient/template structure ─── */
+  .bg {
+    position: absolute; inset: 0;
+    background-image: url('{{BG_IMAGE}}');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 62%,
+      rgba(0,0,0,0.75) 72%,
+      #000 80%
+    );
+  }
+
+  .template {
+    position: absolute; inset: 0;
+    width: 1080px; height: 1350px;
+    z-index: 10; pointer-events: none;
+  }
+
+  /* ─── LOCKED: content bottom 168px, z-index 15 ───
+     text must end before y=1182 (1350 - 168)
+     headline: 66px Heebo 700
+     body: 37.4px Heebo 400
+     gap between headline and body: 28px
+  ─── */
+  .content {
+    position: absolute;
+    bottom: 168px;
+    left: 40px; right: 40px;
+    z-index: 15;
+    text-align: center;
+    direction: rtl;
+  }
+
+  .headline {
+    font-family: 'Heebo', sans-serif;
+    font-size: 66px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+  .headline em { color: #2FBEF6; font-style: normal; }
+
+  .body {
+    font-family: 'Heebo', sans-serif;
+    font-size: 37.4px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="gradient"></div>
+
+<div class="content">
+  <div class="headline">{{HEADLINE}}</div>
+  <div class="body">{{BODY}}</div>
+</div>
+
+<img class="template" src="{{TEMPLATE_IMAGE}}">
+
+</body>
+</html>

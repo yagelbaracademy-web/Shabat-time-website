@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Heebo';
+    src: url('{{FONT_URL}}') format('truetype');
+    font-weight: 100 900;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+
+  .bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* אפקט עמעום כהה על הרקע */
+  .overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 2;
+  }
+
+  .center-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    text-align: center;
+    width: 900px;
+  }
+
+  .logo-img {
+    height: 80px;
+    margin-bottom: 48px;
+    opacity: 0.95;
+  }
+
+  .end-line1 {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 900;
+    font-size: 72px;
+    line-height: 1.1;
+    color: #fff;
+    display: block;
+  }
+
+  .end-line2 {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 900;
+    font-size: 72px;
+    line-height: 1.1;
+    color: #2FBEF6;
+    display: block;
+  }
+
+  .end-sub {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 400;
+    font-size: 36px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 36px;
+    display: block;
+  }
+
+  .divider {
+    width: 320px;
+    height: 2px;
+    background: rgba(255,255,255,0.3);
+    margin: 40px auto 0;
+  }
+
+  .follow-cta {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #2FBEF6;
+    margin-top: 28px;
+    letter-spacing: 1px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<img class="bg" src="{{BG_IMAGE}}" />
+<div class="overlay"></div>
+
+<div class="center-block">
+  <img class="logo-img" src="{{LOGO_IMAGE}}" />
+
+  <span class="end-line1">עוד מהייטק הישראלי</span>
+  <span class="end-line2">בפוסט הבא ›</span>
+
+  <span class="end-sub">{{TOPIC_LINE}}</span>
+
+  <div class="divider"></div>
+  <span class="follow-cta">עקבו • Startup Nation</span>
+</div>
+
+</body>
+</html>

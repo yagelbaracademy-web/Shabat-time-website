@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Heebo';
+    src: url('{{FONT_URL}}') format('truetype');
+    font-weight: 100 900;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+
+  /* רקע תבנית */
+  .bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 1;
+  }
+
+  /* לוגו top-right */
+  .logo {
+    position: absolute;
+    top: 32px;
+    right: 36px;
+    height: 52px;
+    z-index: 3;
+    opacity: 0.9;
+  }
+
+  /* ─── Layout A: טקסט בלבד ─── */
+  .layout-text {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 80px 64px;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* ─── Layout B: תמונה למעלה + טקסט למטה ─── */
+  .layout-photo {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 50px 60px;
+  }
+  .photo-box {
+    width: 100%;
+    flex: 0 0 480px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .photo-annotation {
+    position: absolute;
+    bottom: 8px;
+    left: 12px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    background: rgba(0,0,0,0.65);
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .photo-text {
+    direction: rtl;
+    text-align: right;
+    width: 100%;
+  }
+
+  /* ─── טיפוגרפיה משותפת ─── */
+  .slide-number {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 900;
+    font-size: 28px;
+    color: #2FBEF6;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .slide-headline {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 900;
+    font-size: {{HEADLINE_SIZE}}px;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 24px;
+  }
+  .slide-headline em {
+    color: #2FBEF6;
+    font-style: normal;
+  }
+
+  .slide-body {
+    font-family: 'Heebo', sans-serif;
+    font-weight: 400;
+    font-size: {{BODY_SIZE}}px;
+    line-height: 1.6;
+    color: #d1d5db;
+  }
+
+  /* SWIPE */
+  .swipe-cta {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 4;
+    font-family: 'Heebo', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.45);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- רקע -->
+<img class="bg" src="{{BG_IMAGE}}" />
+
+<!-- לוגו -->
+<img class="logo" src="{{LOGO_IMAGE}}" />
+
+<!-- תוכן -->
+{{CONTENT_HTML}}
+
+<div class="swipe-cta">{{SWIPE_TEXT}}</div>
+
+</body>
+</html>

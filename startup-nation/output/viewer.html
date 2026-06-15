@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Startup Nation - News Pipeline</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Heebo', sans-serif;
+    background: #0a0e1a;
+    color: #e2e8f0;
+    line-height: 1.5;
+    padding: 20px;
+  }
+  header {
+    max-width: 1500px;
+    margin: 0 auto 24px;
+    padding: 28px;
+    background: linear-gradient(135deg, #1e3a8a, #312e81);
+    border-radius: 14px;
+    border: 1px solid #4338ca;
+  }
+  header h1 { font-size: 30px; margin-bottom: 8px; }
+  header .stats { color: #c7d2fe; font-size: 14px; }
+  header .stats span { color: #fbbf24; font-weight: 700; }
+  .filters {
+    max-width: 1500px;
+    margin: 0 auto 20px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 8px 16px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #cbd5e1;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover, .filter-btn.active { background: #2563eb; color: white; border-color: #2563eb; }
+  .grid {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: #1e293b;
+    border: 2px solid #334155;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .card.tier-1 { border-color: #fbbf24; box-shadow: 0 0 30px rgba(251, 191, 36, 0.2); }
+  .card.tier-2 { border-color: #38bdf8; }
+  .card.tier-3 { border-color: #475569; opacity: 0.85; }
+  .card img { width: 100%; height: 180px; object-fit: cover; background: #0f172a; }
+  .no-image {
+    height: 180px;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #475569;
+  }
+  .score-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 18px;
+    z-index: 2;
+    border: 2px solid;
+  }
+  .score-badge.tier-1 { border-color: #fbbf24; color: #fbbf24; }
+  .score-badge.tier-2 { border-color: #38bdf8; color: #38bdf8; }
+  .score-badge.tier-3 { border-color: #94a3b8; color: #94a3b8; }
+  .cat-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    z-index: 2;
+  }
+  .card-body { padding: 14px; flex: 1; display: flex; flex-direction: column; }
+  .source-line { font-size: 12px; color: #64748b; margin-bottom: 6px; }
+  .hook {
+    font-size: 17px;
+    font-weight: 700;
+    color: #fef3c7;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    padding: 8px 12px;
+    background: rgba(251, 191, 36, 0.08);
+    border-right: 3px solid #fbbf24;
+    border-radius: 4px;
+  }
+  .original-title { font-size: 13px; color: #cbd5e1; margin-bottom: 8px; }
+  .reason { font-size: 11px; color: #94a3b8; font-style: italic; margin-bottom: 10px; }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid #334155;
+  }
+  .date { font-size: 11px; color: #64748b; }
+  .card a { color: #38bdf8; text-decoration: none; font-size: 13px; font-weight: 600; }
+  .card a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 Startup Nation - News Pipeline</h1>
+  <div class="stats">
+    <span>50</span> ידיעות מוצגות ·
+    <span style="color:#fbbf24">8</span> טופ (≥8.5) ·
+    <span style="color:#38bdf8">28</span> בינוני (6-8.4) ·
+    עלות דירוג: <span>$0.120</span> ·
+    עודכן: <span>15/06 13:29</span>
+  </div>
+</header>
+
+<div class="filters">
+  <button class="filter-btn active" data-filter="all">הכל (50)</button>
+  <button class="filter-btn" data-filter="DEFENSE_TECH">🛡️ ביטחון טכנולוגי (11)</button>
+  <button class="filter-btn" data-filter="CYBERSECURITY">🔐 סייבר (8)</button>
+  <button class="filter-btn" data-filter="AI_NEWS">🧠 AI (8)</button>
+  <button class="filter-btn" data-filter="ISRAELI_PRIDE">🇮🇱 גאווה ישראלית (5)</button>
+  <button class="filter-btn" data-filter="FUNDING">💰 גיוס/השקעה (5)</button>
+  <button class="filter-btn" data-filter="DRAMA">💥 דרמה (5)</button>
+  <button class="filter-btn" data-filter="ECONOMY">📈 כלכלה ישראלית (3)</button>
+  <button class="filter-btn" data-filter="EMPLOYMENT">👔 שוק העבודה (1)</button>
+  <button class="filter-btn" data-filter="PERSONALITY">👤 דמות (1)</button>
+  <button class="filter-btn" data-filter="STATS">📊 נתונים (1)</button>
+  <button class="filter-btn" data-filter="LAUNCH">🚀 השקה (1)</button>
+  <button class="filter-btn" data-filter="GLOBAL_TECH">🌍 טק גלובלי (1)</button>
+</div>
+
+<div class="grid">
+
+    <div class="card tier-1" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/06/15/SJGpGWQ6WMl/SJGpGWQ6WMl_0_436_961_541_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet כלכלה · 15/06 07:03</div>
+        <div class="hook">"פריז סגרה דוכנים של חברות הנשק הישראליות"</div>
+        <div class="original-title">📝 צפו: מארגני תערוכת הנשק היוקרתית בפריז סגרו דוכנים של חברות ישראליות</div>
+        <div class="reason">💭 Israeli defense companies (SmartShooter, Orbit, Ironatics, Controp, Rafael, Elbit) face discrimination at major arms expo; significant polit</div>
+        <div class="card-footer">
+          <span class="date">ynet_economy</span>
+          <a href="https://www.ynet.co.il/economy/article/h1fnlqpzgl" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="ISRAELI_PRIDE">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#2563eb">🇮🇱 גאווה ישראלית</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1623311402/direct/%D7%A2%D7%A8%D7%9F_%D7%96%D7%99%D7%A0%D7%9E%D7%9F_%D7%95%D7%A8%D7%95%D7%A2%D7%99_%D7%9E%D7%9F_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_2_%D7%A0%D7%AA%D7%A0%D7%90%D7%9C_%D7%98%D7%95%D7%91%D7%99%D7%90%D7%A1_jviwvc.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 15/06 09:22</div>
+        <div class="hook">"monday.com משיקה קרן הון סיכון בעלות 200 מיליון דולר"</div>
+        <div class="original-title">📝 monday.com launches $200m venture capital arm</div>
+        <div class="reason">💭 Israeli company (monday.com) major funding announcement ($200M+ VC arm); directly supports Israeli startup ecosystem; big money story.</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545882#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="ISRAELI_PRIDE">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#2563eb">🇮🇱 גאווה ישראלית</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1768313291/COT_Pic/AdiS_2022_Wide_a7c8my_qn0qw0.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 15/06 11:30</div>
+        <div class="hook">"גילת קנתה את חטיבת הלוויין של קומטק - עסקה של 157 מיליון דולר"</div>
+        <div class="original-title">📝 Gilat buys Comtech satellite and space division</div>
+        <div class="reason">💭 Israeli company (Gilat) acquires major space/satellite division, $157.5M deal; significant exit/acquisition (+3 Israeli company +3 big money</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545894#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="ISRAELI_PRIDE">
+      <div class="score-badge tier-2">8.0</div>
+      <span class="cat-badge" style="background:#2563eb">🇮🇱 גאווה ישראלית</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1770898333/direct/800_xxfcv4.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 14/06 14:50</div>
+        <div class="hook">"Check Point: מערכת הגנה סייבר ישראלית נופלת דירוג"</div>
+        <div class="original-title">📝 Check Point market cap dips below $13b</div>
+        <div class="reason">💭 Israeli cyber giant slips in valuation; significant for investor audience and Israeli tech pride metrics.</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545853#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="FUNDING">
+      <div class="score-badge tier-2">8.0</div>
+      <span class="cat-badge" style="background:#16a34a">💰 גיוס/השקעה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch · 15/06 04:01</div>
+        <div class="hook">"Orbio מגייסת $21M: אוטומציה לעובדים בחזקות"</div>
+        <div class="original-title">📝 Orbio raises $21 million to automate hiring and onboarding for frontline workers</div>
+        <div class="reason">💭 Israeli startup (frontline worker hiring platform) raises $21M Series A; fits audience interest in Israeli tech funding success.</div>
+        <div class="card-footer">
+          <span class="date">techcrunch</span>
+          <a href="https://techcrunch.com/2026/06/14/orbio-raises-21-million-to-automate-hiring-and-onboarding-for-frontline-workers/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-2">8.0</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 15/06 12:00</div>
+        <div class="hook">"קסדה חכמה מחברת חיילים - טכנולוגיית הביטחון הישראלית"</div>
+        <div class="original-title">📝 This Helmet Doesn’t Just Protect Soldiers — It Connects Them</div>
+        <div class="reason">💭 Israeli military tech innovation for IDF soldiers with IoT/connectivity; direct defense-tech appeal to audience (+3 defense tech +2 unique a</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136778" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-2">7.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 15/06 04:00</div>
+        <div class="hook">"רחפן שחייל יכול לשאת: חדשנות IDF"</div>
+        <div class="original-title">📝 A Drone Soldiers Can Carry — and Let Fly Itself</div>
+        <div class="reason">💭 Israeli military drone innovation addressing real operational needs; relevant to defense-tech audience.</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136338" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-1">9.0</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 28/10 09:29</div>
+        <div class="hook">"אלביט זוכה בחוזה 200 מיליון דולר לקנונים לייזר"</div>
+        <div class="original-title">📝 Israel Gives Elbit $200M Contract For Laser Air Defense System</div>
+        <div class="reason">💭 Israeli defense company, $200M contract (&gt;$50M), Iron Beam is cutting-edge military tech - core Israeli pride story.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/israel-gives-elbit-200m-contract-for-laser-air-defense-system/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 15/06 08:00</div>
+        <div class="hook">"מערכת הגנה אווירית שיכולה לשנות מטרה אחרי שיגור"</div>
+        <div class="original-title">📝 This Drone Interceptor Can Change Targets After It’s Already Launched</div>
+        <div class="reason">💭 Israeli defense-tech (drone interceptor) breakthrough; affects Israeli defense industry competitiveness; industry-shaping military technolog</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136773" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="ISRAELI_PRIDE">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#2563eb">🇮🇱 גאווה ישראלית</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 31/10 17:13</div>
+        <div class="hook">"Aporia ב-TIME 100 המצאות הטובות ביותר 2024"</div>
+        <div class="original-title">📝 Israeli AI Safety Tool Among TIME’S Best Inventions For 2024</div>
+        <div class="reason">💭 Israeli AI company Aporia recognized globally; prestigious international recognition, AI safety innovation, Israeli tech excellence (+3 Isra</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/israeli-ai-safety-tool-among-times-best-inventions-for-2024/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="DRAMA">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#dc2626">💥 דרמה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 25/09 19:33</div>
+        <div class="hook">"מיקרוסופט חוסמת שירותים ליחידה 8200"</div>
+        <div class="original-title">📝 Microsoft cuts cloud services to Israeli military unit over Palestinian surveillance</div>
+        <div class="reason">💭 Major drama: Microsoft cuts service to Israeli Unit 8200 over surveillance concerns; affects Israeli military intelligence, validates Unit 8</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/09/25/microsoft-cuts-cloud-services-to-israeli-military-unit-over-palestinian-surveillance/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/06/09/SkjXkYS11Gx/SkjXkYS11Gx_0_0_1079_609_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 09/06 12:55</div>
+        <div class="hook">"מבקר המדינה: כשלים קריטיים בהגנת הסייבר הישראלית"</div>
+        <div class="original-title">📝 אדישות ממשלתית, מאגרי מידע חשופים: מחדלי הסייבר של ישראל</div>
+        <div class="reason">💭 Israeli state auditor exposes critical cyber defense gaps; direct impact on Israeli tech security ecosystem and policy.</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/hyfttobzgl" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-1" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-1">8.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1781160229/direct/%D7%AA%D7%95%D7%AA%D7%97_%D7%A8%D7%95%D7%A2%D7%9D_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%90%D7%9C%D7%91%D7%99%D7%98_%D7%9E%D7%A2%D7%A8%D7%9B%D7%95%D7%AA_k9f145.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 11/06 07:53</div>
+        <div class="hook">"אלביט וAnduril יתמודדו על חוזה ארמייה אמריקנית"</div>
+        <div class="original-title">📝 Elbit teams with Anduril on US Army howitzer tender</div>
+        <div class="reason">💭 Israeli defense company wins strategic US Army partnership; big military-tech deal for Israeli company.</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545590#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="ECONOMY">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#0284c7">📈 כלכלה ישראלית</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1770025913/direct/D_ST4607_2_qnf1cp.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 14/06 15:55</div>
+        <div class="hook">"מטוסים אמריקאים איימים על לוח הטיסות בקיץ"</div>
+        <div class="original-title">📝 US refueling planes threaten Israel’s summer flight schedule</div>
+        <div class="reason">💭 Affects Israeli tech workers&#x27; mobility/travel; time-sensitive operational crisis at Ben Gurion.</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545854#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">8.0</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 03/03 17:37</div>
+        <div class="hook">"מבצע סייבר ישראלי: תקשורת מופרעת, מעקב מוגבר"</div>
+        <div class="original-title">📝 Hacked traffic cams and hijacked TVs: How cyber operations supported the war against Iran</div>
+        <div class="reason">💭 Israeli military cyber operations reported; Israeli-US joint cyber campaign against Iran demonstrates Israeli cyber capability and validates</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2026/03/03/hacked-traffic-cams-and-hijacked-tvs-how-cyber-operations-supported-the-war-against-iran/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">8.0</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/06/10/HyNzDtLWGe/HyNzDtLWGe_0_0_2880_1620_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 10/06 07:11</div>
+        <div class="hook">"אנת&#x27;רופיק שחררה סוכני AI עצמאיים"</div>
+        <div class="original-title">📝 &quot;מסוכן מדי לציבור&quot;: אנת&#x27;רופיק שחררה את מודל ה-AI החזק ביותר שלה</div>
+        <div class="reason">💭 Breakthrough AI agents story; major industry shift affecting Israeli AI developers and threat/opportunity for ecosystem.</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/sj9gmk8wmx" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/06/10/HyNzDtLWGe/HyNzDtLWGe_0_0_2880_1620_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 14/06 11:08</div>
+        <div class="hook">"צ&#x27;ק פוינט: AI של אנת&#x27;רופיק משנה את הסייבר"</div>
+        <div class="original-title">📝 &quot;יכול לפרוץ לכל דבר שזז&quot;: למה ארה&quot;ב מיהרה לעצור את מודל ה-AI של אנת&#x27;רופיק</div>
+        <div class="reason">💭 Israeli Check Point CEO Gill Messaging quoted on AI security implications; Israeli cyber company perspective on global AI security threat (+</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/r1rpsbn11fg" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="ECONOMY">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#0284c7">📈 כלכלה ישראלית</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/06/08/BkzKLhQbfl/BkzKLhQbfl_0_0_850_479_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet כלכלה · 15/06 12:17</div>
+        <div class="hook">"דולר יורד, בורסה בת״א צונחת - השפעות הסכם ארה״ב-איראן"</div>
+        <div class="original-title">📝 אחרי ההסכם בין ארה&quot;ב לאיראן: הבורסה בת&quot;א והדולר יורדים, מחירי הנפט צונחים</div>
+        <div class="reason">💭 Israeli economy indicator (shekel/dollar rate, stock exchange) directly affects tech sector valuations and employee purchasing power (+1 eco</div>
+        <div class="card-footer">
+          <span class="date">ynet_economy</span>
+          <a href="https://www.ynet.co.il/economy/article/rkbs5xtzzg" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">7.5</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 27/10 11:07</div>
+        <div class="hook">"Dataloop AI שותפת עם Qualcomm לפיתוח מודלים"</div>
+        <div class="original-title">📝 Israeli, US Firms Team Up To Develop AI Models For Devices</div>
+        <div class="reason">💭 Israeli AI company + global partnership + industry-shaping AI tech, but no funding amount mentioned limits score.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/israeli-us-firms-team-up-to-develop-ai-models-for-devices/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="FUNDING">
+      <div class="score-badge tier-2">7.5</div>
+      <span class="cat-badge" style="background:#16a34a">💰 גיוס/השקעה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 30/07 13:15</div>
+        <div class="hook">"AIR מגייסת 23 מיליון: eVTOL ישראלי לאמריקה"</div>
+        <div class="original-title">📝 AIR lands $23M to bring its eVTOLs to the US</div>
+        <div class="reason">💭 Israeli eVTOL startup enters US market with $23M; Israeli company scaling globally (+3 Israeli company, +3 funding, +2 expansion success, +1</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/07/30/air-secures-23m-to-boost-u-s-expansion-and-evtol-innovation/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-2">7.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1704201242/direct/shutterstock_1615922272_qx7vkg.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 11/06 16:58</div>
+        <div class="hook">"אלביט מחנקת סיינית: אבטחת שרשרת אספקה ישראלית"</div>
+        <div class="original-title">📝 Elbit Systems bars Chinese models from vehicle fleet</div>
+        <div class="reason">💭 Israeli defense giant Elbit Systems takes security action; relevant to Israeli military-tech ecosystem and geopolitical tensions.</div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545738#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="EMPLOYMENT">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#0d9488">👔 שוק העבודה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch · 15/06 07:25</div>
+        <div class="hook">"גל פיטורים בAI: עשירים נהיים עוד יותר עשירים"</div>
+        <div class="original-title">📝 The AI layoff wave is becoming a powder keg</div>
+        <div class="reason">💭 Global AI layoff trend affects Israeli tech workers, but lacks Israeli-specific angle or data.</div>
+        <div class="card-footer">
+          <span class="date">techcrunch</span>
+          <a href="https://techcrunch.com/2026/06/15/the-ai-layoff-wave-is-becoming-a-powder-keg/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="FUNDING">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#16a34a">💰 גיוס/השקעה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 14/10 14:28</div>
+        <div class="hook">"ממשל ארה&quot;ב מממן טיפול לאבולה של RedHill"</div>
+        <div class="original-title">📝 US Government Funding Development Of Israeli Ebola Treatment</div>
+        <div class="reason">💭 Israeli biotech firm + US government backing + significant validation, but biomedical focus slightly outside core tech ecosystem.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/us-government-funding-development-of-israeli-ebola-treatment/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 15/09 16:08</div>
+        <div class="hook">"ישראל תופסת 1.5 מיליארד דולר קריפטו איראני"</div>
+        <div class="original-title">📝 Israel announces seizure of $1.5M from crypto wallets tied to Iran</div>
+        <div class="reason">💭 Israeli government crypto seizure from IRGC; Israeli cyber/intelligence operation, geopolitical significance (+3 Israeli cyber success, +2 d</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/09/15/israel-announces-seizure-of-1-5-million-from-crypto-wallets-tied-to-iran/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="PERSONALITY">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#ea580c">👤 דמות</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 08/01 19:15</div>
+        <div class="hook">"NSO בספר שקיפות: ביקורות על טענות אחריות"</div>
+        <div class="original-title">📝 Critics pan spyware maker NSO’s transparency claims amid its push to enter US market</div>
+        <div class="reason">💭 Israeli spyware giant NSO attempting reputational repair; controversial Israeli company in global spotlight (+3 Israeli company, +2 drama/co</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2026/01/08/critics-pan-spyware-maker-nsos-transparency-claims-amid-its-push-to-enter-us-market/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">7.0</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2025/09/15/HycNP9rslg/HycNP9rslg_0_0_1035_583_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 11/06 13:12</div>
+        <div class="hook">"בית משפט גרמני: גוגל אחראית לשקרי ה-AI שלה"</div>
+        <div class="original-title">📝 תקדים דרמטי: גוגל תישא באחריות למה שה-AI שלה כותב</div>
+        <div class="reason">💭 Landmark AI regulation precedent affecting global AI companies; impacts Israeli AI developers and startups.</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/r1qj1nu11gg" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DRAMA">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#dc2626">💥 דרמה</span>
+      <img src="https://res.cloudinary.com/globes/image/upload/t_800X392/v1689778254/direct/Image_xe2jdp.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Globes EN Tech · 14/06 10:06</div>
+        <div class="hook">"אודיטי טק של אורן הולצמן קורסת"</div>
+        <div class="original-title">📝 Wayward algorithm topples Oddity Tech</div>
+        <div class="reason">💭 Israeli founder Oran Holtzman&#x27;s cosmetics-tech company hit by algorithm failure; Israeli company drama/crisis story (+3 Israeli founder, +2 </div>
+        <div class="card-footer">
+          <span class="date">globes_tech_en</span>
+          <a href="https://en.globes.co.il/en/article-1001545779#utm_source=RSS" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-3">5.0</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <img src="https://static-cdn.toi-media.com/www/uploads/2026/06/00854-1024x640.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Times of Israel Tech · 15/06 09:44</div>
+        <div class="hook">"תעשיית ההגנה הישראלית מוקפת מחסומים בתערוכה צרפתית"</div>
+        <div class="original-title">📝 Israeli defense industry booths walled off at leading French arms exhibition</div>
+        <div class="reason">💭 Israeli defense-tech industry news with geopolitical friction; affects Israeli defense companies&#x27; international operations.</div>
+        <div class="card-footer">
+          <span class="date">timesofisrael_tech</span>
+          <a href="https://www.timesofisrael.com/israeli-defense-industry-booths-walled-off-at-leading-french-arms-exhibition/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="STATS">
+      <div class="score-badge tier-3">5.0</div>
+      <span class="cat-badge" style="background:#65a30d">📊 נתונים</span>
+      <img src="https://news.crunchbase.com/wp-content/uploads/increasing-money-rocket.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Crunchbase News · 15/06 11:00</div>
+        <div class="hook">"רוב משקיעי AI גלובליים מרוכזים בארה״ב - וישראל נותרה מאחור"</div>
+        <div class="original-title">📝 The AI Startup Funding Boom Is Not A Global Phenomenon</div>
+        <div class="reason">💭 Global AI funding statistics; relevant to Israeli startups&#x27; competitive position in funding landscape (+1 stats +1 trend/shift for Israeli s</div>
+        <div class="card-footer">
+          <span class="date">crunchbase</span>
+          <a href="https://news.crunchbase.com/venture/us-ai-startup-funding-boom-data/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 14/10 08:47</div>
+        <div class="hook">"SuperCom זוכה בחוזה משרד הכלאות לניטור אלקטרוני"</div>
+        <div class="original-title">📝 Security Firm Wins Prison Service Contract For Electronic Monitoring</div>
+        <div class="reason">💭 Israeli cyber/security firm + government contract, but prison monitoring tech is niche and contract value not disclosed.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/security-firm-wins-prison-service-contract-for-electronic-monitoring/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 28/10 15:56</div>
+        <div class="hook">"BGU מתגבר על פייק ניוז עם AI לבדיקת עובדות"</div>
+        <div class="original-title">📝 BGU Develops Fast Fact Checking Via News Sources Not People</div>
+        <div class="reason">💭 Israeli university AI breakthrough with societal impact, but lacks funding scale or commercial angle to score higher.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/bgu-develops-fast-fact-checking-via-news-sources-not-people/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="ISRAELI_PRIDE">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#2563eb">🇮🇱 גאווה ישראלית</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 30/10 09:47</div>
+        <div class="hook">"TAU מגלה דרך להילחם בסרטן עמיד לחיסול"</div>
+        <div class="original-title">📝 TAU Team Discovers Mechanism To Eliminate Cancerous Tumors</div>
+        <div class="reason">💭 Israeli biotech breakthrough from Tel Aviv University; medical innovation, Israeli research excellence, but not tech/startup focused (+3 Isr</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/tau-team-discovers-mechanism-to-eliminate-cancerous-tumors/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 17/06 17:29</div>
+        <div class="hook">"קבוצה פרו-ישראלית תוקפת בנק איראני"</div>
+        <div class="original-title">📝 Pro-Israel hacktivist group claims responsibility for alleged Iranian bank hack</div>
+        <div class="reason">💭 Israeli hacktivist group cyber operation against Iran; Israeli cyber capability in Israel-Iran conflict, timely geopolitical tech story (+3 </div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/06/17/pro-israel-hacktivist-group-claims-responsibility-for-alleged-iranian-bank-hack/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="FUNDING">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#16a34a">💰 גיוס/השקעה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 10/11 21:05</div>
+        <div class="hook">"קלטורה קונה סטארטאפ AI eSelf ב-27 מיליון"</div>
+        <div class="original-title">📝 Kaltura acquires eSelf, founded by creator of Snap’s AI, in $27M deal</div>
+        <div class="reason">💭 Israeli company Kaltura acquires AI startup in $27M deal; significant for Israeli tech M&amp;A (+3 Israeli company, +3 funding &gt;$10M, +1 AI indu</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/11/10/kaltura-acquires-eself-founded-by-creator-of-snaps-ai-in-27m-deal/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">6.5</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 CyberScoop · 09/06 19:53</div>
+        <div class="hook">"מיקרוסופט שברה רקורד: 206 פרצות בחודש"</div>
+        <div class="original-title">📝 Microsoft breaks Patch Tuesday record with 206 vulnerabilities</div>
+        <div class="reason">💭 Major security incident; affects Israeli cybersecurity teams, defenders, and enterprises.</div>
+        <div class="card-footer">
+          <span class="date">cyberscoop</span>
+          <a href="https://cyberscoop.com/microsoft-patch-tuesday-june-2026/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="CYBERSECURITY">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#7c3aed">🔐 סייבר</span>
+      <img src="https://images.ctfassets.net/jdtwqhzvc2n1/77BUvHRR5neMsb4vlwRip2/ed64951fbd22cd58addb8d99b6f977df/Gemini_Generated_Image_xz3q0ixz3q0ixz3q__2_.png?w=300&amp;q=30" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 VentureBeat · 12/06 16:46</div>
+        <div class="hook">"JFrog ו-NanoClaw הושקות מגן נגד קוד זדוני"</div>
+        <div class="original-title">📝 NanoClaw and JFrog launch &#x27;immune system&#x27; to block AI agents from downloading malicious code</div>
+        <div class="reason">💭 +3 Israeli company (JFrog), +1 industry-shaping security innovation, +1 time-sensitive. Major Israeli cybersecurity company launches novel A</div>
+        <div class="card-footer">
+          <span class="date">venturebeat</span>
+          <a href="https://venturebeat.com/security/nanoclaw-and-jfrog-launch-immune-system-to-block-ai-agents-from-downloading-malicious-code" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="AI_NEWS">
+      <div class="score-badge tier-3">4.5</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch · 15/06 13:00</div>
+        <div class="hook">"NewCore $66M: AI סוכנים כעובדים בעתיד"</div>
+        <div class="original-title">📝 As AI agents become employees, NewCore emerges with $66M to give them identities</div>
+        <div class="reason">💭 AI enterprise security startup funding, relevant to global tech trends affecting Israeli companies, though not Israeli-founded.</div>
+        <div class="card-footer">
+          <span class="date">techcrunch</span>
+          <a href="https://techcrunch.com/2026/06/15/ai-agents-are-becoming-employees-newcore-emerges-with-66m-to-give-them-identities/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="DRAMA">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#dc2626">💥 דרמה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 09/04 18:25</div>
+        <div class="hook">"NSO Pegasus: רשימה של 1,223 קורבנות ב-51 מדינות"</div>
+        <div class="original-title">📝 Court document reveals locations of WhatsApp victims targeted by NSO spyware</div>
+        <div class="reason">💭 Israeli NSO Group spyware scandal continues; reputational damage to Israeli cyber firm, controversy affects Israeli tech sector perception (</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/04/09/court-document-reveals-locations-of-whatsapp-victims-targeted-by-nso-spyware/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <img src="https://news.crunchbase.com/wp-content/uploads/unicornboard_hero.png" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Crunchbase News · 09/06 11:00</div>
+        <div class="hook">"29 יוניקורנים חדשים: AI ורובוטיקה מובילים"</div>
+        <div class="original-title">📝 AI Services And Robotics Lead Diverse Crop Of 29 New May Unicorns As SpaceX, Anthropic And OpenAI Line Up Blockbuster Ex</div>
+        <div class="reason">💭 Major unicorn trend in AI/robotics; affects Israeli AI and robotics startups competing in global market.</div>
+        <div class="card-footer">
+          <span class="date">crunchbase</span>
+          <a href="https://news.crunchbase.com/venture/new-unicorn-startups-may-2026-openai-anthropic-ipos-spacex-robotics/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-2" data-cat="AI_NEWS">
+      <div class="score-badge tier-2">6.0</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/03/04/SkDFL2Bt11x/SkDFL2Bt11x_0_0_1137_637_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 11/06 10:30</div>
+        <div class="hook">"OpenAI מוזילה מחיר נגד אנת&#x27;רופיק"</div>
+        <div class="original-title">📝 משלמים על AI? בקרוב אולי תשלמו פחות על ChatGPT וקלוד</div>
+        <div class="reason">💭 Global AI pricing war affects Israeli AI developers and SaaS startups; relevant to ecosystem costs.</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/syumpwdwze" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 13/06 04:00</div>
+        <div class="hook">"מערכת רדאר חדשה מנטרת רחפנים בשמיים"</div>
+        <div class="original-title">📝 This Radar Watches the Entire Sky at Once to Catch Drone Swarms</div>
+        <div class="reason">💭 Israeli defense-tech publication covering drone defense innovation, relevant to Israeli military tech sector, but no Israeli company specifi</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136703" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="FUNDING">
+      <div class="score-badge tier-3">4.0</div>
+      <span class="cat-badge" style="background:#16a34a">💰 גיוס/השקעה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch · 14/06 16:38</div>
+        <div class="hook">"סטארטאפים רוכבים על גל ההנפקות של AI"</div>
+        <div class="original-title">📝 As AI companies race to go public, who else is along for the ride?</div>
+        <div class="reason">💭 Global IPO trend; minimal Israeli-specific data or angle.</div>
+        <div class="card-footer">
+          <span class="date">techcrunch</span>
+          <a href="https://techcrunch.com/2026/06/14/as-ai-companies-race-to-go-public-who-else-is-along-for-the-ride/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="AI_NEWS">
+      <div class="score-badge tier-3">4.0</div>
+      <span class="cat-badge" style="background:#db2777">🧠 AI</span>
+      <img src="https://news.crunchbase.com/wp-content/uploads/2019/04/saas3.png" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Crunchbase News · 15/06 11:00</div>
+        <div class="hook">"—"</div>
+        <div class="original-title">📝 Rewriting Your Pitch: SaaS Isn’t Dead, But The Playbook For Founders Is Changing</div>
+        <div class="reason">💭 Generic SaaS/AI trend piece by Crunchbase; no Israeli company/founder featured (-2 generic global).</div>
+        <div class="card-footer">
+          <span class="date">crunchbase</span>
+          <a href="https://news.crunchbase.com/saas/rewriting-pitch-playbook-venture-ai-startup-nikkhoo-navigate/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="LAUNCH">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#9333ea">🚀 השקה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 15/10 14:03</div>
+        <div class="hook">"Enlight השלימה פרויקט סולאר בצפון ודרום"</div>
+        <div class="original-title">📝 Clean Energy Firm Completes Solar Project In North, South Israel</div>
+        <div class="reason">💭 Israeli company project completion, but green energy/infrastructure plays less relevance to core tech/cyber/defense audience.</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/clean-energy-firm-completes-solar-project-in-north-south-israel/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="ECONOMY">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#0284c7">📈 כלכלה ישראלית</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 NoCamels · 28/10 18:51</div>
+        <div class="hook">"סקטור ההיי-טק הישראלי: השנה הבאה במבחן"</div>
+        <div class="original-title">📝 Forward Facing: What Does The Future Hold For Israeli High-Tech?</div>
+        <div class="reason">💭 Israeli tech sector outlook piece post-war; affects Israeli tech workers directly, macro perspective on employment/investment trends (+2 aff</div>
+        <div class="card-footer">
+          <span class="date">nocamels</span>
+          <a href="https://nocamels.com/2024/10/forward-facing-what-does-the-future-hold-for-israeli-high-tech/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DRAMA">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#dc2626">💥 דרמה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 19/03 12:01</div>
+        <div class="hook">"ששת מדינות כנראה קונות מ-Paragon: חשיפה חדשה"</div>
+        <div class="original-title">📝 Researchers name six countries as likely customers of Paragon’s spyware</div>
+        <div class="reason">💭 Paragon spyware vendor identified; Israeli/regional cyber intelligence firm, but limited direct Israeli angle; affects Israeli cyber sector </div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/03/19/researchers-name-several-countries-as-potential-paragon-spyware-customers/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DRAMA">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#dc2626">💥 דרמה</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 TechCrunch Israel · 09/06 18:09</div>
+        <div class="hook">"פרגון מבטלת חוזים עם איטליה על מצב עיתונאי"</div>
+        <div class="original-title">📝 Paragon says it canceled contracts with Italy over government’s refusal to investigate spyware attack on journalist</div>
+        <div class="reason">💭 Spyware company drama with international dimensions, but Paragon is not clearly Israeli; controversial spyware narrative affects Israeli cyb</div>
+        <div class="card-footer">
+          <span class="date">techcrunch_israel</span>
+          <a href="https://techcrunch.com/2025/06/09/paragon-says-it-cancelled-contracts-with-italy-over-governments-refusal-to-investigate-spyware-attack-on-journalist/" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="GLOBAL_TECH">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#0891b2">🌍 טק גלובלי</span>
+      <img src="https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/02/04/rJ6Pl2gPbl/rJ6Pl2gPbl_0_13_810_456_0_medium.jpg" alt="" onerror="this.outerHTML='<div class=no-image>אין תמונה</div>'">
+      <div class="card-body">
+        <div class="source-line">📰 Ynet דיגיטל · 11/06 08:18</div>
+        <div class="hook">"קנדה אוסרת סושיאל מדיה לקטינים, מווסתת AI"</div>
+        <div class="original-title">📝 צעד דרמטי בקנדה: איסור על רשתות חברתיות לקטינים ופיקוח חדש על AI</div>
+        <div class="reason">💭 Major tech regulation in developed nation; affects Israeli social platforms and AI companies operating globally.</div>
+        <div class="card-footer">
+          <span class="date">ynet_digital</span>
+          <a href="https://www.ynet.co.il/digital/technews/article/sysroju11fg" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-3">5.5</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 12/06 04:00</div>
+        <div class="hook">"טורט נ״כ חדש יורה לכל הכיוונים בו זמנית"</div>
+        <div class="original-title">📝 A New Anti-Drone Turret Fires in Every Direction at Once</div>
+        <div class="reason">💭 Israeli defense publication, drone defense innovation on iHLS platform relevant to Israeli military-tech sector, but no Israeli company feat</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136681" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="card tier-3" data-cat="DEFENSE_TECH">
+      <div class="score-badge tier-3">5.0</div>
+      <span class="cat-badge" style="background:#b91c1c">🛡️ ביטחון טכנולוגי</span>
+      <div class="no-image">אין תמונה</div>
+      <div class="card-body">
+        <div class="source-line">📰 iHLS - Israeli Homeland Security · 13/06 08:00</div>
+        <div class="hook">"רחפנים אוטונומיים שחדרים בניינים מהורוסים"</div>
+        <div class="original-title">📝 Drones Could Soon Navigate Collapsed Buildings Without Slowing Down</div>
+        <div class="reason">💭 Defense tech innovation relevant to Israeli drone ecosystem, published on iHLS Israeli platform, but generic technology story without Israel</div>
+        <div class="card-footer">
+          <span class="date">ihls</span>
+          <a href="https://i-hls.com/archives/136709" target="_blank">קרא מקור ←</a>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+<script>
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.cat === f) ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
