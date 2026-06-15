@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1350px; overflow: hidden; background: #000; }
+
+  .bg {
+    position: absolute; inset: 0;
+    background-image: url('{{BG_IMAGE}}');
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .gradient {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 50%,
+      rgba(0,0,0,0.60) 65%,
+      rgba(0,0,0,0.85) 78%
+    );
+  }
+
+  .template {
+    position: absolute; inset: 0;
+    width: 1080px; height: 1350px;
+    z-index: 10; pointer-events: none;
+  }
+
+  .content {
+    position: absolute;
+    bottom: 168px;
+    left: 40px; right: 40px;
+    z-index: 15;
+    text-align: center;
+    direction: rtl;
+  }
+
+  .headline {
+    font-family: 'Heebo', sans-serif;
+    font-size: 60px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 28px;
+  }
+  .headline em { color: #2FBEF6; font-style: normal; }
+
+  .body {
+    font-family: 'Heebo', sans-serif;
+    font-size: 37.4px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="gradient"></div>
+
+<div class="content">
+  <div class="headline"><em>$28M</em> - וכל הסייבר הישראלי מאחורי זה</div>
+  <div class="body">
+    Lightspeed הובילה. בין המשקיעים:<br>
+    אסף רפפורט (Wiz), מייסדי Armis.<br>
+    אלו המוחות שבנו את ענף הסייבר הישראלי.
+  </div>
+</div>
+
+<img class="template" src="{{TEMPLATE_IMAGE}}">
+
+</body>
+</html>
