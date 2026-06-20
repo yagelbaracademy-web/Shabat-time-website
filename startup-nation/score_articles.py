@@ -10,6 +10,7 @@ Run: python3 score_articles.py
 
 import json
 import os
+import time
 from pathlib import Path
 from datetime import datetime, timezone
 from dotenv import load_dotenv
@@ -166,14 +167,18 @@ def main():
     total_input = total_output = 0
     for i, batch in enumerate(batches, 1):
         log(f"  Batch {i}/{len(batches)} ({len(batch)} articles)...")
-        try:
-            scores, usage = score_batch(client, batch)
-            all_scores.extend(scores)
-            total_input += usage.input_tokens
-            total_output += usage.output_tokens
-            log(f"    ✓ {len(scores)} scored. Tokens: {usage.input_tokens}+{usage.output_tokens}")
-        except Exception as e:
-            log(f"    ✗ Batch {i} failed: {type(e).__name__}: {e}")
+        for attempt in range(1, 4):
+            try:
+                scores, usage = score_batch(client, batch)
+                all_scores.extend(scores)
+                total_input += usage.input_tokens
+                total_output += usage.output_tokens
+                log(f"    ✓ {len(scores)} scored. Tokens: {usage.input_tokens}+{usage.output_tokens}")
+                break
+            except Exception as e:
+                log(f"    ✗ Batch {i} attempt {attempt}/3 failed: {type(e).__name__}: {e}")
+                if attempt < 3:
+                    time.sleep(attempt * 5)
 
     new_merged = merge_scores(to_score, all_scores)
     # Combine with previously scored
