@@ -405,6 +405,21 @@
       .hero-text { text-align: center; }
       .hero-ctas { justify-content: center; }
     }
+    .hero-scroll-cue {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      margin-top: 28px;
+      color: rgba(255,255,255,.85);
+    }
+    .hero-scroll-cue svg { animation: heroScrollBounce 1.6s ease-in-out infinite; }
+    .hero-scroll-cue svg:first-child { opacity: .4; }
+    .hero-scroll-cue svg:last-child { animation-delay: .15s; }
+    @keyframes heroScrollBounce {
+      0%, 100% { transform: translateY(0); opacity: .9; }
+      50% { transform: translateY(5px); opacity: .35; }
+    }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 16px 32px;
@@ -450,6 +465,7 @@
       max-width: 860px;
       margin: 0 auto;
     }
+    .logos-cta { text-align: center; margin-top: 40px; }
     .logo-item {
       display: flex; align-items: center; justify-content: center;
       height: 40px;
@@ -1144,7 +1160,7 @@
         hero.style.width = '100%';
         var setHeight = function() {
           var w = document.documentElement.clientWidth;
-          hero.style.height = Math.round(w * 4 / 3 + 200) + 'px';
+          hero.style.height = Math.round(w * 4 / 3) + 'px';
         };
         setHeight();
         window.addEventListener('resize', setHeight);
@@ -1158,11 +1174,10 @@
         עכשיו אני מלמד את התלמידים איך גם הם יכולים להשפיע
       </h1>
       <p class="hero-meta reveal in">סדנה לתלמידי חטיבה ותיכון | <span class="meta-accent">תוכנית רשומה בגפ"ן</span></p>
-      <div class="hero-ctas reveal in reveal-d4">
-        <a href="#cta" class="btn btn-primary">בואו נדבר
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </a>
-      </div>
+      <a href="#goals" class="hero-scroll-cue reveal in reveal-d4" aria-label="גלילה למטה">
+        <svg width="20" height="11" viewBox="0 0 20 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 10 9 19 1"/></svg>
+        <svg width="20" height="11" viewBox="0 0 20 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 10 9 19 1"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1201,6 +1216,11 @@
       <span class="logo-item"><img src="images/logo-ynet.gif" alt="ynet" loading="lazy"></span>
       <span class="logo-item logo-item-dark"><img src="images/logo-i24.svg" alt="i24 NEWS" loading="lazy"></span>
       <span class="logo-item"><img src="images/logo-ice.png" alt="ice" loading="lazy"></span>
+    </div>
+    <div class="logos-cta">
+      <a href="#cta" class="btn btn-primary">בדקו התאמה לתלמידים שלכם
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1297,14 +1317,19 @@
     </div>
     <div class="student-voices-grid">
       <figure class="student-voice reveal">
-        <img src="images/student-note-keepgoing.jpg" alt="הודעת תלמיד: תליתי על הלוח את הסטיקר שחילקת בסדנה, Just Keep Going" loading="lazy">
+        <img src="images/student-note-king.jpg" alt="הודעת תלמיד: יגל, אתה מלך! כשאגדל אני רוצה להיות כמוך" loading="lazy">
       </figure>
       <figure class="student-voice reveal reveal-d1">
         <img src="images/student-note-inspired.jpg" alt="הודעת תלמיד: אני מאמין שתגיע רחוק מאוד בתור יזם, נתת לי הרבה השראה" loading="lazy">
       </figure>
       <figure class="student-voice reveal reveal-d2">
-        <img src="images/student-note-king.jpg" alt="הודעת תלמיד: יגל, אתה מלך! כשאגדל אני רוצה להיות כמוך" loading="lazy">
+        <img src="images/student-note-keepgoing.jpg" alt="הודעת תלמיד: תליתי על הלוח את הסטיקר שחילקת בסדנה, Just Keep Going" loading="lazy">
       </figure>
+    </div>
+    <div class="logos-cta">
+      <a href="#cta" class="btn btn-primary">בדקו התאמה לתלמידים שלכם
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </a>
     </div>
   </div>
 </section>
@@ -1348,6 +1373,7 @@
   </div>
 </section>
 
+<!-- מוסתר זמנית לפי בקשת יגל (2026-06-24) - להחזיר בעת הצורך
 <section id="video">
   <div class="container">
     <h2 class="reveal reveal-d1">אירוע "רצים לזכרם" — יום הזיכרון 2026</h2>
@@ -1363,6 +1389,7 @@
     </div>
   </div>
 </section>
+-->
 
 <section id="gallery">
   <div class="container-wide">
