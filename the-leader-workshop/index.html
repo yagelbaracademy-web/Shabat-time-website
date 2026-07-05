@@ -1,6 +1,38 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+  <script>
+    (function() {
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      var STORE_KEY = 'leaderWorkshopScrollY';
+      var navEntries = performance.getEntriesByType('navigation');
+      var navType = navEntries.length ? navEntries[0].type : 'navigate';
+
+      if (navType === 'reload' || navType === 'back_forward') {
+        var saved = sessionStorage.getItem(STORE_KEY);
+        if (saved !== null) {
+          var restore = function() { window.scrollTo(0, parseInt(saved, 10)); };
+          restore();
+          document.addEventListener('DOMContentLoaded', restore);
+          window.addEventListener('load', restore);
+        }
+      } else {
+        sessionStorage.removeItem(STORE_KEY);
+        window.scrollTo(0, 0);
+        document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+        window.addEventListener('load', function() { window.scrollTo(0, 0); });
+      }
+
+      var saveTimer = null;
+      window.addEventListener('scroll', function() {
+        if (saveTimer) return;
+        saveTimer = setTimeout(function() {
+          sessionStorage.setItem(STORE_KEY, String(window.scrollY));
+          saveTimer = null;
+        }, 200);
+      }, { passive: true });
+    })();
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L6SPK5FPM5"></script>
   <script>
@@ -30,21 +62,21 @@
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://theleader-workshop.yagelbar.com/">
-  <meta property="og:title" content="סדנת יזמות מתוך משמעות | יגל בר">
+  <meta property="og:title" content="סדנה &quot;יזמות מתוך משמעות&quot; | יגל בר">
   <meta property="og:description" content="חוויה חינוכית לחטיבה, תיכון ומכינות קדם-צבאיות שמחברת יזמות, מנהיגות וערכים דרך הסיפור של מיזם 'לזכרם'. מאושרת גפ&quot;ן.">
-  <meta property="og:image" content="https://theleader-workshop.yagelbar.com/images/workshop-audience.jpg">
-  <meta property="og:image:alt" content="יגל בר מעביר את סדנת 'יזמות מתוך משמעות' באולם תלמידים מלא">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="https://theleader-workshop.yagelbar.com/images/workshop-grades-8-12.jpg">
+  <meta property="og:image:alt" content="סדנה מיוחדת לכיתות ח'-י&quot;ב | יגל בר מעביר את סדנת 'יזמות מתוך משמעות' באולם תלמידים מלא">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1200">
   <meta property="og:locale" content="he_IL">
   <meta property="og:site_name" content="סדנת יזמות מתוך משמעות – יגל בר">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://theleader-workshop.yagelbar.com/">
-  <meta name="twitter:title" content="סדנת יזמות מתוך משמעות | יגל בר">
+  <meta name="twitter:title" content="סדנה &quot;יזמות מתוך משמעות&quot; | יגל בר">
   <meta name="twitter:description" content="חוויה חינוכית לחטיבה, תיכון ומכינות שמחברת יזמות, מנהיגות וערכים. מאושרת גפ&quot;ן.">
-  <meta name="twitter:image" content="https://theleader-workshop.yagelbar.com/images/workshop-audience.jpg">
-  <meta name="twitter:image:alt" content="יגל בר מעביר את סדנת 'יזמות מתוך משמעות'">
+  <meta name="twitter:image" content="https://theleader-workshop.yagelbar.com/images/workshop-grades-8-12.jpg">
+  <meta name="twitter:image:alt" content="סדנה מיוחדת לכיתות ח'-י&quot;ב | יגל בר מעביר את סדנת 'יזמות מתוך משמעות'">
 
   <script type="application/ld+json">
   {
@@ -134,7 +166,7 @@
         "@type": "Review",
         "author": {"@type": "Person", "name": "מרון אבינועם", "jobTitle": "רכז חינוך חברתי, תיכון אמי\"ת בר אילן רמת גן"},
         "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-        "reviewBody": "יגל מצליח להעביר מסרים וערכים אלו לבני הנוער ולהתאים אותם לעולמם האישי — גיוס לצבא, הצלחה בלמידה למבחני הבגרות, והתנהגות בין-אישית. משתמש במתודות שונות ובפעילויות שמשתפות את בני הנוער ויוצרות עניין והקשבה. ממליץ מאוד!"
+        "reviewBody": "יגל מצליח להעביר מסרים וערכים לבני הנוער ולהתאים אותם לעולמם האישי — גיוס לצבא, הצלחה בלמידה למבחני הבגרות, והתנהגות בין-אישית. משתמש במתודות שונות ובפעילויות שמשתפות את בני הנוער ויוצרות עניין והקשבה. ממליץ מאוד!"
       },
       {
         "@type": "Review",
@@ -233,7 +265,7 @@
       --max-xwide: 1280px;
     }
 
-    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; width: 100%; }
+    html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; width: 100%; overflow-anchor: none; }
 
     body {
       font-family: 'Heebo', system-ui, -apple-system, sans-serif;
@@ -268,13 +300,13 @@
     .reveal-d4 { transition-delay: .32s; }
 
     h1, h2, h3, h4 { font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(23px, 3.4vw, 46px); font-weight: 900; line-height: 1.2; }
+    h1 { font-size: clamp(24px, 3.2vw, 42px); font-weight: 900; line-height: 1.2; }
     h2 { font-size: clamp(28px, 4vw, 44px); }
     h3 { font-size: clamp(20px, 2.4vw, 26px); }
 
     .lead { font-size: clamp(17px, 1.8vw, 21px); color: var(--text-mid); line-height: 1.65; }
 
-    section { padding: 96px 0; }
+    section { padding: 96px 0; scroll-margin-top: 90px; }
     section.tight { padding: 64px 0; }
     section.warm { background: var(--bg-warm); }
 
@@ -320,6 +352,81 @@
     }
     .nav-cta:hover { background: #333; transform: translateY(-1px); }
 
+    /* PHONE FAB */
+    .phone-fab {
+      position: fixed;
+      bottom: 22px; left: 22px;
+      z-index: 250;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--white);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,.28);
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+    .phone-fab:hover { background: var(--gold-warm); transform: scale(1.06); box-shadow: 0 10px 30px rgba(0,0,0,.34); }
+    .phone-fab svg { width: 26px; height: 26px; }
+    @media (max-width: 720px) {
+      .phone-fab { bottom: 16px; left: 16px; width: 52px; height: 52px; }
+      .phone-fab svg { width: 23px; height: 23px; }
+    }
+
+    /* SECTION NAV */
+    .section-nav {
+      position: fixed;
+      top: auto; left: auto;
+      bottom: 22px; right: 8px;
+      z-index: 250;
+      width: 48px;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
+      background: rgba(255,255,255,.6);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(17,17,17,.08);
+      border-radius: 999px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      touch-action: none;
+    }
+    .section-nav .tick-zone {
+      position: relative;
+      height: 14px;
+      cursor: pointer;
+    }
+    .section-nav .tick {
+      position: absolute;
+      top: 50%; right: 12px;
+      transform: translateY(-50%);
+      width: 11px; height: 3px;
+      border-radius: 100px;
+      background: rgba(17,17,17,.22);
+      transition: background .15s, width .15s, height .15s;
+    }
+    .section-nav .tick-zone.active .tick { background: var(--gold); width: 16px; }
+    .section-nav .tick-zone.dragging .tick { background: var(--text); width: 32px; height: 5px; }
+    .section-nav-tooltip {
+      position: fixed;
+      right: 70px;
+      transform: translateY(-50%);
+      background: var(--text);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 8px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .15s;
+      z-index: 251;
+    }
+    .section-nav-tooltip.visible { opacity: 1; }
+    @media (max-width: 720px) {
+      .section-nav { bottom: 16px; right: 6px; }
+    }
+
     /* HERO */
     #hero {
       position: relative;
@@ -342,6 +449,25 @@
       position: relative; z-index: 2;
       max-width: 760px; margin: 0 auto;
     }
+    .hero-sound-toggle {
+      position: absolute;
+      top: 16px; right: 16px;
+      z-index: 3;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.25);
+      color: rgba(255,255,255,.92);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    .hero-sound-toggle svg { width: 16px; height: 16px; }
+    .hero-sound-toggle .icon-sound-off { display: none; }
+    .hero-sound-toggle.muted .icon-sound-on { display: none; }
+    .hero-sound-toggle.muted .icon-sound-off { display: block; }
+    .hero-expand-btn { right: 60px; }
     @media (max-width: 720px) {
       #hero {
         min-height: 0;
@@ -526,6 +652,14 @@
       object-fit: cover;
       object-position: center 25%;
     }
+    .root-eyebrow {
+      display: block;
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
     .root-content h2 { margin-bottom: 28px; }
     .root-content p {
       font-size: 17px;
@@ -543,14 +677,6 @@
       letter-spacing: -0.01em;
     }
 
-    .bereaved-quote {
-      max-width: 820px;
-      margin: 0 auto 72px;
-      text-align: center;
-      padding: 48px 36px 40px;
-      border: 2px solid var(--gold-line);
-      border-radius: 20px;
-    }
     .bereaved-mark {
       font-family: Georgia, "Times New Roman", serif;
       font-size: clamp(72px, 8vw, 110px);
@@ -574,11 +700,6 @@
       font-weight: 500;
       margin: 0;
       letter-spacing: 0.02em;
-    }
-    @media (max-width: 720px) {
-      .bereaved-quote { margin-bottom: 48px; padding: 36px 22px 32px; }
-      .bereaved-mark { margin-bottom: 14px; }
-      .bereaved-text { margin-bottom: 20px; }
     }
 
     @media (max-width: 900px) {
@@ -675,6 +796,15 @@
       margin-bottom: 24px;
       flex-grow: 1;
     }
+    .testimonial-text mark {
+      background: rgba(212,168,42,.32);
+      color: var(--text);
+      font-weight: 600;
+      padding: 1px 3px;
+      border-radius: 3px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
     .testimonial-author {
       border-top: 1px solid var(--border);
       padding-top: 16px;
@@ -752,6 +882,49 @@
     .outcome:hover { transform: translateY(-3px); border-color: var(--gold-line); box-shadow: 0 12px 30px rgba(0,0,0,.05); }
     .outcome h3 { font-size: 19px; margin-bottom: 10px; }
     .outcome p { font-size: 15px; color: var(--text-mid); line-height: 1.65; }
+
+    /* QUICK FACTS */
+    .facts-list {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .fact-row {
+      display: flex;
+      gap: 24px;
+      align-items: baseline;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; }
+    .fact-label {
+      flex: 0 0 130px;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 15px;
+    }
+    .fact-value {
+      flex: 1;
+      color: var(--text-mid);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .fact-bullets { margin: 0; padding-inline-start: 18px; }
+    .fact-bullets li { margin-bottom: 2px; }
+    .fact-bullets li:last-child { margin-bottom: 0; }
+    @media (max-width: 600px) {
+      .fact-row { flex-direction: column; gap: 4px; padding: 18px 20px; }
+      .fact-label {
+        flex: none;
+        color: var(--gold);
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: .4px;
+      }
+    }
 
     /* GOALS */
     #goals { background: var(--bg); }
@@ -1129,6 +1302,295 @@
     @media (max-width: 720px) {
       section { padding: 72px 0; }
     }
+
+    /* HERO BADGES */
+    .hero-badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .hero-tag {
+      font-size: 13px; font-weight: 700; letter-spacing: .01em;
+      padding: 6px 16px; border-radius: 100px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.10);
+      color: rgba(255,255,255,.9);
+      backdrop-filter: blur(4px);
+    }
+    .tag-gfn { color: #34E1A1; text-shadow: 0 0 14px rgba(52,225,161,.4); }
+    .hero-testimonial-quote {
+      margin: 32px 0 4px;
+      border-right: 3px solid rgba(255,255,255,.28);
+      padding-right: 14px;
+      max-width: 560px;
+    }
+    .hero-testimonial-quote p {
+      font-size: clamp(19px, 2.2vw, 26px);
+      color: #fff;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 1.6;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 10px rgba(0,0,0,.4);
+    }
+    .hero-testimonial-quote cite {
+      font-size: 13px;
+      color: rgba(255,255,255,.58);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* BEREAVED SECTION — עם תמונה */
+    .bereaved-quote {
+      max-width: 860px;
+      margin: 0 auto 72px;
+      padding: 40px 44px;
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 4px 28px rgba(0,0,0,.07), 0 0 0 1px var(--border);
+    }
+    .bereaved-inner {
+      display: flex;
+      align-items: center;
+      gap: 44px;
+    }
+    .bereaved-photo-col {
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .bereaved-photo-wrap {
+      width: 148px;
+      height: 186px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0,0,0,.13);
+    }
+    .bereaved-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .bereaved-photo-name {
+      margin-top: 10px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text-mid);
+      line-height: 1.4;
+    }
+    .bereaved-text-col { flex: 1; text-align: right; }
+    @media (max-width: 720px) {
+      .bereaved-quote { padding: 28px 22px; margin-bottom: 48px; }
+      .bereaved-inner { flex-direction: column; gap: 24px; }
+      .bereaved-photo-col { order: -1; }
+      .bereaved-photo-wrap { width: 112px; height: 140px; }
+      .bereaved-text { margin-bottom: 16px; }
+    }
+
+    /* LEZICHRAM FLOATING CARDS */
+    .root-lz-col {
+      position: relative;
+      overflow: visible;
+    }
+    .root-lz-img-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      box-shadow: 0 20px 50px rgba(0,0,0,.15);
+    }
+    .root-lz-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+    }
+    .lz-float {
+      position: absolute;
+      width: 36%;
+      cursor: pointer;
+    }
+    .lz-float-1 { bottom: 2%;  left: 34%; transform: rotate(-3deg); z-index: 3; }
+    .lz-float-2 { bottom: 8%;  left: 17%; transform: rotate(3.5deg); z-index: 2; }
+    .lz-float-3 { bottom: 18%; left: 1%;  transform: rotate(-5deg); z-index: 1; }
+    .lz-float:not(.lz-in-row) {
+      transition: transform 0.25s ease, z-index 0s;
+    }
+    .lz-float-1:not(.lz-in-row):hover { transform: scale(1.06) rotate(-2deg); z-index: 5; }
+    .lz-float-2:not(.lz-in-row):hover { transform: scale(1.06) rotate(1deg);  z-index: 5; }
+    .lz-float-3:not(.lz-in-row):hover { transform: scale(1.06) rotate(-1deg); z-index: 5; }
+    .lz-card {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 10px 32px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.3);
+      position: relative;
+    }
+    .lz-card img { width: 100%; height: auto; display: block; }
+    .lz-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.28);
+      opacity: 0;
+      transition: opacity 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .lz-float:hover .lz-overlay { opacity: 1; }
+    .lz-overlay svg { width: 26px; height: 26px; }
+    .lz-caption { display: none; }
+
+    /* In-row state: after story is opened, floats move to below-row grid */
+    .lz-float.lz-in-row {
+      position: static;
+      width: 100%;
+    }
+    .lz-float.lz-in-row:hover {
+      transform: translateY(-4px) scale(1.02);
+    }
+    .lz-float.lz-in-row .lz-card {
+      box-shadow: 0 6px 20px rgba(0,0,0,.22);
+    }
+    .lz-float.lz-in-row .lz-caption {
+      display: block;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-mid);
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: right;
+    }
+    .lz-below-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+    @media (max-width: 900px) {
+      .lz-float { display: none; }
+      .root-lz-img-wrap { max-width: 380px; margin: 0 auto; }
+      .lz-below-row { grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 20px; }
+    }
+
+    @keyframes lz-btn-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,42,.55), 0 4px 18px rgba(212,168,42,.3); }
+      55%       { box-shadow: 0 0 0 10px rgba(212,168,42,0), 0 4px 18px rgba(212,168,42,.3); }
+    }
+    @keyframes lz-arrow-bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(4px); }
+    }
+
+    /* LZ IMAGE ROW */
+    .lz-timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .lz-timeline-step {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: zoom-in;
+    }
+    .lz-step-thumb {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,.20);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .lz-timeline-step:hover .lz-step-thumb {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    .lz-step-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .lz-step-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-mid);
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    /* ROOT BUTTONS */
+    .root-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      padding: 15px 32px;
+      background: var(--gold);
+      border: none;
+      border-radius: 100px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background .2s, transform .18s, box-shadow .18s;
+      font-family: inherit;
+      animation: lz-btn-glow 2.4s ease-in-out infinite;
+    }
+    .root-expand-btn:hover {
+      background: var(--gold-warm);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 28px rgba(212,168,42,.5);
+      animation: none;
+    }
+    .root-expand-btn .btn-arrow {
+      animation: lz-arrow-bounce 1.5s ease-in-out infinite;
+      display: inline-flex;
+    }
+    .root-expand-btn:hover .btn-arrow { animation: none; }
+    .root-collapse-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      padding: 10px 20px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-soft);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, color .2s;
+      font-family: inherit;
+    }
+    .root-collapse-btn:hover { background: var(--bg-warm); border-color: var(--text-soft); color: var(--text); }
+    .root-story-body { margin-top: 6px; }
+
+    @keyframes story-reveal {
+      from { opacity: 0; transform: translateY(-10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes lz-card-in {
+      from { opacity: 0; transform: translateY(20px) scale(0.88); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
+    }
+    @keyframes story-hide {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-8px); }
+    }
+    .root-story-body.open {
+      animation: story-reveal 0.45s ease both;
+    }
+    .root-story-body.closing {
+      animation: story-hide 0.32s ease both;
+    }
+    .root-story-body.open .lz-timeline-step {
+      animation: lz-card-in 0.44s ease both;
+    }
+    .root-story-body.open .lz-timeline-step:nth-child(1) { animation-delay: 0.28s; }
+    .root-story-body.open .lz-timeline-step:nth-child(2) { animation-delay: 0.40s; }
+    .root-story-body.open .lz-timeline-step:nth-child(3) { animation-delay: 0.52s; }
   </style>
 </head>
 <body>
@@ -1142,6 +1604,13 @@
 
 <section id="hero">
   <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="images/hero-loop-poster.jpg"></video>
+  <button class="hero-sound-toggle" id="heroSoundToggle" aria-label="השתק קול" aria-pressed="false">
+    <svg class="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+    <svg class="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+  </button>
+  <button class="hero-sound-toggle hero-expand-btn" id="heroExpandBtn" aria-label="צפייה מלאה בסרטון">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+  </button>
   <script>
     (function() {
       var v = document.getElementById('heroVideo');
@@ -1152,8 +1621,58 @@
       s.type = 'video/mp4';
       v.appendChild(s);
       v.load();
-      var p = v.play();
-      if (p && p.catch) p.catch(function() {});
+      var targetVolume = 0.5;
+
+      // iOS Safari ignores video.volume entirely (always plays at full level) -
+      // route audio through a GainNode instead, which iOS does honor.
+      var audioCtx, gainNode;
+      var setupAudioGraph = function() {
+        if (gainNode) return;
+        try {
+          var Ctor = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new Ctor();
+          var sourceNode = audioCtx.createMediaElementSource(v);
+          gainNode = audioCtx.createGain();
+          gainNode.gain.value = targetVolume;
+          sourceNode.connect(gainNode);
+          gainNode.connect(audioCtx.destination);
+        } catch (e) {}
+      };
+
+      v.play().catch(function() {});
+
+      var toggle = document.getElementById('heroSoundToggle');
+      var setMutedUI = function(muted) {
+        toggle.classList.toggle('muted', muted);
+        toggle.setAttribute('aria-pressed', String(muted));
+      };
+      setMutedUI(true);
+
+      toggle.addEventListener('click', function() {
+        if (v.muted) {
+          v.muted = false;
+          setupAudioGraph();
+          if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+        } else {
+          v.muted = true;
+        }
+        setMutedUI(v.muted);
+      });
+
+      var expandBtn = document.getElementById('heroExpandBtn');
+      expandBtn.addEventListener('click', function() {
+        if (v.requestFullscreen) v.requestFullscreen();
+        else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+        else if (v.webkitRequestFullscreen) v.webkitRequestFullscreen();
+      });
+
+      var heroObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) v.play().catch(function() {});
+          else v.pause();
+        });
+      }, { threshold: 0 });
+      heroObserver.observe(document.getElementById('hero'));
 
       if (isMobile) {
         var hero = document.getElementById('hero');
@@ -1169,11 +1688,13 @@
   </script>
   <div class="hero-inner">
     <div class="hero-text">
-      <h1 class="reveal in reveal-d2">
-        בגיל 21 הקמתי את מיזם "לזכרם" שהשפיע על <span class="accent">מיליונים</span>.<br>
-        עכשיו אני מלמד את התלמידים איך גם הם יכולים להשפיע
-      </h1>
-      <p class="hero-meta reveal in">סדנה לתלמידי חטיבה ותיכון | <span class="meta-accent">תוכנית רשומה בגפ"ן</span></p>
+      <div class="hero-badge-row reveal in">
+        <span class="hero-tag">יזמות מתוך משמעות · חטיבה ותיכון · <span class="tag-gfn">✓ תוכנית רשומה בגפ"ן</span></span>
+      </div>
+      <blockquote class="hero-testimonial-quote reveal in reveal-d2">
+        <p>"ליגל יש יכולת יוצאת דופן לרתק ולהעביר תכנים בצורה נגישה ומעוררת השראה. ממליץ מאוד!״</p>
+        <cite>— אלמוג נתנזון, מנהל הדרכה</cite>
+      </blockquote>
       <a href="#goals" class="hero-scroll-cue reveal in reveal-d4" aria-label="גלילה למטה">
         <svg width="20" height="11" viewBox="0 0 20 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 10 9 19 1"/></svg>
         <svg width="20" height="11" viewBox="0 0 20 11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 1 10 9 19 1"/></svg>
@@ -1194,11 +1715,11 @@
       </div>
       <div class="goal reveal reveal-d1">
         <span class="goal-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        <span>לחבר לזהות, לערכים ולמשמעות (מציאת ה"למה" שלנו)</span>
+        <span>לחבר לזהות, לערכים ולמשמעות<br>מציאת ה"למה" שלנו</span>
       </div>
       <div class="goal reveal reveal-d2">
         <span class="goal-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
-        <span>ללמד מנהיגות מתוך אחריות אישית, ולחזק יכולות עבודה בצוות</span>
+        <span>ללמד מנהיגות מתוך אחריות אישית,<br>ולחזק יכולות עבודה בצוות</span>
       </div>
       <div class="goal reveal">
         <span class="goal-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -1236,7 +1757,7 @@
 
       <article class="testimonial reveal">
         <div class="testimonial-quote-mark">״</div>
-        <p class="testimonial-text">תוכנית איכותית. יגל הוא בעל יכולת חינוכית גבוהה, ומשלב ערכים, יזמות ומשמעות באופן עמוק ורלוונטי למערכת החינוך. התלמידים חוו העצמה אישית ותחושת מסוגלות, והמסרים הועברו בשיח פתוח, רגיש ובגובה העיניים.</p>
+        <p class="testimonial-text">תוכנית איכותית. יגל הוא בעל יכולת חינוכית גבוהה, ומשלב ערכים, יזמות ומשמעות באופן עמוק ורלוונטי למערכת החינוך. <mark>התלמידים חוו העצמה אישית ותחושת מסוגלות</mark>, והמסרים הועברו בשיח פתוח, רגיש ובגובה העיניים.</p>
         <div class="testimonial-author">
           <img class="testimonial-logo" src="images/logo-amit-petach-tikva.jpg" alt="כפר הנוער אמי&quot;ת פתח תקווה" loading="lazy">
           <div>
@@ -1248,7 +1769,7 @@
 
       <article class="testimonial reveal reveal-d1">
         <div class="testimonial-quote-mark">״</div>
-        <p class="testimonial-text">יגל מצליח להעביר מסרים וערכים אלו לבני הנוער ולהתאים אותם לעולמם האישי — גיוס לצבא, הצלחה בלמידה למבחני הבגרות, והתנהגות בין-אישית. משתמש במתודות שונות ובפעילויות שמשתפות את בני הנוער ויוצרות עניין והקשבה. ממליץ מאוד!</p>
+        <p class="testimonial-text"><mark>יגל מצליח להעביר מסרים וערכים לבני הנוער ולהתאים אותם לעולמם האישי</mark> — גיוס לצבא, הצלחה בלמידה למבחני הבגרות, והתנהגות בין-אישית. משתמש במתודות שונות ובפעילויות שמשתפות את בני הנוער ויוצרות עניין והקשבה. ממליץ מאוד!</p>
         <div class="testimonial-author">
           <img class="testimonial-logo" src="images/logo-amit-bar-ilan.jpg" alt="אמי&quot;ת בר אילן גוש דן" loading="lazy">
           <div>
@@ -1260,7 +1781,7 @@
 
       <article class="testimonial reveal reveal-d2">
         <div class="testimonial-quote-mark">״</div>
-        <p class="testimonial-text">מומלץ מאוד לכל מסגרת חינוכית שמחפשת סדנה שמחברת בין יזמות, חדשנות וחינוך לערכים בצורה חווייתית ומחוברת למציאות הישראלית. ליגל יש יכולת יוצאת דופן לדבר בגובה העיניים, לרתק ולהעביר תכנים בצורה נגישה ומעוררת השראה.</p>
+        <p class="testimonial-text">מומלץ מאוד לכל מסגרת חינוכית שמחפשת סדנה שמחברת בין יזמות, חדשנות וחינוך לערכים בצורה חווייתית ומחוברת למציאות הישראלית. <mark>ליגל יש יכולת יוצאת דופן לדבר בגובה העיניים</mark>, לרתק ולהעביר תכנים בצורה נגישה ומעוררת השראה.</p>
         <div class="testimonial-author">
           <img class="testimonial-logo" src="images/logo-or-lod.png" alt="מכינת אור לוד" loading="lazy">
           <div>
@@ -1274,10 +1795,32 @@
   </div>
 </section>
 
+<section id="about">
+  <div class="container-wide">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <img src="images/yagel-headshot.PNG" alt="יגל בר">
+      </div>
+      <div class="about-content reveal reveal-d1">
+        <h2>יגל בר</h2>
+        <p class="lead">יזם חברתי, בוגר הטכניון, יוצר תוכן, ומייסד מיזם ההנצחה הלאומי <strong>"לזכרם"</strong>.</p>
+        <p>כנער, יגל עבר תקופה ארוכה של התמודדויות אישיות שדרשו ממנו ללמוד איך "לבנות את עצמו". יגל לא מלמד רק תיאוריה - הוא מלמד את אותם הכלים והערכים שבעזרתם בנה את <strong>"לזכרם"</strong>. מתוך ניסיון אמיתי.</p>
+        <ul class="credentials">
+          <li>מייסד <strong>"לזכרם"</strong> — מעל <strong>140 מיליון צפיות באינסטגרם</strong></li>
+          <li><strong>בוגר הטכניון</strong></li>
+          <li>בעל הכשרה ב-<strong>DBT ליועצים חינוכיים</strong> — המכללה האקדמית תל-אביב יפו</li>
+          <li>מנחה סדנאות בחטיבות, תיכונים, מכינות קדם-צבאיות, יסודי, פרטי ועוד</li>
+          <li>הסדנה מאושרת למימון מתקציב <strong>גפ"ן</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="outcomes">
   <div class="container-wide">
     <div class="section-head reveal">
-      <h2>תוצאות שיישארו איתם הרבה אחרי שהסדנה תיגמר</h2>
+      <h2>כלים שיישארו איתם הרבה אחרי שהסדנה תיגמר</h2>
       <p>הסדנה "יזמות מתוך משמעות" מעניקה לתלמידים ארגז כלים, אמונה ומסוגלות שיתלוו אליהם לבגרויות, לצבא ולחיים.</p>
     </div>
 
@@ -1310,6 +1853,37 @@
   </div>
 </section>
 
+<section id="quick-facts" class="tight">
+  <div class="container-wide">
+    <div class="section-head reveal">
+      <h2>מבנה הסדנה</h2>
+    </div>
+    <div class="facts-list reveal">
+      <div class="fact-row">
+        <span class="fact-label">קהל יעד</span>
+        <span class="fact-value">תלמידי כיתות ח'-י"ב</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">אורך הסדנה</span>
+        <span class="fact-value">
+          <ul class="fact-bullets">
+            <li>מפגש חד-פעמי של כ-50 דקות</li>
+            <li>או סדרה מעמיקה של 5-8 מפגשים להעמקת הערך</li>
+          </ul>
+        </span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">מימון</span>
+        <span class="fact-value" style="color:#1a7a4a; font-weight:700;">✓ מאושרת למימון מתקציב גפ"ן</span>
+      </div>
+      <div class="fact-row">
+        <span class="fact-label">שם הסדנה בגפ"ן</span>
+        <span class="fact-value">"יזמות מתוך משמעות"<br>או סדנה "לזכרם" - מיזם חברתי ערכי</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="student-voices" class="tight warm">
   <div class="container-wide">
     <div class="section-head reveal">
@@ -1337,39 +1911,86 @@
 <section id="root">
   <div class="container-wide">
     <div class="bereaved-quote reveal">
-      <span class="bereaved-mark">&ldquo;</span>
-      <p class="bereaved-text">לקחת את המושג "חלל" שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת את הגאולה.</p>
-      <p class="bereaved-attribution">— נאוה, אמו של עמית בן יגאל ז"ל</p>
+      <div class="bereaved-inner">
+        <div class="bereaved-photo-col">
+          <div class="bereaved-photo-wrap">
+            <img src="images/amit-ben-yigal.png" alt='עמית בן יגאל ז"ל' class="bereaved-photo">
+          </div>
+          <p class="bereaved-photo-name">עמית בן יגאל ז"ל</p>
+        </div>
+        <div class="bereaved-text-col">
+          <p class="bereaved-text">״לקחת את המושג 'חלל' שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת את הגאולה.״</p>
+          <p class="bereaved-attribution">— נאוה, אמו של עמית</p>
+        </div>
+      </div>
     </div>
     <div class="root-grid">
-      <div class="root-image reveal">
-        <img src="images/yagel-lezichram-stage.png" alt="יגל בר מציג את מיזם לזכרם">
+      <div class="root-lz-col reveal">
+        <div class="root-lz-img-wrap">
+          <img src="images/yagel-lezichram.jpg" alt="יגל בר מרצה על מיזם לזכרם" loading="lazy">
+        </div>
       </div>
+
       <div class="root-content reveal reveal-d1">
-        <h2>בגיל 21, הבנתי שמשהו לא עובד.</h2>
-        <p><strong>כל כלי שהתלמידים מקבלים בסדנה - השתמשתי בו בעצמי כדי להקים את "לזכרם".</strong></p>
-        <p>היו לנו טקסים ביום הזיכרון ואתרי הנצחה, אבל לא דרך לזכור את הנופלים בחיי היום-יום - בשפה של הדור הצעיר שחי ברשתות החברתיות. אז בלי תקציב, בלי ניסיון ובלי ודאות שזה יעבוד, הקמתי את <strong>"לזכרם"</strong> - עמוד אינסטגרם שבו מונצחים <strong>מעל 20,000 נופלים</strong>, פוסט אחד לכל סיפור, ו<strong>מיצגי הנצחה פיזיים</strong> שהצבנו במקומות מרכזיים בארץ.</p>
-        <p>היום זו פלטפורמת הנצחה לאומית - <strong>140 מיליון צפיות באינסטגרם</strong>, אלפי משפחות שכולות, עשרות שותפים וסיקור תקשורתי נרחב. ובכל שיחה עם תלמידים מתחזקת בי ההבנה: <strong>כל בן ובת נוער בישראל יכולים להשפיע</strong> - אם רק מישהו יגיד להם את זה בגובה העיניים.</p>
-        <div class="root-pullquote">בדיוק לזה הסדנה הזו נולדה.</div>
+        <span class="root-eyebrow">איך מיזם ״לזכרם״ נולד?</span>
+        <button class="root-expand-btn" id="rootExpandBtn">
+          קראו את הסיפור
+          <span class="btn-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+
+        <div class="root-story-body" id="rootStory" style="display:none">
+          <p>בגיל 21 (2022), הבנתי שמשהו לא עובד. היו לנו טקסים ביום הזיכרון ואתרי הנצחה, אבל לא דרך לזכור את הנופלים בחיי היום-יום - בשפה של הדור הצעיר שחי ברשתות החברתיות. אז בלי תקציב, בלי ניסיון ובלי ודאות שזה יעבוד, הקמתי את <strong>"לזכרם"</strong> - עמוד אינסטגרם שבו מונצחים <strong>מעל 20,000 נופלים</strong>, פוסט אחד לכל סיפור, ו<strong>מיצגי הנצחה פיזיים</strong> שהצבנו במקומות מרכזיים בארץ.</p>
+          <p>היום זו פלטפורמת הנצחה לאומית - <strong>140 מיליון צפיות באינסטגרם</strong>, אלפי משפחות שכולות שמנציחות את יקיריהן, עשרות שותפים לעשייה. ובכל שיחה עם תלמידים מתחזקת בי ההבנה:<br><br><strong>כל בן ובת נוער בישראל יכולים להשפיע</strong> - הם רק צריכים מישהו, שילמד אותם את הכלים והערכים הנכונים.</p>
+          <div class="root-pullquote">בדיוק לזה הסדנה הזו נולדה.</div>
+
+          <div class="lz-timeline">
+            <div class="lz-timeline-step" data-lightbox="lezichram" data-caption="עמוד ״לזכרם״ באינסטגרם">
+              <div class="lz-step-thumb"><img src="images/lezichram-instagram-page.jpg" alt="עמוד לזכרם באינסטגרם" loading="lazy"></div>
+              <p class="lz-step-label">עמוד ״לזכרם״ באינסטגרם</p>
+            </div>
+            <div class="lz-timeline-step" data-lightbox="lezichram" data-caption="פוסט הנצחה לנופל (דוגמה)">
+              <div class="lz-step-thumb"><img src="images/lezichram-post-screenshot.jpg" alt="פוסט הנצחה לנופל" loading="lazy"></div>
+              <p class="lz-step-label">פוסט הנצחה לנופל (דוגמה)</p>
+            </div>
+            <div class="lz-timeline-step" data-lightbox="lezichram" data-caption="מיצג ההנצחה בטיילת תל אביב">
+              <div class="lz-step-thumb"><img src="images/lezichram-installation.jpg" alt="מיצג ההנצחה" loading="lazy"></div>
+              <p class="lz-step-label">מיצג ההנצחה בטיילת תל אביב</p>
+            </div>
+          </div>
+
+          <button class="root-collapse-btn" id="rootCollapseBtn">
+            סגרו
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="root-evidence reveal">
-      <div class="evidence-grid">
-        <figure class="evidence-item" data-lightbox="evidence">
-          <img src="images/lezichram-installation.jpg" alt="מיצג ההנצחה של 'לזכרם' בטיילת תל אביב">
-          <figcaption>מיצג ההנצחה בטיילת תל אביב</figcaption>
-        </figure>
-        <figure class="evidence-item" data-lightbox="evidence">
-          <img src="images/lezichram-post-screenshot.jpg" alt="פוסט הנצחה לנופל">
-          <figcaption>פוסט הנצחה לנופל (דוגמה)</figcaption>
-        </figure>
-        <figure class="evidence-item evidence-instagram" data-lightbox="evidence">
-          <img src="images/lezichram-instagram-page.jpg" alt="עמוד 'לזכרם' באינסטגרם">
-          <figcaption>עמוד "לזכרם" באינסטגרם</figcaption>
-        </figure>
-      </div>
-    </div>
+    <script>
+      (function() {
+        var expandBtn   = document.getElementById('rootExpandBtn');
+        var collapseBtn = document.getElementById('rootCollapseBtn');
+        var story       = document.getElementById('rootStory');
+
+        expandBtn.addEventListener('click', function() {
+          story.style.display = 'block';
+          void story.offsetWidth;
+          story.classList.remove('closing');
+          story.classList.add('open');
+          expandBtn.style.display = 'none';
+        });
+
+        collapseBtn.addEventListener('click', function() {
+          story.classList.remove('open');
+          story.classList.add('closing');
+          setTimeout(function() {
+            story.classList.remove('closing');
+            story.style.display = 'none';
+            expandBtn.style.display = 'inline-flex';
+          }, 340);
+        });
+      })();
+    </script>
   </div>
 </section>
 
@@ -1404,28 +2025,6 @@
       <div class="gallery-img" data-lightbox="gallery"><img src="images/workshop-tower-build.jpg" alt="תלמידים בונים מגדל בתרגול הקבוצתי"></div>
       <div class="gallery-img" data-lightbox="gallery"><img src="images/yagel-teaching.jpg" alt="יגל מנחה תרגול קבוצתי"></div>
       <div class="gallery-img" data-lightbox="gallery"><img src="images/IMG_1243%202.jpg" alt="רגע מהסדנה"></div>
-    </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="container-wide">
-    <div class="about-grid">
-      <div class="about-image reveal">
-        <img src="images/yagel-headshot.PNG" alt="יגל בר">
-      </div>
-      <div class="about-content reveal reveal-d1">
-        <h2>יגל בר</h2>
-        <p class="lead">יזם חברתי, בוגר הטכניון, יוצר תוכן, ומייסד מיזם ההנצחה הלאומי <strong>"לזכרם"</strong>.</p>
-        <p>כנער, יגל עבר תקופה ארוכה של התמודדויות אישיות שדרשו ממנו ללמוד איך "לבנות את עצמו". יגל לא מלמד רק תיאוריה - הוא מלמד את אותם הכלים והערכים שבעזרתם בנה את <strong>"לזכרם"</strong>. מתוך ניסיון אמיתי.</p>
-        <ul class="credentials">
-          <li>מייסד <strong>"לזכרם"</strong> — מעל <strong>140 מיליון צפיות באינסטגרם</strong></li>
-          <li><strong>בוגר הטכניון</strong></li>
-          <li>בעל הכשרה ב-<strong>DBT ליועצים חינוכיים</strong> — המכללה האקדמית תל-אביב יפו</li>
-          <li>מנחה סדנאות בחטיבות, תיכונים, מכינות קדם-צבאיות, יסודי, פרטי ועוד</li>
-          <li>הסדנה מאושרת למימון מתקציב <strong>גפ"ן</strong></li>
-        </ul>
-      </div>
     </div>
   </div>
 </section>
@@ -1578,7 +2177,19 @@
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+    if (!el.closest('.goals-grid')) io.observe(el);
+  });
+
+  const ioEarly = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        ioEarly.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+  document.querySelectorAll('.goals-grid .reveal:not(.in)').forEach(el => ioEarly.observe(el));
 
   const video = document.getElementById('mainVideo');
   const playBtn = document.getElementById('playBtn');
@@ -1704,7 +2315,116 @@
       if (Math.abs(dx) > 50) (dx > 0 ? prev : next)();
     });
   })();
+
+  // SECTION NAV
+  document.addEventListener('DOMContentLoaded', function() {
+    const navEl = document.getElementById('sectionNav');
+    if (!navEl) return;
+    const zones = Array.from(navEl.querySelectorAll('.tick-zone'));
+    const tooltip = document.getElementById('sectionNavTooltip');
+    let dragIndex = -1;
+
+    const vibrate = () => { if (navigator.vibrate) navigator.vibrate(8); };
+
+    const showTooltip = (zone) => {
+      tooltip.textContent = zone.dataset.label;
+      tooltip.style.top = zone.getBoundingClientRect().top + (zone.offsetHeight / 2) + 'px';
+      tooltip.classList.add('visible');
+    };
+    const hideTooltip = () => tooltip.classList.remove('visible');
+
+    const indexFromPoint = (clientY) => {
+      for (let i = 0; i < zones.length; i++) {
+        const r = zones[i].getBoundingClientRect();
+        if (clientY >= r.top && clientY <= r.bottom) return i;
+      }
+      const first = zones[0].getBoundingClientRect();
+      const last = zones[zones.length - 1].getBoundingClientRect();
+      if (clientY < first.top) return 0;
+      if (clientY > last.bottom) return zones.length - 1;
+      return -1;
+    };
+
+    const setDragIndex = (i) => {
+      if (i === dragIndex) return;
+      if (dragIndex >= 0) zones[dragIndex].classList.remove('dragging');
+      dragIndex = i;
+      if (dragIndex >= 0) {
+        zones[dragIndex].classList.add('dragging');
+        showTooltip(zones[dragIndex]);
+        vibrate();
+      }
+    };
+
+    const endDrag = () => {
+      if (dragIndex >= 0) {
+        const zone = zones[dragIndex];
+        zone.classList.remove('dragging');
+        if (zone.dataset.target === '#hero') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const target = document.querySelector(zone.dataset.target);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      dragIndex = -1;
+      hideTooltip();
+    };
+
+    navEl.addEventListener('pointerdown', (e) => {
+      try { navEl.setPointerCapture(e.pointerId); } catch (err) {}
+      setDragIndex(indexFromPoint(e.clientY));
+    });
+    navEl.addEventListener('pointermove', (e) => {
+      if (dragIndex === -1 && e.pointerType === 'mouse') return;
+      if (e.buttons === 0 && e.pointerType === 'mouse') return;
+      const i = indexFromPoint(e.clientY);
+      if (i !== -1) setDragIndex(i);
+    });
+    navEl.addEventListener('pointerup', endDrag);
+    navEl.addEventListener('pointercancel', endDrag);
+
+    const sections = zones.map(z => document.querySelector(z.dataset.target));
+    let spyTicking = false;
+    const updateActiveByScroll = () => {
+      spyTicking = false;
+      const refY = window.innerHeight * 0.35;
+      let activeIdx = 0;
+      sections.forEach((sec, i) => {
+        if (sec && sec.getBoundingClientRect().top <= refY) activeIdx = i;
+      });
+      zones.forEach(z => z.classList.remove('active'));
+      zones[activeIdx].classList.add('active');
+    };
+    window.addEventListener('scroll', () => {
+      if (!spyTicking) {
+        spyTicking = true;
+        requestAnimationFrame(updateActiveByScroll);
+      }
+    }, { passive: true });
+    updateActiveByScroll();
+  });
 </script>
+
+<a href="tel:+972506807708" class="phone-fab" aria-label="התקשרו אלינו: 050-6807708">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg>
+</a>
+
+<nav class="section-nav" id="sectionNav" aria-label="ניווט בין סקשנים">
+  <div class="tick-zone" data-target="#hero" data-label="פתיחה"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#goals" data-label="מטרות הסדנה"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#logos" data-label="סיקור בתקשורת"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#testimonials" data-label="המלצות"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#about" data-label="על המנחה"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#outcomes" data-label="כלים שיישארו"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#quick-facts" data-label="מבנה הסדנה"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#student-voices" data-label="תלמידים כתבו"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#root" data-label="איך זה התחיל"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#gallery" data-label="הסדנה בפעולה"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#faq" data-label="שאלות ותשובות"><span class="tick"></span></div>
+  <div class="tick-zone" data-target="#cta" data-label="יצירת קשר"><span class="tick"></span></div>
+</nav>
+<div class="section-nav-tooltip" id="sectionNavTooltip"></div>
 
 </body>
 </html>
