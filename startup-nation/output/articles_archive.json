@@ -1,7 +1,774 @@
 {
-  "generated_at": "2026-07-09T07:27:42.618041+00:00",
-  "total_articles": 2332,
+  "generated_at": "2026-07-09T15:55:30.801510+00:00",
+  "total_articles": 2400,
   "articles": [
+    {
+      "id": "b8b0a99b8e9001aa",
+      "title": "ילד נפגע מאופנוע בירושלים - מצבו בינוני",
+      "description": "ילד כבן 6 נפגע לפני זמן קצר (חמישי) מאופנוע ברחוב בר אילן בירושלים. חובשים ופראמדיקים של מד\"א העניקו לו טיפול רפואי ופינו אותו לבי\"ח שערי צדק כשהוא במצב בינוני עם חבלות בפנים ובאגן.",
+      "url": "https://news.walla.co.il/break/3852332",
+      "published": "2026-07-09T18:28:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.348412+00:00"
+    },
+    {
+      "id": "d95c1143f519f396",
+      "title": "ערקאצ'י שוחח על ההתפתחויות מול ארה\"ב עם מפקד צבא פקיסטן",
+      "description": "שר החוץ האיראני, עבאס עראקצ'י, דן לפני זמן קצר (חמישי) בהתפתחויות האזוריות האחרונות עם מפקד הצבא הפקיסטני. ערקאצ'י הבהיר כי הוא מגנה את התקיפות הצבאיות האמריקניות נגד איראן ומזהיר מפני כל \"הרפתקנות\" צבאית אמריקנית.",
+      "url": "https://news.walla.co.il/break/3852326",
+      "published": "2026-07-09T17:46:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.348649+00:00"
+    },
+    {
+      "id": "60b5dbb421071410",
+      "title": "צה\"ל חיסל מפקד בארגון גא\"פ ופעיל חמאס ברצועת עזה",
+      "description": "צה\"ל תקף אתמול (רביעי) בדרום רצועת עזה וחיסל את המחבל רשיד אלקאצ'י, ראש מדור במערך הייצור של ארגון גא\"פ. אלקאצ'י לקח חלק מרכזי בתהליכים שונים במערך הייצור של הארגון, האחראי על ייצור ואספקת כלל אמצעי הלחימה לזרוע הצבאית של הארגון. במסגרת תפקידו, היה אחראי לניסיונות של ייצור אמצעי לחימה שנועדו לפגיעה בכוחות צה\"ל ובאזרחי ישראל. בתקיפה נוספת אתמול בצפון הרצועה, צה\"ל חיסל את עבדאללה בהא אלדין רזק אלסוטי, פעיל צליפה בזרוע הצבאית של חמאס. פעילותם של המחבלים בתקופה האחרונה היוותה איום על הכוחות הפועלים ",
+      "url": "https://news.walla.co.il/break/3852321",
+      "published": "2026-07-09T17:32:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.348893+00:00"
+    },
+    {
+      "id": "c94afae9e71cf74d",
+      "title": "שר החוץ האיראני שוחח עם עמיתיו מטורקיה ומעומאן",
+      "description": "על פי הודעה רשמית שפורסמה לפני זמן קצר (חמישי), שרי החוץ של איראן, עומאן וטורקיה דנו בהתפתחויות האזוריות האחרונות, לרבות האירועים האחרונים במצר הורמוז. בהודעה צוין כי שר החוץ האיראני ועמיתיו מעומאן ומטורקיה הדגישו את הצורך לפעול דרך ערוצים דיפלומטיים כדי למנוע הסלמה.",
+      "url": "https://news.walla.co.il/break/3852316",
+      "published": "2026-07-09T17:17:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.349111+00:00"
+    },
+    {
+      "id": "d7d0b99b87405c23",
+      "title": "באורך של כ-200 מטר - ועם עשרות אמצעי לחימה: מערך מנהרות הושמד בדרום לבנון",
+      "description": "כוחות צוות הקרב החטיבתי 551 וכוחות יהל\"ם בפיקוד אוגדה 91, פועלים בימים האחרונים (שלישי) במרחב הכפר מג'דל זון בדרום לבנון, הנמצא במרחב הביטחוני. הממצאים מפעילותם מעלים כי הכפר היה מבוצר ורבוי בתשתיות טרור - נמצאו בו שני תוואים תת קרקעיים שהושמדו.",
+      "url": "https://news.walla.co.il/break/3852310",
+      "published": "2026-07-09T16:58:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.349868+00:00"
+    },
+    {
+      "id": "0443cfa538b25978",
+      "title": "טורקיה ועיראק יחתמו על הסכם על צינור הנפט העובר ביניהן",
+      "description": "שר האנרגיה הטורקי, אלפרסלאן בייראקטר, אמר לפני זמן קצר (חמישי) כי טורקיה ועיראק צפויות לחתום בימים הקרובים על הסכם הנוגע לצינור הנפט הגולמי המקשר ביניהן, אשר יכסה את 12 החודשים הבאים. \"הבאנו את ההסכם, שיכסה את 12 החודשים הבאים, לשלב הסופי. אנו מתכוונים לחתום עליו בימים הקרובים\", אמר בייראקטר, והוסיף כי הזרמת הנפט מעיראק לנמל ג'ייהאן שבטורקיה תימשך.",
+      "url": "https://news.walla.co.il/break/3852309",
+      "published": "2026-07-09T16:58:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.350095+00:00"
+    },
+    {
+      "id": "c50467fd619da3d1",
+      "title": "דיווח סיני: 28 הרוגים בשריפה במחוז פוג'יין",
+      "description": "סוכנות הידיעות הסינית שינחואה דיווחה לפני זמן קצר (חמישי) על 28 הרוגים בשריפה במפעל נעליים במחוז פוג'יין בסין.",
+      "url": "https://news.walla.co.il/break/3852304",
+      "published": "2026-07-09T16:41:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.350298+00:00"
+    },
+    {
+      "id": "7f9dadbbd29786e3",
+      "title": "המפלגות החרדיות התקפלו בפני נתניהו: הסעיף שבוטל בחוק יסוד לימוד תורה",
+      "description": "סיעות דגל התורה וש\"ס פרסמו לפני זמן קצר (חמישי) הודעה משותפת שבה הביעו את התנגדותן לסעיפים החדשים שביקשו בליכוד להוסיף לחוק יסוד: לימוד תורה. אלא שכעת מתברר כי יו\"ר הקואליציה, אופיר כץ, הגיע לסיכום עם המפלגות החרדיות על חוק היסוד, אשר במסגרתו סעיף 2 אשר קובע מאזני צדק בין הערכים - יימחק מהצעת החוק.",
+      "url": "https://news.walla.co.il/break/3852303",
+      "published": "2026-07-09T16:38:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.350540+00:00"
+    },
+    {
+      "id": "13aa556f2c05de30",
+      "title": "צה\"ל ושב\"כ חיסלו מחבל שלקח חלק בחטיפת ישראלים והחזקתם בשבי",
+      "description": "צה\"ל ושב\"כ תקפו בדרום רצועת עזה שלשום (שלישי), וחיסלו את המחבל וחיד אבו סלאם, ששימש בעבר כמפקד הפלוגה המערבית בח'אן יונס. במהלך ה-7/10, סלאם פשט לשטח מדינת ישראל ולקח חלק בחטיפת אזרחים ישראלים לרצועת עזה, ואף לקח חלק בהחזקתם בשבי בדרום הרצועה. בתקופה האחרונה, סלאם קידם מתווי טרור נוספים, בהם ניסיון שיקום אמצעי לחימה שנועדו לפגיעה בכוחות צה\"ל הפועלים במרחב. המחבל היווה איום מיידי על הכוחות וחוסל בתקיפה מדויקת מהאוויר.",
+      "url": "https://news.walla.co.il/break/3852297",
+      "published": "2026-07-09T16:22:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.350756+00:00"
+    },
+    {
+      "id": "4ed1d986bbdb1c73",
+      "title": "איראן שיגרה כ-10 טילים לעבר ירדן - והצהירה כי תהפוך בסיסים אמריקניים למטרות",
+      "description": "כלי תקשורת איראניים דיווחו לפני זמן קצר (חמישי) כי איראן שיגרה כעשרה טילים בליסטיים לעבר הבסיס הצבאי הירדני באזרק. משמרות המהפכה של איראן הצהירו כי אם תימשך \"התוקפנות האמריקנית\", בסיסים אמריקניים באזור יהפכו למטרות.",
+      "url": "https://news.walla.co.il/break/3852293",
+      "published": "2026-07-09T16:10:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.350965+00:00"
+    },
+    {
+      "id": "3d2cb20cb376c73c",
+      "title": "קטאר משהה את מאמציה להרחבת הייצור במתחם הנזלת הגז הטבעי",
+      "description": "מדיווח בבלומברג שפורסם לפני זמן קצר (חמישי) עולה כי קטאר משהה את המאמצים להרחבת הייצור במתחם הנזלת הגז הטבעי הגדול בעולם, לאחר שאחת ממכליותיה הותקפה במצר הורמוז והתגברו החששות כי השיט בנתיב הימי האסטרטגי עדיין מסוכן מדי.",
+      "url": "https://news.walla.co.il/break/3852294",
+      "published": "2026-07-09T16:03:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.351169+00:00"
+    },
+    {
+      "id": "86882b15f72d4ee2",
+      "title": "טלטלה נוספת בפולקסווגן: 100,000 משרות בסכנה",
+      "description": "לפי רויטרס, הנהלת פולקסווגן דנה בתוכנית קיצוצים חסרת תקדים שעשויה לכלול פיטורי 100,000 עובדים וסגירת מספר מפעלים, בצל מחאות נרחבות של עובדי החברה",
+      "url": "https://www.maariv.co.il/news/world/article-1342691",
+      "published": "2026-07-09T15:49:10+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1035451",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.698474+00:00"
+    },
+    {
+      "id": "2fe87dd298d3c4c4",
+      "title": "מתקפת ה\"חיוכים\" של סעודיה כלפי איראן מסתיר את הנקמה המתוקה",
+      "description": "המלכודת האסטרטגית וחרב הפיפיות של הורמוז: מה קורה כשהורמוז \"לא מספק את הסחורה\" והעוקץ העיקרי של האסטרטגיה האיראנית מנוטרל צבאית וכלכלית?",
+      "url": "https://www.maariv.co.il/news/opinions/article-1342714",
+      "published": "2026-07-09T15:48:29+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115170",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.697127+00:00"
+    },
+    {
+      "id": "de4e035cc1abc8d2",
+      "title": "דיווח איראני: 3 אנשי משמרות המהפכה נהרגו בתקיפות אמריקניות",
+      "description": "סוכנות הידיעות האיראנית \"מיזאן\" דיווחה לפני זמן קצר (חמישי) כי שלושה אנשי משמרות המהפכה של איראן נהרגו בתקיפות אמריקניות נגד איראן.",
+      "url": "https://news.walla.co.il/break/3852285",
+      "published": "2026-07-09T15:46:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.351395+00:00"
+    },
+    {
+      "id": "488ced12aa8a4e77",
+      "title": "Abbas declares first Palestinian legislative elections since 2006 to be held Nov. 28",
+      "description": "First vote in two decades scheduled amid demands for reform from European allies, growing criticism over corruption at home The post Abbas declares first Palestinian legislative elections since 2006 to be held Nov. 28 appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/abbas-declares-first-palestinian-legislative-elections-since-2006-to-be-held-nov-28/",
+      "published": "2026-07-09T15:40:48+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/AFP__20260516__B2ZV9NR__v1__HighRes__PalestinianPoliticsFatah-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.763581+00:00"
+    },
+    {
+      "id": "d7ddcfd0713ba684",
+      "title": "הסכסוך על חוב שהסתיים ברצח: בני המשפחה חשודים ברצח בן דודם",
+      "description": "שלושה בני משפחה ממזרח ירושלים חשודים כי רצחו את בן דודם בגלל סכסוך כספי, ירו בו למעלה מ-25 כדורים וניסו להעלים ראיות באמצעות הצתת הקטנוע. התובע מבקש את מעצרם עד תום ההליכים",
+      "url": "https://www.maariv.co.il/news/law/article-1342700",
+      "published": "2026-07-09T15:37:20+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1011069",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.697515+00:00"
+    },
+    {
+      "id": "c3e9284f6df2d0dc",
+      "title": "After ‘loyalty’ uproar, Shin Bet head says agency subordinate to Elections Committee on vote",
+      "description": "Meeting with Herzog and elections oversight chief, David Zini says Shin Bet 'directly subordinate to the chair of the Central Elections Committee' ahead of October vote The post After ‘loyalty’ uproar, Shin Bet head says agency subordinate to Elections Committee on vote appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/after-loyalty-uproar-shin-bet-head-says-agency-subordinate-to-elections-committee-on-vote/",
+      "published": "2026-07-09T15:29:37+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/41738c77-1569-4130-a620-dcc4421d71f1-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.764191+00:00"
+    },
+    {
+      "id": "16db716996e2d496",
+      "title": "צבא ארה\"ב ביצע יותר מ-170 תקיפות באיראן ביומיים האחרונים | דיווח",
+      "description": "לפי דיווח של הניו יורק טיימס, פיקוד המרכז האמריקני ביצע יותר מ-170 תקיפות נגד מטרות צבאיות באיראן ביומיים האחרונים.",
+      "url": "https://news.walla.co.il/break/3852277",
+      "published": "2026-07-09T15:18:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.351606+00:00"
+    },
+    {
+      "id": "646a5f8886b790e7",
+      "title": "Matrix IT buys Laor Energy to expand defense offering",
+      "description": "Matrix IT is paying NIS 73 million for 80% of the Tsipori-based company, which which integrates power systems and electro-mechanical components.",
+      "url": "https://en.globes.co.il/en/article-1001548940#utm_source=RSS",
+      "published": "2026-07-09T15:17:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1710161521/COT_Pic/%D7%92%D7%99%D7%90_%D7%91%D7%A8%D7%A0%D7%A9%D7%98%D7%99%D7%99%D7%9F_pqisyu_nklnky_cenwrg_wdib6m.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.109997+00:00"
+    },
+    {
+      "id": "a339c377ff46084c",
+      "title": "Block reaches $45M settlement with 46 states over Cash App fraud probe",
+      "description": "State attorneys general said they found that Block misled users by falsely advertising that Cash App provided bank-like protections, including advanced fraud detection.",
+      "url": "https://techcrunch.com/2026/07/09/block-reaches-45m-settlement-with-46-states-over-cash-app-fraud-probe/",
+      "published": "2026-07-09T15:16:34+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.523244+00:00"
+    },
+    {
+      "id": "a47af3032efcebfb",
+      "title": "סוריה שבה לארגון הבינלאומי למניעת הפצת נשק כימי",
+      "description": "המדינות החברות בארגון הבינלאומי למניעת הפצת נשק כימי (OPCW) השיבו היום (חמישי) לסוריה את זכויות ההצבעה שלה, בעקבות מה שהגדירו כ\"שינוי משמעותי בנסיבות\" מאז נפילת משטר אסד. סוריה נשללה מזכויותיה בארגון בשנת 2021, לאחר שכוחותיה נמצאו אחראים לשימוש חוזר בגז רעיל במהלך מלחמת האזרחים.",
+      "url": "https://news.walla.co.il/break/3852273",
+      "published": "2026-07-09T15:09:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.351816+00:00"
+    },
+    {
+      "id": "e3b86c8cb676459a",
+      "title": "בעולם הערבי טוענים: \"הגוף שישקם את הדרום, הוא שיזכה בלבנון\"",
+      "description": "בטור שפורסם ב\"אל-נשירה\", נכתבה סקירה מעמיקה על הניסיון של ממשלת לבנון \"לזכות\" מחדש בדרום: \"מה הערך של דרישה למונופול על השימוש בכוח אם היא אינה מלווה ביכולת לספק הגנה, טיפול ושיקום?\"",
+      "url": "https://www.maariv.co.il/news/politics/article-1342696",
+      "published": "2026-07-09T15:02:55+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1102932",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.697820+00:00"
+    },
+    {
+      "id": "f5d98fd4b2507cb0",
+      "title": "The enterprise AI challenge nobody solves with code generation alone",
+      "description": "Presented by SAP Generating code with AI is fast, but getting that code to run reliably inside a large enterprise, integrated with live systems, governed for compliance, and maintainable over years requires foundational work that most organizations underestimate. While 81% of all organizations have a detailed strategy, only 12–16% reach AI‑driven execution , says SAP's Michael Ameling, CPO of SAP Business Technology Platform, and the reasons rarely come down to the quality of the generated code.",
+      "url": "https://venturebeat.com/orchestration/the-enterprise-ai-challenge-nobody-solves-with-code-generation-alone",
+      "published": "2026-07-09T15:00:10+00:00",
+      "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/7zSNxewV8pGdsw8LE6bkdv/37cb42e21f6ea9c22417990f48d9a95c/AdobeStock_1878104375.jpeg?w=300&q=30",
+      "source_id": "venturebeat",
+      "source_name": "VentureBeat",
+      "source_lang": "en",
+      "source_priority": "low",
+      "fetched_at": "2026-07-09T15:55:27.766596+00:00"
+    },
+    {
+      "id": "d02b69e4c2f43767",
+      "title": "הטלוויזיה האיראנית מדווחת על פיצוצים נוספים בבושהר",
+      "description": "הטלוויזיה האיראנית דיווחה היום (חמישי) כי שוב נשמעו פיצוצים בבושהר שבדרום-מערב איראן.",
+      "url": "https://news.walla.co.il/break/3852269",
+      "published": "2026-07-09T15:00:00+00:00",
+      "image_url": "https://images.wcdn.co.il/f_auto,q_auto,w_300/3/7/5/1/3751628-46.jpg",
+      "source_id": "walla_tech",
+      "source_name": "Walla טכנולוגיה",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:28.352016+00:00"
+    },
+    {
+      "id": "83b5e8feedf33b30",
+      "title": "הרמטכ\"ל בטקס סיום קורס טיס: \"הפכנו מעגל שלישי למעגל ראשון\"| שידור ישיר",
+      "description": "כל בכירי המדינה הגיעו היום לטקס מסדר הכנפיים, סיום קורס טיס 192, בבסיס חצרים. בין המשתתפים: ראש הממשלה, נשיא המדינה, שר הביטחון, הרמטכ\"ל ומפקד חיל האוויר | כל העדכונים",
+      "url": "https://www.maariv.co.il/news/israel/article-1342695",
+      "published": "2026-07-09T14:59:36+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1111063",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.698123+00:00"
+    },
+    {
+      "id": "520410f1dd9e4c28",
+      "title": "Anthropic’s new Claude feature is quietly selling you on AI",
+      "description": "Claude’s new Reflect dashboard doesn’t just visualize how you use AI. It also subtly reinforces how much of your daily work now depends on Anthropic’s chatbot.",
+      "url": "https://techcrunch.com/2026/07/09/anthropics-new-claude-feature-is-quietly-selling-you-on-ai/",
+      "published": "2026-07-09T14:53:09+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.523524+00:00"
+    },
+    {
+      "id": "516d473811a56aa7",
+      "title": "Anthropic, OpenAI, and SpaceX are bigger than the last 25 years of tech exits",
+      "description": "Three big AI IPOs are set to generate more value than all the U.S. VC-backed exits since 2000.",
+      "url": "https://techcrunch.com/2026/07/09/anthropic-openai-and-spacex-are-bigger-than-the-last-25-years-of-tech-exits/",
+      "published": "2026-07-09T14:51:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.523743+00:00"
+    },
+    {
+      "id": "c81e1b411dcbece0",
+      "title": "פרופ' אסף רזין, מבכירי הכלכלנים בישראל, נפטר בגיל 85",
+      "description": "רזין שלימד באוניברסיטת תל אביב ובקורנל היה יועץ למספר בנקים לאומיים. בשנות ה-70 היה יועץ כלכלי ראשי לממשלה ופוטר לאחר שהתריע על משבר האינפלציה",
+      "url": "https://www.ynet.co.il/economy/article/ryixn46qfx",
+      "published": "2026-07-09T14:47:23+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/07/09/HJjU4Npmfe/HJjU4Npmfe_0_0_1024_577_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.816761+00:00"
+    },
+    {
+      "id": "f8a877f232ddf555",
+      "title": "ישראל קיבלה מסר חד-משמעי: \"עידן התמיכה האוטומטית הסתיים\"",
+      "description": "רם עמנואל, לשעבר ראש עיריית שיקגו ובכיר במפלגה הדמוקרטית, הציג במהלך ביקורו בישראל את עמדותיו בסוגיות חוץ וביטחון והציג חזון לחיזוק הברית המערבית והיחסים בין ארה\"ב לישראל",
+      "url": "https://www.maariv.co.il/news/politics/article-1342689",
+      "published": "2026-07-09T14:36:37+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1042044",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.698977+00:00"
+    },
+    {
+      "id": "ccb2cb02886b724b",
+      "title": "764 splinter group leader sentenced to 40 years in jail",
+      "description": "Alexis Chavez coerced multiple girls to commit self harm and produce child sexual abuse material for notoriety in a sprawling violent extremist collective affiliated with the Com. The post 764 splinter group leader sentenced to 40 years in jail appeared first on CyberScoop .",
+      "url": "https://cyberscoop.com/764-splinter-group-leader-sentenced-alexis-chavez/",
+      "published": "2026-07-09T14:34:31+00:00",
+      "image_url": null,
+      "source_id": "cyberscoop",
+      "source_name": "CyberScoop",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.850473+00:00"
+    },
+    {
+      "id": "75c4cc005b7239d6",
+      "title": "המתיחות עם טורקיה עולה שלב: בצה\"ל מגיבים",
+      "description": "גורם צבאי מזהיר בשיחה עם \"מעריב\" כי טורקיה פועלת להתקרב לציר העוין לישראל, אך מדגיש כי יש להם עוד כמה שלבים לעבור. עוד הוא מבהיר כי צה\"ל ואמ\"ן נערכים לכל תרחיש",
+      "url": "https://www.maariv.co.il/news/military/article-1342687",
+      "published": "2026-07-09T14:33:59+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115135",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.699269+00:00"
+    },
+    {
+      "id": "530986b401ad432f",
+      "title": "Iran fires 10 missiles at Jordan after US strikes reported near Bushehr nuclear plant",
+      "description": "Tehran accuses US of targeting nuclear power plant perimeter; Iran also launches drones and missiles at Kuwait, Bahrain, Qatar The post Iran fires 10 missiles at Jordan after US strikes reported near Bushehr nuclear plant appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/iran-fires-10-missiles-at-jordan-after-us-strikes-reported-near-bushehr-nuclear-plant/",
+      "published": "2026-07-09T14:20:15+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/DUAL-1454555-1024x640.jpeg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.764763+00:00"
+    },
+    {
+      "id": "ecc1149f33d6e2eb",
+      "title": "כל צמרת המדינה במקום אחד: ההחלטה שמעלה סימני שאלה",
+      "description": "למרות המתיחות מול איראן והירי באזור, בצה\"ל ובשב\"כ נערכים לקיים הערב את טקס סיום קורס הטיס בחצרים בהשתתפות צמרת המדינה. לפי גורמים, בשלב זה לא הוחלט על שינוי",
+      "url": "https://www.maariv.co.il/news/military/article-1342676",
+      "published": "2026-07-09T14:15:13+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/554043",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.700211+00:00"
+    },
+    {
+      "id": "2ac327a750bfca66",
+      "title": "מבוכה גדולה במשטרה מהסרטון שהגיע עד המפכ\"ל: \"אני בהלם - תראו אותה בלי קסדה\"",
+      "description": "שתי שוטרות מתחנת כפר שלם תיעדו את עצמן, כשאחת נוהגת בניידת משטרה והשנייה רוכבת על אופניים ללא קסדה. הסרטון עלה לרשת, ומפכ\"ל המשטרה הנחה לבדוק השעייה של השתיים מהתפקיד",
+      "url": "https://www.maariv.co.il/news/law/article-1342679",
+      "published": "2026-07-09T14:15:11+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1040816",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.699635+00:00"
+    },
+    {
+      "id": "f60eb71213c5d786",
+      "title": "מצמצו בשנייה האחרונה: רגע האמת של החרדים הסתיים בוויתור ענק",
+      "description": "הסערה סביב החוק נראית לקראת סיום, כאשר החרדים הסכימו כי הוא יהיה בשלב זה הצהרתי בלבד. למרות ההודעה החרדית על \"עמידה איתנה\", בפועל מדובר בוויתור משמעותי מול נתניהו והליכוד",
+      "url": "https://www.maariv.co.il/news/politics/article-1342678",
+      "published": "2026-07-09T14:14:04+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115130",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.699926+00:00"
+    },
+    {
+      "id": "5942efd131ee533c",
+      "title": "‘People here all seek revenge’: Crowds mass for Khamenei’s burial, banners call to kill Trump",
+      "description": "Caricatures of the US president and Netanyahu line the procession route in Iran's Mashhad on the sixth and final day of the supreme leader's funeral The post ‘People here all seek revenge’: Crowds mass for Khamenei’s burial, banners call to kill Trump appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/people-here-all-seek-revenge-crowds-mass-for-khameneis-burial-banners-call-to-kill-trump/",
+      "published": "2026-07-09T14:13:21+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/HMyOe2la8AADT92-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.765371+00:00"
+    },
+    {
+      "id": "bf10e4bbea384c53",
+      "title": "At Haifa gathering, scholars launch association for ‘contemporary antisemitism’",
+      "description": "New initiative aims to strengthen global research as scholars say post-October 7 hostilities toward Jews require new academic approaches The post At Haifa gathering, scholars launch association for ‘contemporary antisemitism’ appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/at-haifa-gathering-scholars-launch-association-for-contemporary-antisemitism/",
+      "published": "2026-07-09T14:07:32+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/U-Haifa_Contemporary-Antisemitism-2-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.766264+00:00"
+    },
+    {
+      "id": "635e216e91e4dd7f",
+      "title": "הצטרפה רשמית לישראל: יוון מנסה לבלום את עסקת הענק של טורקיה",
+      "description": "ניקוס דנדיאס הבהיר כי אתונה תפעל לסכל את עסקת מטוסי ה-F-35 לטורקיה, על רקע המתיחות המתמשכת בין שתי המדינות. המהלך עליו הכריזו טראמפ וארדואן צפוי לעמוד בפני לא מעט מכשולים",
+      "url": "https://www.maariv.co.il/news/world/article-1342670",
+      "published": "2026-07-09T13:45:25+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115123",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.700549+00:00"
+    },
+    {
+      "id": "9dece05c2d3ca2ad",
+      "title": "שני צעירים נעצרו בחשד לאונס צעירה שהכירו במד\"א",
+      "description": "שני גברים בשנות העשרים לחייהם נעצרו בחשד לאונס צעירה שהכירו במהלך פעילות התנדבותית במד\"א. השניים נעצרו בתום חקירה סמויה של המשטרה",
+      "url": "https://www.maariv.co.il/news/law/article-1342668",
+      "published": "2026-07-09T13:45:16+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/308710",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.700832+00:00"
+    },
+    {
+      "id": "a5a0a390f805d3c8",
+      "title": "לא רק כמה יורדים במשקל: ההבדלים הדרמטיים בין זריקות ההרזיה נחשפים",
+      "description": "סקירת ענק שכללה 262 מחקרים וכמעט 100 אלף משתתפים השוותה בין 19 תרופות קיימות וניסיוניות לטיפול בהשמנה. החוקרים מזהירים בין היתר שחלק מהמשקל שאובד הוא מסת גוף רזה",
+      "url": "https://www.maariv.co.il/news/health/article-1342664",
+      "published": "2026-07-09T13:42:17+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/948146",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.701115+00:00"
+    },
+    {
+      "id": "d7ffd22c858952e7",
+      "title": "COGAT says Gaza aid has ‘significantly exceeded’ requirements during ceasefire",
+      "description": "Publishing 22-page report detailing its aid efforts, Defense Ministry body says 1.78 million tons of food entered Strip since October 2025, pushing consumer prices to drop some 72% The post COGAT says Gaza aid has ‘significantly exceeded’ requirements during ceasefire appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/cogat-says-gaza-aid-significantly-exceeded-requirements-during-ceasefire/",
+      "published": "2026-07-09T13:30:06+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/F260610ARK06-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.766867+00:00"
+    },
+    {
+      "id": "c532ffd420512f4f",
+      "title": "קרוסלת החוקים של הקואליציה: איזנקוט בדרך להשיג את מה שאף אחד לא הצליח לקחת מנתניהו",
+      "description": "המשבר סביב חוקי הדת והגיוס מאיים לפרק את גוש נתניהו, בזמן שגדי איזנקוט מקפיד שלא לסגור את הדלת בפני החרדים - וממצב את עצמו כשותף אפשרי ליום שאחרי",
+      "url": "https://www.maariv.co.il/news/politics/article-1342658",
+      "published": "2026-07-09T13:20:15+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115114",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.701433+00:00"
+    },
+    {
+      "id": "0567dd2abab49785",
+      "title": "הימין הקיצוני בצרפת מצא נוסחה חדשה לניצחון?",
+      "description": "מארין לה פן יוצאת לקמפיין הנשיאותי הרביעי שלה בצרפת, הפעם כשהיא מצמידה אליה את בן חסותה הצעיר ז'ורדן ברדלה. בפוליטיקו מעריכים: זה יכול להיות מהלך מבריק - או סימן לייאוש",
+      "url": "https://www.maariv.co.il/news/world/article-1342653",
+      "published": "2026-07-09T13:13:52+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1115107",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.701794+00:00"
+    },
+    {
+      "id": "093778b407a3a6b9",
+      "title": "Popular open source AI developer tool Ollama raises $65M, grows to nearly 9M users",
+      "description": "Benchmark-backed Ollama has amassed 176,000 stars, and nearly 17,000 forks on GitHub by helping developers easily run AI on their PCs.",
+      "url": "https://techcrunch.com/2026/07/09/popular-open-source-ai-developer-tool-ollama-raises-65m-grows-to-nearly-9m-users/",
+      "published": "2026-07-09T13:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.523929+00:00"
+    },
+    {
+      "id": "8823733168ee465e",
+      "title": "Character.AI enters the microdrama arena with its own productions, but there’s a twist",
+      "description": "In an interesting twist that takes advantage of the company's core product, users can chat with these shows' characters, ask them questions, and even roleplay different storylines.",
+      "url": "https://techcrunch.com/2026/07/09/character-ai-enters-the-microdrama-arena-with-its-own-productions-but-with-a-twist/",
+      "published": "2026-07-09T13:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.524099+00:00"
+    },
+    {
+      "id": "218f11a89611a9de",
+      "title": "Land contamination threatens thousands of new homes",
+      "description": "In addition to Sde Dov, potentially contaminated sites include Herzliya Airport, the Sirkin IDF base in Petah Tikva, and the Glilot area, lands on which thousands of apartments are planned for the coming years.",
+      "url": "https://en.globes.co.il/en/article-1001548834#utm_source=RSS",
+      "published": "2026-07-09T12:55:57+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1614642223/old/747667.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.110105+00:00"
+    },
+    {
+      "id": "37a05ecf722b6fc9",
+      "title": "Convicted of attempted murder for stabbing Jewish man near synagogue, Swiss teen avoids jail",
+      "description": "Court also finds the radicalized youth intended to kill more people inside house of worship; his age left his sentence capped at 1 year in prison -- which was then commuted The post Convicted of attempted murder for stabbing Jewish man near synagogue, Swiss teen avoids jail appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/convicted-of-attempted-murder-for-stabbing-jewish-man-by-synagogue-swiss-teen-avoids-jail/",
+      "published": "2026-07-09T12:53:57+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2024/03/AFP__20240303__34KL6VT__v1__HighRes__SwitzerlandStabbingSecurityIsraelPalestinianCon-1-e1709528988917-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.767420+00:00"
+    },
+    {
+      "id": "7ae885e81602feb4",
+      "title": "New Arab League chief says he was blocked by Israel from visiting West Bank",
+      "description": "Egyptian diplomat Nabil Fahmy says PA informed him of Israeli refusal; UN says 5,900 West Bank residents displaced by settler violence over past 3 years The post New Arab League chief says he was blocked by Israel from visiting West Bank appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/new-arab-league-chief-says-he-was-blocked-by-israel-from-visiting-west-bank/",
+      "published": "2026-07-09T12:32:23+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/AFP__20140611__Par7904887__v1__HighRes__GreeceEuArabstates-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.767936+00:00"
+    },
+    {
+      "id": "a77885fc2c8d0aac",
+      "title": "Natural History Museum head quits in clash with Tel Aviv University",
+      "description": "Prof. Tamar Dayan says transfer of senior academics from museum to university faculty will strip the former of academic standing; rector insists 'museum will not be harmed' The post Natural History Museum head quits in clash with Tel Aviv University appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/natural-history-museum-head-quits-in-clash-with-tel-aviv-university/",
+      "published": "2026-07-09T12:32:13+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/WhatsApp-Image-2026-07-07-at-15.28.01-1024x640.jpeg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.768476+00:00"
+    },
+    {
+      "id": "9852c8aed1054847",
+      "title": "Likud lawmakers said increasingly worried Netanyahu will skip holding primaries",
+      "description": "MK warns that if the prime minister moves to form a selection committee to choose the party's ticket, there will be 'immediate political consequences' The post Likud lawmakers said increasingly worried Netanyahu will skip holding primaries appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/likud-lawmakers-said-increasingly-worried-netanyahu-will-skip-holding-primaries/",
+      "published": "2026-07-09T12:32:11+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/F260705ALEXPOOL08-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.768987+00:00"
+    },
+    {
+      "id": "52309356cd0b2806",
+      "title": "במקום לריב עם סירי: OpenAI השיקה שיחה קולית חיה ב-ChatGPT",
+      "description": "השקת שירות השיחה הרציפה GPT-Live מבוסס GPT-5.6 מסמנת מהפכה טכנולוגית. לאחר שממשל טראמפ הסיר מגבלות ביטחוניות מחשש מהמתחרות מסין, המערכת הדו-כיוונית זמינה כעת ומאפשרת שיחה אנושית וטבעית לחלוטין ללא שיהוי",
+      "url": "https://www.ynet.co.il/digital/technews/article/h1ewjzt7zg",
+      "published": "2026-07-09T12:19:58+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2023/11/12/S1xub8mRmp/S1xub8mRmp_0_0_2400_1352_0_medium.jpg",
+      "source_id": "ynet_digital",
+      "source_name": "Ynet דיגיטל",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.723435+00:00"
+    },
+    {
+      "id": "9e7163afaa21a1fa",
+      "title": "Israel’s hottest series ‘Bloody Murray’ streaming on ChaiFlicks July 19 - Sponsored Content",
+      "description": "An acclaimed 'ode to classic rom-coms' (Kveller), the award-winning series follows two mid-30s roommates navigating a chaotic love triangle and the struggles of single life. The post Israel’s hottest series ‘Bloody Murray’ streaming on ChaiFlicks July 19 appeared first on The Times of Israel .",
+      "url": "https://toi.li/Whe7FP",
+      "published": "2026-07-09T12:15:41+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/tRaTOt7F-1024x640.jpeg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.769573+00:00"
+    },
+    {
+      "id": "d48e20515748c741",
+      "title": "בעקבות תמותה גבוהה בלול: גליקסמן מורידה ביצים אורגניות מהמדפים",
+      "description": "לאור הנחיה של משרד הבריאות, החברה הודיעה על החזרה יזומה של תריסרי ביצי חופש אורגניות בגודל L או M, במוצרים הנושאים תאריך לשיווק 21.07, תאריך במקרר 20.08 וקוד חקלאי 414020, הנושאים את הכיתוב \"אורגני\" על גבי הביצה או האריזה",
+      "url": "https://www.ynet.co.il/economy/article/hydh6zpqzg",
+      "published": "2026-07-09T12:04:56+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/07/09/ryCZRWT7zg/ryCZRWT7zg_455_0_385_217_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.817119+00:00"
+    },
+    {
+      "id": "ec27bbcd08ec830b",
+      "title": "Nandan Nilekani leaves GP role at Fundamentum as it launches $200M third fund",
+      "description": "Nilekani remains Fundamentum's anchor investor as the firm expands its leadership team and targets AI and fintech startups in India.",
+      "url": "https://techcrunch.com/2026/07/09/nandan-nilekani-leaves-gp-role-at-his-vc-firm-as-it-launches-third-200m-fund/",
+      "published": "2026-07-09T12:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-07-09T15:55:27.524254+00:00"
+    },
+    {
+      "id": "2833cfaf6999c039",
+      "title": "הלם חשבוניות ה-AI: הפיטורים לא חסכו כסף למנהלים אלא להיפך",
+      "description": "סקר עולמי חדש חושף כי מנהלי תאגידים, שפיטרו עובדים מתוך תקווה שבינה מלאכותית תביא לחיסכון, נדהמים כעת מעלויות חישוב מטורפות וממודלי תמחור משתנים שיוצאים משליטה בגלל שימוש בלתי מבוקר של העובדים",
+      "url": "https://www.ynet.co.il/digital/technews/article/b1niqz6xml",
+      "published": "2026-07-09T11:54:26+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2021/06/17/B1l2700Os00/B1l2700Os00_0_0_1000_563_0_medium.jpg",
+      "source_id": "ynet_digital",
+      "source_name": "Ynet דיגיטל",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.723808+00:00"
+    },
+    {
+      "id": "ee41454ab4bcd387",
+      "title": "Azrieli selling stake in data centers unit Green Mountain",
+      "description": "The Israeli income producing company has hired Goldman Sachs to find a partner to invest €1 billion in Green Mountain at a valuation of €4-5 billion.",
+      "url": "https://en.globes.co.il/en/article-1001548831#utm_source=RSS",
+      "published": "2026-07-09T11:39:56+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1648645886/G/%D7%A0%D7%A9%D7%99%D7%9D%20%D7%9E%D7%A9%D7%A4%D7%99%D7%A2%D7%95%D7%AA%2031.3.22/%D7%90%D7%A8%D7%99%D7%A7%20%D7%A1%D7%95%D7%9C%D7%98%D7%9F%202022/eric_sultan----5_hzch7s.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.110219+00:00"
+    },
+    {
+      "id": "25ac53c95e4f9a8d",
+      "title": "Europe Posted Its Strongest Venture Funding Quarter In 4 Years As UK Gains, M&A Holds Up",
+      "description": "In Q2, Europe posted its strongest quarter in four years for venture funding, Crunchbase data shows. All told, Europe-based startups raised $24 billion in the just-ended quarter, up around a third quarter over quarter and two-thirds higher than the $14.4 billion raised in Q2 2025.",
+      "url": "https://news.crunchbase.com/venture/data-funding-ai-ma-up-europe-q2-2026/",
+      "published": "2026-07-09T11:00:22+00:00",
+      "image_url": "https://news.crunchbase.com/wp-content/uploads/space-quarterly-europe-1024x576.jpg",
+      "source_id": "crunchbase",
+      "source_name": "Crunchbase News",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.669330+00:00"
+    },
+    {
+      "id": "3183d2dd7964b575",
+      "title": "New exhibit showcases ancient Jewish village on Sea of Galilee",
+      "description": "Huqoq exhibition in Kibbutz Ginosar features finds from 1,600-year-old northern community that flourished under Byzantine rule The post New exhibit showcases ancient Jewish village on Sea of Galilee appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/new-exhibit-showcases-ancient-jewish-village-on-sea-of-galilee/",
+      "published": "2026-07-09T10:33:38+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/6.פסיפס-שמשון-המקורי-מחוקוק-מוצג-בתערוכה-בבית-יגאל-אלון.-צילום-עינת-עמבר-ערמון-רשות-העתיקות-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.770241+00:00"
+    },
+    {
+      "id": "3f989ba9f4a12f9f",
+      "title": "Daily Briefing July 9 – On razor’s edge: Iran and US continue strikes",
+      "description": "Diplomatic correspondent Lazar Berman with news out of the NATO summit in Ankara and the fraying Israel-Jordan relationship The post Daily Briefing July 9 – On razor’s edge: Iran and US continue strikes appeared first on The Times of Israel .",
+      "url": "https://www.timesofisrael.com/daily-briefing-july-9-on-razors-edge-iran-and-us-continue-strikes/",
+      "published": "2026-07-09T10:33:36+00:00",
+      "image_url": "https://static-cdn.toi-media.com/www/uploads/2026/07/3-1-1024x640.jpg",
+      "source_id": "timesofisrael_tech",
+      "source_name": "Times of Israel Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:30.770827+00:00"
+    },
     {
       "id": "946b8c81be5c0f91",
       "title": "פרסום ראשון: משפחת לבייב ביטלה את הקובלנה נגד סיימון לבייב, המוכר כ\"נוכל הטינדר\"",
@@ -27,6 +794,19 @@
       "source_lang": "he",
       "source_priority": "medium",
       "fetched_at": "2026-07-09T07:27:35.274491+00:00"
+    },
+    {
+      "id": "5aac438850ef232f",
+      "title": "Institutional investors weakening shekel",
+      "description": "The hedging activities of Israel’s institutional investors is the main factor driving the recent depreciation of the shekel but the Bank of Israel and US-Iran tensions are also important influences.",
+      "url": "https://en.globes.co.il/en/article-1001548827#utm_source=RSS",
+      "published": "2026-07-09T09:39:51+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1636298953/direct/shutterstock_2049548558_ywqirg.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.110378+00:00"
     },
     {
       "id": "4e765ffe57eba9af",
@@ -55,6 +835,45 @@
       "fetched_at": "2026-07-09T07:27:35.275243+00:00"
     },
     {
+      "id": "cbf4bfbc196ca558",
+      "title": "הזמינו דירת 5 חדרים אבל קיבלו רק 4. מה הפיצוי?",
+      "description": "בני זוג שרכשו דירה בראש העין במסגרת קבוצת רכישה טענו שהכשל היה גלוי כבר במסמכי התכנון. ביהמ\"ש קבע שמארגנת הקבוצה והמנהל שלה ישלמו 352 אלף ש'",
+      "url": "https://www.ynet.co.il/economy/article/h1vomkpmgg",
+      "published": "2026-07-09T09:05:54+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2020/10/03/HJVLavELIv/HJVLavELIv_50_101_898_506_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.818047+00:00"
+    },
+    {
+      "id": "3149ad84cfce0bf8",
+      "title": "ביה\"ד הרבני נגד דיינים בחו\"ל: \"רע-בנים\"",
+      "description": "אשת סרבן גט עלתה ארצה בלעדיו, ועפ\"י ההלכה יש לראותו כאשם בפרידה. בית הדין באריאל התייחס לרבנים שתמכו בבעל בחו\"ל: \"סייעו להרים יד בתורת משה\"",
+      "url": "https://www.ynet.co.il/economy/article/bjddqjtmzl",
+      "published": "2026-07-09T09:05:17+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2019/02/06/9050407/9050407_92_190_504_284_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.818456+00:00"
+    },
+    {
+      "id": "03ed7587c9c5a605",
+      "title": "להורים גרושים חודש אוגוסט מורכב אפילו יותר",
+      "description": "הקייטנות מסתיימות, הלימודים רחוקים, הלו\"ז משתנה והסדרי השהות עלולים להפוך למוקד מחלוקת. איך להתמודד עם אילוצי הקיץ כשאין הסכמה בין ההורים?",
+      "url": "https://www.ynet.co.il/economy/article/hjlob16qmg",
+      "published": "2026-07-09T08:56:57+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2020/06/17/10040727/10040727_0_29_980_552_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.818792+00:00"
+    },
+    {
       "id": "8a61abf6ebbc5d3a",
       "title": "כ\"ץ: נישאר באזור הביטחון בלבנון ככל שיידרש",
       "description": "שר הביטחון ישראל כ\"ץ הצהיר היום (חמישי): \"לא ביקשנו אישור מאף גורם להיכנס ללבנון ואנחנו לא צריכים אישור כדי להישאר בלבנון\". הוא הדגיש: \"נמשיך להישאר באזור הביטחון בלבנון ולפעול מתוכו ככל שיידרש עד לפירוק החיזבאללה מנשקו בכל לבנון והסרת האיום מעל תושבי הצפון\".",
@@ -68,6 +887,32 @@
       "fetched_at": "2026-07-09T07:27:35.275497+00:00"
     },
     {
+      "id": "cf3321bbc4ed507f",
+      "title": "פורד פיטרה עובד ותיק בטענה שגנב עוגייה - וכשהבינה שטעתה זה היה מאוחר מדי",
+      "description": "יצרנית הרכב הציעה לקורט קרום (60), שעבד 11 שנים במפעל שלה בקנטאקי, לחזור לתפקיד לאחר שבדיקה פנימית קבעה כי חטיף בשווי 1.95 דולר שהוא הואשם בגניבתו שולם בפועל. פורד מסרה כי יקבל פיצוי מלא, אך העובד סירב לשוב",
+      "url": "https://www.ynet.co.il/economy/article/hkb7jc3xgg",
+      "published": "2026-07-09T08:43:29+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/07/09/SyTD0Rn7Ge/SyTD0Rn7Ge_0_254_3000_1689_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.819119+00:00"
+    },
+    {
+      "id": "3cfe284eba6a00a6",
+      "title": "\"אני מרגישה פה כמו בבית מלון\": להתחיל מחדש אחרי גיל 65",
+      "description": "חגית דנה ודורון הררי הכירו בשידוך ועברו לגור יחד מול הים, אילן הגיע לבדו אחרי שאשתו נפטרה ומרגיש היום כאילו עלה על קרוז, ושרהל'ה כל כך שמחה במקום החדש שכבר לא כואב לה: הכירו ארבעה מדיירי \"פרוטיאה בים\", פרויקט הדיור המוגן החדש על הטיילת של ראשון לציון, שהתאהבו בנוף וגילו שיש כזה דבר התחלה חדשה - גם אחרי גיל 65",
+      "url": "https://www.ynet.co.il/economy/article/hji71pfxzg",
+      "published": "2026-07-09T08:29:49+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/07/02/r1NK11F7QMx/r1NK11F7QMx_208_0_2558_1440_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.819520+00:00"
+    },
+    {
       "id": "cfd55150a843eb80",
       "title": "43 בוגרות ובוגרים סיימו את לימודיהם במכללה לביטחון לאומי",
       "description": "43 בוגרות ובוגרים סיימו אתמול (רביעי) את לימודיהם במסגרת מחזור נ\"ג של המכללה לביטחון לאומי. המסיימים מכלל חילות וזרועות צה\"ל, ומארגוני הביטחון וממשרדי הממשלה, מיועדים לתפקידי פיקוד וניהול בכירים בצה\"ל, בארגוני הביטחון ובמשרדי הממשלה.",
@@ -79,6 +924,19 @@
       "source_lang": "he",
       "source_priority": "medium",
       "fetched_at": "2026-07-09T07:27:35.275714+00:00"
+    },
+    {
+      "id": "8a1783da7dd2a71f",
+      "title": "אנבידיה מציגה: כך מאבדים טריליון דולר תוך פחות מחודשיים",
+      "description": "ענקית השבבים צללה ב-18% בוול סטריט מאז השיא אליו הגיעה בחודש מאי (מעל 235 דולר למניה), ומכפיל הרווח העתידי של החברה התכווץ לרמות שלא נראו מזה שבע שנים. מה גרם לכך, ולמה המשקיעים עדיין אופטימיים?",
+      "url": "https://www.ynet.co.il/economy/article/hyctwc3xzg",
+      "published": "2026-07-09T08:15:04+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2025/01/02/rJxFikEIyg/rJxFikEIyg_0_224_2160_1216_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:27.819977+00:00"
     },
     {
       "id": "e529f4e039afaa4b",
@@ -105,6 +963,19 @@
       "source_lang": "he",
       "source_priority": "medium",
       "fetched_at": "2026-07-09T07:27:35.276138+00:00"
+    },
+    {
+      "id": "dc5e810dda1811c7",
+      "title": "Nice CEO: I’ve a strong drive to win. I won’t lose",
+      "description": "Scott Russell talks for the first time about the plunge in Nice’s stock, the AI revolution and the future of the Israeli software company.",
+      "url": "https://en.globes.co.il/en/article-1001548817#utm_source=RSS",
+      "published": "2026-07-09T07:52:40+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1783515558/direct/800_dzvixt.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.110513+00:00"
     },
     {
       "id": "0363f8ed563f7e7a",
@@ -209,6 +1080,19 @@
       "source_lang": "he",
       "source_priority": "medium",
       "fetched_at": "2026-07-09T07:27:35.018190+00:00"
+    },
+    {
+      "id": "a7b3d56474eb5968",
+      "title": "One interface isn't enough for enterprise AI",
+      "description": "Presented by Oracle NetSuite Every major technology transition produces a set of assumptions about where the market is headed. The assumptions are often directionally correct, but they tend to underestimate the degree to which organizations adapt new technologies to their own circumstances. AI is following a similar trajectory. Many current discussions about enterprise AI assume a future in which employees interact with business systems through a common interface. The details vary depending on t",
+      "url": "https://venturebeat.com/orchestration/one-interface-isnt-enough-for-enterprise-ai",
+      "published": "2026-07-09T07:00:00+00:00",
+      "image_url": "https://images.ctfassets.net/jdtwqhzvc2n1/4x9dSPxassUF3IWNIitCAe/45be20ce213185ce3def62a788fc6286/VBImage.jpg?w=300&q=30",
+      "source_id": "venturebeat",
+      "source_name": "VentureBeat",
+      "source_lang": "en",
+      "source_priority": "low",
+      "fetched_at": "2026-07-09T15:55:27.768705+00:00"
     },
     {
       "id": "62338af5f3ef65fd",
@@ -351,7 +1235,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.495700+00:00"
+      "fetched_at": "2026-07-09T15:55:27.820297+00:00"
     },
     {
       "id": "dd8659c7a2e5cd21",
@@ -419,6 +1303,19 @@
       "fetched_at": "2026-07-09T07:27:35.277737+00:00"
     },
     {
+      "id": "f0bfb73a1b7c5973",
+      "title": "Pyrrhus Aeronautics unveils rifle mounted drone control system",
+      "description": "LADRS, battle proven in Gaza and Lebanon, is a joystick-free drone control system that lets combat soldiers operate drones without taking their fingers off their rifle’s trigger.",
+      "url": "https://en.globes.co.il/en/article-1001548808#utm_source=RSS",
+      "published": "2026-07-09T04:46:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1783536412/direct/%D7%9E%D7%A2%D7%A8%D7%9B%D7%AA_%D7%A9%D7%9C%D7%99%D7%98%D7%94_%D7%91%D7%A8%D7%97%D7%A4%D7%A0%D7%99%D7%9D_trwklp.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-07-09T15:55:28.110623+00:00"
+    },
+    {
       "id": "f9d6ace47e44734c",
       "title": "מחיר למשתכן, גרסת הדיור הציבורי: \"אני רוצה שיהיה לבתי מקום לגור בו\"",
       "description": "שרונה יהב מתגוררת בדירת שיכון כל חייה. כעת היא דואגת לעתיד של בתה: \"אני רוצה שיהיה לה מקום לגור בו\". חוק שמקודם בימים אלה מנסה לאפשר לדיירים בדיור ציבורי לרכוש את דירתם במסלול מסובסד, ולסייע להם לצאת ממעגל העוני. אך מנגד, באוצר מסתייגים וחוששים שהחוק עלול להוביל לריקון מלאי הדירות, ולהותיר את מי שיזדקק להן בעתיד ללא מענה",
@@ -429,7 +1326,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.496155+00:00"
+      "fetched_at": "2026-07-09T15:55:27.820787+00:00"
     },
     {
       "id": "8d92d3b5bc2bf671",
@@ -442,7 +1339,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.496601+00:00"
+      "fetched_at": "2026-07-09T15:55:27.821107+00:00"
     },
     {
       "id": "54502e92a72481e4",
@@ -455,7 +1352,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.497053+00:00"
+      "fetched_at": "2026-07-09T15:55:27.821454+00:00"
     },
     {
       "id": "a08c5f4d93b9ac9c",
@@ -468,7 +1365,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.497494+00:00"
+      "fetched_at": "2026-07-09T15:55:27.821758+00:00"
     },
     {
       "id": "2ba1b333718e5050",
@@ -481,7 +1378,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.497929+00:00"
+      "fetched_at": "2026-07-09T15:55:27.822084+00:00"
     },
     {
       "id": "0c373df0ce8c3b4c",
@@ -494,7 +1391,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.533856+00:00"
+      "fetched_at": "2026-07-09T15:55:27.724140+00:00"
     },
     {
       "id": "eb8681369044fcf0",
@@ -546,7 +1443,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.218221+00:00"
+      "fetched_at": "2026-07-09T15:55:27.524476+00:00"
     },
     {
       "id": "cc3d0254d8576d1f",
@@ -598,7 +1495,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.218481+00:00"
+      "fetched_at": "2026-07-09T15:55:27.524656+00:00"
     },
     {
       "id": "9657ce16e2f37620",
@@ -624,7 +1521,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.218695+00:00"
+      "fetched_at": "2026-07-09T15:55:27.524814+00:00"
     },
     {
       "id": "4e5370ee4093d20b",
@@ -650,7 +1547,7 @@
       "source_name": "VentureBeat",
       "source_lang": "en",
       "source_priority": "low",
-      "fetched_at": "2026-07-09T07:27:34.458796+00:00"
+      "fetched_at": "2026-07-09T15:55:27.779625+00:00"
     },
     {
       "id": "dc465fafcd05c5fc",
@@ -663,7 +1560,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.218861+00:00"
+      "fetched_at": "2026-07-09T15:55:27.524962+00:00"
     },
     {
       "id": "9364022ca4af0bab",
@@ -728,7 +1625,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.219021+00:00"
+      "fetched_at": "2026-07-09T15:55:27.525218+00:00"
     },
     {
       "id": "7d8575ce8af83dbc",
@@ -741,7 +1638,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.219185+00:00"
+      "fetched_at": "2026-07-09T15:55:27.525435+00:00"
     },
     {
       "id": "b7d26d07b1eab50c",
@@ -767,7 +1664,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.219371+00:00"
+      "fetched_at": "2026-07-09T15:55:27.530757+00:00"
     },
     {
       "id": "89158568dc785581",
@@ -780,7 +1677,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.219541+00:00"
+      "fetched_at": "2026-07-09T15:55:27.530993+00:00"
     },
     {
       "id": "029962fabb409183",
@@ -793,7 +1690,7 @@
       "source_name": "TechCrunch",
       "source_lang": "en",
       "source_priority": "medium",
-      "fetched_at": "2026-07-09T07:27:34.219696+00:00"
+      "fetched_at": "2026-07-09T15:55:27.531223+00:00"
     },
     {
       "id": "b7babaf0cb64c4cd",
@@ -832,7 +1729,7 @@
       "source_name": "VentureBeat",
       "source_lang": "en",
       "source_priority": "low",
-      "fetched_at": "2026-07-09T07:27:34.462664+00:00"
+      "fetched_at": "2026-07-09T15:55:27.786007+00:00"
     },
     {
       "id": "4c86ace9a43d37f3",
@@ -871,7 +1768,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.627312+00:00"
+      "fetched_at": "2026-07-09T15:55:27.850928+00:00"
     },
     {
       "id": "0a9d4a6486a24119",
@@ -1001,7 +1898,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.498394+00:00"
+      "fetched_at": "2026-07-09T15:55:27.822420+00:00"
     },
     {
       "id": "9328231dcbd842f1",
@@ -1014,7 +1911,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.318943+00:00"
+      "fetched_at": "2026-07-09T15:55:27.669469+00:00"
     },
     {
       "id": "78c85512be1cc1a8",
@@ -1131,7 +2028,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.069674+00:00"
+      "fetched_at": "2026-07-09T15:55:28.110714+00:00"
     },
     {
       "id": "a2be514e74032ea9",
@@ -1222,7 +2119,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.069777+00:00"
+      "fetched_at": "2026-07-09T15:55:28.110807+00:00"
     },
     {
       "id": "e0867eddcb496b6f",
@@ -1352,7 +2249,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.069873+00:00"
+      "fetched_at": "2026-07-09T15:55:28.110895+00:00"
     },
     {
       "id": "b3d176669c8fd955",
@@ -1443,7 +2340,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.069987+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111002+00:00"
     },
     {
       "id": "30298ffe573892a1",
@@ -1599,7 +2496,7 @@
       "source_name": "VentureBeat",
       "source_lang": "en",
       "source_priority": "low",
-      "fetched_at": "2026-07-09T07:27:34.467380+00:00"
+      "fetched_at": "2026-07-09T15:55:27.792477+00:00"
     },
     {
       "id": "569daaf5f15d311b",
@@ -1625,7 +2522,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.070089+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111100+00:00"
     },
     {
       "id": "1007601498193e01",
@@ -1664,7 +2561,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.070191+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111198+00:00"
     },
     {
       "id": "b3d0951e433ca33a",
@@ -1690,7 +2587,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.534204+00:00"
+      "fetched_at": "2026-07-09T15:55:27.724518+00:00"
     },
     {
       "id": "2dc155a0e906e5b9",
@@ -1703,7 +2600,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319067+00:00"
+      "fetched_at": "2026-07-09T15:55:27.669583+00:00"
     },
     {
       "id": "538741ef6bc4736d",
@@ -1716,7 +2613,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319189+00:00"
+      "fetched_at": "2026-07-09T15:55:27.669692+00:00"
     },
     {
       "id": "31d41c0b6f7744b3",
@@ -1729,7 +2626,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.070308+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111287+00:00"
     },
     {
       "id": "19273b1e5597883e",
@@ -1807,7 +2704,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.627755+00:00"
+      "fetched_at": "2026-07-09T15:55:27.851380+00:00"
     },
     {
       "id": "37a656fa635a5595",
@@ -1820,7 +2717,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.070407+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111409+00:00"
     },
     {
       "id": "88159cc0226a6896",
@@ -1833,7 +2730,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.534742+00:00"
+      "fetched_at": "2026-07-09T15:55:27.724851+00:00"
     },
     {
       "id": "306e27d79b688ad1",
@@ -1950,7 +2847,7 @@
       "source_name": "VentureBeat",
       "source_lang": "en",
       "source_priority": "low",
-      "fetched_at": "2026-07-09T07:27:34.468836+00:00"
+      "fetched_at": "2026-07-09T15:55:27.794018+00:00"
     },
     {
       "id": "66e5796fb047d500",
@@ -2444,7 +3341,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.628170+00:00"
+      "fetched_at": "2026-07-09T15:55:27.851801+00:00"
     },
     {
       "id": "52a07dcca86eefe2",
@@ -2496,7 +3393,7 @@
       "source_name": "VentureBeat",
       "source_lang": "en",
       "source_priority": "low",
-      "fetched_at": "2026-07-09T07:27:34.470056+00:00"
+      "fetched_at": "2026-07-09T15:55:27.795227+00:00"
     },
     {
       "id": "8062357ddb1d97bc",
@@ -2509,7 +3406,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.628796+00:00"
+      "fetched_at": "2026-07-09T15:55:27.852479+00:00"
     },
     {
       "id": "8d216c23c2553b8e",
@@ -2626,7 +3523,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.070498+00:00"
+      "fetched_at": "2026-07-09T15:55:28.111500+00:00"
     },
     {
       "id": "f47147122ab34953",
@@ -3354,7 +4251,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.535080+00:00"
+      "fetched_at": "2026-07-09T15:55:27.725174+00:00"
     },
     {
       "id": "ccb70e231340c4b4",
@@ -3471,7 +4368,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.535432+00:00"
+      "fetched_at": "2026-07-09T15:55:27.725545+00:00"
     },
     {
       "id": "461c72eebb0460ce",
@@ -3536,7 +4433,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319349+00:00"
+      "fetched_at": "2026-07-09T15:55:27.669803+00:00"
     },
     {
       "id": "ba509f01075fc2f4",
@@ -3640,7 +4537,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.535767+00:00"
+      "fetched_at": "2026-07-09T15:55:27.725864+00:00"
     },
     {
       "id": "5c9a844f85297357",
@@ -3653,7 +4550,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.629213+00:00"
+      "fetched_at": "2026-07-09T15:55:27.852906+00:00"
     },
     {
       "id": "0d27fad63e0f17f9",
@@ -4550,7 +5447,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.629682+00:00"
+      "fetched_at": "2026-07-09T15:55:27.853328+00:00"
     },
     {
       "id": "9fc830953306b8e4",
@@ -4849,7 +5746,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.630102+00:00"
+      "fetched_at": "2026-07-09T15:55:27.853765+00:00"
     },
     {
       "id": "9c586cd81094740c",
@@ -5213,7 +6110,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.536087+00:00"
+      "fetched_at": "2026-07-09T15:55:27.726346+00:00"
     },
     {
       "id": "1c8228995f7214e2",
@@ -5395,7 +6292,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319467+00:00"
+      "fetched_at": "2026-07-09T15:55:27.669944+00:00"
     },
     {
       "id": "3d0ef1f6c7924a64",
@@ -5408,7 +6305,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319586+00:00"
+      "fetched_at": "2026-07-09T15:55:27.670076+00:00"
     },
     {
       "id": "3fdbc7d2752e2815",
@@ -5421,7 +6318,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.536553+00:00"
+      "fetched_at": "2026-07-09T15:55:27.726707+00:00"
     },
     {
       "id": "4987292c09506d0c",
@@ -5538,7 +6435,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.630563+00:00"
+      "fetched_at": "2026-07-09T15:55:27.854171+00:00"
     },
     {
       "id": "2eacbbfa23b3df9d",
@@ -5603,7 +6500,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.536908+00:00"
+      "fetched_at": "2026-07-09T15:55:27.727167+00:00"
     },
     {
       "id": "78f1a96f06aec6cd",
@@ -6503,19 +7400,6 @@
       "fetched_at": "2026-07-05T14:42:01.497549+00:00"
     },
     {
-      "id": "3cfe284eba6a00a6",
-      "title": "\"אני מרגישה פה כמו בבית מלון\": להתחיל מחדש אחרי גיל 65",
-      "description": "חגית דנה ודורון הררי הכירו בשידוך ועברו לגור יחד מול הים, אילן הגיע לבדו אחרי שאשתו נפטרה ומרגיש היום כאילו עלה על קרוז, ושרהל'ה כל כך שמחה במקום החדש שכבר לא כואב לה: הכירו ארבעה מדיירי \"פרוטיאה בים\", פרויקט הדיור המוגן החדש על הטיילת של ראשון לציון, שהתאהבו בנוף וגילו שיש כזה דבר התחלה חדשה - גם אחרי גיל 65",
-      "url": "https://www.ynet.co.il/economy/article/hji71pfxzg",
-      "published": "2026-07-05T14:33:43+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/07/02/r1NK11F7QMx/r1NK11F7QMx_208_0_2558_1440_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-07-06T08:09:05.699010+00:00"
-    },
-    {
       "id": "3c209613769b0336",
       "title": "בג\"ץ: על נתניהו להשיב מדוע לא ימנה ממלא-מקום מנכ\"ל משרד ראש הממשלה",
       "description": "בג\"ץ הוציא צו על-תנאי בעתירה שהגישה התנועה לטוהר המידות שביקשה להפסיק את כהונתה של המקורבת לראש הממשלה, דרורית שטיינמץ, בתפקיד ממלאת מקום המנכ\"ל",
@@ -6877,7 +7761,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.537244+00:00"
+      "fetched_at": "2026-07-09T15:55:27.727556+00:00"
     },
     {
       "id": "84e9acfcd0c03db2",
@@ -7098,7 +7982,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.537616+00:00"
+      "fetched_at": "2026-07-09T15:55:27.727896+00:00"
     },
     {
       "id": "b2ab7e2f67a849dc",
@@ -7280,7 +8164,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.537942+00:00"
+      "fetched_at": "2026-07-09T15:55:27.728214+00:00"
     },
     {
       "id": "748e7c63ef4ad264",
@@ -9594,7 +10478,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.538295+00:00"
+      "fetched_at": "2026-07-09T15:55:27.728586+00:00"
     },
     {
       "id": "ecd6f3936d5045a9",
@@ -9906,7 +10790,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.631243+00:00"
+      "fetched_at": "2026-07-09T15:55:27.854616+00:00"
     },
     {
       "id": "979f8b34432cf9ac",
@@ -10569,7 +11453,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319699+00:00"
+      "fetched_at": "2026-07-09T15:55:27.670187+00:00"
     },
     {
       "id": "192eba0be3d89a5b",
@@ -11310,7 +12194,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319824+00:00"
+      "fetched_at": "2026-07-09T15:55:27.670294+00:00"
     },
     {
       "id": "4e7a3bbc12e57d56",
@@ -12376,7 +13260,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.319941+00:00"
+      "fetched_at": "2026-07-09T15:55:27.670448+00:00"
     },
     {
       "id": "71bb423a7e3be1db",
@@ -29887,7 +30771,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.669808+00:00"
+      "fetched_at": "2026-07-09T15:55:27.530532+00:00"
     },
     {
       "id": "541f5cac6dcc3d24",
@@ -29952,7 +30836,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.669978+00:00"
+      "fetched_at": "2026-07-09T15:55:27.531536+00:00"
     },
     {
       "id": "b4eca11bf8ab5a85",
@@ -29965,7 +30849,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670138+00:00"
+      "fetched_at": "2026-07-09T15:55:27.531712+00:00"
     },
     {
       "id": "cf73e074cb3532df",
@@ -29978,7 +30862,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670318+00:00"
+      "fetched_at": "2026-07-09T15:55:27.531879+00:00"
     },
     {
       "id": "cd6fbf97c61614cb",
@@ -29991,7 +30875,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670483+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532068+00:00"
     },
     {
       "id": "0637843f4d9ed5ca",
@@ -30004,7 +30888,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670644+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532215+00:00"
     },
     {
       "id": "1865093c7f77b9f9",
@@ -30017,7 +30901,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670793+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532408+00:00"
     },
     {
       "id": "15014520f40ab3d0",
@@ -30030,7 +30914,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.670970+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532557+00:00"
     },
     {
       "id": "92b67574ec13661b",
@@ -30043,7 +30927,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.671118+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532710+00:00"
     },
     {
       "id": "e0e214103d981d2d",
@@ -30056,7 +30940,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.671288+00:00"
+      "fetched_at": "2026-07-09T15:55:27.532870+00:00"
     },
     {
       "id": "2c54f8e83ce23078",
@@ -30069,7 +30953,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.671442+00:00"
+      "fetched_at": "2026-07-09T15:55:27.533126+00:00"
     },
     {
       "id": "c30ac7b271b06d0c",
@@ -30082,7 +30966,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.671698+00:00"
+      "fetched_at": "2026-07-09T15:55:27.533269+00:00"
     },
     {
       "id": "a24c597ade4690b7",
@@ -30095,7 +30979,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.671860+00:00"
+      "fetched_at": "2026-07-09T15:55:27.533443+00:00"
     },
     {
       "id": "6ca4439c7c63fc3f",
@@ -30108,7 +30992,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.672009+00:00"
+      "fetched_at": "2026-07-09T15:55:27.533587+00:00"
     },
     {
       "id": "61e6161effd44a88",
@@ -30121,7 +31005,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:34.672255+00:00"
+      "fetched_at": "2026-07-09T15:55:27.533729+00:00"
     },
     {
       "id": "718dbefadf05b4d3",
@@ -30134,7 +31018,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.668834+00:00"
+      "fetched_at": "2026-07-09T15:55:29.064661+00:00"
     },
     {
       "id": "27b1e03aad410152",
@@ -30147,7 +31031,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.669344+00:00"
+      "fetched_at": "2026-07-09T15:55:29.065153+00:00"
     },
     {
       "id": "59606b94bf2e289b",
@@ -30160,7 +31044,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.669811+00:00"
+      "fetched_at": "2026-07-09T15:55:29.065643+00:00"
     },
     {
       "id": "955a4c8e1961bc4e",
@@ -30173,7 +31057,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.670292+00:00"
+      "fetched_at": "2026-07-09T15:55:29.066112+00:00"
     },
     {
       "id": "29bd3f845ff93365",
@@ -30186,7 +31070,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.670781+00:00"
+      "fetched_at": "2026-07-09T15:55:29.066593+00:00"
     },
     {
       "id": "69b545a569b46683",
@@ -30199,7 +31083,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.671231+00:00"
+      "fetched_at": "2026-07-09T15:55:29.067034+00:00"
     },
     {
       "id": "5f123fdf6f498f26",
@@ -30212,7 +31096,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.671711+00:00"
+      "fetched_at": "2026-07-09T15:55:29.067514+00:00"
     },
     {
       "id": "b318d120e03a9a1e",
@@ -30225,7 +31109,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.672313+00:00"
+      "fetched_at": "2026-07-09T15:55:29.068112+00:00"
     },
     {
       "id": "8bf890854a081856",
@@ -30238,7 +31122,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.672762+00:00"
+      "fetched_at": "2026-07-09T15:55:29.068580+00:00"
     },
     {
       "id": "870a8c373bcb4c31",
@@ -30251,7 +31135,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.673210+00:00"
+      "fetched_at": "2026-07-09T15:55:29.069024+00:00"
     },
     {
       "id": "287e24cc0e227d3a",
@@ -30264,7 +31148,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.673682+00:00"
+      "fetched_at": "2026-07-09T15:55:29.069504+00:00"
     },
     {
       "id": "d0b006dce3a844a9",
@@ -30277,7 +31161,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.674126+00:00"
+      "fetched_at": "2026-07-09T15:55:29.069959+00:00"
     },
     {
       "id": "884548edf9455810",
@@ -30290,7 +31174,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.674719+00:00"
+      "fetched_at": "2026-07-09T15:55:29.070457+00:00"
     },
     {
       "id": "c2614a6617042e61",
@@ -30303,7 +31187,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.675192+00:00"
+      "fetched_at": "2026-07-09T15:55:29.070933+00:00"
     },
     {
       "id": "e9982dd6535f2fd9",
@@ -30316,7 +31200,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-07-09T07:27:35.675697+00:00"
+      "fetched_at": "2026-07-09T15:55:29.071407+00:00"
     }
   ]
 }
