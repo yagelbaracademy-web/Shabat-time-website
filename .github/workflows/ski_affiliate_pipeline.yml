@@ -1,0 +1,50 @@
+name: Ski Affiliate Product Collection
+
+on:
+  schedule:
+    # 06:00 Israel time (UTC+3 in summer) - daily; the script itself only
+    # does real work when the sheet's unposted buffer drops to 5 or below
+    - cron: '0 3 * * *'
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  collect-products:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ski-affiliate
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: ski-affiliate/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write service account key
+        run: echo "$SHEET_SERVICE_ACCOUNT_JSON" > service_account.json
+        env:
+          SHEET_SERVICE_ACCOUNT_JSON: ${{ secrets.SKI_SHEET_SERVICE_ACCOUNT_JSON }}
+
+      - name: Collect products
+        env:
+          ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
+          ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
+          ALIEXPRESS_TRACKING_ID: ${{ secrets.ALIEXPRESS_TRACKING_ID }}
+        run: python3 collect_products.py
+
+      - name: Commit updated state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add state.json
+          git diff --cached --quiet || git commit -m "chore: auto-update ski affiliate state [skip ci]"
+          git push
