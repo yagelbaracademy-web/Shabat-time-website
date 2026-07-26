@@ -32,7 +32,7 @@ def build_api():
     return AliexpressApi(
         os.environ["ALIEXPRESS_APP_KEY"],
         os.environ["ALIEXPRESS_APP_SECRET"],
-        models.Language.HE,
+        models.Language.EN,
         models.Currency.USD,
         os.environ["ALIEXPRESS_TRACKING_ID"],
     )
