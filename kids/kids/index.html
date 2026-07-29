@@ -3,6 +3,23 @@
 <head>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BCFJ4LHHR"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8BCFJ4LHHR');</script>
+  <!-- Meta Pixel Code -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1033084499452226');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1033084499452226&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>סדנת ילדים ברשת | יגל בר – סדנה על אלימות ברשת ורשתות חברתיות לבתי ספר</title>
@@ -243,13 +260,22 @@
     .lezichram-stat-num { font-size: 42px; font-weight: 900; color: var(--white); letter-spacing: -.03em; line-height: 1; }
     .lezichram-stat-num span { color: var(--orange); }
     .lezichram-stat p { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 6px; margin-bottom: 0; }
+    .lz-stat-line { margin-top: 28px; font-size: 14px; font-weight: 700; color: var(--orange); }
+    .lezichram-quote { margin-top: 10px; padding: 24px 28px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); display: flex; align-items: flex-start; gap: 18px; }
+    .lz-quote-photo { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+    .lz-quote-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .lz-quote-body { flex: 1; }
+    .lz-quote-mark { font-size: 34px; line-height: .6; color: var(--gold); font-family: Georgia, serif; margin-bottom: 8px; display: block; }
+    .lz-quote-text { font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.55; margin: 0 0 10px; }
+    .lz-quote-attribution { font-size: 13.5px; color: rgba(255,255,255,.5); margin: 0; }
+    @media (max-width: 480px) { .lezichram-quote { flex-direction: column; align-items: center; text-align: center; } }
     .lz-media { margin-top: 32px; }
     .lz-media-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 14px; }
-    .lz-media-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-    .lz-media-row .logo-item img { opacity: .75; filter: brightness(0) invert(1); transition: opacity .2s; }
-    .lz-media-row .logo-item img:hover { opacity: 1; }
-    .lz-media-row .logo-mako img { background: transparent; padding: 0; filter: brightness(0) invert(1); }
-    .lz-media-row .logo-i24 img { background: transparent; padding: 0; filter: brightness(0) invert(1); }
+    .lz-media-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .lz-media-row .logo-item { transition: transform .15s, box-shadow .15s; cursor: pointer; }
+    .lz-media-row .logo-item:hover { transform: translateY(-2px); }
+    .lz-media-row .logo-item img { height: 28px; width: auto; object-fit: contain; }
+    .lz-media-row .logo-chip { background: #fff; border-radius: 8px; padding: 6px 14px; height: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
     .lezichram-image { position: relative; overflow: visible; }
     .lz-img-wrap { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/5; }
     .lz-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
@@ -492,9 +518,10 @@
   <div class="container-wide">
     <div class="intro-grid">
       <div class="intro-text reveal in">
-        <h2>מה שקורה ברשת לא נשאר ברשת.<br>זה מגיע לבית, ולכיתה.</h2>
-        <p>כל מי שעובד עם ילדים רואה את זה — חרמות, ילדים שמתמודדים עם בריונות, לחץ חברתי שמגיע לכיתה ממקום שלא רואים. אתם דואגים ורוצים לעזור, אבל העולם הזה השתנה כל כך מהר, שקשה לדעת מאיפה לפתוח את השיחה.</p>
-        <p>הילדים חיים בצ'אטים, במשחקי מחשב וברשתות חברתיות. הם נתקלים בבריונות, לחץ ומניפולציה — ולא תמיד מספרים. הם צריכים כלים שיעזרו להם להתמודד, <strong>ממי שחי את העולם הזה, יודע איך הוא עובד, ומדבר איתם בגובה העיניים.</strong></p>
+        <h2>מה שקורה ברשת לא נשאר ברשת.<br>זה מגיע לבית, לרחוב, לבית הספר.</h2>
+        <p>מי שעובד עם ילדים רואה את זה - חרמות, בריונות, לחץ חברתי, זמן מסך מוגזם, טרנדים בעייתיים שמגיעים לכיתה.</p>
+        <p><strong>הילדים צריכים מישהו שיעזור להם להבין את עולם הדיגיטל ויתן להם כלים להתמודד עם האתגרים בו. מישהו שחי את העולם הזה.</strong></p>
+        <p>אני יוצר תוכן עם מעל <strong style="color:var(--orange)">150 מיליון צפיות</strong>, למותגים, עמותות ומשפיענים מוכרים. בסדנה אני חושף בפני התלמידים את <strong>המנגנונים מאחורי הקלעים</strong> שמשפיעים עליהם, ואף אחד לא רוצה שיכירו.</p>
       </div>
       <div class="topics-card reveal reveal-d1 in">
         <h3>נושאי הסדנה</h3>
@@ -703,18 +730,23 @@
         </div>
       </div>
       <p>ב-2022, בגיל 21, הקמתי את <strong>מיזם ההנצחה הגדול ברשתות החברתיות בישראל.</strong> אלפי פוסטים, כל אחד מספר על נופל אחר — כדי לדבר עם הדור הצעיר בשפה שלו.</p>
-      <p>וזה בדיוק מה שאני מעביר לילדים בסדנה: <strong>שלרשתות החברתיות יש כוח. השאלה היא איך בוחרים להשתמש בו.</strong></p>
-      <div class="lezichram-stat">
-        <div class="lezichram-stat-num">140<span>M</span></div>
-        <p>צפיות באינסטגרם · 20,000+ נופלים מונצחים · מיזם לאומי</p>
+      <p><strong>לרשתות החברתיות יש כוח. השאלה היא איך בוחרים להשתמש בו.</strong></p>
+      <p class="lz-stat-line">20,000+ נופלים מונצחים בעמוד · מיזם לאומי</p>
+      <div class="lezichram-quote">
+        <div class="lz-quote-photo"><img src="images/amit-ben-yigal.png" alt='עמית בן יגאל ז"ל'></div>
+        <div class="lz-quote-body">
+          <span class="lz-quote-mark">״</span>
+          <p class="lz-quote-text">לקחת את המושג 'חלל' שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת את הגאולה.</p>
+          <p class="lz-quote-attribution">— נאוה, אמו של עמית בן יגאל ז"ל</p>
+        </div>
       </div>
       <div class="lz-media">
         <p class="lz-media-label">המיזם סוקר ב</p>
         <div class="lz-media-row">
-          <span class="logo-item"><img src="images/logo-ynet.gif" alt="ynet"></span>
-          <span class="logo-item logo-mako"><img src="images/logo-mako.png" alt="מאקו"></span>
+          <a class="logo-item logo-chip" href="https://www.instagram.com/p/Crg3VYpIMEZ/?igsh=MWZqeTVxYjUxNzVvNQ==" target="_blank" rel="noopener"><img src="images/logo-ynet.gif" alt="ynet"></a>
+          <a class="logo-item logo-mako" href="https://www.mako.co.il/nexter-news/Article-6abdc411e1a8081027.htm" target="_blank" rel="noopener"><img src="images/logo-mako.png" alt="מאקו"></a>
           <span class="logo-item logo-i24"><img src="../../the-leader-workshop/images/logo-i24.svg" alt="i24 NEWS"></span>
-          <span class="logo-item"><img src="images/logo-ice.png" alt="ice"></span>
+          <a class="logo-item logo-chip" href="https://www.ice.co.il/media/news/article/855414" target="_blank" rel="noopener"><img src="images/logo-ice.png" alt="ice"></a>
         </div>
         <a href="#cta" class="btn btn-primary" style="margin-top:24px;display:inline-flex">בדקו התאמה לתלמידים שלכם
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
