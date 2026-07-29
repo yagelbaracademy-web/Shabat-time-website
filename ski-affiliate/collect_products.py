@@ -20,8 +20,10 @@ BUFFER_THRESHOLD = 5
 
 def load_state():
     if STATE_PATH.exists():
-        return json.loads(STATE_PATH.read_text())
-    return {"seen_product_ids": []}
+        state = json.loads(STATE_PATH.read_text())
+        state.setdefault("seen_titles", [])
+        return state
+    return {"seen_product_ids": [], "seen_titles": []}
 
 
 def save_state(state):
@@ -55,6 +57,7 @@ def collect(dry_run=False):
     api = build_api()
     state = load_state()
     seen = set(str(x) for x in state["seen_product_ids"])
+    seen_titles = set(state["seen_titles"])
     new_products = []
 
     for cat in CATEGORIES:
@@ -75,11 +78,14 @@ def collect(dry_run=False):
                 continue
 
             products = getattr(response, "products", None) or []
+            pool_titles = {x.product_title for x in family_pool}
             qualifying = [
                 p for p in products
                 if (getattr(p, "lastest_volume", 0) or 0) >= MIN_ORDERS
                 and str(p.product_id) not in seen
                 and p.product_id not in {x.product_id for x in family_pool}
+                and p.product_title not in seen_titles
+                and p.product_title not in pool_titles
             ]
             qualifying = qualifying[: cat.get("max_per_keyword", 5)]
             family_pool.extend(qualifying)
@@ -103,6 +109,7 @@ def collect(dry_run=False):
             for p in kept:
                 short_link = link_map.get(p.product_detail_url, p.promotion_link)
                 seen.add(str(p.product_id))
+                seen_titles.add(p.product_title)
                 new_products.append(product_to_record(p, short_link, cat["name"]))
 
     print(f"\nnew qualifying products found: {len(new_products)}")
@@ -113,6 +120,7 @@ def collect(dry_run=False):
         print(f"appended {n} rows to the sheet")
 
         state["seen_product_ids"] = sorted(seen)
+        state["seen_titles"] = sorted(seen_titles)
         save_state(state)
 
         out_path = Path(__file__).parent / f"candidates_{date.today().isoformat()}.json"
