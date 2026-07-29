@@ -43,9 +43,12 @@
     "@type": "FAQPage",
     "mainEntity": [
       {"@type":"Question","name":"מה ייחודי בסדנת ילדים ברשת?","acceptedAnswer":{"@type":"Answer","text":"הסדנה מגיעה מבפנים. יגל בר, יוצר תוכן עם 7+ שנות ניסיון ביצירת תכנים שהגיעו לעשרות מיליוני צפיות, מסביר לילדים איך הרשתות עובדות מאחורי הקלעים — עם דוגמאות מעולמם של הילדים ובשפה שהם מבינים."}},
+      {"@type":"Question","name":"לאיזה מסגרות מתאימה הסדנה?","acceptedAnswer":{"@type":"Answer","text":"בתי ספר יסודיים (כיתות ג'-ו'), מתנ\"סים ומרכזים חברתיים, עיריות ומועצות אזוריות, קייטנות וערבי הורים. מוזמנת בדרך כלל על ידי מנהלי בתי ספר, יועצות ויועצים חינוכיים, רכזי מוגנות ותקשוב ומנהלי אגפי חינוך בעיריות."}},
+      {"@type":"Question","name":"האם התוכן מותאם לגיל הילדים?","acceptedAnswer":{"@type":"Answer","text":"כן. הסדנה נבנתה במיוחד לגיל בית הספר היסודי, כיתות ג'-ו', ומכוונת לפני כל מפגש לשכבת הגיל הספציפית."}},
       {"@type":"Question","name":"האם ניתן לממן דרך תקציב גפן?","acceptedAnswer":{"@type":"Answer","text":"כן. הסדנה מאושרת רשמית למימון דרך תקציב גפ\"ן — מספר תוכנית 70107."}},
       {"@type":"Question","name":"כמה זמן נמשכת הסדנה?","acceptedAnswer":{"@type":"Answer","text":"מפגש חד-פעמי נמשך כשעה. ניתן גם להזמין סדרת מפגשים מעמיקה לפי הצורך ולוח הזמנים של בית הספר."}},
-      {"@type":"Question","name":"לכמה תלמידים אפשר בבת אחת?","acceptedAnswer":{"@type":"Answer","text":"גמיש לחלוטין — מכיתה של 30 תלמידים ועד שכבה שלמה ואפילו כל בית הספר."}}
+      {"@type":"Question","name":"לכמה תלמידים אפשר בבת אחת?","acceptedAnswer":{"@type":"Answer","text":"גמיש לחלוטין — אפשר להזמין לכיתה בודדת, לשכבה שלמה, ואפילו לכל בית הספר."}},
+      {"@type":"Question","name":"כמה זמן מראש כדאי להזמין את הסדנה?","acceptedAnswer":{"@type":"Answer","text":"מומלץ ליצור קשר מוקדם ככל האפשר, במיוחד סביב תחילת שנת הלימודים כשהמועדים מתמלאים מהר."}}
     ]
   }
   </script>
@@ -110,8 +113,13 @@
     .nav-inner { max-width: var(--max-wide); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
     .nav-logo { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -.01em; }
     .nav-sep { display: inline-block; width: 1px; height: 13px; background: rgba(0,0,0,.18); margin: 0 10px; vertical-align: middle; }
-    .nav-cta { font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); background: var(--text); padding: 9px 22px; border-radius: 100px; border: none; cursor: pointer; transition: background .2s, transform .15s; }
-    .nav-cta:hover { background: #333; transform: translateY(-1px); }
+    .nav-cta { font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); background: var(--orange); padding: 9px 22px; border-radius: 100px; border: none; cursor: pointer; transition: background .2s, transform .15s; }
+    .nav-cta:hover { background: #C2460A; transform: translateY(-1px); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-call { display: inline-flex; align-items: center; gap: 7px; font-family: 'Heebo', sans-serif; font-size: 14px; font-weight: 700; color: var(--white); background: #1DA851; padding: 9px 20px; border-radius: 100px; border: none; cursor: pointer; transition: background .2s, transform .15s; }
+    .nav-call:hover { background: #168C41; transform: translateY(-1px); }
+    .nav-call svg { width: 14px; height: 14px; fill: #fff; flex-shrink: 0; }
+    @media (max-width: 520px) { .nav-call span { display: none; } .nav-call { padding: 9px 12px; } }
 
     /* ── HERO ── */
     #hero {
@@ -128,7 +136,7 @@
     }
     #hero::before {
       content: ''; position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.30) 38%, rgba(0,0,0,.82) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,.40) 0%, rgba(0,0,0,.40) 38%, rgba(0,0,0,.92) 100%);
       pointer-events: none;
     }
     .hero-inner { position: relative; z-index: 2; max-width: 820px; margin: 0 auto; width: 100%; }
@@ -182,6 +190,11 @@
     .intro-text h2 { margin-bottom: 20px; }
     .intro-text p { font-size: clamp(15px,1.6vw,17px); color: var(--text-mid); line-height: 1.8; margin-bottom: 16px; }
     .intro-text p strong { color: var(--text); }
+    .intro-photo { float: left; width: 190px; margin: 4px 0 18px 24px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 16px 36px rgba(0,0,0,.14); shape-outside: margin-box; }
+    .intro-photo img { width: 100%; height: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center 20%; }
+    @media (max-width: 860px) { .intro-photo { float: none; width: 100%; max-width: 280px; margin: 0 auto 22px; } }
+    .intro-form-wrap { max-width: 640px; margin: 44px auto 0; }
+    .intro-form-wrap .contact-form { padding: 30px 28px; }
     .topics-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 34px 30px; box-shadow: 0 10px 32px rgba(0,0,0,.05); }
     .topics-card h3 { font-size: 18px; margin-bottom: 20px; }
     .topics-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
@@ -198,17 +211,17 @@
 
     /* ── TESTIMONIALS ── */
     #testimonials { background: var(--bg-warm); }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: var(--max-wide); margin: 0 auto; }
-    .testimonial { background: var(--white); border-radius: 18px; padding: 32px 28px; box-shadow: 0 4px 16px rgba(0,0,0,.04), 0 0 0 1px var(--border); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: var(--max-wide); margin: 0 auto; padding-top: 50px; }
+    .testimonial { position: relative; background: var(--white); border-radius: 18px; padding: 112px 28px 32px; box-shadow: 0 4px 16px rgba(0,0,0,.04), 0 0 0 1px var(--border); display: flex; flex-direction: column; transition: transform .25s, box-shadow .25s; }
     .testimonial:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08), 0 0 0 1px var(--border); }
+    .tschool-logo { position: absolute; top: -70px; left: 24px; width: 180px; height: 180px; border-radius: 26px; background: var(--white); border: 1px solid var(--border); box-shadow: 0 12px 30px rgba(0,0,0,.12); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .tschool-logo img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+    .tschool-logo svg { width: 70px; height: 70px; stroke: var(--text-soft); fill: none; stroke-width: 1.6; }
+    @media (max-width: 420px) { .tschool-logo { width: 130px; height: 130px; top: -50px; } .testimonial { padding-top: 88px; } }
     .tquote-mark { font-size: 48px; line-height: .8; color: var(--gold); font-family: Georgia, serif; margin-bottom: 6px; }
     .tquote-text { font-size: 15.5px; color: var(--text-mid); line-height: 1.75; margin-bottom: 24px; flex-grow: 1; }
     .tquote-text mark { background: rgba(234,213,30,.45); color: var(--text); font-weight: 700; padding: 1px 4px; border-radius: 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
     .tauthor { border-top: 1px solid var(--border); padding-top: 16px; display: flex; align-items: center; gap: 12px; }
-    .tav { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--white); flex-shrink: 0; }
-    .av1 { background: linear-gradient(135deg,#3B82F6,#1D4ED8); }
-    .av2 { background: linear-gradient(135deg,#F97316,#EA580C); }
-    .av3 { background: linear-gradient(135deg,#8B5CF6,#6D28D9); }
     .tauthor-name { font-size: 15px; font-weight: 700; color: var(--text); }
     .tauthor-role { font-size: 13px; color: var(--text-soft); }
 
@@ -232,8 +245,9 @@
     #outcomes { background: var(--bg); }
     .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: var(--max-wide); margin: 0 auto; }
     .outcome { background: var(--white); border-radius: 16px; padding: 32px 28px; border: 1px solid var(--border); transition: transform .25s, border-color .25s, box-shadow .25s; }
-    .outcome::before { content: ''; display: block; width: 32px; height: 3px; background: var(--gold); border-radius: 100px; margin-bottom: 22px; }
     .outcome:hover { transform: translateY(-3px); border-color: rgba(234,88,12,.25); box-shadow: 0 12px 30px rgba(0,0,0,.05); }
+    .outcome-icon { width: 46px; height: 46px; border-radius: 12px; background: var(--orange-soft); border: 1.5px solid rgba(234,88,12,.2); display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
+    .outcome-icon svg { width: 22px; height: 22px; stroke: var(--orange); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
     .outcome h3 { font-size: 18px; margin-bottom: 10px; }
     .outcome p { font-size: 15px; color: var(--text-mid); line-height: 1.65; }
 
@@ -249,49 +263,6 @@
     .fact-bullets li { position: relative; padding-right: 14px; font-weight: 400; font-size: 15px; color: var(--text-mid); }
     .fact-bullets li::before { content: ''; position: absolute; right: 0; top: 10px; width: 5px; height: 5px; border-radius: 50%; background: var(--text-soft); }
     @media (max-width: 600px) { .fact-row { grid-template-columns: 1fr; gap: 6px; } .fact-label { font-size: 11px; } }
-
-    /* ── LEZICHRAM ── */
-    #lezichram { background: var(--bg-dark); }
-    .lezichram-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; max-width: var(--max-wide); margin: 0 auto; overflow: visible; }
-    .lezichram-content h2 { color: var(--white); letter-spacing: -.025em; line-height: 1.2; margin-bottom: 20px; }
-    .lezichram-content p { font-size: 17px; color: rgba(255,255,255,.6); line-height: 1.75; margin-bottom: 16px; }
-    .lezichram-content p strong { color: rgba(255,255,255,.9); font-weight: 700; }
-    .lezichram-stat { margin-top: 32px; padding: 24px 28px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); }
-    .lezichram-stat-num { font-size: 42px; font-weight: 900; color: var(--white); letter-spacing: -.03em; line-height: 1; }
-    .lezichram-stat-num span { color: var(--orange); }
-    .lezichram-stat p { font-size: 14px; color: rgba(255,255,255,.5); margin-top: 6px; margin-bottom: 0; }
-    .lz-stat-line { margin-top: 28px; font-size: 14px; font-weight: 700; color: var(--orange); }
-    .lezichram-quote { margin-top: 10px; padding: 24px 28px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: var(--radius); display: flex; align-items: flex-start; gap: 18px; }
-    .lz-quote-photo { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
-    .lz-quote-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-    .lz-quote-body { flex: 1; }
-    .lz-quote-mark { font-size: 34px; line-height: .6; color: var(--gold); font-family: Georgia, serif; margin-bottom: 8px; display: block; }
-    .lz-quote-text { font-size: 18px; font-weight: 700; color: var(--white); line-height: 1.55; margin: 0 0 10px; }
-    .lz-quote-attribution { font-size: 13.5px; color: rgba(255,255,255,.5); margin: 0; }
-    @media (max-width: 480px) { .lezichram-quote { flex-direction: column; align-items: center; text-align: center; } }
-    .lz-media { margin-top: 32px; }
-    .lz-media-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 14px; }
-    .lz-media-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .lz-media-row .logo-item { transition: transform .15s, box-shadow .15s; cursor: pointer; }
-    .lz-media-row .logo-item:hover { transform: translateY(-2px); }
-    .lz-media-row .logo-item img { height: 28px; width: auto; object-fit: contain; }
-    .lz-media-row .logo-chip { background: #fff; border-radius: 8px; padding: 6px 14px; height: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.25); }
-    .lezichram-image { position: relative; overflow: visible; }
-    .lz-img-wrap { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/5; }
-    .lz-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
-    .insta-card { border-radius: 10px; overflow: hidden; cursor: pointer; position: relative; box-shadow: 0 12px 36px rgba(0,0,0,.55); }
-    .insta-card img { width: 100%; height: auto; display: block; }
-    .insta-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.3); opacity: 0; transition: opacity .2s; display: flex; align-items: center; justify-content: center; }
-    .insta-card:hover .insta-overlay { opacity: 1; }
-    .insta-overlay svg { width: 28px; height: 28px; stroke: #fff; }
-    .insta-float { position: absolute; width: 44%; transition: transform .25s; cursor: pointer; }
-    .insta-float-1 { bottom: 20px; left: -26%; transform: rotate(-3deg); z-index: 2; }
-    .insta-float-2 { bottom: 8px; left: -6%; transform: rotate(2deg); z-index: 1; }
-    .insta-float-1:hover { transform: scale(1.05) rotate(-1deg); z-index: 4; }
-    .insta-float-2:hover { transform: scale(1.05) rotate(.5deg); z-index: 4; }
-    .insta-row-mobile { display: none; gap: 10px; margin: 14px 0 20px; }
-    .insta-row-mobile .insta-card { flex: 1; }
-    @media (max-width: 860px) { .lezichram-inner { grid-template-columns: 1fr; } .insta-float { display: none; } .insta-row-mobile { display: flex; } }
 
     /* ── FAQ ── */
     #faq { background: var(--bg); }
@@ -319,6 +290,8 @@
     .promise-check svg { width: 11px; height: 11px; fill: none; stroke: var(--orange); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
     .gfn-banner { display: flex; align-items: center; gap: 10px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 10px; padding: 12px 18px; font-size: 14px; color: #166534; margin-bottom: 14px; }
     .gfn-banner svg { fill: none; stroke: #16a34a; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+    .cta-photo { border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 28px; aspect-ratio: 16/10; box-shadow: 0 16px 40px rgba(0,0,0,.12); }
+    .cta-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; }
     .contact-form { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 32px; }
     .contact-form h3 { font-size: 19px; font-weight: 800; color: var(--text); margin-bottom: 26px; }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
@@ -371,11 +344,11 @@
     .phone-float {
       position: fixed; bottom: 22px; left: 22px; z-index: 300;
       width: 56px; height: 56px; border-radius: 50%;
-      background: var(--orange); display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 20px rgba(234,88,12,.42);
+      background: var(--text); display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(17,17,17,.38);
       transition: transform .2s, box-shadow .2s;
     }
-    .phone-float:hover { transform: scale(1.08); box-shadow: 0 10px 28px rgba(234,88,12,.55); }
+    .phone-float:hover { transform: scale(1.08); box-shadow: 0 10px 28px rgba(17,17,17,.5); }
     .phone-float svg { width: 27px; height: 27px; fill: #fff; }
     @media (max-width: 600px) {
       .wa-float { bottom: 78px; left: 16px; width: 52px; height: 52px; }
@@ -439,9 +412,9 @@
     }
 
     /* ── WHATSAPP ALT (form) ── */
-    .wa-alt { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font-size: 14px; font-weight: 600; color: var(--text-mid); }
-    .wa-alt a { color: #1DA851; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
-    .wa-alt a:hover { color: #128C3E; }
+    .btn-wa { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 12px; padding: 14px 22px; border-radius: 100px; background: #25D366; color: #fff; font-weight: 700; font-size: 15px; box-shadow: 0 6px 20px rgba(37,211,102,.3); transition: background .2s, transform .15s, box-shadow .2s; }
+    .btn-wa:hover { background: #1DA851; transform: translateY(-1px); box-shadow: 0 10px 26px rgba(37,211,102,.38); }
+    .btn-wa svg { width: 20px; height: 20px; fill: #fff; flex-shrink: 0; }
 
     /* ── SCHEDULE NOTE (hero) ── */
     .hero-schedule {
@@ -472,12 +445,6 @@
     .how-step p { font-size: 15px; color: var(--text-mid); line-height: 1.65; }
     @media (max-width: 800px) { .how-grid { grid-template-columns: 1fr; } }
 
-    /* ── LIGHTBOX ── */
-    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.88); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
-    #lightbox.open { display: flex; }
-    #lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 10px; object-fit: contain; cursor: default; }
-    .lb-close { position: fixed; top: 18px; left: 22px; background: rgba(255,255,255,.12); border: none; color: #fff; font-size: 26px; line-height: 1; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .15s; }
-    .lb-close:hover { background: rgba(255,255,255,.25); }
   </style>
 </head>
 <body>
@@ -485,8 +452,11 @@
 <!-- NAV -->
 <nav id="nav">
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo">"ילדים ברשת"<span class="nav-sep"></span>יגל בר</a>
-    <a href="#cta" class="nav-cta">להזמנת הסדנה</a>
+    <a href="#hero" class="nav-logo">סדנת "ילדים ברשת"<span class="nav-sep"></span>יגל בר</a>
+    <div class="nav-actions">
+      <a href="tel:+972506807708" class="nav-call"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg><span>התקשרו</span></a>
+      <a href="#cta" class="nav-cta">להזמנת הסדנה</a>
+    </div>
   </div>
 </nav>
 
@@ -519,6 +489,7 @@
     <div class="intro-grid">
       <div class="intro-text reveal in">
         <h2>מה שקורה ברשת לא נשאר ברשת.<br>זה מגיע לבית, לרחוב, לבית הספר.</h2>
+        <div class="intro-photo"><img src="images/hero-kids.png" alt="ילד מסתכל בטלפון, ברקע ילדות מצחקקות"></div>
         <p>מי שעובד עם ילדים רואה את זה - חרמות, בריונות, לחץ חברתי, זמן מסך מוגזם, טרנדים בעייתיים שמגיעים לכיתה.</p>
         <p><strong>הילדים צריכים מישהו שיעזור להם להבין את עולם הדיגיטל ויתן להם כלים להתמודד עם האתגרים בו. מישהו שחי את העולם הזה.</strong></p>
         <p>אני יוצר תוכן עם מעל <strong style="color:var(--orange)">150 מיליון צפיות</strong>, למותגים, עמותות ומשפיענים מוכרים. בסדנה אני חושף בפני התלמידים את <strong>המנגנונים מאחורי הקלעים</strong> שמשפיעים עליהם, ואף אחד לא רוצה שיכירו.</p>
@@ -535,8 +506,46 @@
         </ul>
       </div>
     </div>
-    <div class="reveal in" style="text-align:center; margin-top:36px;">
-      <a href="#cta" class="btn btn-primary">בדקו התאמה לבית הספר שלכם</a>
+    <div class="intro-form-wrap reveal in">
+      <div class="contact-form">
+        <h3>בדקו התאמה לבית הספר שלכם</h3>
+        <form class="js-contact-form" action="https://formspree.io/f/mlgzapeo" method="POST" novalidate>
+          <div class="form-row">
+            <div class="fg">
+              <label for="f-name-a">שם מלא</label>
+              <input type="text" id="f-name-a" name="name" placeholder="ישראל ישראלי" required>
+            </div>
+            <div class="fg">
+              <label for="f-school-a">שם בית הספר</label>
+              <input type="text" id="f-school-a" name="school" placeholder="בית ספר..." required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="fg">
+              <label for="f-role-a">תפקיד</label>
+              <input type="text" id="f-role-a" name="role" placeholder="מנהל/ת, יועץ/ת..." required>
+            </div>
+            <div class="fg">
+              <label for="f-phone-a">טלפון</label>
+              <input type="tel" id="f-phone-a" name="phone" placeholder="05X-XXXXXXX" required>
+            </div>
+          </div>
+          <div class="fg">
+            <label for="f-msg-a">מה הכי מעניין אתכם לשמוע?</label>
+            <textarea id="f-msg-a" name="message" placeholder="ספרו לנו קצת על בית הספר שלכם..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">אשמח לשמוע עוד על הסדנה</button>
+          <a href="https://wa.me/972506807708?text=%D7%94%D7%99%D7%99%20%D7%99%D7%92%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A1%D7%93%D7%A0%D7%AA%20%22%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%22%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%A1%D7%A4%D7%A8%20%D7%A9%D7%9C%D7%A0%D7%95" target="_blank" rel="noopener" class="btn-wa">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            מעדיפים וואטסאפ? שלחו הודעה
+          </a>
+          <div class="form-success">
+            <div class="form-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>קיבלתי!</h3>
+            <p>נחזור אליכם בהקדם.</p>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -552,10 +561,10 @@
     <div class="testimonials-grid">
 
       <article class="testimonial reveal in">
+        <div class="tschool-logo"><img src="images/logo-school-gnandim-herzliya.png" alt="לוגו בית ספר ברנדיס הרצליה"></div>
         <div class="tquote-mark">״</div>
         <p class="tquote-text">תוכנית חשובה, רלוונטית ומעצימה. <mark>חושפת את התלמידים באופן חווייתי להשפעות הרגשיות והחברתיות של תכנים ברשתות.</mark> מומלצת מאוד לשילוב בבית הספר.</p>
         <div class="tauthor">
-          <div class="tav av1">ל</div>
           <div>
             <div class="tauthor-name">ליאת</div>
             <div class="tauthor-role">רכזת תקשוב · בית ספר ברנדיס הרצליה</div>
@@ -564,10 +573,10 @@
       </article>
 
       <article class="testimonial reveal reveal-d1 in">
+        <div class="tschool-logo"><img src="images/logo-school-ofek-hinuchi.png" alt="לוגו אופק חינוכי"></div>
         <div class="tquote-mark">״</div>
         <p class="tquote-text">יגל <mark>מעצים את הילדים לחשוב באופן ביקורתי על מה שהם צורכים ברשת.</mark> מחזק תחושת מסוגלות ושייכות, בשפה נגישה, מכבדת ומרתקת.</p>
         <div class="tauthor">
-          <div class="tav av2">ט</div>
           <div>
             <div class="tauthor-name">טליה בן דוד</div>
             <div class="tauthor-role">עו"ס קלינית MSW · עיריית אלעד</div>
@@ -576,10 +585,10 @@
       </article>
 
       <article class="testimonial reveal reveal-d2 in">
+        <div class="tschool-logo"><img src="images/logo-school-avnei-hachoshen-shoham.png" alt="לוגו בית חינוך אבני החושן שוהם"></div>
         <div class="tquote-mark">״</div>
         <p class="tquote-text">תוכנית חינוכית-חברתית משמעותית. <mark>מעניקה לתלמידים כלים לחשיבה ביקורתית, אחריות אישית ושמירה על גבולות ופרטיות.</mark> ממליצה מאוד.</p>
         <div class="tauthor">
-          <div class="tav av3">מ</div>
           <div>
             <div class="tauthor-name">מירהבל כהן</div>
             <div class="tauthor-role">מנהלת בית חינוך · אבני החושן שוהם</div>
@@ -623,7 +632,7 @@
   <img class="proof-img" src="images/workshop-audience.jpg" alt="יגל בר מעביר סדנה מול שכבה שלמה באולם בית ספר" loading="lazy">
   <div class="proof-overlay">
     <div class="proof-caption">
-      <h3>שכבה שלמה. שעה אחת. קשב מלא.</h3>
+      <h3>שכבה שלמה. קשב מלא.</h3>
       <p>מתוך סדנה של יגל בבית ספר — ככה זה נראה כשמדברים עם תלמידים בשפה שלהם.</p>
     </div>
   </div>
@@ -639,26 +648,32 @@
 
     <div class="outcomes-grid">
       <div class="outcome reveal in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="18" r="2"/><line x1="6.7" y1="7.2" x2="10.5" y2="16.3"/><line x1="17.3" y1="7.2" x2="13.5" y2="16.3"/><line x1="7" y1="6" x2="17" y2="6"/></svg></div>
         <h3>הבנה של איך רשתות חברתיות עובדות</h3>
         <p>מאחורי כל סרטון, טרנד ואפליקציה יש פסיכולוגיה מחושבת. הילדים יוצאים עם הבנה של המנגנונים האמיתיים.</p>
       </div>
       <div class="outcome reveal reveal-d1 in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><path d="M9.5 3.5a3 3 0 0 0-3 3 2.7 2.7 0 0 0-2 2.6c0 .5.13.96.36 1.36A2.8 2.8 0 0 0 3.5 13c0 1.06.6 1.98 1.48 2.44A2.6 2.6 0 0 0 5 16.5 2.5 2.5 0 0 0 7.5 19c.2 0 .4-.02.58-.06A2.5 2.5 0 0 0 10.5 21c1.1 0 2-.78 2.2-1.82.2.04.4.06.6.06V4.3a3 3 0 0 0-3.8-.8Z"/><path d="M14.5 3.5a3 3 0 0 1 3 3 2.7 2.7 0 0 1 2 2.6c0 .5-.13.96-.36 1.36A2.8 2.8 0 0 1 20.5 13c0 1.06-.6 1.98-1.48 2.44.03.18.05.37.05.56A2.5 2.5 0 0 1 16.5 19a2.5 2.5 0 0 1-2.42-1.06 2.5 2.5 0 0 1-.78.06V4.3a3 3 0 0 1 1.2-.8Z"/></svg></div>
         <h3>חשיבה ביקורתית ואחריות אישית</h3>
         <p>משפיענים, פרסום סמוי, לחץ חברתי ברשת — הם לומדים לזהות בזמן אמת כשמנסים להשפיע עליהם, ואיך לפעול.</p>
       </div>
       <div class="outcome reveal reveal-d2 in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3>דרכי התמודדות עם בריונות ולחץ</h3>
         <p>שיחה פתוחה על מה שקורה בצ'אטים ובקבוצות: איך מגיבים כשנפגעים, מה עושים כשחבר נפגע, ואיך לא להיות חלק מהבעיה.</p>
       </div>
       <div class="outcome reveal in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
         <h3>שמירה על גבולות ופרטיות</h3>
         <p>כלים מעשיים לשמירה על עצמם ברשת — מה לשתף ומה לא, ואיך להגיב לסיטואציות שמרגישות לא בסדר.</p>
       </div>
       <div class="outcome reveal reveal-d1 in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polygon points="15 9 12.5 12.5 9 15 11.5 11.5 15 9"/></svg></div>
         <h3>תחושת מסוגלות ובחירה</h3>
         <p>הילדים יוצאים עם הבנה שיש להם בחירה — גם כשיש לחץ, גם כשכולם עושים אחרת. ושהבחירות שלהם ברשת באמת משנות.</p>
       </div>
       <div class="outcome reveal reveal-d2 in">
+        <div class="outcome-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
         <h3>מבט אחר על הרשת</h3>
         <p>הסדנה מעצימה: הילדים מגלים שרשתות חברתיות יכולות גם לחבר, לרגש ולהשפיע לטובה — ושגם להם יש מקום להשפיע בה.</p>
       </div>
@@ -677,7 +692,7 @@
         <span class="fact-label">קהל יעד</span>
         <span class="fact-value">
           תלמידי כיתות ג׳–ו׳<br>
-          <span style="font-weight:400;font-size:15px;color:var(--text-mid)">בתי ספר יסודיים, מתנ"סים, עיריות, מועצות אזוריות, קייטנות וערבי הורים</span>
+          <span style="font-weight:400;font-size:15px;color:var(--text-mid)">בתי ספר יסודיים, מתנ"סים ומרכזים חברתיים, עיריות ומועצות אזוריות, קייטנות וערבי הורים</span>
         </span>
       </div>
       <div class="fact-row">
@@ -709,59 +724,6 @@
             <li>סדנה לצוות החינוכי — כיצד לתמוך בתלמידים</li>
           </ul>
         </span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ LEZICHRAM ══ -->
-<section id="lezichram" class="dark">
-  <div class="lezichram-inner container-wide">
-    <div class="lezichram-content reveal in">
-      <h2>מיזם <span style="color:var(--orange)">"לזכרם"</span> —<br>ההוכחה שתוכן<br>יכול לרגש ולחבר.</h2>
-      <div class="insta-row-mobile">
-        <div class="insta-card" onclick="openLightbox('images/lezichram post screenshot.jpg')">
-          <img src="images/lezichram post screenshot.jpg" alt="פוסט לזכרם">
-          <div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></div>
-        </div>
-        <div class="insta-card" onclick="openLightbox('images/lezichram instagram page .jpg')">
-          <img src="images/lezichram instagram page .jpg" alt="עמוד לזכרם">
-          <div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></div>
-        </div>
-      </div>
-      <p>ב-2022, בגיל 21, הקמתי את <strong>מיזם ההנצחה הגדול ברשתות החברתיות בישראל.</strong> אלפי פוסטים, כל אחד מספר על נופל אחר — כדי לדבר עם הדור הצעיר בשפה שלו.</p>
-      <p><strong>לרשתות החברתיות יש כוח. השאלה היא איך בוחרים להשתמש בו.</strong></p>
-      <p class="lz-stat-line">20,000+ נופלים מונצחים בעמוד · מיזם לאומי</p>
-      <div class="lezichram-quote">
-        <div class="lz-quote-photo"><img src="images/amit-ben-yigal.png" alt='עמית בן יגאל ז"ל'></div>
-        <div class="lz-quote-body">
-          <span class="lz-quote-mark">״</span>
-          <p class="lz-quote-text">לקחת את המושג 'חלל' שהוא ריק וכלום, והכנסת בו חיים. אתה פשוט הבאת את הגאולה.</p>
-          <p class="lz-quote-attribution">— נאוה, אמו של עמית בן יגאל ז"ל</p>
-        </div>
-      </div>
-      <div class="lz-media">
-        <p class="lz-media-label">המיזם סוקר ב</p>
-        <div class="lz-media-row">
-          <a class="logo-item logo-chip" href="https://www.instagram.com/p/Crg3VYpIMEZ/?igsh=MWZqeTVxYjUxNzVvNQ==" target="_blank" rel="noopener"><img src="images/logo-ynet.gif" alt="ynet"></a>
-          <a class="logo-item logo-mako" href="https://www.mako.co.il/nexter-news/Article-6abdc411e1a8081027.htm" target="_blank" rel="noopener"><img src="images/logo-mako.png" alt="מאקו"></a>
-          <span class="logo-item logo-i24"><img src="../../the-leader-workshop/images/logo-i24.svg" alt="i24 NEWS"></span>
-          <a class="logo-item logo-chip" href="https://www.ice.co.il/media/news/article/855414" target="_blank" rel="noopener"><img src="images/logo-ice.png" alt="ice"></a>
-        </div>
-        <a href="#cta" class="btn btn-primary" style="margin-top:24px;display:inline-flex">בדקו התאמה לתלמידים שלכם
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </a>
-      </div>
-    </div>
-    <div class="lezichram-image reveal reveal-d1 in">
-      <div class="lz-img-wrap">
-        <img src="images/yagel-lezichram.jpg" alt="יגל בר מרצה על מיזם לזכרם">
-      </div>
-      <div class="insta-float insta-float-1" onclick="openLightbox('images/lezichram post screenshot.jpg')">
-        <div class="insta-card"><img src="images/lezichram post screenshot.jpg" alt="פוסט לזכרם"><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></div></div>
-      </div>
-      <div class="insta-float insta-float-2" onclick="openLightbox('images/lezichram instagram page .jpg')">
-        <div class="insta-card"><img src="images/lezichram instagram page .jpg" alt="עמוד לזכרם"><div class="insta-overlay"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></div></div>
       </div>
     </div>
   </div>
@@ -810,6 +772,20 @@
       </div>
       <div class="faq-item reveal in">
         <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">לאיזה מסגרות מתאימה הסדנה?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <p class="faq-a">הסדנה מתאימה לבתי ספר יסודיים (כיתות ג'-ו'), מתנ"סים ומרכזים חברתיים, עיריות ומועצות אזוריות, קייטנות וערבי הורים. בדרך כלל מוזמנת על ידי מנהלות ומנהלי בתי ספר, יועצות ויועצים חינוכיים, רכזות ורכזי מוגנות ותקשוב, מנהלי אגפי חינוך בעיריות ומנהלי מתנ"סים.</p>
+      </div>
+      <div class="faq-item reveal in">
+        <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">האם התוכן מותאם לגיל של הילדים שלנו?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <p class="faq-a">כן. הסדנה נבנתה במיוחד לגיל בית הספר היסודי (כיתות ג'-ו'), עם דוגמאות, שפה וקצב שמתאימים לגיל הזה. לפני כל סדנה יש שיחת היכרות קצרה שבה מכוונים את התכנים בדיוק לשכבת הגיל ולאופי הכיתות.</p>
+      </div>
+      <div class="faq-item reveal in">
+        <button class="faq-btn" aria-expanded="false">
           <span class="faq-q">כמה זמן נמשכת הסדנה?</span>
           <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
@@ -820,7 +796,7 @@
           <span class="faq-q">לכמה תלמידים אפשר בבת אחת?</span>
           <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
-        <p class="faq-a">גמיש לחלוטין — מכיתה של 30 תלמידים ועד שכבה שלמה ואפילו כל בית הספר.</p>
+        <p class="faq-a">גמיש לחלוטין — אפשר להזמין לכיתה בודדת, לשכבה שלמה, ואפילו לכל בית הספר.</p>
       </div>
       <div class="faq-item reveal in">
         <button class="faq-btn" aria-expanded="false">
@@ -845,6 +821,13 @@
       </div>
       <div class="faq-item reveal in">
         <button class="faq-btn" aria-expanded="false">
+          <span class="faq-q">כמה זמן מראש כדאי להזמין?</span>
+          <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <p class="faq-a">מומלץ ליצור קשר מוקדם ככל האפשר, במיוחד סביב תחילת שנת הלימודים כשהמועדים מתמלאים מהר. אין בעיה לתאם גם באמצע השנה — פשוט ככל שפונים מוקדם יותר, קל יותר למצוא את התאריך שהכי מתאים לבית הספר.</p>
+      </div>
+      <div class="faq-item reveal in">
+        <button class="faq-btn" aria-expanded="false">
           <span class="faq-q">איך מתחילים?</span>
           <span class="faq-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
@@ -858,6 +841,7 @@
 <section id="cta" class="warm">
   <div class="cta-layout container-wide">
     <div class="cta-left reveal in">
+      <div class="cta-photo"><img src="images/yagel-teaching.jpg" alt="יגל בר מרצה בסדנה מול תלמידים"></div>
       <h2>רוצים לשמוע יותר?<br>בואו נדבר.</h2>
       <p>השאירו פרטים ונחזור אליכם בהקדם לתיאום שיחת היכרות. המועדים לשנת הלימודים תשפ"ז מתואמים בימים אלה — שווה לשריין מוקדם.</p>
       <div class="promises">
@@ -882,34 +866,37 @@
       </div>
       <div class="contact-form">
         <h3>השאירו פרטים</h3>
-        <form id="contactForm" action="https://formspree.io/f/mlgzapeo" method="POST" novalidate>
+        <form class="js-contact-form" action="https://formspree.io/f/mlgzapeo" method="POST" novalidate>
           <div class="form-row">
             <div class="fg">
-              <label for="f-name">שם מלא</label>
-              <input type="text" id="f-name" name="name" placeholder="ישראל ישראלי" required>
+              <label for="f-name-b">שם מלא</label>
+              <input type="text" id="f-name-b" name="name" placeholder="ישראל ישראלי" required>
             </div>
             <div class="fg">
-              <label for="f-school">שם בית הספר</label>
-              <input type="text" id="f-school" name="school" placeholder="בית ספר..." required>
+              <label for="f-school-b">שם בית הספר</label>
+              <input type="text" id="f-school-b" name="school" placeholder="בית ספר..." required>
             </div>
           </div>
           <div class="form-row">
             <div class="fg">
-              <label for="f-role">תפקיד</label>
-              <input type="text" id="f-role" name="role" placeholder="מנהל/ת, יועץ/ת..." required>
+              <label for="f-role-b">תפקיד</label>
+              <input type="text" id="f-role-b" name="role" placeholder="מנהל/ת, יועץ/ת..." required>
             </div>
             <div class="fg">
-              <label for="f-phone">טלפון</label>
-              <input type="tel" id="f-phone" name="phone" placeholder="05X-XXXXXXX" required>
+              <label for="f-phone-b">טלפון</label>
+              <input type="tel" id="f-phone-b" name="phone" placeholder="05X-XXXXXXX" required>
             </div>
           </div>
           <div class="fg">
-            <label for="f-msg">מה הכי מעניין אתכם לשמוע?</label>
-            <textarea id="f-msg" name="message" placeholder="ספרו לנו קצת על בית הספר שלכם..."></textarea>
+            <label for="f-msg-b">מה הכי מעניין אתכם לשמוע?</label>
+            <textarea id="f-msg-b" name="message" placeholder="ספרו לנו קצת על בית הספר שלכם..."></textarea>
           </div>
           <button type="submit" class="btn-submit">אשמח לשמוע עוד על הסדנה</button>
-          <div class="wa-alt">מעדיפים וואטסאפ? <a href="https://wa.me/972506807708?text=%D7%94%D7%99%D7%99%20%D7%99%D7%92%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A1%D7%93%D7%A0%D7%AA%20%22%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%22%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%A1%D7%A4%D7%A8%20%D7%A9%D7%9C%D7%A0%D7%95" target="_blank" rel="noopener">שלחו הודעה ונחזור אליכם</a></div>
-          <div class="form-success" id="formSuccess">
+          <a href="https://wa.me/972506807708?text=%D7%94%D7%99%D7%99%20%D7%99%D7%92%D7%9C%2C%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%A2%D7%9C%20%D7%A1%D7%93%D7%A0%D7%AA%20%22%D7%99%D7%9C%D7%93%D7%99%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%22%20%D7%9C%D7%91%D7%99%D7%AA%20%D7%94%D7%A1%D7%A4%D7%A8%20%D7%A9%D7%9C%D7%A0%D7%95" target="_blank" rel="noopener" class="btn-wa">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            מעדיפים וואטסאפ? שלחו הודעה
+          </a>
+          <div class="form-success">
             <div class="form-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
             <h3>קיבלתי!</h3>
             <p>נחזור אליכם בהקדם.</p>
@@ -952,18 +939,11 @@
   <div class="tick-zone" data-target="#proof" data-label="בשטח"><span class="tick"></span></div>
   <div class="tick-zone" data-target="#outcomes" data-label="מה שיישאר"><span class="tick"></span></div>
   <div class="tick-zone" data-target="#quick-facts" data-label="מבנה הסדנה"><span class="tick"></span></div>
-  <div class="tick-zone" data-target="#lezichram" data-label="לזכרם"><span class="tick"></span></div>
   <div class="tick-zone" data-target="#how" data-label="איך זה עובד"><span class="tick"></span></div>
   <div class="tick-zone" data-target="#faq" data-label="שאלות ותשובות"><span class="tick"></span></div>
   <div class="tick-zone" data-target="#cta" data-label="יצירת קשר"><span class="tick"></span></div>
 </nav>
 <div class="section-nav-tooltip" id="sectionNavTooltip"></div>
-
-<!-- Lightbox -->
-<div id="lightbox" onclick="closeLightbox()">
-  <button class="lb-close" onclick="event.stopPropagation();closeLightbox()" aria-label="סגור">✕</button>
-  <img id="lb-img" src="" alt="" onclick="event.stopPropagation()">
-</div>
 
 <script>
   // Hero video
@@ -1010,15 +990,13 @@
     });
   });
 
-  // Contact form
-  var form = document.getElementById('contactForm');
-  if (form) {
+  // Contact forms
+  document.querySelectorAll('.js-contact-form').forEach(function(form) {
     form.addEventListener('submit', async function(e) {
       e.preventDefault();
-      var required = ['f-name','f-school','f-role','f-phone'];
+      var required = form.querySelectorAll('[required]');
       var valid = true;
-      required.forEach(function(id) {
-        var el = document.getElementById(id);
+      required.forEach(function(el) {
         if (!el.value.trim()) {
           el.style.borderColor = '#EF4444';
           el.addEventListener('input', function(){ el.style.borderColor=''; }, { once: true });
@@ -1031,20 +1009,16 @@
       try {
         var res = await fetch(form.action, { method:'POST', body: new FormData(form), headers:{'Accept':'application/json'} });
         if (res.ok) {
-          document.getElementById('formSuccess').style.display = 'block';
-          Array.from(form.elements).forEach(function(el){ if (el !== document.getElementById('formSuccess')) el.style.display='none'; });
+          var success = form.querySelector('.form-success');
+          success.style.display = 'block';
+          Array.from(form.children).forEach(function(el){ if (el !== success) el.style.display = 'none'; });
         } else { throw new Error(); }
       } catch {
         btn.disabled = false; btn.textContent = 'אשמח לשמוע עוד על הסדנה';
         alert('אירעה שגיאה. אנא נסו שוב.');
       }
     });
-  }
-
-  // Lightbox
-  function openLightbox(src) { document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow='hidden'; }
-  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow=''; }
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLightbox(); });
+  });
 
   // SECTION NAV
   document.addEventListener('DOMContentLoaded', function() {
