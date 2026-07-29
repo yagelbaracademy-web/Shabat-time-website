@@ -54,12 +54,14 @@ CATEGORIES = [
         "name": "gadgets",
         "category_id": None,
         "max_per_keyword": 2,
-        "family_cap": 3,
+        "family_cap": 4,
         "keywords": [
             "portable power bank",
             "led headlamp flashlight",
             "phone mount bike helmet",
             "outdoor sports watch",
+            "wireless earbuds sport",
+            "mini portable bluetooth speaker",
         ],
     },
     {
@@ -86,27 +88,37 @@ CATEGORIES = [
         ],
     },
     {
-        "name": "travel_indirect",
-        "category_id": "201296102",  # Travel Accessories
+        "name": "summer_travel",
+        "category_id": None,
         "max_per_keyword": 2,
         "family_cap": 4,
         "keywords": [
-            "packing cubes travel",
+            "collapsible water bottle travel",
+            "portable neck fan",
+            "cooling towel sport",
+            "polarized sunglasses outdoor",
+            "quick dry travel towel",
+            "waterproof phone pouch beach",
+        ],
+    },
+    {
+        "name": "travel_indirect",
+        "category_id": "201296102",  # Travel Accessories
+        "max_per_keyword": 2,
+        "family_cap": 2,
+        "keywords": [
             "luggage tag",
             "travel neck pillow",
             "universal travel adapter",
             "toiletry bag travel",
-            "compression bags luggage",
-            "luggage scale digital",
             "passport holder travel",
-            "travel organizer bag",
         ],
     },
     {
         "name": "travel_bags",
         "category_id": "202236005",  # Backpack
         "max_per_keyword": 2,
-        "family_cap": 3,
+        "family_cap": 2,
         "keywords": [
             "ski backpack",
             "waterproof travel backpack",

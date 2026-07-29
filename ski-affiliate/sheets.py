@@ -36,7 +36,7 @@ def record_to_row(record):
 def append_records(records):
     ws = get_worksheet()
     rows = [record_to_row(r) for r in records]
-    ws.append_rows(rows, value_input_option="USER_ENTERED")
+    ws.append_rows(rows, value_input_option="RAW")
     return len(rows)
 
 
