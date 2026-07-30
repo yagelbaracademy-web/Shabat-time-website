@@ -87,7 +87,6 @@ CATEGORIES = [
             "travel neck pillow",
             "universal travel adapter",
             "toiletry bag travel",
-            "passport holder travel",
         ],
     },
     {
