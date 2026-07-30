@@ -1,5 +1,7 @@
 MIN_ORDERS = 400
 MIN_SALE_PRICE_USD = 5
+MAX_PER_KEYWORD = 1  # at most 1 product per keyword per run, so variety comes
+                      # from different keywords, not depth within one keyword
 
 # Each family: a group of related keywords with a total cap on how many
 # products from that family can enter the sheet in a single run (even if
@@ -9,7 +11,6 @@ CATEGORIES = [
     {
         "name": "ski_snowboard_direct",
         "category_id": "200003543",  # Skiing & Snowboarding
-        "max_per_keyword": 4,
         "family_cap": 8,
         "keywords": [
             "ski goggles",
@@ -30,7 +31,6 @@ CATEGORIES = [
     {
         "name": "clothing_extra",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 3,
         "keywords": [
             "winter beanie hat",
@@ -42,7 +42,6 @@ CATEGORIES = [
     {
         "name": "footwear",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 3,
         "keywords": [
             "waterproof snow boots",
@@ -53,7 +52,6 @@ CATEGORIES = [
     {
         "name": "gadgets",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 4,
         "keywords": [
             "portable power bank",
@@ -67,7 +65,6 @@ CATEGORIES = [
     {
         "name": "hydration_warmth",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 3,
         "keywords": [
             "reusable thermal cup travel",
@@ -79,7 +76,6 @@ CATEGORIES = [
     {
         "name": "safety_convenience",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 2,
         "keywords": [
             "emergency whistle",
@@ -90,7 +86,6 @@ CATEGORIES = [
     {
         "name": "summer_travel",
         "category_id": None,
-        "max_per_keyword": 2,
         "family_cap": 4,
         "keywords": [
             "collapsible water bottle travel",
@@ -104,7 +99,6 @@ CATEGORIES = [
     {
         "name": "travel_indirect",
         "category_id": "201296102",  # Travel Accessories
-        "max_per_keyword": 2,
         "family_cap": 2,
         "keywords": [
             "luggage tag",
@@ -117,7 +111,6 @@ CATEGORIES = [
     {
         "name": "travel_bags",
         "category_id": "202236005",  # Backpack
-        "max_per_keyword": 2,
         "family_cap": 2,
         "keywords": [
             "ski backpack",

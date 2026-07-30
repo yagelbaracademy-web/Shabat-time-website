@@ -9,7 +9,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from aliexpress_api import AliexpressApi, models
 
-from config import CATEGORIES, MIN_ORDERS, MIN_SALE_PRICE_USD
+from config import CATEGORIES, MIN_ORDERS, MIN_SALE_PRICE_USD, MAX_PER_KEYWORD
 from sheets import append_records, count_unposted
 
 load_dotenv()
@@ -87,7 +87,7 @@ def collect(dry_run=False):
                 and p.product_title not in seen_titles
                 and p.product_title not in pool_titles
             ]
-            qualifying = qualifying[: cat.get("max_per_keyword", 5)]
+            qualifying = qualifying[:MAX_PER_KEYWORD]
             family_pool.extend(qualifying)
 
             time.sleep(1)
