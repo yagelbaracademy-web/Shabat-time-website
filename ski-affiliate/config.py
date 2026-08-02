@@ -53,6 +53,7 @@ CATEGORIES = [
             "mini portable projector",
             "smart fitness ring",
             "led headlamp flashlight",
+            "precision screwdriver tool kit",
         ],
     },
     {
@@ -64,6 +65,7 @@ CATEGORIES = [
             "portable neck fan",
             "cooling towel sport",
             "polarized sunglasses outdoor",
+            "sport shield sunglasses",
             "inflatable travel neck pillow",
             "waterproof dry bag beach",
             "foldable travel duffel bag",
@@ -87,6 +89,7 @@ CATEGORIES = [
             "travel neck pillow",
             "universal travel adapter",
             "toiletry bag travel",
+            "travel bottle dispenser set",
         ],
     },
     {
