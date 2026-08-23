@@ -3,6 +3,14 @@ MIN_SALE_PRICE_USD = 5
 MAX_PER_KEYWORD = 1  # at most 1 product per keyword per run, so variety comes
                       # from different keywords, not depth within one keyword
 
+# Rolling-window concept cap: across any WINDOW_SIZE consecutively collected
+# products, the same product *concept* (backpack, headlamp, earbuds..., see
+# concepts.py) can't appear more than MAX_PER_CONCEPT_IN_WINDOW times - this
+# is what actually stops "another bag" / "another AirTag clone" from showing
+# up every single run, since per-run caps alone don't prevent that over time.
+WINDOW_SIZE = 30
+MAX_PER_CONCEPT_IN_WINDOW = 3
+
 # Each family: a group of related keywords with a total cap on how many
 # products from that family can enter the sheet in a single run (even if
 # more qualify). Capped items aren't blacklisted - they're just not marked
