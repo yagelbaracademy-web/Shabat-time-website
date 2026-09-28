@@ -1,11 +1,700 @@
 {
-  "generated_at": "2026-09-28T10:16:10.705722+00:00",
-  "total_articles": 135,
+  "generated_at": "2026-09-28T19:59:18.707525+00:00",
+  "total_articles": 150,
   "sources_count": 15,
   "articles": [
     {
-      "id": "00f639d02d5efddd",
-      "title": "טראמפ דחה את הצעת איראן להפסקת אש – והנפט מתייקר משמעותית",
+      "id": "cd8a6df271a8ca2b",
+      "title": "כאוס במדינה הסקנדינבית: המנצחת הגדולה בבחירות מחזירה את המנדט",
+      "description": "שוודיה במשבר פוליטי: מגדלנה אנדרסון החזירה את המנדט לאחר שמפלגת השמאל תמכה במועמד הימין לראשות הפרלמנט. כעת יידרש היו\"ר להחליט מי יקבל את המשימה הבאה",
+      "url": "https://www.maariv.co.il/news/world/article-1371706",
+      "published": "2026-09-28T19:57:41+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1142073",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.923687+00:00"
+    },
+    {
+      "id": "7c55543010bb7791",
+      "title": "משרד הבריאות סגר את המרכז הרפואי בתל אביב: \"סכנה חמורה ומיידית\"",
+      "description": "משרד הבריאות הורה על סגירה מיידית של מדיקה ת\"א לאחר שבקרת פתע העלתה ליקויים חמורים ופעולות בניגוד לסמכות. במשרד מזהירים מ\"סכנה חמורה ומיידית\", המוסד הגיב: \"קיבל החלטה גורפת על סמך ממצאים אקראיים\"",
+      "url": "https://www.maariv.co.il/news/health/article-1371702",
+      "published": "2026-09-28T19:37:42+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1019686",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.924010+00:00"
+    },
+    {
+      "id": "454c270247531d69",
+      "title": "Shopify opens checkout to browser-based AI agents",
+      "description": "Shopify is expanding WebMCP support to checkout, allowing browser-based AI agents to update order details and complete purchases with a buyer’s authorization.",
+      "url": "https://techcrunch.com/2026/09/28/shopify-opens-checkout-to-browser-based-ai-agents/",
+      "published": "2026-09-28T19:33:57+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.462665+00:00"
+    },
+    {
+      "id": "28a7c6cc976d55f4",
+      "title": "Tesla delays Roadster 2 event again due to bad weather",
+      "description": "Tesla says the event \"can only be held outdoors,\" as it's expected to show the car flying in some form using SpaceX thrusters.",
+      "url": "https://techcrunch.com/2026/09/28/tesla-delays-roadster-2-event-again-due-to-bad-weather/",
+      "published": "2026-09-28T19:27:27+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.462849+00:00"
+    },
+    {
+      "id": "d5cc865b5a06236d",
+      "title": "The AI boom took over Climate Week and not everyone is happy about it",
+      "description": "Just like the rest of the U.S, data centers and AI are dividing climate tech founders and investors.",
+      "url": "https://techcrunch.com/2026/09/28/the-ai-boom-took-over-climate-week-and-not-everyone-is-happy-about-it/",
+      "published": "2026-09-28T19:21:59+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.463014+00:00"
+    },
+    {
+      "id": "cef5ac20bd4ac4c8",
+      "title": "רביב דרוקר נחקר במשטרה - ערוץ 14 פרסם פוש במהלך החקירה",
+      "description": "רביב דרוקר נחקר במשטרה בעקבות תיעוד ששודר ב״המקור״ ובו נראה משתמש בטלפון במהלך נהיגה. החקירה נפתחה לאחר תלונת הליכוד, בעוד העיתונאי תקף את עצם המהלך",
+      "url": "https://www.maariv.co.il/news/law/article-1371689",
+      "published": "2026-09-28T18:59:12+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1134599",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.924313+00:00"
+    },
+    {
+      "id": "c68156001b3c1283",
+      "title": "פרשת מקורבי בן גביר ברקע: אבישי מועלם בדרך לתפקיד מנכ\"ל עיריית טבריה",
+      "description": "למרות שתיק החקירה נגדו בפרשת קשריו עם מקורבי השר בן גביר עדיין ממתין להכרעת הפרקליטות, ניצב־משנה אבישי מועלם צפוי לעבור מהמשטרה לתפקיד בכיר בעיריית טבריה, בכפוף להליך האיתור",
+      "url": "https://www.maariv.co.il/news/law/article-1371688",
+      "published": "2026-09-28T18:48:53+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/949502",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.924850+00:00"
+    },
+    {
+      "id": "317d2296599498d3",
+      "title": "\"הכול מתועד\": המסר החריג של בכירים לשעבר בשב\"כ לנתניהו",
+      "description": "בכירים לשעבר בשב\"כ מתייצבים לצד רונן בר וטוענים כי בארגון קיים תיעוד מלא של הדיונים וההחלטות. עדי כרמי: \"הפרוטוקולים יעידו על מה שנעשה בחדרי החדרים\"",
+      "url": "https://www.maariv.co.il/news/politics/article-1371684",
+      "published": "2026-09-28T18:40:08+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1125986",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.925154+00:00"
+    },
+    {
+      "id": "08c6637f0188fcd0",
+      "title": "Nvidia launches new platform for reining in rogue AI agents",
+      "description": "As the debate rages over whether the recent spate of rogue AI agents is a step toward AGI or a more conventional engineering problem, Nvidia is offering its own answer to problem. Nvidia CEO Jensen Huang on Monday introduced a toolkit of software and hardware products that add independent security layers around AI agents to […]",
+      "url": "https://techcrunch.com/2026/09/28/nvidia-launches-new-platform-for-reining-in-rogue-ai-agents/",
+      "published": "2026-09-28T18:31:23+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.463227+00:00"
+    },
+    {
+      "id": "4740e06eeb9b69a4",
+      "title": "As AI world debates security, NVIDIA releases open source tools for agents",
+      "description": "One expert told CyberScoop that the announcement reflects industry recognition that after years of training models to behave safely or ethically, more outside controls are needed. The post As AI world debates security, NVIDIA releases open source tools for agents appeared first on CyberScoop .",
+      "url": "https://cyberscoop.com/nvidia-open-agent-safety-platform/",
+      "published": "2026-09-28T18:22:53+00:00",
+      "image_url": null,
+      "source_id": "cyberscoop",
+      "source_name": "CyberScoop",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.873323+00:00"
+    },
+    {
+      "id": "c84687deabe2e97c",
+      "title": "Anthropic releases Sonnet 5.5, which it calls a significantly cheaper, faster work partner",
+      "description": "Anthropic has released the newest version of its mid-range model, boasting faster response times and less token burn.",
+      "url": "https://techcrunch.com/2026/09/28/anthropic-releases-sonnet-5-5-which-it-calls-a-significantly-cheaper-faster-work-partner/",
+      "published": "2026-09-28T18:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.463438+00:00"
+    },
+    {
+      "id": "07766fddb046a6b8",
+      "title": "Treasury opposes ZIM deal",
+      "description": "Israel’s Finance Ministry feels the deal with Hapag-Lloyd and FIMI does not safeguard Israel’s national and security needs.",
+      "url": "https://en.globes.co.il/en/article-1001557804#utm_source=RSS",
+      "published": "2026-09-28T17:51:50+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1772458747/direct/IMG-20260302-WA0031_mbztlf.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.053923+00:00"
+    },
+    {
+      "id": "af4457d3649fda54",
+      "title": "Google is killing off Gemini’s Gems in favor of ‘skills’",
+      "description": "As all-in-one AI agents like Meta's Muse and Instinct take off, Google is opting to end a feature which built task-specific agents.",
+      "url": "https://techcrunch.com/2026/09/28/google-is-killing-off-geminis-gems-in-favor-of-skills/",
+      "published": "2026-09-28T17:29:50+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.463602+00:00"
+    },
+    {
+      "id": "569ae5d4e833d335",
+      "title": "הפרט שלא היה ידוע על שרה נתניהו נחשף דווקא בתלונה נגד חדשות 12",
+      "description": "לאחר שחדשות 12 חשפו את ביקור נתניהו באמירויות בעוד מטוסו בדרכו לישראל, השב\"כ הגיש תלונה לצנזור. בשירות טוענים כי הפרסום סיכן את ראש הממשלה, פמלייתו ומבצעים עתידיים",
+      "url": "https://www.maariv.co.il/news/politics/article-1371659",
+      "published": "2026-09-28T17:21:17+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1138869",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.925482+00:00"
+    },
+    {
+      "id": "9e89f2404dfe73cb",
+      "title": "לא הממשלה ולא התו הירוק: הגורם שהשפיע עלינו להתחסן נגד קורונה",
+      "description": "מחקר ישראלי חדש שנערך על בסיס נתונים מ-15 מדינות מצא כי יש גורם אחד מהותי עם השפעה מכרעת על הנכונות של לא-מחוסנים להצטרף ולהתחסן לקבוצת בני גילם",
+      "url": "https://www.maariv.co.il/news/health/article-1371650",
+      "published": "2026-09-28T17:10:37+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141995",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.926066+00:00"
+    },
+    {
+      "id": "059fa2b676adcbad",
+      "title": "OpenAI still doesn’t seem to have a handle on all of its rogue AI activity",
+      "description": "On Friday, OpenAI published a new site devoted to “misalignment reports” and the breadth of the incidents is alarming.",
+      "url": "https://techcrunch.com/2026/09/28/openai-still-doesnt-seem-to-have-a-handle-on-all-of-its-rogue-ai-activity/",
+      "published": "2026-09-28T17:09:02+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.463766+00:00"
+    },
+    {
+      "id": "bc206fb609fab335",
+      "title": "Meta launches enterprise AI platform, hires MongoDB CEO to lead new initiative",
+      "description": "Meta says it will focus on bringing its full technology stack, including Muse, Meta Business Agent, Muse API, Muse Code, and more to businesses and developers.",
+      "url": "https://techcrunch.com/2026/09/28/meta-launches-enterprise-ai-platform-hires-mongodb-ceo-to-lead-new-initiative/",
+      "published": "2026-09-28T16:52:38+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464024+00:00"
+    },
+    {
+      "id": "dcbfc0486a62089c",
+      "title": "המסמכים, היומנים והעדים: רונן בר מאיים לחשוף הכול על נתניהו",
+      "description": "אחרי שנתניהו איים בתביעה בעקבות הדיווחים על אזהרה מצרית לפני 7 באוקטובר, רונן בר משיב בתביעת דיבה. הוא דורש לחשוף מסמכים ויומנים וטוען כי התריע בזמן אמת",
+      "url": "https://www.maariv.co.il/news/military/article-1371652",
+      "published": "2026-09-28T16:48:06+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141996",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.925777+00:00"
+    },
+    {
+      "id": "1a5e6d5dc39ca1fd",
+      "title": "The iPhone Duo may already have its first killer app: a virtual Walkman",
+      "description": "The app imitates how Walkmans used to function: You can open up the Duo to pick your music and \"insert\" your cassette tape, then close the device shut to start listening.",
+      "url": "https://techcrunch.com/2026/09/28/the-iphone-duo-may-already-have-its-first-killer-app-a-virtual-walkman/",
+      "published": "2026-09-28T16:47:49+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464192+00:00"
+    },
+    {
+      "id": "edb63498b5dd63e7",
+      "title": "המשבר מחריף: הולנד זימנה את שגריר ישראל בעקבות הצעד החריג של סער",
+      "description": "שר החוץ ההולנדי זימן את שגריר ישראל לשיחה בעקבות שלילת המעמד הדיפלומטי של נציגי הולנד ברמאללה, במהלך שמעמיק את המתיחות בין המדינות על רקע צעדים נגד ישראל",
+      "url": "https://www.maariv.co.il/news/politics/article-1371648",
+      "published": "2026-09-28T16:41:57+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141983",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.926378+00:00"
+    },
+    {
+      "id": "80fe3948a6999ce2",
+      "title": "איראן מכחישה מעורבות - והחשודים בקונספירציה לפיגוע בבסיס הצבאי שוחררו",
+      "description": "שלוש מסחריות חשודות שהתגלו כ-400 מטרים מבסיס פיירפורד הובילו למעצר חמישה חשודים. לפי דיווחים, רשויות הביטחון בבריטניה בוחנות אפשרות למעורבות איראנית בתכנון הפיגוע",
+      "url": "https://www.maariv.co.il/news/world/article-1371642",
+      "published": "2026-09-28T16:37:21+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141459",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.926680+00:00"
+    },
+    {
+      "id": "78af8d07d2283535",
+      "title": "\"תלות מוחלטת בגורמים זרים\": משרדי רה\"מ והאוצר מתנגדים לעסקת צים",
+      "description": "במשרד רה\"מ מתריעים מפני תלות של צים ישראל ברוכשת האפאג לויד; חוות הדעת שהעביר האוצר לרשות החברות טוענת כי הסיכונים בעסקה גוברים על הסיכויים והיתרונות; עיקרם: הרוכשת, כמתחרה ישירה בצפון אמריקה של צים ישראל שתוחזק ע\"י שותפתה קרן פימי, עלולה להביא לקריסת החברה אם תפר את ההסכם; כן מתריעים שם מפני לחצים של קטאר וסעודיה, להן אחזקות בחברה הגרמנית; האוצר מוסיף כי עסקה בתנאים אחרים תיבחן מחדש",
+      "url": "https://www.ynet.co.il/economy/article/hkxk7m005fx",
+      "published": "2026-09-28T16:23:57+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2025/11/25/HkbwbVXWWx/HkbwbVXWWx_0_0_1890_1062_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.702829+00:00"
+    },
+    {
+      "id": "1d1be50dea693637",
+      "title": "Paragon founder set to launch new cyber startup",
+      "description": "Top venture capital funds are prepared to invest in the new company at a valuation of hundreds of millions of dollars.",
+      "url": "https://en.globes.co.il/en/article-1001557798#utm_source=RSS",
+      "published": "2026-09-28T16:08:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1790602909/800_zorabf.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054036+00:00"
+    },
+    {
+      "id": "9a6f9467d06a6a92",
+      "title": "600 תשתיות טרור הושמדו: עיר המקלט של חיזבאללה נהרסה",
+      "description": "במהלך פעילות חטיבת הצנחנים במילואים 55 בכפר אל־מנצורי שבין צור למג'דל זון הושמדו תשתיות טרור ותוואים תת־קרקעיים של חיזבאללה. בצה\"ל: המבצע נועד למנוע התבססות מחודשת של הארגון במרחב",
+      "url": "https://www.maariv.co.il/news/military/article-1371632",
+      "published": "2026-09-28T15:51:32+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1136367",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.926971+00:00"
+    },
+    {
+      "id": "5484d220b46f946c",
+      "title": "העבריין שניצל ממספר ניסיונות חיסול קיבל מסר ברור: \"הוא פתוח בסכסוכים לא פשוטים, ולא מעט\"",
+      "description": "קטין בן 15 נפצע באורח בינוני מפיצוץ מטען שהושלך לחצר בית בחולון. במשטרה בודקים אם היעד היה עבריין מוכר, שבית סבתו במקום ושבעבר היה יעד לניסיונות חיסול",
+      "url": "https://www.maariv.co.il/news/law/article-1371630",
+      "published": "2026-09-28T15:31:43+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141845",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.927272+00:00"
+    },
+    {
+      "id": "12bd06d6c9a334cc",
+      "title": "Anthropic, Gamma, and Clay share what happens when enterprises actually deploy AI at TechCrunch Disrupt 2026",
+      "description": "Anthropic, Clay, and Gamma on what it takes for an AI product to go beyond the demo at the AI Stage at TechCrunchDisrupt 2026. Register to join and get 50% off a second pass.",
+      "url": "https://techcrunch.com/2026/09/28/anthropic-gamma-and-clay-share-what-happens-when-enterprises-actually-deploy-ai-at-techcrunch-disrupt-2026/",
+      "published": "2026-09-28T15:30:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464379+00:00"
+    },
+    {
+      "id": "fb223030f893816f",
+      "title": "Physical AI chip developer SiMa AI hits $1.45B valuation",
+      "description": "The edge computing startup raised a $150 million Series C led by Fidelity and Amplify.",
+      "url": "https://techcrunch.com/2026/09/28/physical-ai-chip-developer-sima-ai-hits-1-45b-valuation/",
+      "published": "2026-09-28T15:29:21+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464535+00:00"
+    },
+    {
+      "id": "86b93e06fea1f3c7",
+      "title": "ארדואן הציב מכשול - יוון וצרפת מצאו פתרון לפרויקט הענק",
+      "description": "יוון וצרפת בוחנות שינוי בתוואי כבל החשמל התת-ימי בין כרתים לקפריסין, כדי לעקוף אזור ימי שעליו הכריזה טורקיה כפארק לאומי - מבלי להכיר בתביעותיה הטריטוריאליות של אנקרה",
+      "url": "https://www.maariv.co.il/news/world/article-1371627",
+      "published": "2026-09-28T15:29:15+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141971",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.927759+00:00"
+    },
+    {
+      "id": "dcc43bdc5eca94f4",
+      "title": "MAVI bets on the AI boom creating demand for a new kind of accountant",
+      "description": "Accounting staffing company MAVI emerges from stealth with $4 million in funding.",
+      "url": "https://techcrunch.com/2026/09/28/mavi-bets-on-the-ai-boom-creating-demand-for-a-new-kind-of-accountant/",
+      "published": "2026-09-28T15:26:46+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464678+00:00"
+    },
+    {
+      "id": "c2bc1f4b1036a000",
+      "title": "מנכ\"ל מליסרון אופיר שריד הלך לעולמו בגיל 54",
+      "description": "שריד, שעמד בראש מליסרון מאז 2019, יצא בתחילת החודש לחופשת מחלה, סיים את תפקידו בשבוע שעבר בשל נסיבות רפואיות והלך היום לעולמו. הותיר אחריו רעיה ושלושה ילדים. ליאורה עופר, בעלת השליטה ויו״ר דירקטוריון מליסרון: ״היה לי לחבר אמת ושותף לחזון ולדרך\"",
+      "url": "https://www.ynet.co.il/economy/article/bk3flbo5me",
+      "published": "2026-09-28T15:02:13+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/28/B1naGWOcGl/B1naGWOcGl_114_44_631_355_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.703240+00:00"
+    },
+    {
+      "id": "cc81b6e353bb2635",
+      "title": "After a deepfake voice fooled her grandfather, this founder sprang into action",
+      "description": "After her grandfather was scammed by a deepfake of his brother's voice, Tarini Padmanabhuni founded DetectifAI, a San Francisco startup building AI models small enough to run directly on smartphones and flag fake voices in real time, and it's now one of the companies competing in Startup Battlefield at TechCrunch Disrupt.",
+      "url": "https://techcrunch.com/2026/09/28/after-a-deepfake-voice-fooled-her-grandfather-this-founder-sprang-into-action/",
+      "published": "2026-09-28T15:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464833+00:00"
+    },
+    {
+      "id": "871b136b67e172e4",
+      "title": "Commonwealth Fusion Systems’ Brandon Sorbom and Helion’s David Kirtley on bringing fusion to the grid at TechCrunch Disrupt 2026",
+      "description": "CFS' Brandon Sorbom and Helion's David Kirtley join the Smart Systems Stage at TechCrunch Disrupt 2026 to discuss the breakthroughs moving fusion forward, the challenges that remain, and what it will take to deliver fusion power to the grid at scale. Get your pass at regular price and get a second one at 50% off.",
+      "url": "https://techcrunch.com/2026/09/28/commonwealth-fusion-systems-brandon-sorbom-and-helions-david-kirtley-on-bringing-fusion-to-the-grid-at-techcrunch-disrupt-2026/",
+      "published": "2026-09-28T15:00:00+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.464986+00:00"
+    },
+    {
+      "id": "1486cf00dfba9000",
+      "title": "Israeli experts uncover AI scam as tech giants deny liability",
+      "description": "Search engines and chatbots such as ChatGPT, Gemini, and Google AI direct unsuspecting consumers to spook call centers of airlines, travel platforms and banks.",
+      "url": "https://en.globes.co.il/en/article-1001557795#utm_source=RSS",
+      "published": "2026-09-28T14:57:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1790607367/scam_gtygko.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054140+00:00"
+    },
+    {
+      "id": "c91805f31ef49654",
+      "title": "FBI reportedly declares ‘cyber security incident’ after hackers steal agents’ personal data",
+      "description": "The bureau has not yet publicly confirmed a breach, but has told its agents that their personal information and Social Security numbers were exposed.",
+      "url": "https://techcrunch.com/2026/09/28/fbi-reportedly-declares-cyber-security-incident-after-hackers-steal-agents-personal-data/",
+      "published": "2026-09-28T14:50:30+00:00",
+      "image_url": null,
+      "source_id": "techcrunch",
+      "source_name": "TechCrunch",
+      "source_lang": "en",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.465139+00:00"
+    },
+    {
+      "id": "a9184c73416f18d9",
+      "title": "ShinyHunters trades financial extortion for a reckless war of ego with the FBI",
+      "description": "Cybercrime experts are stunned as ShinyHunters risks agent safety and intense federal heat in a bizarre attempt to force the retraction of an agency advisory. The post ShinyHunters trades financial extortion for a reckless war of ego with the FBI appeared first on CyberScoop .",
+      "url": "https://cyberscoop.com/fbi-data-breach-shinyhunters-agent-safety-risk/",
+      "published": "2026-09-28T14:47:10+00:00",
+      "image_url": null,
+      "source_id": "cyberscoop",
+      "source_name": "CyberScoop",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.873942+00:00"
+    },
+    {
+      "id": "704415f08d36b02a",
+      "title": "שקיות ממתקים מותאמות לשמחת תורה - כדי שאף ילד לא יישאר בחוץ",
+      "description": "בעיריית שדרות נערכים זו השנה הרביעית ברציפות כדי שגם ילדים עם אלרגיות למזון או רגישות לגלוטן יוכלו לקבל שקית ממתקים בשמחת תורה - ללא חשש ולצד חבריהם בבית הכנסת",
+      "url": "https://www.maariv.co.il/news/israel/article-1371614",
+      "published": "2026-09-28T14:29:51+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141956",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.928153+00:00"
+    },
+    {
+      "id": "5d890ae623b9bb14",
+      "title": "\"קיים בחשבונך חוב\": ההודעה מהעירייה היא הונאה",
+      "description": "מרכז השלטון המקומי הוציא אזהרה מפני הודעות בסמס המתחזות לדרישות גבייה מטעם רשויות מקומיות. בין היתר, הן כוללות דרישה להסדרת תשלום ארנונה, חשבון מים או חניה בלחיצה על קישור. ככה הן נראות",
+      "url": "https://www.ynet.co.il/economy/article/rjtnigoqfl",
+      "published": "2026-09-28T14:19:20+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/28/Sk2iIl00qfl/Sk2iIl00qfl_226_274_656_370_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.703627+00:00"
+    },
+    {
+      "id": "8c6febc64301a9ee",
+      "title": "נועה ארגמני מצטרפת לקרן הון סיכון ותעזור לסטארטפים: \"רוצה לחולל שינוי\"",
+      "description": "ארגמני החלה לעבוד בקרן ויין ונצ'רס, שמשקיעה בסטארטאפים ישראלים בשלביהם המוקדמים, בעיקר בתחומי הבינה המלאכותית, הסייבר וטכנולוגיות הביטחון. בריאיון ל\"ביזנס אינסיידר\" סיפרה על מטרותיה: \"להסתכל קדימה, ללכת לעבודה ולא לתת לאבל להפוך לזהות שלי\"",
+      "url": "https://www.ynet.co.il/economy/article/b1esfxucfg",
+      "published": "2026-09-28T14:16:35+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2024/08/22/H1LyI00JBoA/H1LyI00JBoA_0_0_3000_1689_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.703971+00:00"
+    },
+    {
+      "id": "79aa8fdbe1dab172",
+      "title": "Onimusha: Way of The Sword: החרב חדה, המשחק קצת פחות",
+      "description": "אחרי שני עשורים, סדרת אונימושה חוזרת עם מיאמוטו מוסאשי, שדים ומערכת קרבות חרבות ממכרת. דווקא הניסיון לאמץ נוסחה של עולם פתוח, עם משימות צד ואינספור דברים לאסוף, גורר אותו למטה. התוצאה מהנה ומרשימה, אבל גם כזו שהייתה יכולה להיות הרבה יותר טובה אילו Capcom הייתה יודעת מתי לעצור | סקירה",
+      "url": "https://www.ynet.co.il/digital/gaming/article/s1wp5cl5fx",
+      "published": "2026-09-28T14:12:27+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/28/rJQcElucfl/rJQcElucfl_0_0_1920_1080_0_medium.jpg",
+      "source_id": "ynet_digital",
+      "source_name": "Ynet דיגיטל",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.831507+00:00"
+    },
+    {
+      "id": "3b81f7f03d39fd80",
+      "title": "מועמד הליכוד בונצל לשורדת השבי: \"הלוואי והייתה דרך להחזיר אותך לידי החמאס\"",
+      "description": "הסערה הפוליטית בעקבות דבריו של האב השכול איציק בונצל נגד שורדת השבי יוכבד ליפשיץ: ראשי האופוזיציה תקפו בחריפות את הדברים והגדירו אותם כחציית קו אדום. בונצל התנצל לבסוף על דבריו",
+      "url": "https://www.maariv.co.il/news/politics/article-1371606",
+      "published": "2026-09-28T13:50:50+00:00",
+      "image_url": "https://images.maariv.co.il/image/upload/f_auto,fl_lossy/c_fill,g_faces:center,h_438,w_778/1141929",
+      "source_id": "maariv_business",
+      "source_name": "Maariv עסקים",
+      "source_lang": "he",
+      "source_priority": "medium",
+      "fetched_at": "2026-09-28T19:59:15.928588+00:00"
+    },
+    {
+      "id": "ec160d9f8ca46e03",
+      "title": "Israel expels Dutch diplomats, issues travel warning",
+      "description": "The actions are in response to stringent Dutch sanctions making imports from Jewish settlements over the Green Line a criminal offense.",
+      "url": "https://en.globes.co.il/en/article-1001557744#utm_source=RSS",
+      "published": "2026-09-28T13:46:21+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1790237346/shutterstock_2767369783_cbyhf2.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054238+00:00"
+    },
+    {
+      "id": "a11dbc7f586c2087",
+      "title": "Air India to resume Israel flights in December",
+      "description": "The airline will operate five weekly flights between Delhi and Tel Aviv but it remains to be seen whether services will actually be resumed.",
+      "url": "https://en.globes.co.il/en/article-1001557742#utm_source=RSS",
+      "published": "2026-09-28T13:17:25+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1723462382/direct/shutterstock_2188132627_e9zv9x.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054358+00:00"
+    },
+    {
+      "id": "ee34969dcadb9536",
+      "title": "מחסור בגבינה לבנה: \"17 שקל על גבינת נפוליאון 9%\"",
+      "description": "שוב מחסור בגבינה לבנה וקוטג' בגלל יום כיפור. צרכנים מתלוננים: \"אי אפשר למצוא גבינת סקי ותנובה\". צרכן שרצה לקנות נפוליאון 9% שומן כתחליף התבקש לשלם 16.90 שקל כשגבינה לבנה נמכרת ב-5.87 שקלים במחיר מפוקח",
+      "url": "https://www.ynet.co.il/economy/article/sjieirw9fx",
+      "published": "2026-09-28T12:38:18+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/28/SkoRQpwczx/SkoRQpwczx_0_506_1536_865_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.704498+00:00"
+    },
+    {
+      "id": "770ca29e5eb6f628",
+      "title": "Valley National buys Israeli fintech co Bluevine for $340m",
+      "description": "The company has developed a digital banking platform for small businesses across the US.",
+      "url": "https://en.globes.co.il/en/article-1001557736#utm_source=RSS",
+      "published": "2026-09-28T12:38:09+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1634652400/direct/%D7%90%D7%99%D7%99%D7%9C_%D7%9C%D7%99%D7%A4%D7%A9%D7%99%D7%A5_%D7%95%D7%A0%D7%99%D7%A8_%D7%A7%D7%9C%D7%A8_%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%99_%D7%91%D7%9C%D7%95_%D7%95%D7%95%D7%99%D7%9F_-_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%99%D7%97%D7%A6_afd68v.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054465+00:00"
+    },
+    {
+      "id": "7c848de760b39fdb",
+      "title": "שברה את השיא של אפל: מהלך דרמטי נוסף של אנבידיה",
+      "description": "מועצת המנהלים של ענקית השבבים אישרה רכישת מניות עצמית ב-150 מיליארד דולר, שיא היסטורי לחברה בעולם. בכך שברה אנבידיה את השיא הקודם בו החזיקה אפל, שרכשה ב-2024 מניות שלה ב-110 מיליארד דולר",
+      "url": "https://www.ynet.co.il/economy/article/bk4atawqmg",
+      "published": "2026-09-28T12:21:39+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2025/12/25/B1aacK5mbx/B1aacK5mbx_100_0_802_452_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.704835+00:00"
+    },
+    {
+      "id": "7ad1a9232f5211f2",
+      "title": "What If Your Cloud Provider Couldn’t Read Your Files?",
+      "description": "Collaborative documents have become a standard way for teams to work together, but they present a security problem that encrypted messaging largely solved years ago. Documents may be encrypted while traveling across the internet and while stored, yet many collaboration platforms still need access to the unencrypted content on their servers to synchronize edits. That […]",
+      "url": "https://i-hls.com/archives/138542",
+      "published": "2026-09-28T12:00:01+00:00",
+      "image_url": null,
+      "source_id": "ihls",
+      "source_name": "iHLS - Israeli Homeland Security",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:18.442520+00:00"
+    },
+    {
+      "id": "279b134407d5c09e",
+      "title": "Cyberattack co Paragon agrees SPAC merger at $1.25b valuation",
+      "description": "Founded by former Israeli prime minister Ehud Barak and IDF intelligence veterans, Paragon was sold two years ago to a US private equity firm for $900 million.",
+      "url": "https://en.globes.co.il/en/article-1001557729#utm_source=RSS",
+      "published": "2026-09-28T11:45:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1738159482/direct/WhatsApp_Image_2024-12-17_at_15.07.47_f7b4c57b_qxi2rk_ob94ii.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054564+00:00"
+    },
+    {
+      "id": "0369c3244a318188",
+      "title": "חברת הסייבר ההתקפי שהקים מפקד 8200 לשעבר בדרך לנאסד\"ק",
+      "description": "פאראגון תהפוך לציבורית באמצעות מיזוג עם חברת ארנק, בעקבות רכישתה ע\"י קרן השקעות אמריקנית. רשמה הכנסות של 267 מיליון דולר בתוך שנה, עלייה של 29%. מרכז המחקר, הפיתוח והחדשנות יישאר בישראל",
+      "url": "https://www.ynet.co.il/economy/article/r196z0dcge",
+      "published": "2026-09-28T11:43:51+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2024/12/16/S1LwvR2Vkg/S1LwvR2Vkg_0_300_1600_901_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.705170+00:00"
+    },
+    {
+      "id": "7452570a1901f483",
+      "title": "סנקציות מדינות אירופה יפגעו במערכת הבנקאות? \"יכול להתגלגל למשקי הבית\"",
+      "description": "המפקח על הבנקים לשעבר, יאיר אבידן, מזהיר כי הדיונים על סנקציות נגד חברות ישראליות על רקע המצב ביו\"ש והקיפאון בעזה, עלולים בתרחיש קיצוני להגיע להפסקת פעילות עם בנקים אירופיים מובילים, לפגוע ביבואנים וביצואנים ולהתגלגל לצמיחה. וגם: האם דירוג האשראי של ישראל שוב בסכנה?",
+      "url": "https://www.ynet.co.il/economy/article/bjofp6d9fe",
+      "published": "2026-09-28T11:29:11+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/03/10/r1000SkCFWx/r1000SkCFWx_91_54_1123_632_0_medium.jpg",
+      "source_id": "ynet_economy",
+      "source_name": "Ynet כלכלה",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.705517+00:00"
+    },
+    {
+      "id": "795de1337840087c",
+      "title": "Shekel at 2-month weakest against US dollar",
+      "description": "Interest rate differentials, rising bond yields, Middle East tensions, and the global strengthening of the dollar are weakening the Israeli currency.",
+      "url": "https://en.globes.co.il/en/article-1001557725#utm_source=RSS",
+      "published": "2026-09-28T11:12:55+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1776324728/direct/%D7%93%D7%95%D7%9C%D7%A8-%D7%A9%D7%A7%D7%9C_rx1ubw.png",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054660+00:00"
+    },
+    {
+      "id": "d2508cf201b4107a",
+      "title": "מיקרוסופט מרימה ידיים: קופיילוט האישי בדרך להיעלם",
+      "description": "אחרי שניסתה להפוך את קופיילוט לסייען אישי שיתחרה ב-ChatGPT ובג'מיני, מיקרוסופט משנה כיוון: הגרסה הצרכנית תיבלע בתוך המוצר הארגוני, הפיצ'רים האישיים נדחקים הצידה והחברה חוזרת למגרש שבו היא מרגישה בבית - וורד, אקסל ושוק העבודה",
+      "url": "https://www.ynet.co.il/digital/technews/article/bydrjadqze",
+      "published": "2026-09-28T11:10:21+00:00",
+      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2023/11/15/BJMGUjMVa/BJMGUjMVa_222_290_2344_1320_0_medium.jpg",
+      "source_id": "ynet_digital",
+      "source_name": "Ynet דיגיטל",
+      "source_lang": "he",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.831870+00:00"
+    },
+    {
+      "id": "907e07827310c000",
+      "title": "Finance C'ttee deadlock endangers Israel's status as R&D hub",
+      "description": "Regulations required under the OECD's global tax regime for multinationals are being delayed by political wrangling.",
+      "url": "https://en.globes.co.il/en/article-1001557723#utm_source=RSS",
+      "published": "2026-09-28T11:04:00+00:00",
+      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1736413572/direct/NOAM7220_jayfwj.jpg",
+      "source_id": "globes_tech_en",
+      "source_name": "Globes EN Tech",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:16.054767+00:00"
+    },
+    {
+      "id": "85df4a0facf64231",
+      "title": "This Early Groq Investor Expects Half Her Bets To Fail",
+      "description": "In an interview with Crunchbase News, Sandhya Venkatachalam, founder and managing partner of Axiom Partners, discusses why she looks beyond familiar founder profiles, what makes an AI company durable, and how an early investment in Groq shaped her approach.",
+      "url": "https://news.crunchbase.com/venture/early-groq-ai-investor-qa-venkatachalam-axiom/",
+      "published": "2026-09-28T11:00:06+00:00",
+      "image_url": "https://news.crunchbase.com/wp-content/uploads/AI-generated.jpg",
+      "source_id": "crunchbase",
+      "source_name": "Crunchbase News",
+      "source_lang": "en",
+      "source_priority": "high",
+      "fetched_at": "2026-09-28T19:59:15.627122+00:00"
+    },
+    {
+      "id": "5b667b26f2a6da65",
+      "title": "טראמפ דחה את הצעת איראן להפסקת אש: הנפט מתייקר, הדולר מתחזק מול השקל",
       "description": "מחירי הנפט מזנקים הבוקר בכ-3%: חבית ברנט נסחרת סביב 107 דולר וקרוד ב-94 דולר, לאחר שנשיא ארה\"ב דחה את הצעת איראן להפוגה של שבעה ימים, שהייתה מאפשרת את פתיחתו מחדש של מיצר הורמוז. במקביל, הדולר מתחזק על חשבון השקל",
       "url": "https://www.ynet.co.il/economy/article/h1e00mypqfl",
       "published": "2026-09-28T10:12:33+00:00",
@@ -14,7 +703,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.621410+00:00"
+      "fetched_at": "2026-09-28T19:59:15.705853+00:00"
     },
     {
       "id": "a83cf14caf2eae96",
@@ -27,7 +716,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.650103+00:00"
+      "fetched_at": "2026-09-28T19:59:15.832218+00:00"
     },
     {
       "id": "abc0e0f40ecf74d9",
@@ -40,7 +729,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272263+00:00"
+      "fetched_at": "2026-09-28T19:59:16.054864+00:00"
     },
     {
       "id": "0976f1e1b6074134",
@@ -53,7 +742,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.650636+00:00"
+      "fetched_at": "2026-09-28T19:59:15.832603+00:00"
     },
     {
       "id": "026898af76e1ec82",
@@ -66,7 +755,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.622144+00:00"
+      "fetched_at": "2026-09-28T19:59:15.706196+00:00"
     },
     {
       "id": "f176c39a56f1f57d",
@@ -79,7 +768,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.622534+00:00"
+      "fetched_at": "2026-09-28T19:59:15.706560+00:00"
     },
     {
       "id": "576ae925a3c23a4d",
@@ -92,7 +781,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.905876+00:00"
+      "fetched_at": "2026-09-28T19:59:18.442728+00:00"
     },
     {
       "id": "39f37f41878b07e7",
@@ -105,7 +794,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272372+00:00"
+      "fetched_at": "2026-09-28T19:59:16.054957+00:00"
     },
     {
       "id": "fd91caa8334158e2",
@@ -118,7 +807,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.622869+00:00"
+      "fetched_at": "2026-09-28T19:59:15.706886+00:00"
     },
     {
       "id": "4854b0cc962d299b",
@@ -131,7 +820,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.623277+00:00"
+      "fetched_at": "2026-09-28T19:59:15.707221+00:00"
     },
     {
       "id": "1f1bafdb9975f692",
@@ -144,7 +833,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.623635+00:00"
+      "fetched_at": "2026-09-28T19:59:15.707678+00:00"
     },
     {
       "id": "a3b1de0fcd9d365e",
@@ -157,59 +846,7 @@
       "source_name": "Ynet כלכלה",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.624025+00:00"
-    },
-    {
-      "id": "8b2fa713303daf18",
-      "title": "מתנדבת בהוסטל נפצעה ותקבל 824 אלף שקל",
-      "description": "סטודנטית מעדה על מהמורה בשביל גישה לבניין שבו פעלה דירה של \"מרפא לנפש\". ביהמ\"ש קבע שהעמותה תישא ב-75% מהפיצוי, ובעלי הדירות בשאר",
-      "url": "https://www.ynet.co.il/economy/article/byl8u0v9mx",
-      "published": "2026-09-28T05:12:53+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2019/04/14/9184419/9184419_0_103_980_552_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.624363+00:00"
-    },
-    {
-      "id": "34ba1ba09f750f0d",
-      "title": "Truecaller takes its scam intelligence to the open web as it looks beyond caller ID",
-      "description": "Truecaller finds a new way to reach users as pressure grows on its traditional caller ID business in India, its biggest market.",
-      "url": "https://techcrunch.com/2026/09/27/truecaller-takes-its-scam-intelligence-to-the-open-web-as-it-looks-beyond-caller-id/",
-      "published": "2026-09-28T04:30:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.559397+00:00"
-    },
-    {
-      "id": "505e5405d9daa045",
-      "title": "שוברי הזיכוי של קבוצת פוקס נפתחים גם לאונליין - ויש גם פיצוי",
-      "description": "בית המשפט אישר הסתלקות מתובענה ייצוגית שעסקה באי-אפשרות לממש שוברי זיכוי באתרי הקבוצה. פוקס-ויזל, שכפרה בטענות וטענה כי החלה בפיתוח עוד קודם להליך, תאפשר מימוש מקוון ותעניק לציבור הטבות בהיקף של כחצי מיליון שקל",
-      "url": "https://www.ynet.co.il/economy/article/hkaqc8i5ml",
-      "published": "2026-09-28T04:04:51+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2020/03/11/SkaQ15LSI/SkaQ15LSI_179_73_412_232_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.624836+00:00"
-    },
-    {
-      "id": "e4e50d0372a87277",
-      "title": "צפי לזינוק דרמטי נוסף במחיר הדלק",
-      "description": "מחיר ליטר 95 בשירות עצמי צפוי להתייקר בין רביעי לחמישי שוב, הפעם בעד 40 אגורות, ליותר מ-8 שקלים. המשמעות: מרבית הפחתת מס הבלו שאושרה בחודש שעבר תימחק. חשש מגל עליות מחירים בייצור ובתעופה",
-      "url": "https://www.ynet.co.il/economy/article/yokra14910144",
-      "published": "2026-09-28T04:04:27+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2024/03/21/ByMVX6tRT/ByMVX6tRT_0_0_800_450_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.625240+00:00"
+      "fetched_at": "2026-09-28T19:59:15.708028+00:00"
     },
     {
       "id": "5274cb3b88b0dab8",
@@ -222,85 +859,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.906103+00:00"
-    },
-    {
-      "id": "c8a0e56f4c8c248a",
-      "title": "Anthropic’s CEO is about to have dinner with President Trump",
-      "description": "This will be the first one-on-one meeting between Dario Amodei and Donald Trump",
-      "url": "https://techcrunch.com/2026/09/27/anthropics-ceo-is-about-to-have-dinner-with-president-trump/",
-      "published": "2026-09-27T20:34:28+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.559778+00:00"
-    },
-    {
-      "id": "5dded6be531657e6",
-      "title": "Can Muse overcome Meta’s trust issues?",
-      "description": "On Equity, we discussed how Meta's AI announcement managed to steal the spotlight from OpenAI and Anthropic.",
-      "url": "https://techcrunch.com/2026/09/27/can-muse-overcome-metas-trust-issues/",
-      "published": "2026-09-27T19:57:30+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.560188+00:00"
-    },
-    {
-      "id": "4820cb94289dfe67",
-      "title": "Anthropic’s Dario Amodei gets the SNL treatment",
-      "description": "\"AI is the devil and I its maker.\"",
-      "url": "https://techcrunch.com/2026/09/27/anthropics-dario-amodei-gets-the-snl-treatment/",
-      "published": "2026-09-27T16:30:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.560477+00:00"
-    },
-    {
-      "id": "afd16c1892e3d93d",
-      "title": "אגד נפסלה מהשתתפות במכרז ענק בהיקף של מאות מיליוני שקלים בשנה",
-      "description": "מנהל הרשות הארצית לתחבורה ציבורית, עידן מועלם, דחה את טענות החברה הוותיקה והודיע כי היא מנועה מלהשתתף במכרז החשמונאים: \"נותרה כמפעיל דומיננטי באופן משמעותי, אשר שיעור פעילותו חורג מ-25% מהענף\"",
-      "url": "https://www.ynet.co.il/economy/article/hk00eg6l5gg",
-      "published": "2026-09-27T16:14:26+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/08/25/r1ysQjqwMg/r1ysQjqwMg_1_16_2000_1126_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.625591+00:00"
-    },
-    {
-      "id": "172f2943f9614bfd",
-      "title": "TechCrunch Mobility: AV companies pick their lanes",
-      "description": "Welcome back to TechCrunch Mobility, your hub for the future of transportation and now, more than ever, the role AI is playing in it.",
-      "url": "https://techcrunch.com/2026/09/27/techcrunch-mobility-av-companies-pick-their-lanes/",
-      "published": "2026-09-27T16:02:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.560752+00:00"
-    },
-    {
-      "id": "48b7ea422650b9b5",
-      "title": "Sennheiser Momentum 5 review: Great sound, incredible battery life, and few compromises",
-      "description": "I spent the last few weeks with the Sennheiser Momentum 5 to determine if this pair actually stands out, testing everything from sound quality and noise cancellation to comfort and battery life.",
-      "url": "https://techcrunch.com/2026/09/27/sennheiser-momentum-5-review-great-sound-incredible-battery-life-and-few-compromises/",
-      "published": "2026-09-27T15:00:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.561124+00:00"
+      "fetched_at": "2026-09-28T19:59:18.442915+00:00"
     },
     {
       "id": "adc164f7938e38ab",
@@ -313,7 +872,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272596+00:00"
+      "fetched_at": "2026-09-28T19:59:16.055169+00:00"
     },
     {
       "id": "7eec6ec502f4977e",
@@ -326,59 +885,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272492+00:00"
-    },
-    {
-      "id": "e218e3c2684ac9e2",
-      "title": "מהו חוזה עתידי ומה השימוש בו? - המדריך המלא להשקעה בחוזים עתידיים",
-      "description": "חוזים עתידיים הם אחד המכשירים הוותיקים והחשובים בשווקים הפיננסיים, אבל עבור משקיעים רבים הם עדיין נתפסים כמוצר מורכב ששייך בעיקר לסוחרים מקצועיים. בפועל, חוזים עתידיים משמשים מדי יום משקיעים, קרנות, בנקים, חברות תעשייה ויצרני סחורות כדי לגדר סיכונים, לקבל חשיפה למדדים, לסחור בנפט או בזהב ולהגיב במהירות לאירועים בשוק. אז איך חוזה עתידי עובד, מה ההבדל בינו לבין מניה, ולמה המינוף הופך אותו גם לכלי יעיל וגם למסוכן יותר?",
-      "url": "https://www.ynet.co.il/economy/interactive/wallstreet/article/e41m6g2tg",
-      "published": "2026-09-27T12:24:14+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/27/By611YFU5fe/By611YFU5fe_0_0_1999_1121_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.625989+00:00"
-    },
-    {
-      "id": "f80aef8fbfaeb7d7",
-      "title": "טכנולוגיה, פיננסים, אנרגיה ועוד: מהם 11 הסקטורים של וול סטריט - המדריך המלא לסקטורים בארה\"ב!",
-      "description": "כשמדברים על וול סטריט, קל להתמקד במדדים הגדולים או במניות הבולטות. אבל מתחת לפני השטח השוק מחולק ל-11 סקטורים שונים, שכל אחד מהם מגיב אחרת לריבית, לאינפלציה, לצמיחה הכלכלית ולשינויים בהרגלי הצריכה. טכנולוגיה, פיננסים, בריאות, אנרגיה ונדל\"ן הם רק חלק מהתמונה. אז מה בעצם נחשב סקטור, למה החלוקה הזו חשובה למשקיעים, ואיך אפשר להשתמש בה כדי להבין טוב יותר מה באמת מניע את השוק?",
-      "url": "https://www.ynet.co.il/economy/interactive/wallstreet/article/dndxt75s8",
-      "published": "2026-09-27T12:22:12+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/27/ByXbKFIqzx/ByXbKFIqzx_208_0_1676_943_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.626365+00:00"
-    },
-    {
-      "id": "ef36d0bd915c8e8d",
-      "title": "למה מי שבנה את טרייד ה-AI עכשיו מבקש להאט אותו ואיך השוק מתחיל לחשב מחדש את המחיר?",
-      "description": "במשך השנתיים האחרונות וול סטריט התרגלה לסיפור פשוט: מודלי AI משתפרים במהירות, ענקיות הטכנולוגיה משקיעות מאות מיליארדי דולרים בתשתיות, והכסף זורם לכל שרשרת הערך - מאנבידיה ומיקרון ועד מרכזי נתונים, אחסון וחשמל. אלא שבסוף השבוע הגיע שינוי חד בטון דווקא מצד האנשים שבנו את הנרטיב הזה. דריו אמודיי, מנכ\"ל אנתרופיק, קרא להאט את קצב ההתקדמות של מודלי ה-AI המתקדמים ביותר, וסם אלטמן, מנכ\"ל OpenAI, הודיע שהוא מסכים איתו. עבור השוק, זה לא רק ויכוח פילוסופי על בטיחות - זו שאלה ישירה לגבי קצב ההשקעות והרווחים",
-      "url": "https://www.ynet.co.il/economy/interactive/wallstreet/article/ko2pb3l8o",
-      "published": "2026-09-27T12:19:25+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/27/Sy11deFFL5zg/Sy11deFFL5zg_1_74_848_478_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.626841+00:00"
-    },
-    {
-      "id": "e0b18f0baf52822a",
-      "title": "מהן מניות צמיחה ומניות ערך ואיך משקיעים בכל אחת מהגישות?",
-      "description": "מצד אחד נמצאות חברות שהמשקיעים מוכנים לשלם עליהן מחיר גבוה היום בתקווה שההכנסות והרווחים יגדלו במהירות בעתיד. מהצד השני ניצבות חברות שהשוק מתמחר באופן מתון יותר, לעיתים בגלל תקופה חלשה או משום שהן פועלות בענפים בוגרים ומבוססים. אלה הן, בקווים כלליים, מניות צמיחה ומניות ערך - שתי גישות שונות מאוד לבחירת מניות, שלא פעם מתחלפות בהובלת השוק בהתאם לריבית, למצב הכלכלה ולציפיות המשקיעים.",
-      "url": "https://www.ynet.co.il/economy/interactive/wallstreet/article/44ftnezbr",
-      "published": "2026-09-27T12:17:49+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/27/H1WVyttUqzl/H1WVyttUqzl_0_0_1999_1125_0_medium.jpg",
-      "source_id": "ynet_economy",
-      "source_name": "Ynet כלכלה",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.627241+00:00"
+      "fetched_at": "2026-09-28T19:59:16.055069+00:00"
     },
     {
       "id": "71b8e0a0079dea72",
@@ -391,7 +898,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.911438+00:00"
+      "fetched_at": "2026-09-28T19:59:18.443097+00:00"
     },
     {
       "id": "1ad6468fcb59ea2a",
@@ -404,7 +911,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.651175+00:00"
+      "fetched_at": "2026-09-28T19:59:15.832945+00:00"
     },
     {
       "id": "57d2d77bb2323ac2",
@@ -417,7 +924,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272700+00:00"
+      "fetched_at": "2026-09-28T19:59:16.055272+00:00"
     },
     {
       "id": "ec6d096a655135a2",
@@ -430,20 +937,7 @@
       "source_name": "Globes EN Tech",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272796+00:00"
-    },
-    {
-      "id": "9fd87f3d5e0283d9",
-      "title": "C'ttee ousts Ayalon Highways chair Idan David",
-      "description": "The committee on appointments in government companies cited claims in a Channel 12 report that David falsified his resumé.",
-      "url": "https://en.globes.co.il/en/article-1001557652#utm_source=RSS",
-      "published": "2026-09-27T10:02:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1790498866/800_w9eqf3.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.272897+00:00"
+      "fetched_at": "2026-09-28T19:59:16.055391+00:00"
     },
     {
       "id": "d4283e81e1cf4d72",
@@ -456,33 +950,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.651865+00:00"
-    },
-    {
-      "id": "7a3a711d22afec74",
-      "title": "Riskified hits five-year high",
-      "description": "The market cap of the Israeli online fraud prevention company ended last week above $1 billion for the first time in a long time.",
-      "url": "https://en.globes.co.il/en/article-1001557645#utm_source=RSS",
-      "published": "2026-09-27T08:59:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1627824532/direct/%D7%A8%D7%99%D7%A1%D7%A7%D7%A4%D7%99%D7%99%D7%93_%D7%91%D7%94%D7%A0%D7%A4%D7%A7%D7%94_%D7%91%D7%A0%D7%99%D7%95_%D7%99%D7%95%D7%A8%D7%A7_3_hig1mv.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.273022+00:00"
-    },
-    {
-      "id": "2413421a1f236584",
-      "title": "Buyers cancelling deals yet building starts still growing in south",
-      "description": "Deputy chief economist Galit Ban Naim points out that the cancelled purchases add to the already high stock of unsold homes.",
-      "url": "https://en.globes.co.il/en/article-1001557644#utm_source=RSS",
-      "published": "2026-09-27T08:39:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1727085460/direct/%D7%92%D7%9C%D7%99%D7%AA_%D7%91%D7%9F_%D7%A0%D7%90%D7%99%D7%9D_4_n6wsxj.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.273118+00:00"
+      "fetched_at": "2026-09-28T19:59:15.833282+00:00"
     },
     {
       "id": "786ecd5e2724816a",
@@ -495,7 +963,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.652402+00:00"
+      "fetched_at": "2026-09-28T19:59:15.833748+00:00"
     },
     {
       "id": "6f328a3244562e6e",
@@ -508,20 +976,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.911683+00:00"
-    },
-    {
-      "id": "d5603fd75b2f1876",
-      "title": "Leviathan partners cancel $6.7b deal with Dalia Energy",
-      "description": "The deal is for the long-term supply of gas to two new Dalia Energy power plants. Dalia Energy rejects the cancellation.",
-      "url": "https://en.globes.co.il/en/article-1001557639#utm_source=RSS",
-      "published": "2026-09-27T07:45:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1764255202/direct/%D7%AA%D7%97%D7%A0%D7%AA_%D7%94%D7%9B%D7%95%D7%97_%D7%93%D7%9C%D7%99%D7%94_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_-_%D7%9E%D7%A6%D7%92%D7%AA_%D7%94%D7%97%D7%91%D7%A8%D7%94_xxqvxd.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.273212+00:00"
+      "fetched_at": "2026-09-28T19:59:18.443277+00:00"
     },
     {
       "id": "81f15eba07cc0bf7",
@@ -534,7 +989,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.297559+00:00"
+      "fetched_at": "2026-09-28T19:59:16.230424+00:00"
     },
     {
       "id": "95b71688a8db630b",
@@ -547,7 +1002,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.297812+00:00"
+      "fetched_at": "2026-09-28T19:59:16.230685+00:00"
     },
     {
       "id": "1d2650e04f94a6f1",
@@ -560,7 +1015,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.298104+00:00"
+      "fetched_at": "2026-09-28T19:59:16.230931+00:00"
     },
     {
       "id": "4c1f1539a9cd15cb",
@@ -573,33 +1028,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.911906+00:00"
-    },
-    {
-      "id": "4314cc833f0f9a1b",
-      "title": "PNOE’s new face mask wants to make lab-grade breath testing a self-serve affair",
-      "description": "PNOĒ, the Malden, Mass.-based startup whose breath-analyzing mask used to bear an unfortunate resemblance to Bane's, is launching a sleeker self-serve version on October 1 that lets gym-goers measure their VO₂ max and other metabolic markers in eight minutes without a trained operator.",
-      "url": "https://techcrunch.com/2026/09/26/pnoes-new-face-mask-wants-to-make-lab-grade-breath-testing-a-self-serve-affair/",
-      "published": "2026-09-27T01:40:30+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.561539+00:00"
-    },
-    {
-      "id": "d4a6409c604e5110",
-      "title": "Google tests buying from Walmart-owned Flipkart through Gemini and AI Mode in India",
-      "description": "The limited test covers select products and users, with a broader rollout planned for later in October.",
-      "url": "https://techcrunch.com/2026/09/26/google-tests-buying-from-walmart-owned-flipkart-through-gemini-and-ai-mode-in-india/",
-      "published": "2026-09-27T01:30:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.561835+00:00"
+      "fetched_at": "2026-09-28T19:59:18.443484+00:00"
     },
     {
       "id": "d6b0bca0c0bd8bff",
@@ -612,7 +1041,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.298343+00:00"
+      "fetched_at": "2026-09-28T19:59:16.231695+00:00"
     },
     {
       "id": "6036d8e93419831d",
@@ -625,72 +1054,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.298565+00:00"
-    },
-    {
-      "id": "7d4ca7adb9797292",
-      "title": "Insurers claim AI is already increasing healthcare costs",
-      "description": "Blue Cross Blue Shield says hospital use of AI tools led to an additional $942M in healthcare spending over a two-year period.",
-      "url": "https://techcrunch.com/2026/09/26/insurers-claim-ai-is-already-increasing-healthcare-costs/",
-      "published": "2026-09-26T21:02:06+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.562162+00:00"
-    },
-    {
-      "id": "4f1334754d2ed64c",
-      "title": "TikTok agrees to pay at least $100M in Alabama settlement",
-      "description": "TikTok will pay Alabama at least $100 million in a settlement tied to allegations that the short-form video platform misled users about safety and was designed to addict children.",
-      "url": "https://techcrunch.com/2026/09/26/tiktok-agrees-to-pay-at-least-100m-in-alabama-settlement/",
-      "published": "2026-09-26T20:24:45+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.562445+00:00"
-    },
-    {
-      "id": "42e5d675e22c12f1",
-      "title": "Meta and YouTube say they will run ads for ‘Musk’ documentary after all",
-      "description": "Two companies now say they will accept advertising for director Alex Gibney’s upcoming documentary about Elon Musk, following earlier reporting that a number of social media platforms had rejected the ads.",
-      "url": "https://techcrunch.com/2026/09/26/meta-says-it-will-run-ads-for-musk-documentary-after-all/",
-      "published": "2026-09-26T17:44:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.562757+00:00"
-    },
-    {
-      "id": "2c5f62481e8654ea",
-      "title": "Levoit’s new air purifier is for the pet odors that have taken over your apartment",
-      "description": "This $189.99 air purifier is specifically designed to tackle pet odors, removing up to 70% in one hour.",
-      "url": "https://techcrunch.com/2026/09/26/levoits-new-air-purifier-is-for-the-pet-odors-that-have-taken-over-your-apartment/",
-      "published": "2026-09-26T17:00:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.563127+00:00"
-    },
-    {
-      "id": "75e8ff1914656392",
-      "title": "I created an interactive digital avatar of myself — and you can talk to it",
-      "description": "After obtaining an interactive avatar and training it to discuss venture fraud, I have mixed feelings about making AI clones of ourselves.",
-      "url": "https://techcrunch.com/2026/09/26/i-created-an-interactive-digital-avatar-of-myself-and-you-can-talk-to-it/",
-      "published": "2026-09-26T14:00:00+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.563419+00:00"
+      "fetched_at": "2026-09-28T19:59:16.231940+00:00"
     },
     {
       "id": "1a11c81cc95900a6",
@@ -703,7 +1067,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.652909+00:00"
+      "fetched_at": "2026-09-28T19:59:15.834099+00:00"
     },
     {
       "id": "286f27ecdf808fee",
@@ -716,7 +1080,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.912171+00:00"
+      "fetched_at": "2026-09-28T19:59:18.443966+00:00"
     },
     {
       "id": "1b5a935e257eba42",
@@ -729,33 +1093,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.912507+00:00"
-    },
-    {
-      "id": "8a965bb971e0e230",
-      "title": "At Meta Connect, the company’s smart glasses were everywhere",
-      "description": "The company behind Facebook and Instagram wants to keep consumers connected to the digital world via its ever-growing line of smart glasses.",
-      "url": "https://techcrunch.com/2026/09/25/at-meta-connect-the-companys-smart-glasses-were-everywhere/",
-      "published": "2026-09-26T01:08:57+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.563710+00:00"
-    },
-    {
-      "id": "32811a3cd359eea9",
-      "title": "Crusoe abandons $1.25B plan to use Boom turbines at AI data centers",
-      "description": "Boom Supersonic CEO Blake Scholl said the company's new stationary power plants were no longer in Crusoe's near-term plans.",
-      "url": "https://techcrunch.com/2026/09/25/crusoe-abandons-1-25b-plan-to-use-boom-turbines-at-ai-data-centers/",
-      "published": "2026-09-25T23:11:10+00:00",
-      "image_url": null,
-      "source_id": "techcrunch",
-      "source_name": "TechCrunch",
-      "source_lang": "en",
-      "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:04.564009+00:00"
+      "fetched_at": "2026-09-28T19:59:18.444147+00:00"
     },
     {
       "id": "c457d3e2d13f0a57",
@@ -768,7 +1106,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.995647+00:00"
+      "fetched_at": "2026-09-28T19:59:15.874544+00:00"
     },
     {
       "id": "58425d56b7b08fa4",
@@ -781,7 +1119,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.745754+00:00"
+      "fetched_at": "2026-09-28T19:59:15.627252+00:00"
     },
     {
       "id": "3d5c0f1aa3c9803f",
@@ -794,7 +1132,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.996124+00:00"
+      "fetched_at": "2026-09-28T19:59:15.875079+00:00"
     },
     {
       "id": "7b9354a0dd835a9f",
@@ -807,7 +1145,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.653454+00:00"
+      "fetched_at": "2026-09-28T19:59:15.834629+00:00"
     },
     {
       "id": "3d575bbbe51913ee",
@@ -820,7 +1158,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.745885+00:00"
+      "fetched_at": "2026-09-28T19:59:15.627396+00:00"
     },
     {
       "id": "a73d3872168d264e",
@@ -833,7 +1171,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.912716+00:00"
+      "fetched_at": "2026-09-28T19:59:18.444320+00:00"
     },
     {
       "id": "b89fc0a3c69d9dd8",
@@ -846,7 +1184,7 @@
       "source_name": "iHLS - Israeli Homeland Security",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.912891+00:00"
+      "fetched_at": "2026-09-28T19:59:18.444522+00:00"
     },
     {
       "id": "295447503b017379",
@@ -859,7 +1197,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.298778+00:00"
+      "fetched_at": "2026-09-28T19:59:16.232161+00:00"
     },
     {
       "id": "326a4d626694c87f",
@@ -872,7 +1210,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.996584+00:00"
+      "fetched_at": "2026-09-28T19:59:15.875940+00:00"
     },
     {
       "id": "d86047e59747a4a6",
@@ -885,7 +1223,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.997508+00:00"
+      "fetched_at": "2026-09-28T19:59:15.876561+00:00"
     },
     {
       "id": "de290b509f053283",
@@ -898,33 +1236,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.998025+00:00"
-    },
-    {
-      "id": "cfcb9a2d15f0442b",
-      "title": "Third of young Israelis trust AI more than their parents - survey",
-      "description": "A Mastercard survey in Europe and Israel found that 32% of Israeli teenagers prefer AI purchase recommendations to those of their parents - but peer groups remain the strongest influence.",
-      "url": "https://en.globes.co.il/en/article-1001557602#utm_source=RSS",
-      "published": "2026-09-24T16:26:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1790179385/shutterstock_2506339259_ltbskz.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.273310+00:00"
-    },
-    {
-      "id": "dbd77275e8218182",
-      "title": "Hapag-Lloyd, FIMI submit revised offer for ZIM",
-      "description": "The new offer addresses security concerns and bolsters ZIM Israel's independence, but the price is unchanged.",
-      "url": "https://en.globes.co.il/en/article-1001557591#utm_source=RSS",
-      "published": "2026-09-24T14:53:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1772458747/direct/IMG-20260302-WA0031_mbztlf.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.273402+00:00"
+      "fetched_at": "2026-09-28T19:59:15.877086+00:00"
     },
     {
       "id": "7add2cf53ce81515",
@@ -937,7 +1249,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.998464+00:00"
+      "fetched_at": "2026-09-28T19:59:15.877651+00:00"
     },
     {
       "id": "fc8e48f33c82e373",
@@ -950,7 +1262,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.653963+00:00"
+      "fetched_at": "2026-09-28T19:59:15.834970+00:00"
     },
     {
       "id": "9a3a4c56684c3a56",
@@ -963,33 +1275,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.746033+00:00"
-    },
-    {
-      "id": "f0ec7133a135f6cb",
-      "title": "Desalination plant shutdown exposes precarious reserves",
-      "description": "The algae-induced turbidity now seems to be naturally dwindling but the crisis has exposed the precarious state of Israel’s groundwater levels and the Kinneret.",
-      "url": "https://en.globes.co.il/en/article-1001557481#utm_source=RSS",
-      "published": "2026-09-24T12:02:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1596849719/old/1582483.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.278734+00:00"
-    },
-    {
-      "id": "cf7f70f13842a666",
-      "title": "A Hacker Put AI Agents to Work—and 600,000 Credit Cards Were Stolen",
-      "description": "Cyberattacks against online retailers traditionally require significant manual work: finding vulnerable websites, breaking into each system, installing malicious code and returning later to collect stolen data. AI agents are beginning to compress that process, allowing one operator to attack many organizations simultaneously with relatively little direct involvement. An ongoing campaign uncovered by Gambit Security shows […]",
-      "url": "https://i-hls.com/archives/139214",
-      "published": "2026-09-24T12:00:50+00:00",
-      "image_url": null,
-      "source_id": "ihls",
-      "source_name": "iHLS - Israeli Homeland Security",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.913094+00:00"
+      "fetched_at": "2026-09-28T19:59:15.627515+00:00"
     },
     {
       "id": "861103175c2182e8",
@@ -1002,7 +1288,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.654463+00:00"
+      "fetched_at": "2026-09-28T19:59:15.835305+00:00"
     },
     {
       "id": "22e7b55f745f9be2",
@@ -1015,7 +1301,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.746154+00:00"
+      "fetched_at": "2026-09-28T19:59:15.628512+00:00"
     },
     {
       "id": "e0621e00b42fee9e",
@@ -1028,33 +1314,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.998882+00:00"
-    },
-    {
-      "id": "230abb817955dc4c",
-      "title": "Island raises $400m at $6.4b valuation",
-      "description": "The browser and data security company said that the funding will be used for its next phase of growth and innovation as enterprises scale AI agents.",
-      "url": "https://en.globes.co.il/en/article-1001557474#utm_source=RSS",
-      "published": "2026-09-24T10:00:00+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1752498377/direct/%D7%9E%D7%99%D7%99%D7%A7_%D7%A4%D7%99%D7%99_%D7%95%D7%93%D7%9F_%D7%90%D7%9E%D7%99%D7%92%D7%94_%D7%9E%D7%99%D7%99%D7%A1%D7%93%D7%99_%D7%90%D7%99%D7%99%D7%9C%D7%A0%D7%93._%D7%A7%D7%A8%D7%93%D7%99%D7%98_-_Antonio_Delucci_dna8nl.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.278862+00:00"
-    },
-    {
-      "id": "8a2e56b8c96307ab",
-      "title": "IDF unveils Eitan APC protected by Iron Fist",
-      "description": "Produced by Elbit, Iron Fist is an advanced \"hard-kill\" active protection system designed to enhance the survivability and self-defense capabilities of armored platforms.",
-      "url": "https://en.globes.co.il/en/article-1001557471#utm_source=RSS",
-      "published": "2026-09-24T09:48:20+00:00",
-      "image_url": "https://res.cloudinary.com/globes/image/upload/t_800X392/v1705842983/direct/Eitan_AFV_Photo_by_the_Merkava_and_Armoured_Vehicles_Directorate_in_the_IMOD_t22uuv.jpg",
-      "source_id": "globes_tech_en",
-      "source_name": "Globes EN Tech",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.278997+00:00"
+      "fetched_at": "2026-09-28T19:59:15.878167+00:00"
     },
     {
       "id": "0fa5f40ecb4b61e0",
@@ -1067,7 +1327,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.654973+00:00"
+      "fetched_at": "2026-09-28T19:59:15.835660+00:00"
     },
     {
       "id": "2aeee081fb5a310c",
@@ -1080,33 +1340,7 @@
       "source_name": "CyberScoop",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.999458+00:00"
-    },
-    {
-      "id": "2583cd2a90da06e9",
-      "title": "Watchdog finds most agencies failed to meet CISA cloud security orders, heightening risk of attack",
-      "description": "The DHS inspector general said CISA lacks the power to compel agencies to implement its Binding Operational Directives. The post Watchdog finds most agencies failed to meet CISA cloud security orders, heightening risk of attack appeared first on CyberScoop .",
-      "url": "https://cyberscoop.com/dhs-ig-report-federal-agencies-fail-cisa-cloud-security-directives/",
-      "published": "2026-09-23T19:40:53+00:00",
-      "image_url": null,
-      "source_id": "cyberscoop",
-      "source_name": "CyberScoop",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.999881+00:00"
-    },
-    {
-      "id": "b13019dd0f280828",
-      "title": "Pentagon cyber chief: The demand far exceeds supply",
-      "description": "At DefenseTalks on Tuesday, Katie Sutton said the Pentagon now receives far more requests to use cyber operations than its forces can fulfill, eight years after gaining that authority. The post Pentagon cyber chief: The demand far exceeds supply appeared first on CyberScoop .",
-      "url": "https://cyberscoop.com/pentagon-cyber-operations-demand-exceeds-supply-defensetalks-2026/",
-      "published": "2026-09-23T18:10:42+00:00",
-      "image_url": null,
-      "source_id": "cyberscoop",
-      "source_name": "CyberScoop",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.000347+00:00"
+      "fetched_at": "2026-09-28T19:59:15.878802+00:00"
     },
     {
       "id": "5bf918de0e6fd1ae",
@@ -1119,7 +1353,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.655463+00:00"
+      "fetched_at": "2026-09-28T19:59:15.835996+00:00"
     },
     {
       "id": "71dc5fe271bcec2b",
@@ -1132,7 +1366,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.655972+00:00"
+      "fetched_at": "2026-09-28T19:59:15.836315+00:00"
     },
     {
       "id": "c9b846b21d7603bc",
@@ -1145,7 +1379,7 @@
       "source_name": "Ynet דיגיטל",
       "source_lang": "he",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.656485+00:00"
+      "fetched_at": "2026-09-28T19:59:15.836681+00:00"
     },
     {
       "id": "a6e85f5bca2ab920",
@@ -1158,7 +1392,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.746570+00:00"
+      "fetched_at": "2026-09-28T19:59:15.628648+00:00"
     },
     {
       "id": "ddadffecaf45c29f",
@@ -1171,20 +1405,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.765667+00:00"
-    },
-    {
-      "id": "7ae2597b0e8e6f55",
-      "title": "האייפון 18 פרו מקס גרם לי להבין דבר אחד: ה-17 פרו מקס שלי מספיק טוב",
-      "description": "האייפון החדש מגיע עם מעבד חזק יותר, סוללה משופרת וצמצם משתנה שמכניס סוף סוף קצת יותר שליטה ידנית למצלמה. הוא מהיר, מצוין וכמעט שאין מה לבקר בו, אבל אחרי כמה ימים נותרה שאלה אחת: האם כל זה מספיק כדי להצדיק שדרוג למי שכבר מחזיק אייפון חדש יחסית? התשובה די ברורה | סקירה",
-      "url": "https://www.ynet.co.il/digital/reviews/article/rjzueeb9ge",
-      "published": "2026-09-23T08:36:56+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/23/ryqlqWW5zx/ryqlqWW5zx_0_147_1600_901_0_medium.jpg",
-      "source_id": "ynet_digital",
-      "source_name": "Ynet דיגיטל",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.657029+00:00"
+      "fetched_at": "2026-09-28T19:59:15.647322+00:00"
     },
     {
       "id": "f0280fa2d33d2206",
@@ -1197,7 +1418,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.299046+00:00"
+      "fetched_at": "2026-09-28T19:59:16.232414+00:00"
     },
     {
       "id": "335febcc01253cd7",
@@ -1210,7 +1431,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.299280+00:00"
+      "fetched_at": "2026-09-28T19:59:16.232638+00:00"
     },
     {
       "id": "b7fbac93e05a5912",
@@ -1223,7 +1444,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.299502+00:00"
+      "fetched_at": "2026-09-28T19:59:16.232861+00:00"
     },
     {
       "id": "913b25c30fdaf0df",
@@ -1236,7 +1457,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.299718+00:00"
+      "fetched_at": "2026-09-28T19:59:16.233077+00:00"
     },
     {
       "id": "04ea0e99cbf58b28",
@@ -1249,7 +1470,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.299957+00:00"
+      "fetched_at": "2026-09-28T19:59:16.233287+00:00"
     },
     {
       "id": "0276d735a7633a29",
@@ -1262,7 +1483,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.300198+00:00"
+      "fetched_at": "2026-09-28T19:59:16.233549+00:00"
     },
     {
       "id": "4be806cbc776c128",
@@ -1275,20 +1496,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.300422+00:00"
-    },
-    {
-      "id": "3d9a73056da32481",
-      "title": "רוצה להיות אפל: גוגל חשפה את מחשבי ה-Googlebook",
-      "description": "ענקית הטכנולוגיה השיקה קטגוריית מחשבים חדשה שממזגת בין אנדרואיד ל-ChromeOS, עם ג'מיני בלב המערכת ודגמים של אייסר, אסוס, Dell, HP ולנובו. המחירים מתחילים מ-899 דולר, אבל בישראל נצטרך בינתיים להסתכל מהצד",
-      "url": "https://www.ynet.co.il/digital/technews/article/bjjkyxl5fg",
-      "published": "2026-09-22T13:58:16+00:00",
-      "image_url": "https://ynet-pic1.yit.co.il/picserver6/crop_images/2026/09/22/Hk4huWl9Gg/Hk4huWl9Gg_21_0_1336_752_0_medium.jpg",
-      "source_id": "ynet_digital",
-      "source_name": "Ynet דיגיטל",
-      "source_lang": "he",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.657693+00:00"
+      "fetched_at": "2026-09-28T19:59:16.233775+00:00"
     },
     {
       "id": "a16580c587861a97",
@@ -1301,7 +1509,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.300647+00:00"
+      "fetched_at": "2026-09-28T19:59:16.233997+00:00"
     },
     {
       "id": "b038d9e8d5e3c0ca",
@@ -1314,7 +1522,7 @@
       "source_name": "Walla טכנולוגיה",
       "source_lang": "he",
       "source_priority": "medium",
-      "fetched_at": "2026-09-28T10:16:05.300862+00:00"
+      "fetched_at": "2026-09-28T19:59:16.234213+00:00"
     },
     {
       "id": "28b44fa5452b9aa4",
@@ -1327,7 +1535,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.765800+00:00"
+      "fetched_at": "2026-09-28T19:59:15.647476+00:00"
     },
     {
       "id": "830f85cc6e4887fa",
@@ -1340,7 +1548,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.765953+00:00"
+      "fetched_at": "2026-09-28T19:59:15.647600+00:00"
     },
     {
       "id": "54f386e86235e27c",
@@ -1353,20 +1561,7 @@
       "source_name": "Crunchbase News",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.766091+00:00"
-    },
-    {
-      "id": "bce7009c5181924c",
-      "title": "What 25,000 Startup Applications Reveal About The New Rules Of Seed-Stage Startups",
-      "description": "The most-fundable startups prioritize a clear go-to-market strategy and test distinctive marketing channels early, treating distribution and disciplined focus as durable competitive advantages, explains guest author Aaron Golbin, a co-founder and general partner at LvlUp Ventures, who believes that seed-stage success depends on focused execution, diversified financing, built-in distribution, rapid learning and AI designed as core infrastructure.",
-      "url": "https://news.crunchbase.com/seed/startup-funding-rules-ai-gtm-golbin-lvlup/",
-      "published": "2026-09-18T11:00:18+00:00",
-      "image_url": "https://news.crunchbase.com/wp-content/uploads/seed-funding-plants.jpg",
-      "source_id": "crunchbase",
-      "source_name": "Crunchbase News",
-      "source_lang": "en",
-      "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.766215+00:00"
+      "fetched_at": "2026-09-28T19:59:15.647724+00:00"
     },
     {
       "id": "aa74dc5ac83c4400",
@@ -1379,7 +1574,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.880337+00:00"
+      "fetched_at": "2026-09-28T19:59:15.461139+00:00"
     },
     {
       "id": "332fecae320bcb12",
@@ -1392,7 +1587,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.880518+00:00"
+      "fetched_at": "2026-09-28T19:59:15.461399+00:00"
     },
     {
       "id": "b4eca11bf8ab5a85",
@@ -1405,7 +1600,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.880682+00:00"
+      "fetched_at": "2026-09-28T19:59:15.461672+00:00"
     },
     {
       "id": "cf73e074cb3532df",
@@ -1418,7 +1613,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.880843+00:00"
+      "fetched_at": "2026-09-28T19:59:15.465259+00:00"
     },
     {
       "id": "cd6fbf97c61614cb",
@@ -1431,7 +1626,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.881041+00:00"
+      "fetched_at": "2026-09-28T19:59:15.465580+00:00"
     },
     {
       "id": "0637843f4d9ed5ca",
@@ -1444,7 +1639,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.881381+00:00"
+      "fetched_at": "2026-09-28T19:59:15.465739+00:00"
     },
     {
       "id": "1865093c7f77b9f9",
@@ -1457,7 +1652,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.881539+00:00"
+      "fetched_at": "2026-09-28T19:59:15.465891+00:00"
     },
     {
       "id": "15014520f40ab3d0",
@@ -1470,7 +1665,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.881692+00:00"
+      "fetched_at": "2026-09-28T19:59:15.466100+00:00"
     },
     {
       "id": "92b67574ec13661b",
@@ -1483,7 +1678,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.881842+00:00"
+      "fetched_at": "2026-09-28T19:59:15.466380+00:00"
     },
     {
       "id": "e0e214103d981d2d",
@@ -1496,7 +1691,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882025+00:00"
+      "fetched_at": "2026-09-28T19:59:15.466599+00:00"
     },
     {
       "id": "2c54f8e83ce23078",
@@ -1509,7 +1704,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882180+00:00"
+      "fetched_at": "2026-09-28T19:59:15.466751+00:00"
     },
     {
       "id": "c30ac7b271b06d0c",
@@ -1522,7 +1717,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882328+00:00"
+      "fetched_at": "2026-09-28T19:59:15.466901+00:00"
     },
     {
       "id": "a24c597ade4690b7",
@@ -1535,7 +1730,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882484+00:00"
+      "fetched_at": "2026-09-28T19:59:15.467065+00:00"
     },
     {
       "id": "6ca4439c7c63fc3f",
@@ -1548,7 +1743,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882631+00:00"
+      "fetched_at": "2026-09-28T19:59:15.467220+00:00"
     },
     {
       "id": "61e6161effd44a88",
@@ -1561,7 +1756,7 @@
       "source_name": "TechCrunch Israel",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:04.882781+00:00"
+      "fetched_at": "2026-09-28T19:59:15.467517+00:00"
     },
     {
       "id": "718dbefadf05b4d3",
@@ -1574,7 +1769,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.929766+00:00"
+      "fetched_at": "2026-09-28T19:59:16.677423+00:00"
     },
     {
       "id": "27b1e03aad410152",
@@ -1587,7 +1782,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.930342+00:00"
+      "fetched_at": "2026-09-28T19:59:16.677949+00:00"
     },
     {
       "id": "59606b94bf2e289b",
@@ -1600,7 +1795,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.930809+00:00"
+      "fetched_at": "2026-09-28T19:59:16.678448+00:00"
     },
     {
       "id": "955a4c8e1961bc4e",
@@ -1613,7 +1808,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.931326+00:00"
+      "fetched_at": "2026-09-28T19:59:16.679013+00:00"
     },
     {
       "id": "29bd3f845ff93365",
@@ -1626,7 +1821,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.931790+00:00"
+      "fetched_at": "2026-09-28T19:59:16.679526+00:00"
     },
     {
       "id": "69b545a569b46683",
@@ -1639,7 +1834,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.932289+00:00"
+      "fetched_at": "2026-09-28T19:59:16.679982+00:00"
     },
     {
       "id": "5f123fdf6f498f26",
@@ -1652,7 +1847,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.932744+00:00"
+      "fetched_at": "2026-09-28T19:59:16.680496+00:00"
     },
     {
       "id": "b318d120e03a9a1e",
@@ -1665,7 +1860,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.933250+00:00"
+      "fetched_at": "2026-09-28T19:59:16.681116+00:00"
     },
     {
       "id": "8bf890854a081856",
@@ -1678,7 +1873,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.934059+00:00"
+      "fetched_at": "2026-09-28T19:59:16.681605+00:00"
     },
     {
       "id": "870a8c373bcb4c31",
@@ -1691,7 +1886,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.934523+00:00"
+      "fetched_at": "2026-09-28T19:59:16.682072+00:00"
     },
     {
       "id": "287e24cc0e227d3a",
@@ -1704,7 +1899,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.934997+00:00"
+      "fetched_at": "2026-09-28T19:59:16.682570+00:00"
     },
     {
       "id": "d0b006dce3a844a9",
@@ -1717,7 +1912,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.935453+00:00"
+      "fetched_at": "2026-09-28T19:59:16.683037+00:00"
     },
     {
       "id": "884548edf9455810",
@@ -1730,7 +1925,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.935934+00:00"
+      "fetched_at": "2026-09-28T19:59:16.683535+00:00"
     },
     {
       "id": "c2614a6617042e61",
@@ -1743,7 +1938,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.936413+00:00"
+      "fetched_at": "2026-09-28T19:59:16.684026+00:00"
     },
     {
       "id": "e9982dd6535f2fd9",
@@ -1756,7 +1951,7 @@
       "source_name": "NoCamels",
       "source_lang": "en",
       "source_priority": "high",
-      "fetched_at": "2026-09-28T10:16:05.936862+00:00"
+      "fetched_at": "2026-09-28T19:59:16.684505+00:00"
     }
   ]
 }
