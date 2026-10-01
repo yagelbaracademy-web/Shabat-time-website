@@ -1,12 +1,13 @@
-import { supabase } from "./supabase";
+import { log } from "./analytics";
 
-/**
- * Anonymous feature counter: adds one to today's count for `event`.
- * No user id is sent or stored. Fire and forget; never blocks or throws.
- */
+/** Outcomes worth knowing beyond a tap (what actually happened). Recorded as "do:<event>". */
 export type UsageEvent =
   | "dictate_voice"
   | "dictate_text"
+  | "dictate_failed"
+  | "dictate_voice_sent"
+  | "dictate_voice_edited"
+  | "dictate_voice_cleared"
   | "paste_list"
   | "import_file"
   | "swipe_start"
@@ -24,12 +25,6 @@ export type UsageEvent =
 
 export function track(event: UsageEvent) {
   try {
-    if (typeof navigator !== "undefined" && !navigator.onLine) return;
-    void supabase()
-      .rpc("track", { ev: event })
-      .then(
-        () => {},
-        () => {},
-      );
+    log(`do:${event}`);
   } catch {}
 }

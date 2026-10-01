@@ -158,7 +158,7 @@ export async function onRequestPost({ request, env }) {
     `User's own names (said → library name): ${JSON.stringify(context?.aliases ?? {}).slice(0, 3000)}\n` +
     `Weight unit: ${context?.unit === "lb" ? "lb" : "kg"}\n` +
     `Current workout: ${JSON.stringify(context?.workout ?? []).slice(0, 6000)}\n` +
-    `Put the exact words of the input in "transcript" (numbers as digits), then produce operations.`;
+    `Put the exact words of the input in "transcript": every word, including the exercise name, in the language it was spoken (Hebrew stays in Hebrew, never translate), numbers as digits. The user reads and edits this text before sending. Then produce operations.`;
   const parts = audio
     ? [{ text: ctx + "\nInput (audio):" }, { inline_data: { mime_type: String(mime || "audio/mp4").split(";")[0], data: audio } }]
     : [{ text: `${ctx}\nInput (typed): ${String(text).slice(0, MAX_TEXT)}` }];

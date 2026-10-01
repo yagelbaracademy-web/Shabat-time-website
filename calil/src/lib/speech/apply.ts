@@ -57,6 +57,16 @@ async function localInterpret(text: string, workoutId: string): Promise<Interpre
   };
 }
 
+/** Understands audio or text without changing anything yet (the user reviews it first). */
+export async function interpret(input: { audio: Blob } | { text: string }, workoutId: string, focusWeId: string | null): Promise<Interpretation> {
+  try {
+    return await interpreter.interpret(input, buildContext(workoutId, focusWeId));
+  } catch (e) {
+    if ("text" in input) return localInterpret(input.text, workoutId);
+    throw e;
+  }
+}
+
 /** Audio or text in, changes applied to the workout out. */
 export async function dictate(input: { audio: Blob } | { text: string }, workoutId: string, focusWeId: string | null): Promise<ApplyResult> {
   let interp: Interpretation;

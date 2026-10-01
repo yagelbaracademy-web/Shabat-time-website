@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { dictate, type ApplyResult } from "@/lib/speech/apply";
+import { applyInterpretation, dictate, interpret, type ApplyResult } from "@/lib/speech/apply";
+import type { Interpretation } from "@/lib/speech/provider";
 import { canRecord, startRecording, type Recording } from "@/lib/speech/provider";
 import { haptic } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -34,15 +35,16 @@ function useRotatingHint(active: boolean) {
 }
 
 /**
- * Mic → speak → the set is filled in. Or just type the same sentence in the box.
- * Never talks back: it shows what it heard so a wrong word can be fixed in place.
+ * Mic → speak → what was heard lands in the box, like a chat app. Fix a word if needed,
+ * press Send, and the set is filled in. Typing the same sentence works the same way.
  */
 export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focusWeId: string | null }) {
   const resting = useStore((s) => !!s.rest);
   const t = useT();
   const [mode, setMode] = useState<Mode>("idle");
   const [draft, setDraft] = useState("");
-  const [heard, setHeard] = useState("");
+  // What the recording was understood as, kept until Send: unchanged text needs no second call.
+  const [heard, setHeard] = useState<{ text: string; interp: Interpretation } | null>(null);
   const [level, setLevel] = useState(0);
   const [result, setResult] = useState<ApplyResult | null>(null);
   const [micOk] = useState(() => canRecord());
@@ -66,7 +68,6 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
   };
 
   const show = (r: ApplyResult) => {
-    setHeard(r.transcript);
     setResult(r);
     setMode("result");
     haptic(r.ok ? 14 : 30);
@@ -74,13 +75,22 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
     scheduleHide();
   };
 
-  const run = async (sentence: string, replacePrevious = false) => {
+  const run = async (sentence: string) => {
     const t = sentence.trim();
     if (!t) {
       setMode("idle");
       return;
     }
-    if (replacePrevious) result?.undo?.();
+    // Sending the recording as heard: apply what was already understood.
+    if (heard && heard.text.trim() === t) {
+      const interp = heard.interp;
+      setHeard(null);
+      track("dictate_voice_sent");
+      show(applyInterpretation(interp, workoutId, focusWeId));
+      return;
+    }
+    if (heard) track("dictate_voice_edited");
+    setHeard(null);
     track(t.includes("\n") || t.length > 160 ? "paste_list" : "dictate_text");
     setMode("transcribing");
     show(await dictate({ text: t }, workoutId, focusWeId));
@@ -95,9 +105,20 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
     if (!audio) return setMode("idle");
     track("dictate_voice");
     try {
-      show(await dictate({ audio }, workoutId, focusWeId));
+      const interp = await interpret({ audio }, workoutId, focusWeId);
+      const text = interp.transcript.trim();
+      setMode("idle");
+      if (!text) {
+        toast({ title: t("Didn’t hear anything."), icon: "mic" });
+        return;
+      }
+      // Into the box for a look; nothing is logged until Send.
+      setHeard({ text, interp });
+      setDraft(text);
+      haptic(10);
     } catch (e) {
       console.error("[calil] dictation failed", e);
+      track("dictate_failed");
       toast({ title: (e as Error).message, icon: "mic" });
       setMode("idle");
     }
@@ -151,19 +172,6 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
               <p className={`max-h-[30vh] overflow-y-auto text-[15px] whitespace-pre-line ${result.ok ? "font-semibold" : "text-ink-2"}`}>
                 {result.summary}
               </p>
-              <input
-                value={heard}
-                dir="auto"
-                onChange={(e) => {
-                  setHeard(e.target.value);
-                  if (hideTimer.current) clearTimeout(hideTimer.current);
-                }}
-                onKeyDown={(e) => e.key === "Enter" && void run(heard, true)}
-                onBlur={scheduleHide}
-                aria-label={t("What was heard. Edit and press enter to fix")}
-                className="mt-1 w-full rounded-[10px] bg-fill px-2.5 py-1.5 text-[15px] text-ink-2 outline-none focus:text-ink"
-                enterKeyHint="done"
-              />
             </div>
             {result.undo && (
               <button
@@ -185,9 +193,9 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
         onSubmit={(e) => {
           e.preventDefault();
           if (busy) return;
-          const t = draft;
+          const text = draft;
           setDraft("");
-          void run(t);
+          void run(text);
         }}
         className="flex h-[60px] items-center gap-2 rounded-full border border-line bg-card pe-2 ps-2 shadow-float"
       >
@@ -234,7 +242,10 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
               dir="auto"
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              onChange={(e) => setDraft(e.target.value)}
+              onChange={(e) => {
+                setDraft(e.target.value);
+                if (!e.target.value) setHeard(null);
+              }}
               onPaste={(e) => {
                 // A pasted list (notes, a coach's message) becomes the workout right away.
                 // Read it from the clipboard because a one-line field would flatten the line breaks.
@@ -254,10 +265,24 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
           </span>
         )}
 
+        {!busy && heard && draft && (
+          <button
+            type="button"
+            aria-label={t("Clear")}
+            onClick={() => {
+              setDraft("");
+              setHeard(null);
+              track("dictate_voice_cleared");
+            }}
+            className="press flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-ink-3"
+          >
+            <Icon name="close" size={18} />
+          </button>
+        )}
         {!busy && draft.trim() && (
           <button
             type="submit"
-            aria-label={t("Log set")}
+            aria-label={t("Send")}
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-white"
           >
             <Icon name="send" size={19} />

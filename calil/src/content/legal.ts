@@ -195,7 +195,7 @@ export const PRIVACY: Record<Lang, Doc> = {
           "נתוני אימון שאתה מזין: תרגילים, סטים, משקלים, חזרות, זמנים, תוכניות, הערות והשמות שאתה נותן לתרגילים.",
           "הגדרות ותיעוד הסכמה: יחידת משקל, טיימר מנוחה, ומתי ולאיזו גרסה של המסמכים הסכמת.",
           "נתוני שימוש מינימליים: מונה יומי של שימוש בהכתבה ובייבוא, לצורך מגבלת השימוש. ספקי האחסון שומרים רישומים טכניים (כמו כתובת IP) לצורכי אבטחה.",
-          "אנחנו לא משתמשים בכלי אנליטיקה, בפרסומות או במעקב אחרי הגלישה שלך.",
+          "אין פרסומות, אין כלי אנליטיקה של צד שלישי ואין מעקב אחרי הגלישה שלך מחוץ לאפליקציה. כדי לשפר את האפליקציה אנחנו סופרים אצלנו בלבד באילו מסכים וכפתורים משתמשים (למשל \"הוספת סט\" נלחץ 12 פעמים). הספירה נשמרת עם מזהה מוצפן חד־כיווני במקום הזהות שלך, ולא כוללת את תוכן האימונים, שמות תרגילים או טקסט שהקלדת.",
         ],
       },
       {
@@ -281,7 +281,7 @@ export const PRIVACY: Record<Lang, Doc> = {
           "Workout data you enter: exercises, sets, weights, reps, times, plans, notes and the names you give exercises.",
           "Settings and consent record: weight unit, rest timer, and when and to which version of these documents you agreed.",
           "Minimal usage data: a daily count of dictation and import use, for the usage limit. Hosting providers keep technical logs (such as IP address) for security.",
-          "We don't use analytics, advertising or tracking of your browsing.",
+          "No advertising, no third-party analytics and no tracking of your browsing outside the app. To improve the app we count, on our own servers only, which screens and buttons get used (for example \"Add set\" tapped 12 times). These counts are stored with a one-way scrambled identifier instead of your identity and never include your workout content, exercise names or anything you typed.",
         ],
       },
       {

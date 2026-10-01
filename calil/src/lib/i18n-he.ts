@@ -26,6 +26,7 @@ export const HE: Record<string, string> = {
   Rename: "שינוי שם",
   Remove: "הסרה",
   Clear: "ניקוי",
+  Send: "שליחה",
   New: "חדש",
   Add: "הוספה",
   "Add again": "הוספה שוב",

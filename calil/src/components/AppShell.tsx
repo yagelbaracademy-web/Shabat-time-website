@@ -12,6 +12,7 @@ import { getLang, setAddress, setExNames, setLang, useT } from "@/lib/i18n";
 import { Icon, type IconName } from "./icons";
 import { ConsentGate } from "./Consent";
 import { PullToRefresh } from "./PullToRefresh";
+import { Analytics } from "./Analytics";
 import { Logo, Toaster } from "./ui";
 import { RestPill } from "./workout/RestTimer";
 
@@ -69,6 +70,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <LanguageSync />
       <AddressSync />
       <PullToRefresh />
+      <Analytics />
       <RestPill />
       <Toaster />
       <TabBar />

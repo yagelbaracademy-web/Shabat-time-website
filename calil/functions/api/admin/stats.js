@@ -15,11 +15,11 @@ export async function onRequestGet({ request, env }) {
 
   const [r, u] = await Promise.all([
     service(env, "/rest/v1/rpc/admin_stats", { method: "POST", body: "{}" }),
-    service(env, "/rest/v1/rpc/admin_usage", { method: "POST", body: "{}" }).catch(() => null),
+    service(env, "/rest/v1/rpc/admin_insights", { method: "POST", body: JSON.stringify({ with_me: new URL(request.url).searchParams.get("me") !== "0" }) }).catch(() => null),
   ]);
   if (!r.ok) return json({ error: "stats unavailable" }, 502);
   const stats = await r.json();
-  stats.usage = u && u.ok ? await u.json() : [];
+  stats.insights = u && u.ok ? await u.json() : null;
   return new Response(JSON.stringify(stats), {
     headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
   });
