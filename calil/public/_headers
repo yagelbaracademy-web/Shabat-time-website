@@ -1,0 +1,13 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: microphone=(self), camera=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://*.googleusercontent.com https://csndsvkaiwyztrjykfwq.supabase.co; font-src 'self'; connect-src 'self' https://csndsvkaiwyztrjykfwq.supabase.co wss://csndsvkaiwyztrjykfwq.supabase.co; media-src 'self' blob:; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+
+/sw.js
+  Cache-Control: no-cache
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
