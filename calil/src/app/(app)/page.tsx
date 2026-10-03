@@ -14,7 +14,7 @@ import { MonthBars } from "@/components/charts";
 import { habitLabel, StartTiles, useStartWorkout } from "@/components/StartOptions";
 import { BrandBar, Card, CardHeader, Screen, Skeleton, Stat, Title } from "@/components/ui";
 
-const HEADLINES = ["Let’s move today.", "Ready for something Calil?", "One set at a time.", "Show up. Log it. Leave."];
+const HEADLINES = ["Let’s move today.", "Ready for something Calil?", "One set at a time.", "Every set makes you stronger."];
 
 export default function Home() {
   const loaded = useStore((s) => s.loaded);

@@ -45,7 +45,7 @@ export const HE: Record<string, string> = {
   "Let’s move today.": "יאללה, זזים היום.",
   "Ready for something Calil?": "מוכנים לאימון קליל?",
   "One set at a time.": "סט אחרי סט.",
-  "Show up. Log it. Leave.": "באים, רושמים, הולכים.",
+  "Every set makes you stronger.": "כל סט מחזק אותך עוד קצת.",
   "Start workout": "התחלת אימון",
   "Continue workout": "המשך אימון",
   "Next up: ": "הבא בתור: ",
