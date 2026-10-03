@@ -42,9 +42,9 @@ export const HE: Record<string, string> = {
   "Good morning,": "בוקר טוב,",
   "Good afternoon,": "צהריים טובים,",
   "Good evening,": "ערב טוב,",
-  "Let’s move today.": "יאללה, זזים היום.",
+  "Let’s move today.": "יאללה, נותנים בראש.",
   "Ready for something Calil?": "מוכנים לאימון קליל?",
-  "One set at a time.": "סט אחרי סט.",
+  "One set at a time.": "סט אחרי סט, קטן עליך.",
   "Every set makes you stronger.": "כל סט מחזק אותך עוד קצת.",
   "Start workout": "התחלת אימון",
   "Continue workout": "המשך אימון",
@@ -515,6 +515,7 @@ export const HE_M: Record<string, string> = {
 };
 
 export const HE_F: Record<string, string> = {
+  "One set at a time.": "סט אחרי סט, קטן עלייך.",
   "Ready for something Calil?": "מוכנה לאימון קליל?",
   "Ready when you are.": "כשתהיי מוכנה, נתחיל.",
   "You’re getting stronger.": "את מתחזקת.",
