@@ -27,6 +27,7 @@ export const HE: Record<string, string> = {
   Remove: "הסרה",
   Clear: "ניקוי",
   Send: "שליחה",
+  "Our server isn’t answering right now. It usually fixes itself within a few minutes. Try again soon.": "השרת שלנו לא עונה כרגע. בדרך כלל זה מסתדר לבד תוך כמה דקות. כדאי לנסות שוב עוד מעט.",
   New: "חדש",
   Add: "הוספה",
   "Add again": "הוספה שוב",

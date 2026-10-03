@@ -29,7 +29,9 @@ const friendly = (m: string) =>
       ? tr("Google sign-in isn’t switched on yet. Use email for now.")
       : /already registered/i.test(m)
         ? tr("You already have an account. Sign in instead.")
-        : m;
+        : /unavailable|upstream|fetch|network|timeout|50[234]|schema cache/i.test(m)
+          ? tr("Our server isn’t answering right now. It usually fixes itself within a few minutes. Try again soon.")
+          : m;
 
 export default function LoginPage() {
   const t = useT();

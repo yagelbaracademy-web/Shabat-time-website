@@ -49,3 +49,4 @@ next-env.d.ts
 
 # cloudflare local state
 .wrangler/
+.watchdog-key
