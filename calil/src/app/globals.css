@@ -199,78 +199,89 @@
   }
 }
 
-/* ───────── workout mode: a clean light flowing around the screen edge (Siri-style) ─────────
-   A big conic gradient spins (transform only, so it stays on the GPU) under two static masks:
-   a crisp hairline on the edge, and a soft glow that fades inward. The middle stays untouched. */
-.edge-glow {
+/* ───────── workout mode: soft, light orbs of Calil blue drifting slowly behind the content ─────────
+   Each orb wanders a long path across the screen (transform only, GPU), so nothing sits in one spot. */
+.workout-orbs {
   position: fixed;
   inset: 0;
-  z-index: 45;
+  z-index: -1;
   pointer-events: none;
-  animation: edge-in 700ms ease-out;
-}
-.edge-glow > div {
-  position: absolute;
-  inset: 0;
   overflow: hidden;
-  border-radius: var(--glow-r, 0px);
+  animation: orbs-in 1.2s ease-out;
 }
-.edge-glow i {
+.workout-orbs span {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150vmax;
-  height: 150vmax;
-  margin: -75vmax 0 0 -75vmax;
-  background: conic-gradient(
-    from 0deg,
-    var(--accent),
-    #6fb1ff,
-    #d6eaff,
-    #6fb1ff,
-    var(--accent),
-    #0d58c4,
-    var(--accent)
-  );
-  animation: edge-spin 6s linear infinite;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  filter: blur(40px);
   will-change: transform;
 }
-/* the hairline */
-.edge-glow .line {
-  padding: 2.5px;
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+.workout-orbs .o1 {
+  width: 62vmin;
+  height: 62vmin;
+  background: radial-gradient(circle, rgba(28, 116, 234, 0.42) 0%, rgba(28, 116, 234, 0) 70%);
+  animation: orb-1 34s ease-in-out infinite alternate;
 }
-/* the soft inner glow */
-.edge-glow .soft {
-  opacity: 0.55;
-  -webkit-mask:
-    linear-gradient(to right, #000, transparent 26px),
-    linear-gradient(to left, #000, transparent 26px),
-    linear-gradient(to bottom, #000, transparent 30px),
-    linear-gradient(to top, #000, transparent 30px);
-  mask:
-    linear-gradient(to right, #000, transparent 26px),
-    linear-gradient(to left, #000, transparent 26px),
-    linear-gradient(to bottom, #000, transparent 30px),
-    linear-gradient(to top, #000, transparent 30px);
+.workout-orbs .o2 {
+  width: 52vmin;
+  height: 52vmin;
+  background: radial-gradient(circle, rgba(111, 177, 255, 0.5) 0%, rgba(111, 177, 255, 0) 70%);
+  animation: orb-2 41s ease-in-out infinite alternate;
 }
-@keyframes edge-spin {
-  to {
-    transform: rotate(360deg);
-  }
+.workout-orbs .o3 {
+  width: 44vmin;
+  height: 44vmin;
+  background: radial-gradient(circle, rgba(160, 205, 255, 0.55) 0%, rgba(160, 205, 255, 0) 70%);
+  animation: orb-3 29s ease-in-out infinite alternate;
 }
-@keyframes edge-in {
+.workout-orbs .o4 {
+  width: 38vmin;
+  height: 38vmin;
+  background: radial-gradient(circle, rgba(28, 116, 234, 0.3) 0%, rgba(28, 116, 234, 0) 70%);
+  animation: orb-4 47s ease-in-out infinite alternate;
+}
+@keyframes orbs-in {
   from {
     opacity: 0;
   }
 }
+@keyframes orb-1 {
+  0% { transform: translate(-15vw, -10vh); }
+  30% { transform: translate(45vw, 12vh); }
+  60% { transform: translate(10vw, 48vh); }
+  100% { transform: translate(55vw, 70vh); }
+}
+@keyframes orb-2 {
+  0% { transform: translate(70vw, 75vh); }
+  35% { transform: translate(20vw, 55vh); }
+  70% { transform: translate(60vw, 20vh); }
+  100% { transform: translate(-10vw, 5vh); }
+}
+@keyframes orb-3 {
+  0% { transform: translate(60vw, -5vh); }
+  40% { transform: translate(5vw, 30vh); }
+  75% { transform: translate(55vw, 60vh); }
+  100% { transform: translate(15vw, 85vh); }
+}
+@keyframes orb-4 {
+  0% { transform: translate(5vw, 80vh); }
+  50% { transform: translate(70vw, 40vh); }
+  100% { transform: translate(25vw, 0vh); }
+}
+@media (prefers-color-scheme: dark) {
+  .workout-orbs span {
+    opacity: 0.8;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .edge-glow i {
+  .workout-orbs span {
     animation: none;
   }
 }
 
+
+
+html.workout-mode body {
+  background: transparent;
+}
