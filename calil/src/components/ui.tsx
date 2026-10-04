@@ -406,8 +406,68 @@ export function Sheet({
   const [mounted, setMounted] = useState(open);
   const [entered, setEntered] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
+  const body = useRef<HTMLDivElement>(null);
+  const [dragY, setDragY] = useState(0);
+  const [dragging, setDragging] = useState(false);
   if (open && !mounted) setMounted(true); // mount synchronously on open
   const shown = open && entered;
+  const closeRef = useRef(onClose);
+  useEffect(() => {
+    closeRef.current = onClose;
+  }, [onClose]);
+
+  // Pull down to close, like iOS sheets: from the handle or title any time,
+  // from the content only when it's scrolled to the top.
+  useEffect(() => {
+    const el = panel.current;
+    if (!mounted || !el) return;
+    let start: { y: number; t: number } | null = null;
+    let active = false;
+    let dy = 0;
+    const onStart = (e: TouchEvent) => {
+      if (e.touches.length !== 1 || (e.target as HTMLElement).closest("input, textarea, select, [data-no-sheet-drag]")) return;
+      const inBody = body.current?.contains(e.target as Node);
+      if (inBody && (body.current?.scrollTop ?? 0) > 0) return;
+      start = { y: e.touches[0].clientY, t: performance.now() };
+      active = false;
+      dy = 0;
+    };
+    const onMove = (e: TouchEvent) => {
+      if (!start) return;
+      const d = e.touches[0].clientY - start.y;
+      if (!active) {
+        if (d < 6) {
+          if (d < -6) start = null; // scrolling up: leave it to the content
+          return;
+        }
+        active = true;
+        setDragging(true);
+      }
+      e.preventDefault();
+      dy = Math.max(0, d);
+      setDragY(dy);
+    };
+    const onEnd = () => {
+      if (!start) return;
+      const v = dy / Math.max(1, performance.now() - start.t);
+      start = null;
+      if (!active) return;
+      active = false;
+      setDragging(false);
+      if (dy > el.offsetHeight * 0.25 || (v > 0.6 && dy > 40)) closeRef.current();
+      else setDragY(0);
+    };
+    el.addEventListener("touchstart", onStart, { passive: true });
+    el.addEventListener("touchmove", onMove, { passive: false });
+    el.addEventListener("touchend", onEnd);
+    el.addEventListener("touchcancel", onEnd);
+    return () => {
+      el.removeEventListener("touchstart", onStart);
+      el.removeEventListener("touchmove", onMove);
+      el.removeEventListener("touchend", onEnd);
+      el.removeEventListener("touchcancel", onEnd);
+    };
+  }, [mounted]);
 
   useEffect(() => {
     if (open) {
@@ -419,6 +479,7 @@ export function Sheet({
     const t = setTimeout(() => {
       setMounted(false);
       setEntered(false);
+      setDragY(0);
     }, 320);
     return () => clearTimeout(t);
   }, [open]);
@@ -445,15 +506,15 @@ export function Sheet({
     >
       <div
         className="absolute inset-0 bg-black/25 transition-opacity duration-300"
-        style={{ opacity: shown ? 1 : 0 }}
+        style={{ opacity: shown ? Math.max(0.2, 1 - dragY / 500) : 0, transition: dragging ? "none" : undefined }}
         onClick={onClose}
       />
       <div
         ref={panel}
         className={`absolute inset-x-0 bottom-0 mx-auto flex max-w-[560px] flex-col rounded-t-[28px] bg-bg shadow-float ${full ? "h-[92dvh]" : "max-h-[88dvh]"}`}
         style={{
-          transform: shown ? "translateY(0)" : "translateY(100%)",
-          transition: "transform 380ms var(--ease-drawer)",
+          transform: shown ? `translateY(${dragY}px)` : "translateY(100%)",
+          transition: dragging ? "none" : "transform 380ms var(--ease-drawer)",
           paddingBottom: "calc(var(--sab) + 12px)",
         }}
       >
@@ -475,7 +536,7 @@ export function Sheet({
             />
           </div>
         )}
-        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5">
+        <div ref={body} className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5">
           {children}
         </div>
       </div>
