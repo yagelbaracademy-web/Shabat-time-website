@@ -436,7 +436,9 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
               </Button>
               {summary.openWithData > 0 && (
                 <Button variant="secondary" className="w-full" onClick={() => end("complete")}>
-                  {t("Mark {n} as done and finish", { n: fmtNum(summary.openWithData) })}
+                  {summary.openWithData === 1
+                    ? t("Mark the filled-in set as done and finish")
+                    : t("Mark {n} as done and finish", { n: fmtNum(summary.openWithData) })}
                 </Button>
               )}
             </div>
@@ -448,6 +450,8 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
           <Button variant="ghost" className="mt-1 w-full" onClick={onClose}>
             {t("Keep training")}
           </Button>
+          {/* Keeps the destructive action apart from the safe ones. */}
+          <hr className="mx-1 mt-2 mb-1 border-line" />
           <button
             type="button"
             onClick={() => confirm(t("Discard this workout?")) && discard()}
