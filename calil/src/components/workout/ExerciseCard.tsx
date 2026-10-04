@@ -193,16 +193,14 @@ export const ExerciseCard = memo(function ExerciseCard({
               : ""}
           </span>
         </span>
-        <span
-          aria-hidden
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-fill text-ink-2"
-        >
-          <Icon
-            name="chevronDown"
-            size={18}
-            className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
-          />
-        </span>
+        {!expanded && (
+          <span
+            aria-hidden
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-fill text-ink-2"
+          >
+            <Icon name="chevronRight" size={18} />
+          </span>
+        )}
       </button>
       {expanded && (
         <button
