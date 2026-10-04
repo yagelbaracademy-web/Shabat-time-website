@@ -71,7 +71,7 @@ export function duplicateWorkout(sourceId: string) {
 }
 
 export type Suggestion =
-  | { kind: "plan"; template: WorkoutTemplate; name: string; habitDay: number | null }
+  | { kind: "plan"; template: WorkoutTemplate; name: string; habitDay: number | null; scheduled?: boolean }
   | { kind: "repeat"; workout: Workout; name: string; habitDay: number };
 
 const habitKey = (w: Workout) => w.template_id ?? `name:${w.name.trim().toLowerCase()}`;
@@ -90,6 +90,10 @@ export function nextPlan(now = new Date()): Suggestion | null {
   const done = completedWorkouts(s).filter((w) => !w.template_id || s.workout_templates[w.template_id]);
   const today = now.toDateString();
   const doneToday = new Set(done.filter((w) => new Date(w.started_at).toDateString() === today).map(habitKey));
+
+  // A plan the user pinned to this weekday comes first.
+  const pinned = templates.find((t) => t.weekdays?.includes(now.getDay()) && !doneToday.has(t.id));
+  if (pinned) return { kind: "plan", template: pinned, name: pinned.name, habitDay: null, scheduled: true };
 
   const since = now.getTime() - 56 * 86400000;
   const groups = new Map<string, { n: number; latest: Workout }>();
@@ -574,6 +578,12 @@ export function reorderTemplates(ids: string[]) {
     .filter(({ t, position }) => t && t.position !== position)
     .map(({ t, position }) => ({ ...t, position }));
   putRows("workout_templates", changed);
+}
+
+/** Pins a plan to weekdays (0 = Sunday). An empty list means no fixed days. */
+export function setPlanDays(id: string, weekdays: number[]) {
+  patchRow("workout_templates", id, { weekdays: [...new Set(weekdays)].sort((a, b) => a - b) });
+  track("plan_days");
 }
 
 export function renameTemplate(id: string, name: string) {

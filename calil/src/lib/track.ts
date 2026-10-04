@@ -21,7 +21,10 @@ export type UsageEvent =
   | "workout_finish"
   | "workout_discard"
   | "pr"
-  | "cardio";
+  | "cardio"
+  | "plan_days"
+  | "repeat_workout"
+  | "habit_pin";
 
 export function track(event: UsageEvent) {
   try {

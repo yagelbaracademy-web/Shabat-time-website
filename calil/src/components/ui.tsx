@@ -159,7 +159,7 @@ export function Screen({
       className={`mx-auto w-full max-w-[560px] px-4 sm:px-6 ${className}`}
       style={{
         paddingTop: "calc(var(--sat) + 8px)",
-        paddingBottom: "calc(var(--tabbar-h) + var(--sab) + 32px)",
+        paddingBottom: "calc(var(--tabbar-h) + var(--sab) + 32px + var(--dock, 0px))",
       }}
     >
       {children}

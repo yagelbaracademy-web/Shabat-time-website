@@ -1,16 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { duplicateWorkout, startEmptyWorkout, startFromTemplate, type Suggestion } from "@/lib/actions";
 import { useStore } from "@/lib/store";
-import { activeWorkout, completedWorkouts, sortedTemplates } from "@/lib/stats";
+import { activeWorkout, sortedTemplates } from "@/lib/stats";
 import { haptic } from "@/lib/format";
 import { tr, useT } from "@/lib/i18n";
-import { Icon, type IconName } from "./icons";
+import { Icon } from "./icons";
 import { Sheet } from "./ui";
 
-/** Hook with the three ways to begin a session, shared by Home and Workout. */
+/** Hook with the ways to begin a session. */
 export function useStartWorkout() {
   const router = useRouter();
   const active = useStore(activeWorkout);
@@ -37,58 +36,44 @@ export function habitLabel(sg: Suggestion | null) {
   return sg && sg.habitDay !== null ? tr(`Your usual ${WEEKDAYS[sg.habitDay]}`) : null;
 }
 
-function Tile({ icon, label, onClick, disabled }: { icon: IconName; label: string; onClick: () => void; disabled?: boolean }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      className="press flex min-h-[112px] flex-col justify-between rounded-[22px] bg-fill p-4 text-start disabled:opacity-45"
-    >
-      <Icon name={icon} size={24} className="text-ink-2" />
-      <span className="flex items-end justify-between gap-1 text-[15px] leading-tight font-medium">
-        {label}
-        <Icon name="chevronRight" size={16} className="mb-0.5 shrink-0 text-ink-3" />
-      </span>
-    </button>
-  );
-}
-
-/** From plan · Duplicate last · New workout */
-export function StartTiles() {
+/** Pick any plan and start it. */
+export function PlanPickerSheet({ open, onClose }: { open: boolean; onClose: () => void }) {
   const t = useT();
   const start = useStartWorkout();
-  const last = useStore((s) => completedWorkouts(s)[0] ?? null);
   const templates = useStore((s) => sortedTemplates(s));
-  const [pick, setPick] = useState(false);
   const router = useRouter();
 
   return (
-    <>
-      <div className="grid grid-cols-3 gap-2.5">
-        <Tile icon="calendar" label={t("From plan")} onClick={() => (templates.length ? setPick(true) : router.push("/plans"))} />
-        <Tile icon="copy" label={t("Duplicate last workout")} disabled={!last} onClick={() => last && start.duplicate(last.id)} />
-        <Tile icon="plus" label={t("New workout")} onClick={start.empty} />
-      </div>
-      <Sheet open={pick} onClose={() => setPick(false)} title={t("Start from plan")}>
-        <ul className="space-y-2 pb-3">
-          {templates.map((t) => (
-            <li key={t.id}>
-              <button
-                type="button"
-                onClick={() => {
-                  setPick(false);
-                  start.fromTemplate(t.id);
-                }}
-                className="press flex min-h-[60px] w-full items-center justify-between rounded-[16px] bg-card px-4 text-start text-[17px] font-medium"
-              >
-                {t.name}
-                <Icon name="arrowRight" size={20} className="text-accent" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </Sheet>
-    </>
+    <Sheet open={open} onClose={onClose} title={t("Start from plan")}>
+      <ul className="space-y-2 pb-3">
+        {templates.map((p) => (
+          <li key={p.id}>
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                start.fromTemplate(p.id);
+              }}
+              className="press flex min-h-[60px] w-full items-center justify-between rounded-[16px] bg-card px-4 text-start text-[17px] font-medium"
+            >
+              <span dir="auto">{p.name}</span>
+              <Icon name="arrowRight" size={20} className="text-accent" />
+            </button>
+          </li>
+        ))}
+        <li>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              router.push("/plans?tab=plans");
+            }}
+            className="press flex min-h-[52px] w-full items-center justify-center gap-2 text-[16px] text-accent"
+          >
+            <Icon name="plus" size={18} /> {templates.length ? t("Manage plans") : t("Create a plan")}
+          </button>
+        </li>
+      </ul>
+    </Sheet>
   );
 }

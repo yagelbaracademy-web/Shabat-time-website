@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import {
+  setPlanDays,
   addTemplateExercise,
   deleteTemplate,
   moveTemplateExercise,
@@ -10,9 +11,10 @@ import {
   renameTemplate,
   updateTemplateExercise,
 } from "@/lib/actions";
-import { parseNum } from "@/lib/format";
+import { haptic, parseNum } from "@/lib/format";
+import { weekdayName } from "@/lib/schedule";
 import { useStore } from "@/lib/store";
-import { exName, useT } from "@/lib/i18n";
+import { exName, locale, useLang, useT } from "@/lib/i18n";
 import { byPosition, isCardio } from "@/lib/stats";
 import type { TemplateExercise } from "@/lib/types";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
@@ -80,9 +82,11 @@ function PlanEditor() {
         dir="auto"
         className="mt-4 mb-1 w-full bg-transparent text-[32px]! leading-tight font-semibold tracking-[-0.02em] outline-none"
       />
-      <p className="mb-5 text-[16px] text-ink-2">
-        {t("{n} exercises", { n: items.length })} · {t("targets are optional")}
+      <p className="mb-4 text-[16px] text-ink-2">
+        {items.length === 1 ? t("1 exercise") : t("{n} exercises", { n: items.length })} · {t("targets are optional")}
       </p>
+
+      <DaysPicker id={id} days={plan.weekdays ?? []} />
 
       <ul className="space-y-2.5">
         {items.map((te, i) => (
@@ -226,5 +230,39 @@ function Field({ label, value, onChange, min = 0, max = 200 }: { label: string; 
         className="tnum h-9 w-full bg-transparent text-center text-[18px]! outline-none"
       />
     </label>
+  );
+}
+
+/** Optional fixed days. None = the plan takes its turn in the rotation. */
+function DaysPicker({ id, days }: { id: string; days: number[] }) {
+  const t = useT();
+  const lang = useLang();
+  const toggle = (d: number) => {
+    setPlanDays(id, days.includes(d) ? days.filter((x) => x !== d) : [...days, d]);
+    haptic(8);
+  };
+  return (
+    <section className="mb-5" aria-label={t("Training days")}>
+      <p className="mb-2 px-1 text-[14px] text-ink-2">
+        {days.length ? t("Shows up on Today on these days") : t("Training days (optional). Without them it comes up in turn.")}
+      </p>
+      <div className="grid grid-cols-7 gap-1.5">
+        {[0, 1, 2, 3, 4, 5, 6].map((d) => {
+          const on = days.includes(d);
+          return (
+            <button
+              key={d}
+              type="button"
+              aria-pressed={on}
+              aria-label={weekdayName(d, "long", locale(lang))}
+              onClick={() => toggle(d)}
+              className={`press h-11 rounded-[12px] text-[15px] font-medium ${on ? "bg-accent text-white" : "bg-fill text-ink-2"}`}
+            >
+              {weekdayName(d, "narrow", locale(lang))}
+            </button>
+          );
+        })}
+      </div>
+    </section>
   );
 }

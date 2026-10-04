@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
-import { createTemplate, deleteTemplate, deleteWorkout, nextPlan, reorderTemplates, templateFromStarter } from "@/lib/actions";
-import { fmtDay, fmtDuration } from "@/lib/format";
+import { createTemplate, deleteTemplate, deleteWorkout, reorderTemplates, templateFromStarter } from "@/lib/actions";
+import { fmtDuration } from "@/lib/format";
 import { STARTER_PLANS } from "@/lib/starters";
 import { useStore } from "@/lib/store";
-import { exName, useT } from "@/lib/i18n";
+import { exName, useLang, useT } from "@/lib/i18n";
+import { addDays, plannedOn, sameDay, startOfWeek, weekdayName, workoutsOn } from "@/lib/schedule";
 import { byPosition, completedWorkouts, setsOf, sortedTemplates, workoutExercises } from "@/lib/stats";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
-import { habitLabel, useStartWorkout } from "@/components/StartOptions";
+import { useStartWorkout } from "@/components/StartOptions";
 import { SortableList } from "@/components/SortableList";
 import { SwipeRow } from "@/components/SwipeRow";
 import { BrandBar, Card, Empty, Screen, Segmented, Sheet, Skeleton, Title } from "@/components/ui";
@@ -29,25 +30,23 @@ function Plans() {
   const t = useT();
   const params = useSearchParams();
   const router = useRouter();
-  const tab = params.get("tab") === "history" ? "history" : "plans";
+  const tab = params.get("tab") === "plans" ? "plans" : "week";
   const loaded = useStore((s) => s.loaded);
 
   return (
     <Screen>
       <BrandBar />
-      <Title eyebrow={tab === "plans" ? t("Plans") : t("History")}>
-        {tab === "plans" ? t("Find your next workout.") : t("Everything you’ve done.")}
-      </Title>
+      <Title eyebrow={t("Workouts")}>{tab === "plans" ? t("Your plans, ready to go.") : t("Your week, and everything before it.")}</Title>
       <Segmented
         className="mb-4 w-full"
         options={[
+          { value: "week", label: t("Week") },
           { value: "plans", label: t("Plans") },
-          { value: "history", label: t("History") },
         ]}
         value={tab}
-        onChange={(v) => router.replace(v === "history" ? "/plans?tab=history" : "/plans")}
+        onChange={(v) => router.replace(v === "plans" ? "/plans?tab=plans" : "/plans")}
       />
-      {!loaded ? <Skeleton className="h-72" /> : tab === "plans" ? <PlanList /> : <History />}
+      {!loaded ? <Skeleton className="h-72" /> : tab === "plans" ? <PlanList /> : <Week />}
     </Screen>
   );
 }
@@ -76,8 +75,7 @@ function PlanList() {
   const router = useRouter();
   const [creating, setCreating] = useState(false);
   const start = useStartWorkout();
-  const next = useStore(() => nextPlan());
-  const last = useStore((s) => completedWorkouts(s)[0] ?? null);
+  const lang = useLang();
   const templates = useStore((s) =>
     sortedTemplates(s).map((t) => {
       const tes = Object.values(s.template_exercises)
@@ -99,54 +97,7 @@ function PlanList() {
 
   return (
     <div className="space-y-3">
-      {next && (
-        <div className="flex items-center gap-4 rounded-[26px] bg-accent-soft p-4">
-          <span className="flex h-[68px] w-[68px] shrink-0 items-center justify-center rounded-[20px] bg-card shadow-card">
-            <ExerciseIcon kind="dumbbell" size={52} tone="accent" />
-          </span>
-          <Link href={next.kind === "plan" ? `/plan?id=${next.template.id}` : `/workout?id=${next.workout.id}`} className="min-w-0 flex-1">
-            <span className="block text-[13px] font-medium tracking-wide text-accent-ink uppercase">
-              {habitLabel(next) ?? t("Up next")}
-            </span>
-            <span className="block truncate text-[21px] font-semibold tracking-[-0.01em]">{next.name}</span>
-            <span className="block text-[15px] text-ink-2">
-              {next.kind === "plan"
-                ? (() => {
-                    const n = templates.find((x) => x.t.id === next.template.id)?.count ?? 0;
-                    return n === 1 ? t("1 exercise") : t("{n} exercises", { n });
-                  })()
-                : t("Repeat it")}
-            </span>
-          </Link>
-          <button
-            type="button"
-            aria-label={t("Start {name}", { name: next.name })}
-            onClick={() => start.suggested(next)}
-            className="press flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-white"
-          >
-            <Icon name="arrowRight" size={24} />
-          </button>
-        </div>
-      )}
-
-      {last && (
-        <button
-          type="button"
-          onClick={() => start.duplicate(last.id)}
-          className="press flex w-full items-center gap-4 rounded-[22px] bg-fill p-4 text-start"
-        >
-          <Icon name="copy" size={24} className="mx-2 text-ink-2" />
-          <span className="min-w-0 flex-1">
-            <span className="block text-[17px] font-semibold">{t("Duplicate last workout")}</span>
-            <span className="block truncate text-[15px] text-ink-2">
-              {last.name} · {fmtDay(last.started_at)}
-            </span>
-          </span>
-          <Icon name="chevronRight" size={18} className="text-ink-3" />
-        </button>
-      )}
-
-      <div className="flex items-center justify-between px-1 pt-3">
+      <div className="flex items-center justify-between px-1">
         <h2 className="text-[21px] font-semibold tracking-[-0.01em]">{t("Your plans")}</h2>
         <button
           type="button"
@@ -208,7 +159,12 @@ function PlanList() {
                   <p className="truncate text-[18px] font-semibold" dir="auto">
                     {plan.name}
                   </p>
-                  <p className="text-[15px] text-ink-2">{count === 1 ? t("1 exercise") : t("{n} exercises", { n: count })}</p>
+                  <p className="text-[15px] text-ink-2">
+                    {count === 1 ? t("1 exercise") : t("{n} exercises", { n: count })}
+                    {plan.weekdays?.length ? (
+                      <span className="text-accent-ink"> · {plan.weekdays.map((d) => weekdayName(d, "short", locale(lang))).join(", ")}</span>
+                    ) : null}
+                  </p>
                   {names && <p className="truncate text-[14px] text-ink-3">{names}</p>}
                 </div>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-fill text-ink-2">
@@ -251,12 +207,33 @@ function PlanList() {
   );
 }
 
-function History() {
+/** The week ahead (what's planned) and every finished workout before it, by week. */
+function Week() {
   const t = useT();
+  const lang = useLang();
+  const start = useStartWorkout();
+  const [today] = useState(() => new Date());
+  const upcoming = useStore((s) => {
+    const out: { date: Date; plans: { id: string; name: string }[]; done: boolean }[] = [];
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(today, i);
+      const plans = plannedOn(s, d).map((p) => ({ id: p.id, name: p.name }));
+      // Today: leave out what's already done or under way.
+      const started = i === 0 ? new Set(workoutsOn(s, d).map((w) => w.template_id)) : new Set<string | null>();
+      const left = plans.filter((p) => !started.has(p.id));
+      const done = workoutsOn(s, d).some((w) => w.completed_at);
+      if (left.length) out.push({ date: d, plans: left, done });
+    }
+    return out;
+  });
+  const anyDays = useStore((s) => Object.values(s.workout_templates).some((p) => p.weekdays?.length));
+  const hasPlans = useStore((s) => Object.keys(s.workout_templates).length > 0);
+
   const groups = useStore((s) => {
-    const out: { month: string; items: { id: string; name: string; date: string; dur: number; exercises: string; sets: number }[] }[] = [];
+    const thisWeek = startOfWeek(today).getTime();
+    const out: { key: number; title: string; items: { id: string; name: string; date: string; dur: number; exercises: string; sets: number }[] }[] = [];
     for (const w of completedWorkouts(s)) {
-      const month = new Date(w.started_at).toLocaleDateString(locale(), { month: "long", year: "numeric" });
+      const ws = startOfWeek(new Date(w.started_at)).getTime();
       const wes = workoutExercises(s, w.id);
       const item = {
         id: w.id,
@@ -270,62 +247,124 @@ function History() {
         sets: wes.reduce((n, we) => n + setsOf(s, we.id).filter((x) => x.completed).length, 0),
       };
       const g = out[out.length - 1];
-      if (g?.month === month) g.items.push(item);
-      else out.push({ month, items: [item] });
+      if (g?.key === ws) g.items.push(item);
+      else {
+        const end = addDays(new Date(ws), 6);
+        const title =
+          ws === thisWeek
+            ? t("This week")
+            : ws === addDays(new Date(thisWeek), -7).getTime()
+              ? t("Last week")
+              : `${new Date(ws).toLocaleDateString(locale(lang), { day: "numeric", month: "short" })} – ${end.toLocaleDateString(locale(lang), { day: "numeric", month: "short" })}`;
+        out.push({ key: ws, title, items: [item] });
+      }
     }
     return out;
   });
 
-  if (!groups.length)
-    return (
-      <Card>
-        <Empty icon="clock" title={t("No workouts yet")}>
-          {t("Finished workouts appear here, newest first.")}
-        </Empty>
-      </Card>
-    );
-
   return (
     <div className="space-y-5">
-      {groups.map((g) => (
-        <section key={g.month}>
-          <h2 className="px-1 pb-2 text-[15px] font-medium text-ink-2">{g.month}</h2>
+      <section>
+        <h2 className="px-1 pb-2 text-[15px] font-medium text-ink-2">{t("Coming up")}</h2>
+        {upcoming.length ? (
           <ul className="space-y-2">
-            {g.items.map((w) => (
-              <li key={w.id}>
-                <SwipeRow
-                  radius={20}
-                  onDelete={() => deleteWorkout(w.id)}
-                  confirm={{
-                    title: t("Delete “{name}”?", { name: w.name }),
-                    message: t("It’s removed from your history, progress and records. This can’t be undone."),
-                  }}
-                >
+            {upcoming.map((u) => (
+              <li key={u.date.getTime()}>
+                {u.plans.map((p) => (
                   <Link
-                    href={`/workout?id=${w.id}`}
-                    className="press flex items-center gap-3 rounded-[20px] border border-line bg-card p-4"
+                    key={p.id}
+                    href={`/plan?id=${p.id}`}
+                    className="press mb-2 flex items-center gap-3 rounded-[20px] border border-dashed border-ink-3/40 p-4"
                   >
-                    <div className="min-w-0 flex-1">
-                      <p className="flex items-baseline gap-2">
-                        <span className="truncate text-[17px] font-semibold" dir="auto">
-                          {w.name}
-                        </span>
-                        <span className="shrink-0 text-[14px] text-ink-3">{fmtDay(w.date)}</span>
-                      </p>
-                      <p className="truncate text-[14px] text-ink-2">{w.exercises || t("No exercises")}</p>
-                      <p className="tnum text-[13px] text-ink-3">
-                        {w.dur ? `${fmtDuration(w.dur)} · ` : ""}
-                        {w.sets === 1 ? t("1 set") : t("{n} sets", { n: w.sets })}
-                      </p>
-                    </div>
-                    <Icon name="chevronRight" size={18} className="text-ink-3" />
+                    <span className="flex w-12 shrink-0 flex-col items-center leading-tight">
+                      <span className="text-[13px] text-ink-3">{u.date.toLocaleDateString(locale(lang), { weekday: "short" })}</span>
+                      <span className="tnum text-[20px] font-semibold">{u.date.getDate()}</span>
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-[17px] font-semibold" dir="auto">
+                        {p.name}
+                      </span>
+                      <span className="block text-[14px] text-ink-2">{sameDay(u.date, today) ? t("Today") : t("Planned")}</span>
+                    </span>
+                    {sameDay(u.date, today) ? (
+                      <button
+                        type="button"
+                        aria-label={t("Start {name}", { name: p.name })}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          start.fromTemplate(p.id);
+                        }}
+                        className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+                      >
+                        <Icon name="arrowRight" size={20} />
+                      </button>
+                    ) : (
+                      <Icon name="chevronRight" size={18} className="text-ink-3" />
+                    )}
                   </Link>
-                </SwipeRow>
+                ))}
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        ) : (
+          <Card className="p-4">
+            <p className="text-[15px] text-ink-2">
+              {anyDays ? t("Nothing planned for the next 7 days.") : hasPlans ? t("Plans can have fixed days, and then they show up here.") : t("Make a plan and give it days, and your week shows up here.")}{" "}
+              <Link href="/plans?tab=plans" className="text-accent">
+                {hasPlans ? t("Set days") : t("Plans")}
+              </Link>
+            </p>
+          </Card>
+        )}
+      </section>
+
+      {groups.length === 0 ? (
+        <Card>
+          <Empty icon="clock" title={t("No workouts yet")}>
+            {t("Finished workouts appear here, newest first.")}
+          </Empty>
+        </Card>
+      ) : (
+        groups.map((g) => (
+          <section key={g.key}>
+            <h2 className="px-1 pb-2 text-[15px] font-medium text-ink-2">
+              {g.title} · {g.items.length === 1 ? t("1 workout") : t("{n} workouts", { n: g.items.length })}
+            </h2>
+            <ul className="space-y-2">
+              {g.items.map((w) => (
+                <li key={w.id}>
+                  <SwipeRow
+                    radius={20}
+                    onDelete={() => deleteWorkout(w.id)}
+                    confirm={{
+                      title: t("Delete “{name}”?", { name: w.name }),
+                      message: t("It’s removed from your history, progress and records. This can’t be undone."),
+                    }}
+                  >
+                    <Link href={`/workout?id=${w.id}`} className="press flex items-center gap-3 rounded-[20px] border border-line bg-card p-4">
+                      <span className="flex w-12 shrink-0 flex-col items-center leading-tight">
+                        <span className="text-[13px] text-ink-3">{new Date(w.date).toLocaleDateString(locale(lang), { weekday: "short" })}</span>
+                        <span className="tnum text-[20px] font-semibold">{new Date(w.date).getDate()}</span>
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[17px] font-semibold" dir="auto">
+                          {w.name}
+                        </p>
+                        <p className="truncate text-[14px] text-ink-2">{w.exercises || t("No exercises")}</p>
+                        <p className="tnum text-[13px] text-ink-3">
+                          {w.dur ? `${fmtDuration(w.dur)} · ` : ""}
+                          {w.sets === 1 ? t("1 set") : t("{n} sets", { n: w.sets })}
+                        </p>
+                      </div>
+                      <Icon name="chevronRight" size={18} className="text-ink-3" />
+                    </Link>
+                  </SwipeRow>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      )}
     </div>
   );
 }

@@ -60,6 +60,8 @@ export interface WorkoutTemplate {
   created_at: string;
   /** User-chosen order (drag to reorder); null falls back to creation date. */
   position?: number | null;
+  /** Fixed training days, 0 = Sunday … 6 = Saturday. Empty or missing = rotation. */
+  weekdays?: number[] | null;
 }
 
 export interface TemplateExercise {

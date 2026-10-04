@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { Suspense, useEffect, useState, type ReactNode } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { initStore, resetStore, saveProfile, useStore } from "@/lib/store";
@@ -72,17 +72,21 @@ export function AppShell({ children }: { children: ReactNode }) {
       <PullToRefresh />
       <Analytics />
       <RestPill />
+      <Suspense>
+        <ActiveBar />
+        <TabBar />
+      </Suspense>
       <Toaster />
-      <TabBar />
     </ConsentGate>
   );
 }
 
+// Three places: what now, what's planned and done, how it's going.
+// A workout in progress isn't a tab: it's a mode you return to from the bar above.
 const TABS: { href: string; label: string; icon: IconName; match: (p: string) => boolean }[] = [
-  { href: "/", label: "Home", icon: "home", match: (p) => p === "/" },
-  { href: "/workout", label: "Workout", icon: "bolt", match: (p) => p.startsWith("/workout") },
+  { href: "/", label: "Today", icon: "home", match: (p) => p === "/" },
+  { href: "/plans", label: "Workouts", icon: "calendar", match: (p) => p.startsWith("/plan") || p.startsWith("/workout") || p.startsWith("/import") },
   { href: "/progress", label: "Progress", icon: "chart", match: (p) => p.startsWith("/progress") || p.startsWith("/exercise") },
-  { href: "/plans", label: "Plans", icon: "list", match: (p) => p.startsWith("/plan") || p.startsWith("/history") },
 ];
 
 /** Follows the language saved on the account, e.g. chosen on another device. */
@@ -109,11 +113,53 @@ function AddressSync() {
   return null;
 }
 
+/** The workout in progress, one tap away from any other screen. */
+function ActiveBar() {
+  const path = usePathname() ?? "/";
+  const id = useSearchParams().get("id");
+  const active = useStore(activeWorkout);
+  const now = useNow(!!active);
+  const tt = useT();
+  const onIt = path.startsWith("/workout") && (!id || id === active?.id);
+  const visible = !!active && !onIt;
+
+  // Lifts the rest timer and page padding above this bar while it shows.
+  useEffect(() => {
+    if (!visible) return;
+    document.documentElement.style.setProperty("--dock", "64px");
+    return () => {
+      document.documentElement.style.removeProperty("--dock");
+    };
+  }, [visible]);
+
+  if (!visible || !active) return null;
+  return (
+    <div className="fixed inset-x-0 z-40 mx-auto max-w-[560px] px-4" style={{ bottom: "calc(var(--tabbar-h) + var(--sab) + 8px)" }}>
+      <Link
+        href={`/workout?id=${active.id}`}
+        className="press rise flex h-[52px] items-center gap-3 rounded-full bg-ink ps-4 pe-2 text-bg shadow-float"
+      >
+        <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden>
+          <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60" />
+          <span className="relative h-2.5 w-2.5 rounded-full bg-accent" />
+        </span>
+        <span className="min-w-0 flex-1 truncate text-[15px] font-semibold" dir="auto">
+          {active.name}
+        </span>
+        <span className="tnum text-[15px] text-bg/70">{fmtClock((now - new Date(active.started_at).getTime()) / 1000)}</span>
+        <span className="flex h-9 items-center gap-1 rounded-full bg-bg/15 px-3 text-[14px] font-semibold">
+          {tt("Back to workout")}
+        </span>
+      </Link>
+    </div>
+  );
+}
+
 function TabBar() {
   const path = usePathname() ?? "/";
+  const viewing = useSearchParams().get("id");
   const active = useStore(activeWorkout);
   const tt = useT();
-  const now = useNow(!!active);
 
   return (
     <nav
@@ -123,22 +169,20 @@ function TabBar() {
     >
       <ul className="mx-auto flex h-[var(--tabbar-h)] max-w-[560px] items-stretch px-2">
         {TABS.map((t) => {
-          const on = t.match(path);
-          const live = t.href === "/workout" && active;
+          // A live workout is its own mode: no tab lights up under it.
+          const onLive = !!active && path.startsWith("/workout") && (!viewing || viewing === active.id);
+          const on = !onLive && t.match(path);
           return (
             <li key={t.href} className="flex-1">
               <Link
-                href={live ? `/workout?id=${active.id}` : t.href}
+                href={t.href}
                 aria-current={on ? "page" : undefined}
                 className={`press flex h-full flex-col items-center justify-center gap-0.5 text-[11px] font-medium ${on ? "text-accent" : "text-ink-3"}`}
               >
                 <span className="relative">
                   <Icon name={t.icon} size={24} stroke={on ? 2.1 : 1.8} />
-                  {live && <span className="absolute -top-0.5 -end-1 h-2 w-2 rounded-full bg-accent ring-2 ring-bg" />}
                 </span>
-                <span className="tnum">
-                  {live ? fmtClock((now - new Date(active.started_at).getTime()) / 1000) : tt(t.label)}
-                </span>
+                <span>{tt(t.label)}</span>
               </Link>
             </li>
           );

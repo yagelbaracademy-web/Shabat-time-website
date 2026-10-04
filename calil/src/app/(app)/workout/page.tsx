@@ -5,14 +5,14 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import { useNow } from "@/lib/hooks";
 import { exName, useLang, useT } from "@/lib/i18n";
 import { funMatch } from "@/lib/fun-weights";
-import { addExercise, deleteWorkout, finishWorkout, nextPlan, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
+import { addExercise, deleteWorkout, finishWorkout, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
 import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
 import { activeWorkout, completedWorkouts, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { Icon } from "@/components/icons";
-import { habitLabel, StartTiles, useStartWorkout } from "@/components/StartOptions";
-import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, Title, toast } from "@/components/ui";
+import { useStartWorkout } from "@/components/StartOptions";
+import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@/components/ui";
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { DictationBar } from "@/components/workout/DictationBar";
 import { track } from "@/lib/track";
@@ -51,41 +51,22 @@ function WorkoutRoute() {
 
 /* ───────────────────────────── nothing running ───────────────────────────── */
 
+/** No workout here: starting one lives on Today, so go there. */
 function NoWorkout({ missing }: { missing: boolean }) {
-  const start = useStartWorkout();
-  const next = useStore(() => nextPlan());
+  const router = useRouter();
   const t = useT();
-  return (
-    <Screen>
-      <BrandBar />
-      <Title eyebrow={missing ? t("That workout was deleted.") : t("Workout")}>{t("Ready when you are.")}</Title>
-      <button
-        type="button"
-        onClick={() => (next ? start.suggested(next) : start.empty())}
-        className="press mb-3 flex w-full items-center gap-4 rounded-[26px] bg-accent-soft p-4 text-start"
-      >
-        <span className="flex h-16 w-16 items-center justify-center rounded-[18px] bg-card text-accent shadow-card">
-          <Icon name="bolt" size={28} />
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block text-[21px] font-semibold tracking-[-0.01em]">{next ? next.name : t("Start workout")}</span>
-          <span className="block text-[15px] text-ink-2">
-            {next ? (habitLabel(next) ?? t("Next in your plans")) : t("Empty session, add as you go")}
-          </span>
-        </span>
-        <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white">
-          <Icon name="arrowRight" size={24} />
-        </span>
-      </button>
-      <StartTiles />
-    </Screen>
-  );
+  useEffect(() => {
+    if (missing) toast({ title: t("That workout was deleted."), icon: "trash" });
+    router.replace("/");
+  }, [missing, router, t]);
+  return null;
 }
 
 /* ───────────────────────────── the workout ───────────────────────────── */
 
 function WorkoutView({ id }: { id: string }) {
   const router = useRouter();
+  const start = useStartWorkout();
   const workout = useStore((s) => s.workouts[id], [id]);
   const weIds = useStore(
     (s) =>
@@ -248,6 +229,18 @@ function WorkoutView({ id }: { id: string }) {
           >
             {t("Rename")}
           </SheetAction>
+          {!live && (
+            <SheetAction
+              icon="copy"
+              onClick={() => {
+                setMenu(false);
+                track("repeat_workout");
+                start.duplicate(id);
+              }}
+            >
+              {start.active ? t("Continue current workout") : t("Repeat this workout")}
+            </SheetAction>
+          )}
           <SheetAction
             icon="list"
             onClick={() => {
@@ -270,7 +263,7 @@ function WorkoutView({ id }: { id: string }) {
               if (!confirm(live ? t("Discard this workout?") : t("Delete this workout from your history?"))) return;
               deleteWorkout(id);
               setMenu(false);
-              router.replace(live ? "/" : "/plans?tab=history");
+              router.replace(live ? "/" : "/plans");
             }}
           >
             {live ? t("Discard workout") : t("Delete workout")}
