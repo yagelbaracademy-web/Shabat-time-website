@@ -134,12 +134,17 @@ export function savePlans({ workouts, includeWarmup }: SaveOptions): string[] {
     const tid = createTemplate(name);
     workout.exercises.forEach((e, i) => {
       if (e.is_warmup && !includeWarmup) return;
+      // A source with real numbers (e.g. a workout written down) keeps them as the plan's starting point.
+      const done = e.performed.filter((p) => p.reps !== null || p.weight !== null);
+      const reps = done.map((p) => p.reps ?? 0).filter(Boolean);
+      const weights = done.map((p) => p.weight ?? 0).filter((w) => w > 0);
       addTemplateExercise(tid, resolve(choices[i], e), {
-        target_sets: e.target_sets ?? 3,
-        rep_min: e.rep_min,
-        rep_max: e.rep_max,
+        target_sets: e.target_sets ?? (done.length || 3),
+        rep_min: e.rep_min ?? (reps.length ? Math.min(...reps) : null),
+        rep_max: e.rep_max ?? (reps.length ? Math.max(...reps) : null),
         default_rest_seconds: e.rest_seconds,
         note: e.note,
+        target_weight: weights.length ? Math.max(...weights) : null,
       });
     });
     return tid;
@@ -178,7 +183,9 @@ export function saveLogs({ workouts, includeWarmup, date, alsoPlan }: SaveOption
       putRows("sets", sets);
       if (tid) {
         const reps = e.performed.map((p) => p.reps ?? 0).filter(Boolean);
+        const weights = e.performed.map((p) => p.weight ?? 0).filter((w) => w > 0);
         addTemplateExercise(tid, exId, {
+          target_weight: weights.length ? Math.max(...weights) : null,
           target_sets: e.performed.length || e.target_sets || 3,
           rep_min: reps.length ? Math.min(...reps) : e.rep_min,
           rep_max: reps.length ? Math.max(...reps) : e.rep_max,

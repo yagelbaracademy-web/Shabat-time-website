@@ -215,15 +215,14 @@
     opacity: 0;
   }
 }
-/* Sits on the visible app area: square on top (the status bar is above it),
-   bottom corners follow the phone's own screen radius (set per device in JS). */
+/* Sits on the visible app area; corners follow the phone's own screen radius (set per device in JS). */
 .workout-glow,
 .workout-glow::before,
 .workout-glow::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  border-radius: 0 0 var(--glow-r, 0px) var(--glow-r, 0px);
+  border-radius: var(--glow-r, 0px);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);

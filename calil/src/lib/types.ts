@@ -73,6 +73,8 @@ export interface TemplateExercise {
   rep_min: number | null;
   rep_max: number | null;
   default_rest_seconds: number | null;
+  /** Starting weight, used to prefill until there's history. */
+  target_weight?: number | null;
   /** Cardio: time goal in minutes (instead of sets × reps). */
   target_minutes?: number | null;
   /** Coach notes: tempo, RPE, set type, setup. */

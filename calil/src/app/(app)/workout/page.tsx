@@ -267,7 +267,7 @@ function WorkoutView({ id }: { id: string }) {
               if (!confirm(live ? t("Discard this workout?") : t("Delete this workout from your history?"))) return;
               deleteWorkout(id);
               setMenu(false);
-              router.replace(live ? "/" : "/plans");
+              router.replace(live ? "/" : "/history");
             }}
           >
             {live ? t("Discard workout") : t("Delete workout")}

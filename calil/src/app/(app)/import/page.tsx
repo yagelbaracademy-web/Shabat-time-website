@@ -1,17 +1,17 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { defaultChoice, readProgram, saveLogs, savePlans, type ImportResult, type ImportedExercise, type NameChoice } from "@/lib/import";
 import { likelyProgramSheet, preloadSpreadsheetReader, readSpreadsheet, type SheetText } from "@/lib/import/sheet";
 import { useNow } from "@/lib/hooks";
 import { haptic } from "@/lib/format";
-import { useStore } from "@/lib/store";
+import { getState, useStore } from "@/lib/store";
 import { exName, tr, useT } from "@/lib/i18n";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { Icon } from "@/components/icons";
-import { BackLink, Button, Card, Screen, Sheet, SheetAction, Toggle, toast } from "@/components/ui";
+import { BackLink, Button, Card, Screen, Segmented, Sheet, SheetAction, Toggle, toast } from "@/components/ui";
 
 type Step = "input" | "reading" | "preview";
 
@@ -24,8 +24,21 @@ interface Draft {
 const today = () => new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD in local time
 
 export default function ImportPage() {
+  return (
+    <Suspense>
+      <Importer />
+    </Suspense>
+  );
+}
+
+/** What the import becomes is the user's call, defaulted by where they came from (Plans or History). */
+type Mode = "plan" | "log";
+
+function Importer() {
   const t = useT();
   const router = useRouter();
+  const from: Mode = useSearchParams().get("as") === "log" ? "log" : "plan";
+  const [mode, setMode] = useState<Mode>(from);
   const [step, setStep] = useState<Step>("input");
   const [text, setText] = useState("");
   const [file, setFile] = useState<{ name: string; image?: File; sheets?: SheetText[]; opening?: boolean } | null>(null);
@@ -82,7 +95,10 @@ export default function ImportPage() {
       setResult(r);
       setDrafts(r.workouts.map((w) => ({ include: true, name: w.name, choices: w.exercises.map(defaultChoice) })));
       setIncludeWarmup(false);
-      if (r.kind === "log" && r.workouts[0]?.date) setDate(r.workouts[0].date);
+      if (r.workouts[0]?.date) setDate(r.workouts[0].date);
+      // Only switch to "a workout I did" when the source has no performed numbers at all.
+      if (from === "log" && !hasPerformed(r)) setMode("plan");
+      else setMode(from);
       setStep("preview");
       haptic(12);
     } catch (e) {
@@ -97,7 +113,7 @@ export default function ImportPage() {
       .map((workout, i) => ({ workout, name: drafts[i].name.trim() || workout.name, choices: drafts[i].choices, include: drafts[i].include }))
       .filter((x) => x.include);
     if (!chosen.length) return;
-    if (result.kind === "plan") {
+    if (mode === "plan") {
       const ids = savePlans({ workouts: chosen, includeWarmup });
       toast({ title: ids.length === 1 ? t("Plan saved") : t("{n} plans saved", { n: ids.length }), icon: "check" });
       router.replace(ids.length === 1 ? `/plan?id=${ids[0]}` : "/plans");
@@ -112,13 +128,15 @@ export default function ImportPage() {
   return (
     <Screen className={step === "preview" ? "pb-[calc(var(--tabbar-h)+var(--sab)+110px)]!" : ""}>
       <div className="pt-2">
-        <BackLink href="/plans" label="Plans" />
+        {from === "log" ? <BackLink href="/history" label="History" /> : <BackLink href="/plans" label="Plans" />}
       </div>
 
       {step === "input" && (
         <>
           <h1 className="mt-4 text-[32px] leading-tight font-semibold tracking-[-0.02em]">{t("Import")}</h1>
-          <p className="mt-1 mb-5 text-[17px] text-ink-2">{t("A program from your coach, or a workout from your notes.")}</p>
+          <p className="mt-1 mb-5 text-[17px] text-ink-2">
+            {from === "log" ? t("A workout you did, from your notes or a screenshot.") : t("A program from your coach, or one you wrote down.")}
+          </p>
 
           <Card className="p-4">
             {file ? (
@@ -215,6 +233,8 @@ export default function ImportPage() {
       {step === "preview" && result && (
         <Preview
           result={result}
+          mode={mode}
+          setMode={setMode}
           drafts={drafts}
           setDrafts={setDrafts}
           includeWarmup={includeWarmup}
@@ -254,6 +274,8 @@ function Reading({ since, big, onCancel }: { since: number; big: boolean; onCanc
 
 function Preview({
   result,
+  mode,
+  setMode,
   drafts,
   setDrafts,
   includeWarmup,
@@ -266,6 +288,8 @@ function Preview({
   onSave,
 }: {
   result: ImportResult;
+  mode: Mode;
+  setMode: (m: Mode) => void;
   drafts: Draft[];
   setDrafts: (d: Draft[]) => void;
   includeWarmup: boolean;
@@ -279,7 +303,8 @@ function Preview({
 }) {
   const t = useT();
   const [editing, setEditing] = useState<{ w: number; e: number } | null>(null);
-  const isLog = result.kind === "log";
+  const isLog = mode === "log";
+  const canLog = hasPerformed(result);
   const warmups = result.workouts.reduce((n, w) => n + w.exercises.filter((e) => e.is_warmup).length, 0);
   const selected = drafts.filter((d) => d.include).length;
   const block = result.workouts[0]?.block;
@@ -290,6 +315,17 @@ function Preview({
 
   return (
     <>
+      {canLog && (
+        <Segmented
+          className="mt-4 w-full"
+          options={[
+            { value: "plan", label: t("A plan for next time") },
+            { value: "log", label: t("A workout I did") },
+          ]}
+          value={mode}
+          onChange={(v) => setMode(v as Mode)}
+        />
+      )}
       <h1 className="mt-4 text-[30px] leading-tight font-semibold tracking-[-0.02em]">
         {isLog ? t("A workout you did") : result.workouts.length === 1 ? t("1 workout found") : t("{n} workouts found", { n: result.workouts.length })}
       </h1>
@@ -393,10 +429,16 @@ function Preview({
   );
 }
 
+/** True when the source has numbers that were actually performed (so "a workout I did" makes sense). */
+function hasPerformed(r: ImportResult) {
+  return r.workouts.some((w) => w.exercises.some((e) => e.performed.some((p) => p.reps !== null || p.weight !== null)));
+}
+
 function summary(e: ImportedExercise, isLog: boolean) {
   if (isLog && e.performed.length) {
     return e.performed.map((p) => (p.weight !== null ? `${p.weight}×${p.reps ?? "–"}` : `${p.reps ?? "–"}`)).join(" · ");
   }
+  const start = startWeight(e);
   const reps = e.rep_min !== null ? (e.rep_max && e.rep_max !== e.rep_min ? `${e.rep_min}–${e.rep_max}` : `${e.rep_min}`) : null;
   const parts = [`${tr("{n} sets", { n: e.target_sets ?? "–" })}${reps ? ` × ${reps}` : ""}`];
   if (e.rest_seconds)
@@ -405,7 +447,14 @@ function summary(e: ImportedExercise, isLog: boolean) {
         time: e.rest_seconds < 120 ? tr("{n}s", { n: e.rest_seconds }) : `${Math.floor(e.rest_seconds / 60)}:${String(e.rest_seconds % 60).padStart(2, "0")}`,
       }),
     );
+  if (start !== null) parts.push(tr("starts at {n} {unit}", { n: start, unit: tr(getState().profile?.weight_unit ?? "kg") }));
   return parts.join(" · ");
+}
+
+/** A plan's starting weight from the source: the heaviest weight written for it. */
+function startWeight(e: ImportedExercise) {
+  const ws = e.performed.map((p) => p.weight).filter((w): w is number => w !== null && w > 0);
+  return ws.length ? Math.max(...ws) : null;
 }
 
 function ExerciseRow({ e, choice, isLog, onEdit }: { e: ImportedExercise; choice: NameChoice; isLog: boolean; onEdit: () => void }) {

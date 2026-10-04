@@ -13,7 +13,7 @@ import { track } from "@/lib/track";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
 import { MonthBars } from "@/components/charts";
-import { habitLabel, PlanPickerSheet, useStartWorkout } from "@/components/StartOptions";
+import { habitLabel, NewWorkoutSheet, useStartWorkout } from "@/components/StartOptions";
 import { BrandBar, Card, CardHeader, Screen, Skeleton, Stat, Title, toast } from "@/components/ui";
 
 const HEADLINES = ["Let’s move today.", "Ready for something Calil?", "One set at a time.", "Every set makes you stronger."];
@@ -181,15 +181,13 @@ function TodayCard() {
           </span>
         </button>
         {!a && (
-          <div className="mt-1 flex">
-            <button type="button" onClick={() => setPicking(true)} className="press flex h-11 flex-1 items-center justify-center gap-1.5 text-[15px] font-medium text-ink-2">
-              <Icon name="list" size={17} /> {t("Another plan")}
-            </button>
-            <span className="my-2.5 w-px bg-line" aria-hidden />
-            <button type="button" onClick={start.empty} className="press flex h-11 flex-1 items-center justify-center gap-1.5 text-[15px] font-medium text-ink-2">
-              <Icon name="plus" size={17} /> {t("New workout")}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setPicking(true)}
+            className="press mt-1 flex h-11 w-full items-center justify-center gap-1.5 text-[15px] font-medium text-ink-2"
+          >
+            <Icon name="plus" size={17} /> {t("New workout")}
+          </button>
         )}
         {habitTemplate && !a && (
           <button
@@ -206,7 +204,7 @@ function TodayCard() {
           </button>
         )}
       </Card>
-      <PlanPickerSheet open={picking} onClose={() => setPicking(false)} />
+      <NewWorkoutSheet open={picking} onClose={() => setPicking(false)} />
     </>
   );
 }
@@ -243,7 +241,7 @@ function DayCard({ day, today }: { day: Date; today: Date }) {
         <>
           <p className="mt-1 text-[19px] font-semibold">{future ? t("Nothing planned") : t("Rest day")}</p>
           {future && (
-            <Link href="/plans?tab=plans" className="mt-1 inline-block text-[15px] text-accent">
+            <Link href="/plans" className="mt-1 inline-block text-[15px] text-accent">
               {t("Give your plans fixed days")}
             </Link>
           )}

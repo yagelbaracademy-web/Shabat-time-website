@@ -81,11 +81,12 @@ export function AppShell({ children }: { children: ReactNode }) {
   );
 }
 
-// Three places: what now, what's planned and done, how it's going.
+// Each tab looks one way in time: now, ahead, back, and the trend.
 // A workout in progress isn't a tab: it's a mode you return to from the bar above.
 const TABS: { href: string; label: string; icon: IconName; match: (p: string) => boolean }[] = [
   { href: "/", label: "Today", icon: "home", match: (p) => p === "/" },
-  { href: "/plans", label: "Workouts", icon: "calendar", match: (p) => p.startsWith("/plan") || p.startsWith("/workout") || p.startsWith("/import") },
+  { href: "/plans", label: "Plans", icon: "list", match: (p) => p.startsWith("/plan") || p.startsWith("/import") },
+  { href: "/history", label: "History", icon: "calendar", match: (p) => p.startsWith("/history") || p.startsWith("/workout") },
   { href: "/progress", label: "Progress", icon: "chart", match: (p) => p.startsWith("/progress") || p.startsWith("/exercise") },
 ];
 

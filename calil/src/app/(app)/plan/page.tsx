@@ -121,6 +121,7 @@ function PlanEditor() {
 function PlanRow({ te, first, last }: { te: TemplateExercise; first: boolean; last: boolean }) {
   const t = useT();
   const ex = useStore((s) => s.exercises[te.exercise_id], [te.exercise_id]);
+  const unit = useStore((s) => s.profile?.weight_unit ?? "kg");
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(false);
   const cardio = isCardio(ex);
@@ -181,6 +182,14 @@ function PlanRow({ te, first, last }: { te: TemplateExercise; first: boolean; la
                 <Field label={t("Min reps")} value={te.rep_min} onChange={(v) => updateTemplateExercise(te.id, { rep_min: v })} />
                 <Field label={t("Max reps")} value={te.rep_max} onChange={(v) => updateTemplateExercise(te.id, { rep_max: v })} />
                 <Field label={t("Rest (s)")} max={900} value={te.default_rest_seconds} onChange={(v) => updateTemplateExercise(te.id, { default_rest_seconds: v })} />
+                <Field
+                  className="col-span-2"
+                  decimal
+                  max={1000}
+                  label={t("Starting weight ({unit})", { unit: t(unit) })}
+                  value={te.target_weight ?? null}
+                  onChange={(v) => updateTemplateExercise(te.id, { target_weight: v })}
+                />
               </>
             )}
             <label className="col-span-4 rounded-[12px] bg-fill px-3 pt-1.5 pb-2">
@@ -215,17 +224,33 @@ function PlanRow({ te, first, last }: { te: TemplateExercise; first: boolean; la
   );
 }
 
-function Field({ label, value, onChange, min = 0, max = 200 }: { label: string; value: number | null; onChange: (v: number | null) => void; min?: number; max?: number }) {
+function Field({
+  label,
+  value,
+  onChange,
+  min = 0,
+  max = 200,
+  decimal = false,
+  className = "",
+}: {
+  label: string;
+  value: number | null;
+  onChange: (v: number | null) => void;
+  min?: number;
+  max?: number;
+  decimal?: boolean;
+  className?: string;
+}) {
   return (
-    <label className="rounded-[12px] bg-fill px-2 pt-1.5 pb-1 text-center">
+    <label className={`rounded-[12px] bg-fill px-2 pt-1.5 pb-1 text-center ${className}`}>
       <span className="block text-[12px] text-ink-2">{label}</span>
       <input
-        inputMode="numeric"
+        inputMode={decimal ? "decimal" : "numeric"}
         defaultValue={value ?? ""}
         onFocus={(e) => e.currentTarget.select()}
         onChange={(e) => {
           const n = parseNum(e.target.value);
-          onChange(n === null ? null : Math.min(max, Math.max(min, Math.round(n))));
+          onChange(n === null ? null : Math.min(max, Math.max(min, decimal ? Math.round(n * 100) / 100 : Math.round(n))));
         }}
         className="tnum h-9 w-full bg-transparent text-center text-[18px]! outline-none"
       />

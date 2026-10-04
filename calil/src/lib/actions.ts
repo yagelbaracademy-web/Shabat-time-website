@@ -238,7 +238,8 @@ export function addExercise(workoutId: string, exerciseId: string, plan?: Templa
   const sets: WorkoutSet[] = lastWarm.map((x, i) => blankSet(weId, i + 1, x.weight, x.reps, true));
   for (let i = 0; i < count; i++) {
     const ref = lastWork[i] ?? lastWork[lastWork.length - 1];
-    sets.push(blankSet(weId, sets.length + 1, ref?.weight ?? null, ref?.reps ?? null));
+    // No history yet: a plan's starting weight (e.g. from an imported program) fills in.
+    sets.push(blankSet(weId, sets.length + 1, ref ? ref.weight : (plan?.target_weight ?? null), ref?.reps ?? null));
   }
   putRows("sets", sets);
   return weId;
@@ -609,7 +610,7 @@ export function templateExercises(templateId: string) {
 export function addTemplateExercise(
   templateId: string,
   exerciseId: string,
-  opts: Partial<Pick<TemplateExercise, "target_sets" | "rep_min" | "rep_max" | "default_rest_seconds" | "note">> = {},
+  opts: Partial<Pick<TemplateExercise, "target_sets" | "rep_min" | "rep_max" | "default_rest_seconds" | "note" | "target_weight">> = {},
 ) {
   const list = templateExercises(templateId);
   putRows("template_exercises", [
@@ -623,6 +624,7 @@ export function addTemplateExercise(
       rep_max: opts.rep_max ?? 12,
       default_rest_seconds: opts.default_rest_seconds ?? null,
       note: opts.note ?? null,
+      target_weight: opts.target_weight ?? null,
     },
   ]);
 }
