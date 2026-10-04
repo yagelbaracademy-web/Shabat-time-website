@@ -8,13 +8,14 @@ import { funMatch } from "@/lib/fun-weights";
 import { addExercise, deleteWorkout, finishWorkout, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
 import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
-import { activeWorkout, completedWorkouts, firstSetAt, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
+import { activeWorkout, completedWorkouts, clockStartAt, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
 import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@/components/ui";
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { DictationBar } from "@/components/workout/DictationBar";
+import { WorkoutGlow } from "@/components/workout/WorkoutGlow";
 import { track } from "@/lib/track";
 
 export default function WorkoutPage() {
@@ -78,7 +79,7 @@ function WorkoutView({ id }: { id: string }) {
   const list = useMemo(() => (weIds ? weIds.split(",") : []), [weIds]);
   const live = !workout?.completed_at;
   const now = useNow(live);
-  const firstSet = useStore((s) => firstSetAt(s, id), [id]);
+  const firstSet = useStore((s) => clockStartAt(s, id), [id]);
   const t = useT();
 
   const [chosen, setExpanded] = useState<string | null>(null);
@@ -206,7 +207,7 @@ function WorkoutView({ id }: { id: string }) {
 
       {live && <DictationBar workoutId={id} focusWeId={expanded} />}
       {/* Workout mode: a light runs around the screen while you're in it. */}
-      {live && <div className="workout-glow" aria-hidden />}
+      {live && <WorkoutGlow />}
 
       <ExercisePicker
         open={picker}
@@ -359,7 +360,7 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
         volume: volumeOf(done),
         prs,
         count: completedWorkouts(s).length + 1,
-        first: firstSetAt(s, id),
+        first: clockStartAt(s, id),
         unit: s.profile?.weight_unit ?? "kg",
       };
     },

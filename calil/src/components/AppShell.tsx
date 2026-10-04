@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { initStore, resetStore, saveProfile, useStore } from "@/lib/store";
-import { activeWorkout, firstSetAt, liveSeconds } from "@/lib/stats";
+import { activeWorkout, clockStartAt, liveSeconds } from "@/lib/stats";
 import { fmtClock } from "@/lib/format";
 import { useNow } from "@/lib/hooks";
 import { getLang, setAddress, setExNames, setLang, useT } from "@/lib/i18n";
@@ -121,7 +121,7 @@ function ActiveBar() {
   const now = useNow(!!active);
   const tt = useT();
   const onIt = path.startsWith("/workout") && (!id || id === active?.id);
-  const first = useStore((s) => (active ? firstSetAt(s, active.id) : null), [active?.id]);
+  const first = useStore((s) => (active ? clockStartAt(s, active.id) : null), [active?.id]);
   const secs = liveSeconds(first, now);
   const visible = !!active && !onIt;
 

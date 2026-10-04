@@ -215,56 +215,58 @@
     opacity: 0;
   }
 }
+/* Sits on the visible app area: square on top (the status bar is above it),
+   bottom corners follow the phone's own screen radius (set per device in JS). */
 .workout-glow,
+.workout-glow::before,
 .workout-glow::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  padding: 3px;
-  border-radius: var(--glow-radius, 0px);
-  background: conic-gradient(
-    from var(--glow-angle),
-    transparent 0deg,
-    var(--accent) 50deg,
-    #7cc0ff 80deg,
-    transparent 130deg,
-    transparent 180deg,
-    var(--accent) 230deg,
-    #7cc0ff 260deg,
-    transparent 310deg
-  );
+  border-radius: 0 0 var(--glow-r, 0px) var(--glow-r, 0px);
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: glow-spin 7s linear infinite;
 }
 .workout-glow {
   z-index: 45;
-  opacity: 0.9;
-  animation:
-    glow-spin 7s linear infinite,
-    glow-in 600ms ease-out;
+  padding: 2px;
+  /* a faint line all the way round */
+  background: color-mix(in srgb, var(--accent) 35%, transparent);
+  animation: glow-in 600ms ease-out;
+}
+.workout-glow::before,
+.workout-glow::after {
+  content: "";
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0deg,
+    var(--accent) 45deg,
+    #8ccaff 75deg,
+    transparent 120deg,
+    transparent 180deg,
+    var(--accent) 225deg,
+    #8ccaff 255deg,
+    transparent 300deg
+  );
+  animation: glow-spin 7s linear infinite;
+}
+.workout-glow::before {
+  padding: 3px;
 }
 /* the soft halo */
 .workout-glow::after {
-  content: "";
-  padding: 6px;
+  padding: 8px;
   filter: blur(8px);
-  opacity: 0.7;
-}
-/* home-screen app: follow the phone's rounded corners */
-@media (display-mode: standalone) {
-  .workout-glow {
-    --glow-radius: 44px;
-  }
+  opacity: 0.65;
 }
 @media (prefers-reduced-motion: reduce) {
-  .workout-glow,
+  .workout-glow::before,
   .workout-glow::after {
     animation: none;
     background: var(--accent);
-    opacity: 0.35;
+    opacity: 0.3;
   }
 }

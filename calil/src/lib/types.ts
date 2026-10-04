@@ -88,6 +88,10 @@ export interface Workout {
   completed_at: string | null;
   duration_seconds: number | null;
   overall_note: string | null;
+  /** Set once, when the first set is ticked; unticking doesn't reset it. */
+  clock_started_at?: string | null;
+  paused_at?: string | null;
+  paused_seconds?: number;
 }
 
 export interface WorkoutExercise {

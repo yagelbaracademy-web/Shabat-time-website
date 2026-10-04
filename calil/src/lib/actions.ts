@@ -1,7 +1,7 @@
 "use client";
 
 import { getState, patchRow, putRows, removeRows, saveProfile, setState } from "./store";
-import { activeWorkout, aliasesOf, FIRST_SET_LEAD, isCardio, byPosition, completedWorkouts, prKindOf, type PRKind, lastSession, setsOf, sortedTemplates, workoutExercises } from "./stats";
+import { activeWorkout, aliasesOf, clockStartAt, isCardio, byPosition, completedWorkouts, prKindOf, type PRKind, lastSession, setsOf, sortedTemplates, workoutExercises } from "./stats";
 import { nowIso, uid } from "./format";
 import { tr } from "./i18n";
 import type { StarterPlan } from "./starters";
@@ -167,15 +167,16 @@ export function finishWorkout(id: string, incomplete: "discard" | "complete" = "
     if (!left.length) removeRows("workout_exercises", [we.id]);
     else renumber(we.id);
   }
-  // Active time: first set to last set (plus the first set itself), not start to Finish.
+  // Active time: from the clock's start to the last ticked set, not to the Finish press.
   const end = new Date();
   const times = workoutExercises(getState(), id)
     .flatMap((we) => setsOf(getState(), we.id))
     .filter((x) => x.completed && x.completed_at)
     .map((x) => Date.parse(x.completed_at!));
+  const start = clockStartAt(getState(), id);
   patchRow("workouts", id, {
     completed_at: end.toISOString(),
-    duration_seconds: times.length ? Math.round((Math.max(...times) - Math.min(...times)) / 1000) + FIRST_SET_LEAD : 0,
+    duration_seconds: times.length && start !== null ? Math.max(0, Math.round((Math.max(...times) - start) / 1000)) : 0,
   });
   setState({ rest: null });
 }
@@ -415,6 +416,10 @@ export function toggleSet(setId: string): { done: boolean; pr: PRKind | null } {
   if (!x) return { done: false, pr: null };
   const done = !x.completed;
   patchRow("sets", setId, { completed: done, completed_at: done ? nowIso() : null });
+  // The first tick starts the workout clock, once.
+  const we = s.workouts && s.workout_exercises[x.workout_exercise_id];
+  const w = we && s.workouts[we.workout_id];
+  if (done && w && !w.completed_at && !w.clock_started_at) patchRow("workouts", w.id, { clock_started_at: nowIso() });
   const pr = done ? prOf(setId) : null;
   if (pr) track("pr");
   return { done, pr };
