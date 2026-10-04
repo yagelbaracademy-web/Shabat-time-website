@@ -253,6 +253,18 @@ export function removeExercise(weId: string) {
   removeRows("workout_exercises", [weId]);
 }
 
+/** Puts a workout's exercises in this order (drag to reorder). */
+export function reorderWorkoutExercises(ids: string[]) {
+  const s = getState();
+  putRows(
+    "workout_exercises",
+    ids
+      .map((id, position) => ({ we: s.workout_exercises[id], position }))
+      .filter(({ we, position }) => we && we.position !== position)
+      .map(({ we, position }) => ({ ...we!, position })),
+  );
+}
+
 export function moveExercise(weId: string, dir: -1 | 1) {
   const s = getState();
   const we = s.workout_exercises[weId];

@@ -5,11 +5,12 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import { useNow } from "@/lib/hooks";
 import { exName, useLang, useT } from "@/lib/i18n";
 import { funMatch } from "@/lib/fun-weights";
-import { addExercise, deleteWorkout, finishWorkout, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
+import { addExercise, deleteWorkout, finishWorkout, renameWorkout, reorderWorkoutExercises, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
 import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
 import { activeWorkout, completedWorkouts, clockStartAt, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
+import { SortableList } from "@/components/SortableList";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
 import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@/components/ui";
@@ -176,20 +177,25 @@ function WorkoutView({ id }: { id: string }) {
         </div>
       </header>
 
-      <div className="space-y-3">
-        {list.map((weId, i) => (
-          <div key={weId} ref={(el) => void (cards.current[weId] = el)} className="scroll-mt-4">
+      {/* Press and hold an exercise's header, then drag to change the order. */}
+      <SortableList
+        items={list.map((weId) => ({ id: weId }))}
+        onReorder={reorderWorkoutExercises}
+        gap={12}
+        handle="[data-drag-handle]"
+        render={({ id: weId }) => (
+          <div ref={(el) => void (cards.current[weId] = el)} className="scroll-mt-4">
             <ExerciseCard
               weId={weId}
-              index={i}
+              index={list.indexOf(weId)}
               count={list.length}
               expanded={expanded === weId}
               onExpand={() => setExpanded(expanded === weId ? NONE : weId)}
               onExerciseDone={() => advance(weId)}
             />
           </div>
-        ))}
-      </div>
+        )}
+      />
 
       {list.length === 0 && (
         <p className="px-1 pb-3 text-[16px] text-ink-2">{t("Add your first exercise. We’ll remember your numbers for next time.")}</p>

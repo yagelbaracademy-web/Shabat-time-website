@@ -152,7 +152,7 @@ export const ExerciseCard = memo(function ExerciseCard({
   const machine = cut > 0 ? fullName.slice(cut + MACHINE_SEP.length) : null;
   // Accordion header: the whole row opens and closes the card; ⋯ keeps the other actions.
   const header = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2" data-drag-handle>
       <button
         type="button"
         onClick={onExpand}

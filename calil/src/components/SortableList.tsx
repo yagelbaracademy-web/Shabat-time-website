@@ -17,12 +17,15 @@ export function SortableList<T extends { id: string }>({
   onReorder,
   gap = 8,
   className = "",
+  handle,
 }: {
   items: T[];
   render: (item: T) => ReactNode;
   onReorder: (ids: string[]) => void;
   gap?: number;
   className?: string;
+  /** Only a press inside this selector picks the row up (e.g. a card's header). */
+  handle?: string;
 }) {
   const refs = useRef(new Map<string, HTMLLIElement>());
   const press = useRef<{ id: string; x: number; y: number; pid: number; timer: ReturnType<typeof setTimeout> } | null>(null);
@@ -68,6 +71,7 @@ export function SortableList<T extends { id: string }>({
 
   const onPointerDown = (id: string) => (e: React.PointerEvent) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    if (handle && !(e.target as Element).closest(handle)) return;
     cancelPress();
     const { clientX: x, clientY: y, pointerId: pid } = e;
     press.current = { id, x, y, pid, timer: setTimeout(() => lift(id, pid, y), HOLD_MS) };
@@ -142,8 +146,9 @@ export function SortableList<T extends { id: string }>({
             onContextMenu={(e) => e.preventDefault()} // a long press shouldn't open the browser menu
             className="relative"
             style={{
-              transform: lifted ? `translate3d(0, ${state!.dy}px, 0) scale(1.03)` : `translate3d(0, ${shift(i)}px, 0)`,
-              transition: lifted ? "box-shadow 200ms" : "transform 220ms var(--ease-out)",
+              // No transform at rest: a transformed row would trap the fixed-position sheets opened from inside it.
+              transform: lifted ? `translate3d(0, ${state!.dy}px, 0) scale(1.03)` : state ? `translate3d(0, ${shift(i)}px, 0)` : undefined,
+              transition: lifted ? "box-shadow 200ms" : state ? "transform 220ms var(--ease-out)" : undefined,
               zIndex: lifted ? 20 : undefined,
               boxShadow: lifted ? "var(--shadow-float)" : undefined,
               borderRadius: 22,
