@@ -188,6 +188,7 @@ export default function SettingsPage() {
             ["Terms of Use", `/terms${lang === "he" ? "" : "?lang=en"}`],
             ["Privacy Policy", `/privacy${lang === "he" ? "" : "?lang=en"}`],
             ["Accessibility", `/accessibility${lang === "he" ? "" : "?lang=en"}`],
+            ["Photo credits", "/credits"],
           ].map(([label, href]) => (
             <a key={href} href={href} className="press flex min-h-[52px] items-center justify-between px-4 text-[17px]">
               {t(label)}

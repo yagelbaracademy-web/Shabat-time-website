@@ -325,10 +325,12 @@ function VolumeFun({ id, volume, unit }: { id: string; volume: number; unit: str
   const what = count === 1 ? one : `${count} ${many}`;
   return (
     <div className="mb-4 flex items-center gap-4 rounded-[20px] bg-card p-4">
-      <span aria-hidden className="flex min-h-14 min-w-14 flex-wrap items-center justify-center rounded-[16px] bg-accent-soft px-2 text-[26px] leading-tight">
-        {Array.from({ length: count }, (_, i) => (
-          <span key={i}>{thing.emoji}</span>
-        ))}
+      <span className="relative shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element -- static export, tiny local photo */}
+        <img src={thing.img} alt={what} width={64} height={64} className="h-16 w-16 rounded-[16px] object-cover" />
+        {count > 1 && (
+          <span className="tnum absolute -end-1.5 -bottom-1.5 rounded-full bg-ink px-2 py-0.5 text-[13px] font-semibold text-bg">×{count}</span>
+        )}
       </span>
       <p className="min-w-0 text-[16px] leading-snug">
         <span className="text-ink-2">{t("You lifted {n} {unit} today.", { n: fmtVolume(volume), unit: t(unit) })}</span>{" "}

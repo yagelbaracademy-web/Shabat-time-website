@@ -157,6 +157,7 @@ export const HE: Record<string, string> = {
   "Different machine": "מכונה אחרת",
   "Back to top": "חזרה למעלה",
   "Back to workout": "חזרה לאימון",
+  "Photo credits": "קרדיט לתמונות",
   "Add a workout you did": "הוספת אימון שעשיתי",
   "A workout you did, from your notes or a screenshot.": "אימון שעשית, מהפתקים או מצילום מסך.",
   "A program from your coach, or one you wrote down.": "תוכנית מהמאמן, או כזו שכתבת בעצמך.",
