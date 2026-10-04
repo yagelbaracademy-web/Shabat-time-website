@@ -150,74 +150,76 @@ export const ExerciseCard = memo(function ExerciseCard({
   const cut = fullName.indexOf(MACHINE_SEP);
   const title = cut > 0 ? fullName.slice(0, cut) : fullName;
   const machine = cut > 0 ? fullName.slice(cut + MACHINE_SEP.length) : null;
+  // Accordion header: the whole row opens and closes the card; ⋯ keeps the other actions.
   const header = (
-    <div className="flex items-center gap-3.5">
-      <ExerciseIcon
-        kind={cardio ? "cardio" : exercise.equipment}
-        size={expanded ? 56 : 48}
-      />
-      <div className="min-w-0 flex-1">
-        <Link
-          href={`/exercise?id=${exercise.id}`}
-          dir="auto"
-          className="block truncate text-start text-[19px] font-semibold tracking-[-0.01em]"
+    <div className="flex items-center gap-2">
+      <button
+        type="button"
+        onClick={onExpand}
+        aria-expanded={expanded}
+        className="flex min-w-0 flex-1 items-center gap-3.5 text-start"
+      >
+        <ExerciseIcon
+          kind={cardio ? "cardio" : exercise.equipment}
+          size={expanded ? 56 : 48}
+        />
+        <span className="block min-w-0 flex-1">
+          <span
+            dir="auto"
+            className="block truncate text-start text-[19px] font-semibold tracking-[-0.01em]"
+          >
+            {title}
+          </span>
+          <span className="tnum block truncate text-[15px] text-ink-2">
+            {machine && (
+              <span dir="auto" className="font-medium text-ink">
+                {machine} ·{" "}
+              </span>
+            )}
+            {cardio
+              ? cardioTotal
+                ? fmtCardio({ duration_seconds: cardioTotal }, distUnit)
+                : t("Cardio")
+              : workingCount === 1
+                ? t("1 set")
+                : t("{n} sets", { n: workingCount })}
+            {workingCount !== sets.length ? ` · ${t("+ warm-up")}` : ""}
+            {repHint ? ` · ${t("{n} reps", { n: repHint })}` : ""}
+            {!expanded && doneCount > 0
+              ? ` · ${t("{n} done", { n: doneCount })}`
+              : ""}
+            {ownRest !== undefined
+              ? ` · ${ownRest ? t("{time} rest", { time: fmtRest(ownRest) }) : t("No rest timer")}`
+              : ""}
+          </span>
+        </span>
+        <span
+          aria-hidden
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-fill text-ink-2"
         >
-          {title}
-        </Link>
-        <p className="tnum truncate text-[15px] text-ink-2">
-          {machine && (
-            <span dir="auto" className="font-medium text-ink">
-              {machine} ·{" "}
-            </span>
-          )}
-          {cardio
-            ? cardioTotal
-              ? fmtCardio({ duration_seconds: cardioTotal }, distUnit)
-              : t("Cardio")
-            : workingCount === 1
-              ? t("1 set")
-              : t("{n} sets", { n: workingCount })}
-          {workingCount !== sets.length ? ` · ${t("+ warm-up")}` : ""}
-          {repHint ? ` · ${t("{n} reps", { n: repHint })}` : ""}
-          {!expanded && doneCount > 0
-            ? ` · ${t("{n} done", { n: doneCount })}`
-            : ""}
-          {ownRest !== undefined
-            ? ` · ${ownRest ? t("{time} rest", { time: fmtRest(ownRest) }) : t("No rest timer")}`
-            : ""}
-        </p>
-      </div>
-      {expanded ? (
+          <Icon
+            name="chevronDown"
+            size={18}
+            className={`transition-transform duration-200 ${expanded ? "rotate-180" : ""}`}
+          />
+        </span>
+      </button>
+      {expanded && (
         <button
           type="button"
           aria-label={t("{name} options", { name: exName(exercise) })}
           onClick={() => setMenu(true)}
-          className="press -me-1.5 flex h-11 w-11 items-center justify-center rounded-full text-ink-2"
+          className="press -me-1.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ink-2"
         >
           <Icon name="more" size={22} />
         </button>
-      ) : (
-        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-fill text-ink-2">
-          <Icon name="chevronRight" size={18} />
-        </span>
       )}
     </div>
   );
 
   return (
     <article className="rounded-[24px] border border-line bg-card p-4 shadow-card transition-shadow">
-      {expanded ? (
-        header
-      ) : (
-        <button
-          type="button"
-          onClick={onExpand}
-          className="block w-full text-start"
-          aria-expanded={false}
-        >
-          {header}
-        </button>
-      )}
+      {header}
 
       {expanded ? (
         <div className="mt-3">

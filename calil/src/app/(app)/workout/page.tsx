@@ -6,7 +6,7 @@ import { useNow } from "@/lib/hooks";
 import { exName, useLang, useT } from "@/lib/i18n";
 import { funMatch } from "@/lib/fun-weights";
 import { addExercise, deleteWorkout, finishWorkout, nextPlan, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
-import { fmtClock, fmtDay, fmtDuration, fmtNum, fmtVolume, haptic } from "@/lib/format";
+import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
 import { activeWorkout, completedWorkouts, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
@@ -108,7 +108,8 @@ function WorkoutView({ id }: { id: string }) {
 
   // Until the user picks one, expand the first exercise that still has work left.
   const fallback = useStore((s) => list.find((we) => setsOf(s, we).some((x) => !x.completed)) ?? list[list.length - 1] ?? null, [list]);
-  const expanded = chosen && list.includes(chosen) ? chosen : fallback;
+  // "none" = the user closed every card; otherwise their pick, or the fallback.
+  const expanded = chosen === NONE ? null : chosen && list.includes(chosen) ? chosen : fallback;
 
   // Opening a workout in progress lands on the exercise you're on, not at the top.
   const landed = useRef(false);
@@ -200,7 +201,7 @@ function WorkoutView({ id }: { id: string }) {
               index={i}
               count={list.length}
               expanded={expanded === weId}
-              onExpand={() => setExpanded(weId)}
+              onExpand={() => setExpanded(expanded === weId ? NONE : weId)}
               onExerciseDone={() => advance(weId)}
             />
           </div>
@@ -311,6 +312,8 @@ function NoteField({ id }: { id: string }) {
     </label>
   );
 }
+
+const NONE = "none";
 
 /* ───────────────────────────── finish ───────────────────────────── */
 
@@ -426,27 +429,16 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
             </p>
           )}
           <VolumeFun id={id} volume={summary.volume} unit={summary.unit} />
-          {summary.open > 0 ? (
-            <div className="space-y-2">
-              <p className="px-1 pb-1 text-[15px] text-ink-2">
-                {summary.open === 1 ? t("1 set isn’t marked done.") : t("{n} sets aren’t marked done.", { n: summary.open })}
-              </p>
-              <Button className="w-full" onClick={() => end("discard")}>
-                {t("Finish, keep done sets only")}
-              </Button>
-              {summary.openWithData > 0 && (
-                <Button variant="secondary" className="w-full" onClick={() => end("complete")}>
-                  {summary.openWithData === 1
-                    ? t("Mark the filled-in set as done and finish")
-                    : t("Mark {n} as done and finish", { n: fmtNum(summary.openWithData) })}
-                </Button>
-              )}
-            </div>
-          ) : (
-            <Button className="w-full" onClick={() => end("discard")}>
-              {t("Finish workout")}
-            </Button>
+          {/* One way to finish. Unmarked sets are dropped, and the sheet says so up front:
+              prefilled numbers aren't proof a set happened. */}
+          {summary.open > 0 && (
+            <p className="px-1 pb-2 text-[15px] text-ink-2">
+              {summary.open === 1 ? t("1 set that isn’t marked done won’t be saved.") : t("{n} sets that aren’t marked done won’t be saved.", { n: summary.open })}
+            </p>
           )}
+          <Button className="w-full" onClick={() => end("discard")}>
+            {t("Finish workout")}
+          </Button>
           <Button variant="ghost" className="mt-1 w-full" onClick={onClose}>
             {t("Keep training")}
           </Button>
