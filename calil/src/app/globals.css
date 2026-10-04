@@ -199,73 +199,84 @@
   }
 }
 
-/* ───────── workout mode: a slow light running around the screen edge ───────── */
-@property --glow-angle {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
+/* ───────── workout mode: vivid blue light drifting in the corners, behind the content ───────── */
+.workout-aura {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  animation: aura-in 900ms ease-out;
 }
-@keyframes glow-spin {
-  to {
-    --glow-angle: 360deg;
-  }
+.workout-aura span {
+  position: absolute;
+  width: 75vmax;
+  height: 75vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.55;
+  will-change: transform;
 }
-@keyframes glow-in {
+.workout-aura .a1 {
+  top: -38vmax;
+  inset-inline-start: -30vmax;
+  background: radial-gradient(circle, #1c74ea 0%, rgba(28, 116, 234, 0) 65%);
+  animation: aura-a 14s ease-in-out infinite alternate;
+}
+.workout-aura .a2 {
+  bottom: -40vmax;
+  inset-inline-end: -32vmax;
+  background: radial-gradient(circle, #22b8ff 0%, rgba(34, 184, 255, 0) 65%);
+  animation: aura-b 17s ease-in-out infinite alternate;
+}
+.workout-aura .a3 {
+  top: -30vmax;
+  inset-inline-end: -40vmax;
+  width: 60vmax;
+  height: 60vmax;
+  background: radial-gradient(circle, #5b5bf5 0%, rgba(91, 91, 245, 0) 65%);
+  opacity: 0.4;
+  animation: aura-c 20s ease-in-out infinite alternate;
+}
+.workout-aura .a4 {
+  bottom: -34vmax;
+  inset-inline-start: -36vmax;
+  width: 58vmax;
+  height: 58vmax;
+  background: radial-gradient(circle, #00c2e0 0%, rgba(0, 194, 224, 0) 65%);
+  opacity: 0.35;
+  animation: aura-a 19s ease-in-out infinite alternate-reverse;
+}
+@keyframes aura-in {
   from {
     opacity: 0;
   }
 }
-/* Sits on the visible app area; corners follow the phone's own screen radius (set per device in JS). */
-.workout-glow,
-.workout-glow::before,
-.workout-glow::after {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  border-radius: var(--glow-r, 0px);
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+@keyframes aura-a {
+  to {
+    transform: translate(10vmax, 8vmax) scale(1.15);
+  }
 }
-.workout-glow {
-  z-index: 45;
-  padding: 2px;
-  /* a faint line all the way round */
-  background: color-mix(in srgb, var(--accent) 35%, transparent);
-  animation: glow-in 600ms ease-out;
+@keyframes aura-b {
+  to {
+    transform: translate(-9vmax, -10vmax) scale(1.2);
+  }
 }
-.workout-glow::before,
-.workout-glow::after {
-  content: "";
-  background: conic-gradient(
-    from var(--glow-angle),
-    transparent 0deg,
-    var(--accent) 45deg,
-    #8ccaff 75deg,
-    transparent 120deg,
-    transparent 180deg,
-    var(--accent) 225deg,
-    #8ccaff 255deg,
-    transparent 300deg
-  );
-  animation: glow-spin 7s linear infinite;
+@keyframes aura-c {
+  to {
+    transform: translate(-12vmax, 14vmax) scale(0.9);
+  }
 }
-.workout-glow::before {
-  padding: 3px;
-}
-/* the soft halo */
-.workout-glow::after {
-  padding: 8px;
-  filter: blur(8px);
-  opacity: 0.65;
+@media (prefers-color-scheme: dark) {
+  .workout-aura span {
+    opacity: 0.4;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .workout-glow::before,
-  .workout-glow::after {
+  .workout-aura span {
     animation: none;
-    background: var(--accent);
-    opacity: 0.3;
   }
+}
+html.workout-mode body {
+  background: transparent;
 }
