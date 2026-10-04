@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { duplicateWorkout, startEmptyWorkout, startFromTemplate, type Suggestion } from "@/lib/actions";
+import { createTemplate, duplicateWorkout, startEmptyWorkout, startFromTemplate, type Suggestion } from "@/lib/actions";
 import { useStore } from "@/lib/store";
 import { activeWorkout, sortedTemplates } from "@/lib/stats";
 import { haptic } from "@/lib/format";
@@ -61,17 +61,29 @@ export function PlanPickerSheet({ open, onClose }: { open: boolean; onClose: () 
             </button>
           </li>
         ))}
-        <li>
+        <li className="flex gap-2 pt-1">
           <button
             type="button"
             onClick={() => {
               onClose();
-              router.push("/plans?tab=plans");
+              router.push(`/plan?id=${createTemplate("")}&new=1`);
             }}
-            className="press flex min-h-[52px] w-full items-center justify-center gap-2 text-[16px] text-accent"
+            className="press flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-accent-soft text-[16px] font-medium text-accent-ink"
           >
-            <Icon name="plus" size={18} /> {templates.length ? t("Manage plans") : t("Create a plan")}
+            <Icon name="plus" size={18} /> {t("New plan")}
           </button>
+          {templates.length > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                router.push("/plans?tab=plans");
+              }}
+              className="press flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-[16px] bg-fill text-[16px] font-medium text-ink-2"
+            >
+              <Icon name="list" size={18} /> {t("Manage plans")}
+            </button>
+          )}
         </li>
       </ul>
     </Sheet>

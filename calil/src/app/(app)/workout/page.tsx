@@ -8,7 +8,7 @@ import { funMatch } from "@/lib/fun-weights";
 import { addExercise, deleteWorkout, finishWorkout, renameWorkout, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
 import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
-import { activeWorkout, completedWorkouts, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
+import { activeWorkout, completedWorkouts, firstSetAt, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
@@ -78,6 +78,7 @@ function WorkoutView({ id }: { id: string }) {
   const list = useMemo(() => (weIds ? weIds.split(",") : []), [weIds]);
   const live = !workout?.completed_at;
   const now = useNow(live);
+  const firstSet = useStore((s) => firstSetAt(s, id), [id]);
   const t = useT();
 
   const [chosen, setExpanded] = useState<string | null>(null);
@@ -117,7 +118,7 @@ function WorkoutView({ id }: { id: string }) {
   );
 
   if (!workout) return null;
-  const elapsed = live ? (now - new Date(workout.started_at).getTime()) / 1000 : (workout.duration_seconds ?? 0);
+  const elapsed = live ? liveSeconds(firstSet, now) : (workout.duration_seconds ?? 0);
 
   return (
     <Screen className={live ? "pb-[calc(var(--tabbar-h)+var(--sab)+120px)]!" : ""}>
@@ -146,10 +147,10 @@ function WorkoutView({ id }: { id: string }) {
               {workout.name}
             </button>
           )}
-          {(live || elapsed > 0) && (
+          {(live || (elapsed ?? 0) > 0) && (
             <p className="tnum mt-1 flex items-center gap-1.5 text-[17px] text-ink-2">
               <Icon name="clock" size={19} />
-              {live ? fmtClock(elapsed) : fmtDuration(elapsed)}
+              {live ? (elapsed === null ? t("Clock starts with your first set") : fmtClock(elapsed)) : fmtDuration(elapsed ?? 0)}
             </p>
           )}
         </div>
@@ -204,6 +205,8 @@ function WorkoutView({ id }: { id: string }) {
       <NoteField id={id} />
 
       {live && <DictationBar workoutId={id} focusWeId={expanded} />}
+      {/* Workout mode: a light runs around the screen while you're in it. */}
+      {live && <div className="workout-glow" aria-hidden />}
 
       <ExercisePicker
         open={picker}
@@ -356,13 +359,14 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
         volume: volumeOf(done),
         prs,
         count: completedWorkouts(s).length + 1,
+        first: firstSetAt(s, id),
         unit: s.profile?.weight_unit ?? "kg",
       };
     },
     [id],
   );
   if (!summary.w) return null;
-  const minutes = (now - new Date(summary.w.started_at).getTime()) / 1000;
+  const minutes = liveSeconds(summary.first, now) ?? 0;
 
   const end = (mode: "discard" | "complete") => {
     finishWorkout(id, mode);

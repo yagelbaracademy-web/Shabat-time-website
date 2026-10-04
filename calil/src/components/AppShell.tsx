@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import { initStore, resetStore, saveProfile, useStore } from "@/lib/store";
-import { activeWorkout } from "@/lib/stats";
+import { activeWorkout, firstSetAt, liveSeconds } from "@/lib/stats";
 import { fmtClock } from "@/lib/format";
 import { useNow } from "@/lib/hooks";
 import { getLang, setAddress, setExNames, setLang, useT } from "@/lib/i18n";
@@ -121,6 +121,8 @@ function ActiveBar() {
   const now = useNow(!!active);
   const tt = useT();
   const onIt = path.startsWith("/workout") && (!id || id === active?.id);
+  const first = useStore((s) => (active ? firstSetAt(s, active.id) : null), [active?.id]);
+  const secs = liveSeconds(first, now);
   const visible = !!active && !onIt;
 
   // Lifts the rest timer and page padding above this bar while it shows.
@@ -146,7 +148,7 @@ function ActiveBar() {
         <span className="min-w-0 flex-1 truncate text-[15px] font-semibold" dir="auto">
           {active.name}
         </span>
-        <span className="tnum text-[15px] text-bg/70">{fmtClock((now - new Date(active.started_at).getTime()) / 1000)}</span>
+        {secs !== null && <span className="tnum text-[15px] text-bg/70">{fmtClock(secs)}</span>}
         <span className="flex h-9 items-center gap-1 rounded-full bg-bg/15 px-3 text-[14px] font-semibold">
           {tt("Back to workout")}
         </span>

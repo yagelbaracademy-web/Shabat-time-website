@@ -198,3 +198,73 @@
     transition-duration: 1ms !important;
   }
 }
+
+/* ───────── workout mode: a slow light running around the screen edge ───────── */
+@property --glow-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes glow-spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+@keyframes glow-in {
+  from {
+    opacity: 0;
+  }
+}
+.workout-glow,
+.workout-glow::after {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  padding: 3px;
+  border-radius: var(--glow-radius, 0px);
+  background: conic-gradient(
+    from var(--glow-angle),
+    transparent 0deg,
+    var(--accent) 50deg,
+    #7cc0ff 80deg,
+    transparent 130deg,
+    transparent 180deg,
+    var(--accent) 230deg,
+    #7cc0ff 260deg,
+    transparent 310deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glow-spin 7s linear infinite;
+}
+.workout-glow {
+  z-index: 45;
+  opacity: 0.9;
+  animation:
+    glow-spin 7s linear infinite,
+    glow-in 600ms ease-out;
+}
+/* the soft halo */
+.workout-glow::after {
+  content: "";
+  padding: 6px;
+  filter: blur(8px);
+  opacity: 0.7;
+}
+/* home-screen app: follow the phone's rounded corners */
+@media (display-mode: standalone) {
+  .workout-glow {
+    --glow-radius: 44px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .workout-glow,
+  .workout-glow::after {
+    animation: none;
+    background: var(--accent);
+    opacity: 0.35;
+  }
+}

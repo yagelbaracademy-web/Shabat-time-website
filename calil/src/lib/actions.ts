@@ -1,7 +1,7 @@
 "use client";
 
 import { getState, patchRow, putRows, removeRows, saveProfile, setState } from "./store";
-import { activeWorkout, aliasesOf, isCardio, byPosition, completedWorkouts, prKindOf, type PRKind, lastSession, setsOf, sortedTemplates, workoutExercises } from "./stats";
+import { activeWorkout, aliasesOf, FIRST_SET_LEAD, isCardio, byPosition, completedWorkouts, prKindOf, type PRKind, lastSession, setsOf, sortedTemplates, workoutExercises } from "./stats";
 import { nowIso, uid } from "./format";
 import { tr } from "./i18n";
 import type { StarterPlan } from "./starters";
@@ -167,10 +167,15 @@ export function finishWorkout(id: string, incomplete: "discard" | "complete" = "
     if (!left.length) removeRows("workout_exercises", [we.id]);
     else renumber(we.id);
   }
+  // Active time: first set to last set (plus the first set itself), not start to Finish.
   const end = new Date();
+  const times = workoutExercises(getState(), id)
+    .flatMap((we) => setsOf(getState(), we.id))
+    .filter((x) => x.completed && x.completed_at)
+    .map((x) => Date.parse(x.completed_at!));
   patchRow("workouts", id, {
     completed_at: end.toISOString(),
-    duration_seconds: Math.round((end.getTime() - new Date(w.started_at).getTime()) / 1000),
+    duration_seconds: times.length ? Math.round((Math.max(...times) - Math.min(...times)) / 1000) + FIRST_SET_LEAD : 0,
   });
   setState({ rest: null });
 }

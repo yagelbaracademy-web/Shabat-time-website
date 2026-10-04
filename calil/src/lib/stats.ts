@@ -366,3 +366,23 @@ export function workoutPR(s: State, weId: string): PRKind | null {
     .map((x) => beats(x, prev));
   return kinds.includes("weight") ? "weight" : kinds.includes("set") ? "set" : kinds.includes("reps") ? "reps" : null;
 }
+
+/* ───────────── workout time ─────────────
+ * The clock runs from the first logged set to the last, so setting up the
+ * workout or forgetting to press Finish doesn't count. */
+export const FIRST_SET_LEAD = 60; // seconds: the first set itself, before it was ticked
+
+/** When the first set was ticked (ms), or null while nothing is logged yet. */
+export function firstSetAt(s: State, workoutId: string): number | null {
+  let first: number | null = null;
+  for (const we of workoutExercises(s, workoutId))
+    for (const x of setsOf(s, we.id)) {
+      if (!x.completed || !x.completed_at) continue;
+      const t = Date.parse(x.completed_at);
+      if (first === null || t < first) first = t;
+    }
+  return first;
+}
+
+/** Live clock in seconds, or null before the first set. */
+export const liveSeconds = (first: number | null, now: number) => (first === null ? null : Math.max(0, (now - first) / 1000) + FIRST_SET_LEAD);

@@ -8,7 +8,7 @@ import { fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format
 import { useStore } from "@/lib/store";
 import { exName, locale, useT } from "@/lib/i18n";
 import { addDays, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
-import { monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
+import { firstSetAt, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
 import { track } from "@/lib/track";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
@@ -131,6 +131,8 @@ function TodayCard() {
   const next = useStore(() => nextPlan());
   const doneToday = useStore((s) => workoutsOn(s, new Date()).filter((w) => w.completed_at));
   const now = useNow(!!start.active);
+  const first = useStore((s) => (start.active ? firstSetAt(s, start.active.id) : null), [start.active?.id]);
+  const secs = liveSeconds(first, now);
   const [picking, setPicking] = useState(false);
   const t = useT();
   const a = start.active;
@@ -141,7 +143,7 @@ function TodayCard() {
 
   const title = a ? t("Continue workout") : next ? next.name : t("Start workout");
   const sub = a
-    ? `${a.name} · ${fmtClock((now - new Date(a.started_at).getTime()) / 1000)}`
+    ? `${a.name}${secs !== null ? ` · ${fmtClock(secs)}` : ""}`
     : next
       ? next.kind === "plan" && next.scheduled
         ? t("Planned for today")
