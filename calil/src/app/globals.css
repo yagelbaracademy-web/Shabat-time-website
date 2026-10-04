@@ -199,7 +199,7 @@
   }
 }
 
-/* ───────── workout mode: vivid blue light drifting in the corners, behind the content ───────── */
+/* ───────── workout mode: focused, glowing blue lights moving in the corners, behind the content ───────── */
 .workout-aura {
   position: fixed;
   inset: 0;
@@ -210,42 +210,51 @@
 }
 .workout-aura span {
   position: absolute;
-  width: 75vmax;
-  height: 75vmax;
+  width: 48vmax;
+  height: 48vmax;
   border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.55;
-  will-change: transform;
+  filter: blur(34px) saturate(1.4);
+  opacity: 0.85;
+  will-change: transform, opacity;
 }
+/* a bright core inside each light makes it glow rather than tint */
 .workout-aura .a1 {
-  top: -38vmax;
-  inset-inline-start: -30vmax;
-  background: radial-gradient(circle, #1c74ea 0%, rgba(28, 116, 234, 0) 65%);
-  animation: aura-a 14s ease-in-out infinite alternate;
+  top: -20vmax;
+  inset-inline-start: -16vmax;
+  background: radial-gradient(circle, #e8f3ff 0%, #2f8bff 18%, #1c74ea 38%, rgba(28, 116, 234, 0) 68%);
+  animation:
+    aura-a 9s ease-in-out infinite alternate,
+    aura-pulse 4.5s ease-in-out infinite;
 }
 .workout-aura .a2 {
-  bottom: -40vmax;
-  inset-inline-end: -32vmax;
-  background: radial-gradient(circle, #22b8ff 0%, rgba(34, 184, 255, 0) 65%);
-  animation: aura-b 17s ease-in-out infinite alternate;
+  bottom: -22vmax;
+  inset-inline-end: -16vmax;
+  background: radial-gradient(circle, #eafaff 0%, #3cc8ff 18%, #10a8f0 38%, rgba(16, 168, 240, 0) 68%);
+  animation:
+    aura-b 11s ease-in-out infinite alternate,
+    aura-pulse 5.5s ease-in-out -2s infinite;
 }
 .workout-aura .a3 {
-  top: -30vmax;
-  inset-inline-end: -40vmax;
-  width: 60vmax;
-  height: 60vmax;
-  background: radial-gradient(circle, #5b5bf5 0%, rgba(91, 91, 245, 0) 65%);
-  opacity: 0.4;
-  animation: aura-c 20s ease-in-out infinite alternate;
+  top: -18vmax;
+  inset-inline-end: -22vmax;
+  width: 38vmax;
+  height: 38vmax;
+  background: radial-gradient(circle, #f0efff 0%, #7b7bff 20%, #5b5bf5 40%, rgba(91, 91, 245, 0) 68%);
+  opacity: 0.7;
+  animation:
+    aura-c 12s ease-in-out infinite alternate,
+    aura-pulse 6s ease-in-out -1s infinite;
 }
 .workout-aura .a4 {
-  bottom: -34vmax;
-  inset-inline-start: -36vmax;
-  width: 58vmax;
-  height: 58vmax;
-  background: radial-gradient(circle, #00c2e0 0%, rgba(0, 194, 224, 0) 65%);
-  opacity: 0.35;
-  animation: aura-a 19s ease-in-out infinite alternate-reverse;
+  bottom: -18vmax;
+  inset-inline-start: -20vmax;
+  width: 36vmax;
+  height: 36vmax;
+  background: radial-gradient(circle, #e9fdff 0%, #22d6f0 20%, #00b8d9 40%, rgba(0, 184, 217, 0) 68%);
+  opacity: 0.65;
+  animation:
+    aura-a 10s ease-in-out -3s infinite alternate-reverse,
+    aura-pulse 5s ease-in-out -3s infinite;
 }
 @keyframes aura-in {
   from {
@@ -253,23 +262,42 @@
   }
 }
 @keyframes aura-a {
+  50% {
+    transform: translate(9vmax, 5vmax) scale(1.12);
+  }
   to {
-    transform: translate(10vmax, 8vmax) scale(1.15);
+    transform: translate(3vmax, 11vmax) scale(0.92);
   }
 }
 @keyframes aura-b {
+  50% {
+    transform: translate(-10vmax, -4vmax) scale(1.15);
+  }
   to {
-    transform: translate(-9vmax, -10vmax) scale(1.2);
+    transform: translate(-4vmax, -12vmax) scale(0.95);
   }
 }
 @keyframes aura-c {
+  50% {
+    transform: translate(-8vmax, 9vmax) scale(0.9);
+  }
   to {
-    transform: translate(-12vmax, 14vmax) scale(0.9);
+    transform: translate(-14vmax, 3vmax) scale(1.1);
+  }
+}
+/* "breathing": brightness swells and settles */
+@keyframes aura-pulse {
+  0%,
+  100% {
+    filter: blur(34px) saturate(1.4) brightness(1);
+  }
+  50% {
+    filter: blur(28px) saturate(1.7) brightness(1.15);
   }
 }
 @media (prefers-color-scheme: dark) {
   .workout-aura span {
-    opacity: 0.4;
+    opacity: 0.6;
   }
 }
 @media (prefers-reduced-motion: reduce) {
