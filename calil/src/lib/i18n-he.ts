@@ -520,8 +520,8 @@ export const HE: Record<string, string> = {
   "Couldn’t delete the account. Please try again.": "לא הצלחתי למחוק את החשבון. נסו שוב.",
 
   // ── sign in & consent
-  "Logging your workout should never interrupt your workout.": "רישום האימון לא אמור להפריע לאימון.",
-  "A calm, fast notebook for every set you lift.": "מחברת שקטה ומהירה לכל סט שאתם מרימים.",
+  "Train. Track. Progress.": "כל מה שצריך כדי להתקדם. קליל.",
+  "Everything you need to stay on top of your workouts and keep improving.": "לתעד אימונים, לעקוב אחרי הביצועים, ולהצליח.",
   "Continue with Google": "המשך עם Google",
   Password: "סיסמה",
   "Password (8+ characters)": "סיסמה (8 תווים ומעלה)",
@@ -582,7 +582,6 @@ export const HE_M: Record<string, string> = {
   "Couldn’t delete the account. Please try again.": "לא הצלחתי למחוק את החשבון. נסה שוב.",
   "You’ve reached today’s dictation limit. Typing in the table still works.": "הגעת למגבלת ההכתבה להיום. הקלדה בטבלה עדיין עובדת.",
   "You’ve reached today’s import limit. Try again tomorrow.": "הגעת למגבלת הייבוא להיום. אפשר לנסות שוב מחר.",
-  "A calm, fast notebook for every set you lift.": "מחברת שקטה ומהירה לכל סט שאתה מרים.",
   "Calil is a notebook, not medical advice. Train safely and check with a professional when in doubt.":
     "Calil היא מחברת, לא ייעוץ רפואי. התאמן בבטחה והתייעץ עם איש מקצוע כשיש ספק.",
 };
@@ -611,7 +610,6 @@ export const HE_F: Record<string, string> = {
   "Couldn’t delete the account. Please try again.": "לא הצלחתי למחוק את החשבון. נסי שוב.",
   "You’ve reached today’s dictation limit. Typing in the table still works.": "הגעת למגבלת ההכתבה להיום. הקלדה בטבלה עדיין עובדת.",
   "You’ve reached today’s import limit. Try again tomorrow.": "הגעת למגבלת הייבוא להיום. אפשר לנסות שוב מחר.",
-  "A calm, fast notebook for every set you lift.": "מחברת שקטה ומהירה לכל סט שאת מרימה.",
   "Calil is a notebook, not medical advice. Train safely and check with a professional when in doubt.":
     "Calil היא מחברת, לא ייעוץ רפואי. התאמני בבטחה והתייעצי עם איש מקצוע כשיש ספק.",
 };

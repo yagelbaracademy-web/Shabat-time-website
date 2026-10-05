@@ -102,9 +102,9 @@ export default function LoginPage() {
           </button>
         </div>
         <p className="mt-6 text-[28px] leading-[1.15] font-semibold tracking-[-0.02em] text-balance">
-          {t("Logging your workout should never interrupt your workout.")}
+          {t("Train. Track. Progress.")}
         </p>
-        <p className="mt-3 text-[17px] text-ink-2">{t("A calm, fast notebook for every set you lift.")}</p>
+        <p className="mt-3 text-[17px] text-ink-2">{t("Everything you need to stay on top of your workouts and keep improving.")}</p>
       </div>
 
       <div className="rise mt-10 space-y-3" style={{ animationDelay: "60ms" }}>
