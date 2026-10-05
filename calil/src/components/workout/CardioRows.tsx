@@ -216,7 +216,7 @@ function CardioRound({
 
   // The round you're on: a big ring in the middle, one button under it.
   return (
-    <div className="bg-fill px-4 pt-5 pb-4">
+    <div className="bg-card px-1 pt-3 pb-2">
       {n !== null && (
         <p className="tnum mb-1 text-center text-[13px] text-ink-3">
           {t("Round {n}", { n })}
