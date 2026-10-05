@@ -22,7 +22,15 @@ import {
 import { fmtCardio, fmtDuration, fmtNum, haptic, parseNum } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
 import { exName, tr, useT } from "@/lib/i18n";
-import { e1rm, exerciseTimeKey, isCardio, isPerSide, lastSession, PR_TITLE, setsOf } from "@/lib/stats";
+import {
+  e1rm,
+  exerciseTimeKey,
+  isCardio,
+  isPerSide,
+  lastSession,
+  PR_TITLE,
+  setsOf,
+} from "@/lib/stats";
 import type { WorkoutSet } from "@/lib/types";
 import { ExerciseIcon } from "../ExerciseIcon";
 import { EditExerciseSheet } from "../ChangeExercise";
@@ -88,7 +96,10 @@ export const ExerciseCard = memo(function ExerciseCard({
   );
   const [setSheet, setSetSheet] = useState<string | null>(null);
   const perSide = useStore((s) => isPerSide(s, exercise), [exercise?.id]);
-  const timeKey = useStore((s) => (workout?.completed_at ? exerciseTimeKey(s, weId) : ""), [weId, workout?.completed_at]);
+  const timeKey = useStore(
+    (s) => (workout?.completed_at ? exerciseTimeKey(s, weId) : ""),
+    [weId, workout?.completed_at],
+  );
 
   if (!we || !exercise) return null;
 
@@ -122,11 +133,15 @@ export const ExerciseCard = memo(function ExerciseCard({
   );
   const isLive = !workout?.completed_at;
 
-  const onToggle = (x: WorkoutSet, shown?: { weight: number | null; reps: number | null }) => {
+  const onToggle = (
+    x: WorkoutSet,
+    shown?: { weight: number | null; reps: number | null },
+  ) => {
     // Ticking an empty set keeps the numbers it was showing (the set above, or last time).
     if (!x.completed && shown && (x.weight === null || x.reps === null)) {
       const patch: Partial<WorkoutSet> = {};
-      if (x.weight === null && shown.weight !== null) patch.weight = shown.weight;
+      if (x.weight === null && shown.weight !== null)
+        patch.weight = shown.weight;
       if (x.reps === null && shown.reps !== null) patch.reps = shown.reps;
       if (Object.keys(patch).length) updateSet(x.id, patch);
       x = getState().sets[x.id];
@@ -160,17 +175,24 @@ export const ExerciseCard = memo(function ExerciseCard({
 
   // What an empty set shows (faintly) and saves if ticked as is: the set above it in this
   // workout, otherwise what you did last time. Notes are never copied.
-  const shown = new Map<string, { weight: number | null; reps: number | null }>();
+  const shown = new Map<
+    string,
+    { weight: number | null; reps: number | null }
+  >();
   {
     let prev: { weight: number | null; reps: number | null } | null = null;
     let warmI = 0;
     let workI = 0;
     for (const x of sets) {
       const last = x.is_warmup ? lastWarm[warmI++] : lastWork[workI++];
-      const above: { weight: number | null; reps: number | null } | null = prev && prev.weight !== null ? prev : null;
+      const above: { weight: number | null; reps: number | null } | null =
+        prev && prev.weight !== null ? prev : null;
       const fill: { weight: number | null; reps: number | null } = {
         weight: x.weight ?? above?.weight ?? last?.weight ?? null,
-        reps: x.reps ?? above?.reps ?? (repHint && /^\d+$/.test(repHint) ? Number(repHint) : null),
+        reps:
+          x.reps ??
+          above?.reps ??
+          (repHint && /^\d+$/.test(repHint) ? Number(repHint) : null),
       };
       shown.set(x.id, fill);
       if (!x.is_warmup) prev = fill;
@@ -225,7 +247,9 @@ export const ExerciseCard = memo(function ExerciseCard({
               : ""}
             {timeKey && Number(timeKey.split(":")[0]) >= 60
               ? ` · ${t("~{time}", { time: fmtDuration(Number(timeKey.split(":")[0])) })}${
-                  Number(timeKey.split(":")[1]) ? ` ${t("(incl. a {time} break)", { time: fmtDuration(Number(timeKey.split(":")[1])) })}` : ""
+                  Number(timeKey.split(":")[1])
+                    ? ` ${t("(incl. a {time} break)", { time: fmtDuration(Number(timeKey.split(":")[1])) })}`
+                    : ""
                 }`
               : ""}
           </span>
@@ -272,7 +296,9 @@ export const ExerciseCard = memo(function ExerciseCard({
               weId={weId}
               sets={sets}
               distUnit={distUnit}
-              live={isLive} goalMinutes={plan?.target_minutes ?? null} />
+              live={isLive}
+              goalMinutes={plan?.target_minutes ?? null}
+            />
           ) : (
             <>
               {/* The set table keeps one layout in every language: Set · Weight · Reps · Done (Done on the right). */}
@@ -282,44 +308,52 @@ export const ExerciseCard = memo(function ExerciseCard({
               >
                 <span className="text-center">{t("Set")}</span>
                 <span className="text-center">
-                  {perSide ? t("Per side ({unit})", { unit: t(unit) }) : t("Weight ({unit})", { unit: t(unit) })}
+                  {perSide
+                    ? t("Per side ({unit})", { unit: t(unit) })
+                    : t("Weight ({unit})", { unit: t(unit) })}
                 </span>
                 <span className="text-center">{t("Reps")}</span>
                 <span className="text-center">{t("Done")}</span>
               </div>
-              {/* Hold a set's number to drag it into another place. */}
-              <SortableList
-                items={sets}
-                onReorder={reorderSets}
-                gap={6}
-                handle="[data-set-handle]"
-                className="block"
-                render={(x) => (
-                  <SetRow
-                    key={x.id}
-                    set={x}
-                    label={labels.get(x.id) ?? ""}
-                    weightHint={shown.get(x.id)?.weight ?? null}
-                    repHint={shown.get(x.id)?.reps != null ? String(shown.get(x.id)!.reps) : repHint}
-                    onToggle={() => onToggle(x, shown.get(x.id))}
-                    onMenu={() => setSetSheet(x.id)}
-                    onDelete={() => {
-                      const removed = deleteSet(x.id);
-                      if (removed)
-                        toast({
-                          title: t("Set {n} deleted", {
-                            n: removed.set_number,
-                          }),
-                          icon: "trash",
-                          action: {
-                            label: t("Undo"),
-                            run: () => restoreSet(removed),
-                          },
-                        });
-                    }}
-                  />
-                )}
-              />
+              {/* Hold a set's number to drag it into another place. Same LTR layout as the header row. */}
+              <div dir="ltr">
+                <SortableList
+                  items={sets}
+                  onReorder={reorderSets}
+                  gap={6}
+                  handle="[data-set-handle]"
+                  className="block"
+                  render={(x) => (
+                    <SetRow
+                      key={x.id}
+                      set={x}
+                      label={labels.get(x.id) ?? ""}
+                      weightHint={shown.get(x.id)?.weight ?? null}
+                      repHint={
+                        shown.get(x.id)?.reps != null
+                          ? String(shown.get(x.id)!.reps)
+                          : repHint
+                      }
+                      onToggle={() => onToggle(x, shown.get(x.id))}
+                      onMenu={() => setSetSheet(x.id)}
+                      onDelete={() => {
+                        const removed = deleteSet(x.id);
+                        if (removed)
+                          toast({
+                            title: t("Set {n} deleted", {
+                              n: removed.set_number,
+                            }),
+                            icon: "trash",
+                            action: {
+                              label: t("Undo"),
+                              run: () => restoreSet(removed),
+                            },
+                          });
+                      }}
+                    />
+                  )}
+                />
+              </div>
               <button
                 type="button"
                 onClick={() => {
@@ -423,10 +457,17 @@ export const ExerciseCard = memo(function ExerciseCard({
               onClick={() => {
                 setPerSide(exercise.id, !perSide);
                 setMenu(false);
-                toast({ title: perSide ? t("Now logging total weight") : t("Now logging weight per side"), icon: "check" });
+                toast({
+                  title: perSide
+                    ? t("Now logging total weight")
+                    : t("Now logging weight per side"),
+                  icon: "check",
+                });
               }}
             >
-              {perSide ? t("Log total weight instead") : t("Log weight per side")}
+              {perSide
+                ? t("Log total weight instead")
+                : t("Log weight per side")}
             </SheetAction>
           )}
           <Link
