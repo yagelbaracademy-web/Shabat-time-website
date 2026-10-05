@@ -214,7 +214,7 @@ function WorkoutView({ id }: { id: string }) {
       <SortableList
         items={list.map((weId) => ({ id: weId }))}
         onReorder={reorderWorkoutExercises}
-        gap={12}
+        gap={16}
         handle="[data-drag-handle]"
         render={({ id: weId }) => (
           <div ref={(el) => void (cards.current[weId] = el)} className="scroll-mt-4">

@@ -93,7 +93,7 @@ function Tile({
   tone?: "warn";
 }) {
   return (
-    <div className="rounded-[20px] border border-line bg-card p-4 shadow-card">
+    <div className="rounded-[24px] surface p-4">
       <p className="text-[13px] text-ink-2">{label}</p>
       <p
         className={`tnum mt-1 text-[26px] font-semibold tracking-[-0.02em] ${tone === "warn" ? "text-danger" : ""}`}
@@ -120,7 +120,7 @@ function Bars({
   const max = Math.max(1, ...days.map((d) => value(d) + (failed?.(d) ?? 0)));
   const total = days.reduce((s, d) => s + value(d), 0);
   return (
-    <div className="rounded-[20px] border border-line bg-card p-4 shadow-card">
+    <div className="rounded-[24px] surface p-4">
       <div className="mb-3 flex items-baseline justify-between">
         <p className="text-[15px] font-semibold">{title}</p>
         <p className="tnum text-[13px] text-ink-3">{n(total)} in 30 days</p>
@@ -394,7 +394,7 @@ export function AdminDashboard() {
           />
         </label>
       </div>
-      <div className="overflow-x-auto rounded-[20px] border border-line bg-card shadow-card">
+      <div className="overflow-x-auto rounded-[24px] surface">
         <table className="w-full min-w-[760px] text-left text-[14px]">
           <thead className="text-[12px] tracking-wide text-ink-3 uppercase">
             <tr className="border-b border-line">

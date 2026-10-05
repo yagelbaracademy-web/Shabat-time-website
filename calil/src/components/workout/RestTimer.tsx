@@ -69,7 +69,7 @@ export function RestPill() {
         aria-label={t("Rest {time}", { time: fmtClock(secs) })}
         // Glass: frosted and see-through, like the tab bar, so it floats over the workout.
         className={`flex w-full items-center gap-3 rounded-[22px] border py-2 pe-2 ps-2.5 shadow-float backdrop-blur-2xl backdrop-saturate-150 ${
-          done ? "border-transparent bg-accent text-white" : "border-white/60 bg-white/55 dark:border-white/10 dark:bg-card/60"
+          done ? "border-transparent bg-accent text-white" : "border-white/80 bg-white/85 dark:border-white/10 dark:bg-card/80"
         }`}
       >
         <svg width="44" height="44" viewBox="0 0 44 44" className="shrink-0 -rotate-90" aria-hidden>

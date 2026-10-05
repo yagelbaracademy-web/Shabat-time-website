@@ -147,7 +147,7 @@ function PlanList() {
             >
               <Link
                 href={`/plan?id=${plan.id}`}
-                className="press flex items-center gap-3.5 rounded-[22px] border border-line bg-card p-3.5"
+                className="press flex items-center gap-3.5 rounded-[26px] surface p-3.5"
               >
                 <ExerciseIcon kind={equipment} size={56} />
                 <div className="min-w-0 flex-1">
@@ -180,7 +180,7 @@ function PlanList() {
               <button
                 type="button"
                 onClick={() => router.push(`/plan?id=${templateFromStarter(p)}`)}
-                className="press flex w-full items-center gap-3.5 rounded-[22px] border border-line bg-card p-3.5 text-start shadow-card"
+                className="press flex w-full items-center gap-3.5 rounded-[26px] surface p-3.5 text-start"
               >
                 <ExerciseIcon kind={p.icon} size={56} />
                 <div className="min-w-0 flex-1">

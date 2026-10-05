@@ -170,12 +170,12 @@ export function AdminInsights({
       </div>
 
       {!data || !data.rows.length ? (
-        <p className="rounded-[20px] border border-line bg-card px-4 py-5 text-[14px] text-ink-3 shadow-card">
+        <p className="rounded-[24px] surface px-4 py-5 text-[14px] text-ink-3">
           Nothing recorded yet. Use the app a little and come back.
         </p>
       ) : (
         <div className="space-y-3">
-          <div className="rounded-[20px] border border-line bg-card p-4 shadow-card">
+          <div className="rounded-[24px] surface p-4">
             <p className="text-[13px] text-ink-2">
               {n(data.people_30d)} {data.people_30d === 1 ? "person" : "people"}{" "}
               · {n(data.events_30d)} events
@@ -219,7 +219,7 @@ export function AdminInsights({
           </div>
 
           <div className="grid gap-3 md:grid-cols-2">
-            <div className="rounded-[20px] border border-line bg-card p-4 shadow-card">
+            <div className="rounded-[24px] surface p-4">
               <p className="mb-2 text-[13px] font-medium tracking-wide text-ink-3 uppercase">
                 What happened
               </p>
@@ -235,7 +235,7 @@ export function AdminInsights({
                 ))}
               </ul>
             </div>
-            <div className="rounded-[20px] border border-line bg-card p-4 shadow-card">
+            <div className="rounded-[24px] surface p-4">
               <p className="mb-2 text-[13px] font-medium tracking-wide text-ink-3 uppercase">
                 Screens opened
               </p>
@@ -252,7 +252,7 @@ export function AdminInsights({
             </div>
           </div>
 
-          <div className="overflow-x-auto rounded-[20px] border border-line bg-card shadow-card">
+          <div className="overflow-x-auto rounded-[24px] surface">
             <div className="flex gap-2 border-b border-line px-4 py-3 text-[13px]">
               {(["all", "unused", "regular"] as const).map((f) => (
                 <button
