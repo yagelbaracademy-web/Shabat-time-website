@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { useNow, useToday } from "@/lib/hooks";
 import { nextPlan, setPlanDays } from "@/lib/actions";
-import { fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format";
+import { fmtCardio, fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { exName, locale, useT } from "@/lib/i18n";
 import { addDays, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
-import { clockStartAt, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
+import { clockStartAt, isCardio, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
 import { track } from "@/lib/track";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
@@ -263,7 +263,10 @@ function WorkoutSummary({ id, label }: { id: string; label: string }) {
       const rows = workoutExercises(s, w.id).map((we) => {
         const ex = s.exercises[we.exercise_id];
         const sets = setsOf(s, we.id).filter((x) => x.completed);
-        return { id: we.id, name: ex ? exName(ex) : "", equipment: ex?.equipment ?? null, sets: sets.length, top: topSet(sets) };
+        const cardio = isCardio(ex);
+        const secs = sets.reduce((a, x) => a + (x.duration_seconds ?? 0), 0);
+        const dist = sets.reduce((a, x) => a + (x.distance ?? 0), 0);
+        return { id: we.id, name: ex ? exName(ex) : "", equipment: cardio ? ("cardio" as const) : (ex?.equipment ?? null), sets: sets.length, top: topSet(sets), cardio, secs, dist };
       });
       return { w, rows };
     },
@@ -285,7 +288,13 @@ function WorkoutSummary({ id, label }: { id: string; label: string }) {
               <p className="truncate text-[17px] font-medium" dir="auto">
                 {r.name}
               </p>
-              <p className="tnum text-[15px] text-ink-2">{r.sets === 1 ? t("1 set") : t("{n} sets", { n: r.sets })}</p>
+              <p className="tnum text-[15px] text-ink-2">
+                {r.cardio
+                  ? fmtCardio({ duration_seconds: r.secs, distance: r.dist }, t(unit === "lb" ? "mi" : "km")) || t("Cardio")
+                  : r.sets === 1
+                    ? t("1 set")
+                    : t("{n} sets", { n: r.sets })}
+              </p>
             </div>
             {r.top?.weight ? (
               <span className="tnum text-[16px] text-ink-2">

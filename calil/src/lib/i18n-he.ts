@@ -157,6 +157,7 @@ export const HE: Record<string, string> = {
   "Different machine": "מכונה אחרת",
   "Back to top": "חזרה למעלה",
   "Back to workout": "חזרה לאימון",
+  "Round {n}": "סבב {n}",
   "Time {time}, tap to set a goal or type it": "זמן {time}, הקשה לקביעת יעד או הקלדה",
   "{n} min left": "נשארו {n} דק׳",
   "tap to edit": "הקשה לעריכה",

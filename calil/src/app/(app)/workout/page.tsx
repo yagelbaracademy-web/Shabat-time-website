@@ -182,19 +182,6 @@ function WorkoutView({ id }: { id: string }) {
               {workout.name}
             </button>
           )}
-          {live && totalSets > 0 && (
-            <div className="mt-2.5 flex items-center gap-2.5" aria-label={t("{done} of {total} sets done", { done: doneSets, total: totalSets })}>
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-fill" dir="ltr">
-                <div
-                  className="h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
-                  style={{ width: `${(doneSets / totalSets) * 100}%` }}
-                />
-              </div>
-              <span className="tnum text-[13px] text-ink-3" dir="ltr">
-                {doneSets}/{totalSets}
-              </span>
-            </div>
-          )}
           {(live || (elapsed ?? 0) > 0) && (
             <p className="tnum mt-1 flex items-center gap-1.5 text-[17px] text-ink-2">
               <Icon name="clock" size={19} />

@@ -238,7 +238,7 @@ export const ExerciseCard = memo(function ExerciseCard({
                 ? t("1 set")
                 : t("{n} sets", { n: workingCount })}
             {workingCount !== sets.length ? ` · ${t("+ warm-up")}` : ""}
-            {repHint ? ` · ${t("{n} reps", { n: repHint })}` : ""}
+            {repHint && !cardio ? ` · ${t("{n} reps", { n: repHint })}` : ""}
             {!expanded && doneCount > 0
               ? ` · ${t("{n} done", { n: doneCount })}`
               : ""}
