@@ -94,7 +94,7 @@ function WorkoutsByWeek() {
                       message: t("It’s removed from your history, progress and records. This can’t be undone."),
                     }}
                   >
-                    <Link href={`/workout?id=${w.id}`} className="press flex items-center gap-3 rounded-[24px] surface p-4">
+                    <Link href={`/workout?id=${w.id}`} className="press flex items-center gap-3 rounded-[20px] border border-line bg-card p-4">
                       <span className="flex w-12 shrink-0 flex-col items-center leading-tight">
                         <span className="text-[13px] text-ink-3">{new Date(w.date).toLocaleDateString(locale(lang), { weekday: "short" })}</span>
                         <span className="tnum text-[20px] font-semibold">{new Date(w.date).getDate()}</span>

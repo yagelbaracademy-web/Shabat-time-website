@@ -159,7 +159,7 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
       {mode === "result" && result && (
         <Swipeable
           onDismiss={() => setMode("idle")}
-          className="rise rounded-[24px] surface p-3 shadow-float"
+          className="rise rounded-[20px] border border-line bg-card p-3 shadow-float"
           style={{ marginBottom: resting ? 84 : 8 }}
         >
           <div className="flex items-start gap-2.5">

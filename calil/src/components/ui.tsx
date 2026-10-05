@@ -156,7 +156,7 @@ export function Screen({
 }) {
   return (
     <main
-      className={`mx-auto w-full max-w-[560px] px-5 sm:px-6 ${className}`}
+      className={`mx-auto w-full max-w-[560px] px-4 sm:px-6 ${className}`}
       style={{
         paddingTop: "calc(var(--sat) + 8px)",
         paddingBottom: "calc(var(--tabbar-h) + var(--sab) + 32px + var(--dock, 0px))",
@@ -196,7 +196,7 @@ export function Card({
   const C = as;
   return (
     <C
-      className={`rounded-[28px] surface ${className}`}
+      className={`rounded-[24px] border border-line bg-card shadow-card ${className}`}
     >
       {children}
     </C>
@@ -259,11 +259,10 @@ export function BackLink({
 
 type BtnVariant = "primary" | "secondary" | "ghost" | "danger";
 const btn: Record<BtnVariant, string> = {
-  // Primary is the one loud thing on a screen; everything else stays quiet.
-  primary: "bg-accent text-white shadow-[0_8px_20px_-10px_rgba(28,116,234,0.55)] active:bg-accent-press",
-  secondary: "bg-ink/[0.05] text-ink",
+  primary: "bg-accent text-white active:bg-accent-press",
+  secondary: "bg-fill text-ink",
   ghost: "text-accent",
-  danger: "bg-danger/[0.08] text-danger",
+  danger: "bg-fill text-danger",
 };
 
 export function Button({
@@ -279,7 +278,7 @@ export function Button({
   return (
     <button
       type="button"
-      className={`press inline-flex min-h-[52px] items-center justify-center gap-2 rounded-full px-6 text-[17px] font-semibold disabled:opacity-40 ${btn[variant]} ${className}`}
+      className={`press inline-flex min-h-[52px] items-center justify-center gap-2 rounded-[16px] px-5 text-[17px] font-semibold disabled:opacity-40 ${btn[variant]} ${className}`}
       {...rest}
     >
       {icon && <Icon name={icon} size={20} />}
@@ -334,7 +333,7 @@ export function Segmented<T extends string>({
   return (
     <div
       role="tablist"
-      className={`inline-flex rounded-full bg-ink/[0.05] p-1 ${className}`}
+      className={`inline-flex rounded-[14px] bg-fill p-1 ${className}`}
     >
       {opts.map((o) => {
         const active = o.value === value;
@@ -345,11 +344,11 @@ export function Segmented<T extends string>({
             type="button"
             aria-selected={active}
             onClick={() => onChange(o.value)}
-            className={`flex-1 rounded-full font-medium transition-[background-color,color,box-shadow] duration-200 ${
+            className={`flex-1 rounded-[10px] font-medium transition-[background-color,color,box-shadow] duration-200 ${
               size === "sm"
                 ? "min-h-[34px] px-3 text-[14px]"
                 : "min-h-[38px] px-4 text-[15px]"
-            } ${active ? "bg-card text-ink shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_12px_-4px_rgba(0,0,0,0.08)]" : "text-ink-2"}`}
+            } ${active ? "bg-card text-accent-ink shadow-[0_1px_3px_rgba(0,0,0,0.08)]" : "text-ink-2"}`}
           >
             {o.label}
           </button>
@@ -512,7 +511,7 @@ export function Sheet({
       />
       <div
         ref={panel}
-        className={`absolute inset-x-0 bottom-0 mx-auto flex max-w-[560px] flex-col rounded-t-[32px] bg-bg shadow-float ${full ? "h-[92dvh]" : "max-h-[88dvh]"}`}
+        className={`absolute inset-x-0 bottom-0 mx-auto flex max-w-[560px] flex-col rounded-t-[28px] bg-bg shadow-float ${full ? "h-[92dvh]" : "max-h-[88dvh]"}`}
         style={{
           transform: shown ? `translateY(${dragY}px)` : "translateY(100%)",
           transition: dragging ? "none" : "transform 380ms var(--ease-drawer)",
@@ -561,7 +560,7 @@ export function SheetAction({
     <button
       type="button"
       onClick={onClick}
-      className={`press flex min-h-[56px] w-full items-center gap-3.5 rounded-[20px] bg-card px-4 text-start text-[17px] shadow-[0_0_0_1px_rgba(12,12,14,0.03)] ${danger ? "text-danger" : "text-ink"}`}
+      className={`press flex min-h-[56px] w-full items-center gap-3.5 rounded-[16px] bg-card px-4 text-start text-[17px] ${danger ? "text-danger" : "text-ink"}`}
     >
       <Icon name={icon} size={21} className={danger ? "" : "text-ink-2"} />
       {children}

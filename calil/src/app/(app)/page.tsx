@@ -34,7 +34,7 @@ export default function Home() {
       <BrandBar />
       <Title eyebrow={hello.g}>{hello.h}</Title>
       {loaded ? (
-        <div className="space-y-4">
+        <div className="space-y-3">
           <WeekStrip today={today} selected={selected} onSelect={setSelected} />
           {sameDay(selected, today) ? <TodayCard /> : <DayCard day={selected} today={today} />}
           <ThisMonth />
@@ -162,22 +162,24 @@ function TodayCard() {
           ))}
         </div>
       )}
-      <Card className="p-3 pb-2">
+      <Card className="p-3">
         <button
           type="button"
           onClick={() => (a ? start.resume() : next ? start.suggested(next) : start.empty())}
-          className="press flex w-full items-center gap-4 rounded-[22px] p-2 text-start"
+          className="press flex w-full items-center gap-4 rounded-[20px] bg-accent-soft p-3.5 text-start"
         >
-          <ExerciseIcon kind="dumbbell" size={56} />
+          <span className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-[18px] bg-card shadow-card">
+            <ExerciseIcon kind="dumbbell" size={46} tone="accent" />
+          </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[22px] font-semibold tracking-[-0.015em]" dir="auto">
+            <span className="block truncate text-[21px] font-semibold tracking-[-0.01em]" dir="auto">
               {doneToday.length > 0 && !a ? t("Another workout?") : title}
             </span>
             <span className="tnum block truncate text-[15px] text-ink-2" dir="auto">
               {doneToday.length > 0 && !a && next ? next.name : sub}
             </span>
           </span>
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-white shadow-[0_8px_20px_-10px_rgba(28,116,234,0.6)]">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-white">
             <Icon name="arrowRight" size={22} stroke={2} />
           </span>
         </button>

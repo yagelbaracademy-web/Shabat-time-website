@@ -277,7 +277,7 @@ export const ExerciseCard = memo(function ExerciseCard({
   );
 
   return (
-    <article className="rounded-[28px] surface p-5 transition-shadow">
+    <article className="rounded-[24px] border border-line bg-card p-4 shadow-card transition-shadow">
       {header}
 
       {expanded ? (
