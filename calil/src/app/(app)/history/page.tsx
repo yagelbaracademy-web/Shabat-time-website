@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { deleteWorkout } from "@/lib/actions";
 import { fmtDuration } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -11,6 +10,7 @@ import { completedWorkouts, setsOf, workoutExercises } from "@/lib/stats";
 import { Icon } from "@/components/icons";
 import { SwipeRow } from "@/components/SwipeRow";
 import { BrandBar, Card, Empty, Screen, Skeleton, Title } from "@/components/ui";
+import { useToday } from "@/lib/hooks";
 
 /** Everything you've done, newest first, by week. */
 export default function HistoryPage() {
@@ -34,7 +34,7 @@ export default function HistoryPage() {
 function WorkoutsByWeek() {
   const t = useT();
   const lang = useLang();
-  const [today] = useState(() => new Date());
+  const today = useToday();
   const groups = useStore((s) => {
     const thisWeek = startOfWeek(today).getTime();
     const out: { key: number; title: string; items: { id: string; name: string; date: string; dur: number; exercises: string; sets: number }[] }[] = [];

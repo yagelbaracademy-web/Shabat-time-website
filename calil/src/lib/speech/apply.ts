@@ -1,6 +1,6 @@
 "use client";
 
-import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, restFor, skipRest, startRest } from "../actions";
+import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, restAfter, skipRest, startRest } from "../actions";
 import { fmtCardio, fmtNum } from "../format";
 import { exName, tr } from "../i18n";
 import { getState, putRows, removeRows } from "../store";
@@ -19,8 +19,19 @@ export interface ApplyResult {
 
 /* ───────────────────────────── understanding ───────────────────────────── */
 
+/** The exercise holding the most recently ticked set in this workout. */
+function lastDoneWe(workoutId: string): string | null {
+  const s = getState();
+  let best: { id: string; at: string } | null = null;
+  for (const we of workoutExercises(s, workoutId))
+    for (const x of setsOf(s, we.id))
+      if (x.completed && x.completed_at && (!best || x.completed_at > best.at)) best = { id: we.id, at: x.completed_at };
+  return best?.id ?? null;
+}
+
 function buildContext(workoutId: string, focusWeId: string | null): DictationContext {
   const s = getState();
+  const lastDone = lastDoneWe(workoutId);
   return {
     library: Object.values(s.exercises).map((e) => e.name),
     aliases: Object.fromEntries(Object.values(s.exercises).flatMap((e) => aliasesOf(s, e.id).map((a) => [a, e.name]))),
@@ -28,6 +39,7 @@ function buildContext(workoutId: string, focusWeId: string | null): DictationCon
     workout: workoutExercises(s, workoutId).map((we) => ({
       exercise: s.exercises[we.exercise_id]?.name ?? "",
       focused: we.id === focusWeId,
+      last_done: we.id === lastDone,
       sets: setsOf(s, we.id).map((x) => ({ n: x.set_number, weight: x.weight, reps: x.reps, done: x.completed })),
     })),
   };
@@ -99,6 +111,11 @@ function resolveWe(op: DictationOp, workoutId: string, focusWeId: string | null)
   const s = getState();
   const wes = workoutExercises(s, workoutId);
   if (!op.exercise) {
+    // A remark with no exercise belongs to the set just done, even if the next exercise is already open.
+    if (op.mode === "note" && !op.sets.length) {
+      const last = lastDoneWe(workoutId);
+      if (last) return s.workout_exercises[last];
+    }
     if (focusWeId && s.workout_exercises[focusWeId]) return s.workout_exercises[focusWeId];
     return wes.find((we) => setsOf(s, we.id).some((x) => !x.completed)) ?? wes[wes.length - 1] ?? null;
   }
@@ -213,7 +230,8 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
 
     if (op.note) {
       const sets = setsOf(getState(), we.id);
-      const target = touched[touched.length - 1] ?? [...sets].reverse().find((x) => x.completed) ?? sets[0] ?? newSet(we.id);
+      const lastTicked = sets.filter((x) => x.completed && x.completed_at).sort((a, b) => (a.completed_at! < b.completed_at! ? -1 : 1)).pop();
+      const target = touched[touched.length - 1] ?? lastTicked ?? sets[0] ?? newSet(we.id);
       const cur = getState().sets[target.id];
       putRows("sets", [{ ...cur, note: cur.note ? `${cur.note} · ${op.note}` : op.note }]);
       lines.push(`${op.mode === "note" ? `${name} · ` : ""}“${op.note}”`);
@@ -221,7 +239,7 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
   }
 
   if (!lines.length) return { ok: false, transcript, summary: tr("Didn’t find workout data in that.") };
-  if (restWe) startRest(restFor(restWe));
+  if (restWe) startRest(restAfter(restWe));
 
   const undo = () => {
     const now = getState();

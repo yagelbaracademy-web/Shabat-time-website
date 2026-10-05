@@ -155,6 +155,16 @@ export default function SettingsPage() {
                 value={String(profile.default_rest_seconds)}
                 onChange={(v) => saveProfile({ default_rest_seconds: Number(v) })}
               />
+              <p className="mt-4 mb-2 text-[15px] text-ink-2">{t("Rest between exercises")}</p>
+              <Segmented
+                className="w-full"
+                options={[
+                  { value: "same", label: t("Same") },
+                  ...[60, 120, 180, 240].map((s) => ({ value: String(s), label: s < 120 ? t("{n}s", { n: s }) : t("{n}m", { n: s / 60 }) })),
+                ]}
+                value={profile.rest_between_exercises == null ? "same" : String(profile.rest_between_exercises)}
+                onChange={(v) => saveProfile({ rest_between_exercises: v === "same" ? null : Number(v) })}
+              />
             </div>
           )}
           <Row label="Weight unit">

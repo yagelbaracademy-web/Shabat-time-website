@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
-import { initStore, resetStore, saveProfile, useStore } from "@/lib/store";
+import { initStore, refresh, resetStore, saveProfile, useStore } from "@/lib/store";
 import { activeWorkout, clockStartAt, liveSeconds } from "@/lib/stats";
 import { fmtClock } from "@/lib/format";
 import { useNow } from "@/lib/hooks";
@@ -49,6 +49,17 @@ export function AppShell({ children }: { children: ReactNode }) {
       sub.subscription.unsubscribe();
     };
   }, [router]);
+
+  // Back on screen after a while (or a new day): pull fresh data quietly.
+  useEffect(() => {
+    let hiddenAt = 0;
+    const onVis = () => {
+      if (document.visibilityState === "hidden") hiddenAt = Date.now();
+      else if (hiddenAt && Date.now() - hiddenAt > 10 * 60_000 && navigator.onLine) void refresh().catch(() => {});
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
 
   useEffect(() => {
     if ("serviceWorker" in navigator && process.env.NODE_ENV === "production") {

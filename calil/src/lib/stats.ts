@@ -75,8 +75,24 @@ export const isCardio = (ex: Pick<Exercise, "muscle_group"> | null | undefined) 
 /** Working sets only: warm-ups are logged but never count toward volume, records or progress. */
 export const working = (sets: WorkoutSet[]) => sets.filter((x) => !x.is_warmup);
 
-export const volumeOf = (sets: WorkoutSet[]) =>
-  sets.reduce((v, x) => v + (x.completed && !x.is_warmup ? (x.weight ?? 0) * (x.reps ?? 0) : 0), 0);
+/** Volume of the given sets; `sides` = 2 when the weight is logged per side (two dumbbells). */
+export const volumeOf = (sets: WorkoutSet[], sides = 1) =>
+  sets.reduce((v, x) => v + (x.completed && !x.is_warmup ? (x.weight ?? 0) * (x.reps ?? 0) * sides : 0), 0);
+
+/* Weight per side: two dumbbells (or two cable stacks) are logged as the weight in each hand. */
+const ONE_WEIGHT = new Set(["Goblet Squat", "Kettlebell Swing"]);
+const PER_SIDE_BUILTIN = new Set(["Cable Crossover"]);
+
+export function isPerSide(s: State, ex: Exercise | null | undefined): boolean {
+  if (!ex) return false;
+  const own = s.profile?.per_side?.[ex.id];
+  if (own !== undefined) return own;
+  const base = ex.name.split(" · ")[0]; // a machine variant follows its base exercise
+  if (PER_SIDE_BUILTIN.has(base)) return true;
+  return ex.equipment === "dumbbell" && !ONE_WEIGHT.has(base);
+}
+
+export const sidesOf = (s: State, exerciseId: string) => (isPerSide(s, s.exercises[exerciseId]) ? 2 : 1);
 
 /** Heaviest completed set; ties go to more reps. Body-weight work ranks by reps. */
 export function topSet(sets: WorkoutSet[]): WorkoutSet | null {
@@ -170,7 +186,7 @@ export function exerciseSessions(s: State, exerciseId: string, idx = setsIndex(s
     const sets = idx.get(we.id) ?? [];
     const top = topSet(sets);
     if (!top && !sets.some((x) => x.completed && (x.duration_seconds ?? 0) > 0)) continue;
-    list.push({ workout, we, sets, top, volume: volumeOf(sets), pr: false, prKind: null, prSet: null });
+    list.push({ workout, we, sets, top, volume: volumeOf(sets, sidesOf(s, exerciseId)), pr: false, prKind: null, prSet: null });
   }
   list.sort((a, b) => (a.workout.started_at < b.workout.started_at ? -1 : 1));
   let prev: Bests | null = null;
@@ -240,7 +256,7 @@ export function monthStats(s: State, ref = new Date()): MonthStats {
     workouts++;
     seconds += w.duration_seconds ?? 0;
     let v = 0;
-    for (const we of weByWorkout.get(w.id) ?? []) v += volumeOf(idx.get(we.id) ?? []);
+    for (const we of weByWorkout.get(w.id) ?? []) v += volumeOf(idx.get(we.id) ?? [], sidesOf(s, we.exercise_id));
     volume += v;
     days[d.getDate() - 1] += v || 1;
   }
@@ -388,3 +404,33 @@ export function clockStartAt(s: State, workoutId: string): number | null {
 
 /** Live clock in seconds, or null before the first set. */
 export const liveSeconds = (start: number | null, now: number) => (start === null ? null : Math.max(0, (now - start) / 1000));
+
+/* ───────────── time per exercise ─────────────
+ * Estimated from when sets were ticked: an exercise runs from the end of the one before it
+ * (or the clock start) to its own last ticked set. A long gap inside it is reported apart,
+ * since it usually means a break that wasn't the exercise itself. */
+const LONG_GAP = 5 * 60 * 1000;
+
+/** "seconds:longestGapSeconds" for one exercise of a workout, or "" when nothing was ticked. */
+export function exerciseTimeKey(s: State, weId: string): string {
+  const we = s.workout_exercises[weId];
+  if (!we) return "";
+  const times = new Map<string, number[]>();
+  for (const w of workoutExercises(s, we.workout_id)) {
+    const ts = setsOf(s, w.id)
+      .filter((x) => x.completed && x.completed_at)
+      .map((x) => Date.parse(x.completed_at!))
+      .sort((a, b) => a - b);
+    if (ts.length) times.set(w.id, ts);
+  }
+  const mine = times.get(weId);
+  if (!mine) return "";
+  // The exercise done just before this one (by time) marks where this one began.
+  let prevEnd = clockStartAt(s, we.workout_id) ?? mine[0];
+  for (const [id, ts] of times) if (id !== weId && ts[ts.length - 1] <= mine[0] && ts[ts.length - 1] > prevEnd) prevEnd = ts[ts.length - 1];
+  const points = [Math.min(prevEnd, mine[0]), ...mine];
+  let gap = 0;
+  for (let i = 1; i < points.length; i++) gap = Math.max(gap, points[i] - points[i - 1]);
+  const total = mine[mine.length - 1] - points[0];
+  return `${Math.round(total / 1000)}:${gap > LONG_GAP ? Math.round(gap / 1000) : 0}`;
+}

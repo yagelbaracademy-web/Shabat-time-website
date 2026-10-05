@@ -8,7 +8,7 @@ import { funMatch } from "@/lib/fun-weights";
 import { addExercise, deleteWorkout, finishWorkout, renameWorkout, reorderWorkoutExercises, setWorkoutNote, templateFromWorkout } from "@/lib/actions";
 import { fmtClock, fmtDay, fmtDuration, fmtVolume, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
-import { activeWorkout, completedWorkouts, clockStartAt, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
+import { activeWorkout, completedWorkouts, clockStartAt, sidesOf, liveSeconds, PR_LABEL, setsOf, volumeOf, workoutExercises, workoutPR } from "@/lib/stats";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { SortableList } from "@/components/SortableList";
 import { Icon } from "@/components/icons";
@@ -89,6 +89,39 @@ function WorkoutView({ id }: { id: string }) {
   const [menu, setMenu] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const cards = useRef<Record<string, HTMLDivElement | null>>({});
+  const [celebrate, setCelebrate] = useState(false);
+
+  // Progress through the workout's sets (warm-ups don't count), e.g. "7/12".
+  const progress = useStore(
+    (s) => {
+      let total = 0;
+      let done = 0;
+      for (const we of workoutExercises(s, id))
+        for (const x of setsOf(s, we.id)) {
+          if (x.is_warmup) continue;
+          total++;
+          if (x.completed) done++;
+        }
+      return `${done}/${total}`;
+    },
+    [id],
+  );
+  const [doneSets, totalSets] = progress.split("/").map(Number);
+  const allDone = totalSets > 0 && doneSets === totalSets;
+
+  // Every set ticked: celebrate and offer to finish (once per time it happens, never auto-finish).
+  const wasAllDone = useRef(allDone);
+  useEffect(() => {
+    if (live && allDone && !wasAllDone.current) {
+      const t = setTimeout(() => {
+        setCelebrate(true);
+        setFinish(true);
+      }, 700);
+      wasAllDone.current = allDone;
+      return () => clearTimeout(t);
+    }
+    wasAllDone.current = allDone;
+  }, [allDone, live]);
 
   // Until the user picks one, expand the first exercise that still has work left.
   const fallback = useStore((s) => list.find((we) => setsOf(s, we).some((x) => !x.completed)) ?? list[list.length - 1] ?? null, [list]);
@@ -149,6 +182,19 @@ function WorkoutView({ id }: { id: string }) {
               {workout.name}
             </button>
           )}
+          {live && totalSets > 0 && (
+            <div className="mt-2.5 flex items-center gap-2.5" aria-label={t("{done} of {total} sets done", { done: doneSets, total: totalSets })}>
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-fill" dir="ltr">
+                <div
+                  className="h-full rounded-full bg-accent transition-[width] duration-500 ease-out"
+                  style={{ width: `${(doneSets / totalSets) * 100}%` }}
+                />
+              </div>
+              <span className="tnum text-[13px] text-ink-3" dir="ltr">
+                {doneSets}/{totalSets}
+              </span>
+            </div>
+          )}
           {(live || (elapsed ?? 0) > 0) && (
             <p className="tnum mt-1 flex items-center gap-1.5 text-[17px] text-ink-2">
               <Icon name="clock" size={19} />
@@ -190,7 +236,12 @@ function WorkoutView({ id }: { id: string }) {
               index={list.indexOf(weId)}
               count={list.length}
               expanded={expanded === weId}
-              onExpand={() => setExpanded(expanded === weId ? NONE : weId)}
+              onExpand={() => {
+                const opening = expanded !== weId;
+                setExpanded(opening ? weId : NONE);
+                // Bring the opened exercise to the top of the screen.
+                if (opening) setTimeout(() => cards.current[weId]?.scrollIntoView({ behavior: "smooth", block: "start" }), 120);
+              }}
               onExerciseDone={() => advance(weId)}
             />
           </div>
@@ -226,7 +277,16 @@ function WorkoutView({ id }: { id: string }) {
         }}
       />
 
-      <FinishSheet id={id} open={finish} onClose={() => setFinish(false)} onDone={() => router.push("/")} />
+      <FinishSheet
+        id={id}
+        open={finish}
+        celebrate={celebrate}
+        onClose={() => {
+          setFinish(false);
+          setCelebrate(false);
+        }}
+        onDone={() => router.push("/")}
+      />
 
       <Sheet open={menu} onClose={() => setMenu(false)} title={workout.name}>
         <div className="space-y-2 pb-3">
@@ -346,7 +406,20 @@ function VolumeFun({ id, volume, unit }: { id: string; volume: number; unit: str
   );
 }
 
-function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean; onClose: () => void; onDone: () => void }) {
+function FinishSheet({
+  id,
+  open,
+  celebrate = false,
+  onClose,
+  onDone,
+}: {
+  id: string;
+  open: boolean;
+  /** Opened because every set got ticked: lead with the win. */
+  celebrate?: boolean;
+  onClose: () => void;
+  onDone: () => void;
+}) {
   const now = useNow(open);
   const t = useT();
   const summary = useStore(
@@ -365,7 +438,7 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
         done: done.length,
         open: open.length,
         openWithData: open.filter((x) => x.reps !== null).length,
-        volume: volumeOf(done),
+        volume: wes.reduce((v, we) => v + volumeOf(setsOf(s, we.id), sidesOf(s, we.exercise_id)), 0),
         prs,
         count: completedWorkouts(s).length + 1,
         first: clockStartAt(s, id),
@@ -399,7 +472,7 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
   const nothingDone = summary.done === 0;
 
   return (
-    <Sheet open={open} onClose={onClose} title={nothingDone ? t("Nothing to save yet") : t("Finish workout?")}>
+    <Sheet open={open} onClose={onClose} title={nothingDone ? t("Nothing to save yet") : celebrate ? t("Every set done 💪") : t("Finish workout?")}>
       {nothingDone ? (
         <div className="pb-3">
           <p className="mb-5 px-1 text-[16px] text-ink-2">{t("No set was marked done, so this workout won’t go into your history.")}</p>
@@ -443,10 +516,10 @@ function FinishSheet({ id, open, onClose, onDone }: { id: string; open: boolean;
             </p>
           )}
           <Button className="w-full" onClick={() => end("discard")}>
-            {t("Finish workout")}
+            {celebrate ? t("Finish and save") : t("Finish workout")}
           </Button>
           <Button variant="ghost" className="mt-1 w-full" onClick={onClose}>
-            {t("Keep training")}
+            {celebrate ? t("Add something else") : t("Keep training")}
           </Button>
           {/* Keeps the destructive action apart from the safe ones. */}
           <hr className="mx-1 mt-2 mb-1 border-line" />

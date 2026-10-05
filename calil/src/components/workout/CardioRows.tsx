@@ -24,7 +24,7 @@ import { track } from "@/lib/track";
 import type { WorkoutSet } from "@/lib/types";
 import { SwipeRow } from "../SwipeRow";
 import { Icon } from "../icons";
-import { toast } from "../ui";
+import { Button, Sheet, toast } from "../ui";
 
 const GOALS = [10, 20, 30, 45]; // minutes
 
@@ -136,10 +136,13 @@ function CardioRound({
   const t = useT();
   const now = useNow(!!running);
   const [goal, setGoal] = useState<number | null>(goalMinutes ? goalMinutes * 60 : null);
-  const goalChoices = goalMinutes && !GOALS.includes(goalMinutes) ? [...GOALS, goalMinutes].sort((a, b) => a - b) : GOALS;
+
   const [editing, setEditing] = useState(false);
   const secs = running ? elapsed(running, now) : (set.duration_seconds ?? 0);
   const activeGoal = running ? running.goal : goal;
+  // A goal of your own shows up next to the quick ones, selected.
+  const custom = [goalMinutes, activeGoal ? Math.round(activeGoal / 60) : null].filter((m): m is number => !!m && !GOALS.includes(m));
+  const goalChoices = [...new Set([...GOALS, ...custom])].sort((a, b) => a - b);
 
   const start = () => {
     if (busy) stopAndSave(); // only one clock at a time: finish the other round first
@@ -150,102 +153,71 @@ function CardioRound({
     stopAndSave();
     haptic(20);
   };
-  const commitMinutes = (text: string) => {
-    setEditing(false);
-    const m = parseNum(text);
-    if (m === null) return;
-    setCardio(set.id, { duration_seconds: Math.round(m * 60) });
-    if (m > 0) completeSet(set.id);
-  };
 
   return (
     <div
       className={`bg-fill p-3 ${set.completed && !running ? "opacity-90" : ""}`}
     >
       <div className="flex items-center gap-3">
-        {n !== null && (
-          <span className="tnum w-5 text-center text-[15px] text-ink-3">
-            {n}
+        {n !== null && <span className="tnum w-5 text-center text-[15px] text-ink-3">{n}</span>}
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          aria-label={t("Time {time}, tap to set a goal or type it", { time: fmtClock(secs) })}
+          className="press relative flex h-[104px] w-[104px] shrink-0 items-center justify-center"
+          dir="ltr"
+        >
+          <Ring progress={activeGoal ? Math.min(1, secs / activeGoal) : null} spinning={!!running && !activeGoal} />
+          <span className="relative flex flex-col items-center leading-tight">
+            <span className="tnum text-[22px] font-semibold tracking-[-0.02em]">{fmtClock(secs)}</span>
+            {activeGoal ? (
+              <span className="tnum text-[12px] text-ink-3">
+                {secs >= activeGoal ? t("Goal reached") : t("{n} min left", { n: Math.ceil((activeGoal - secs) / 60) })}
+              </span>
+            ) : (
+              <span className="text-[12px] text-ink-3">{t("tap to edit")}</span>
+            )}
           </span>
-        )}
-        {editing ? (
-          <label className="flex items-baseline gap-2">
-            <input
-              autoFocus
-              inputMode="decimal"
-              defaultValue={
-                secs ? fmtNum(Math.round((secs / 60) * 10) / 10) : ""
-              }
-              onBlur={(e) => commitMinutes(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && e.currentTarget.blur()}
-              aria-label={t("Minutes")}
-              className="tnum w-24 rounded-[10px] bg-card px-2 text-[30px] font-semibold outline-none"
-            />
-            <span className="text-[15px] text-ink-2">{t("min")}</span>
-          </label>
-        ) : (
-          <button
-            type="button"
-            disabled={!!running}
-            onClick={() => setEditing(true)}
-            aria-label={t("Time {time}, tap to type it", {
-              time: fmtClock(secs),
-            })}
-            className="tnum text-[34px] leading-none font-semibold tracking-[-0.02em]"
-            dir="ltr"
-          >
-            {fmtClock(secs)}
-          </button>
-        )}
-        {running && activeGoal ? (
-          <span className="tnum text-[15px] text-ink-3" dir="ltr">
-            / {fmtClock(activeGoal)}
-          </span>
-        ) : null}
+        </button>
         <span className="flex-1" />
         {running ? (
-            <button
-              type="button"
-              onClick={stop}
-              className="press flex h-12 items-center gap-1.5 rounded-full bg-ink px-5 text-[16px] font-semibold text-bg"
-            >
-              <Icon name="pause" size={18} /> {t("Stop")}
-            </button>
-          ) : set.completed || !live ? (
-            // Done toggle; in a past workout this is the only control (no stopwatch).
-            <button
-              type="button"
-              aria-label={set.completed ? t("Done. Tap to undo") : t("Mark as done")}
-              onClick={() => toggleSet(set.id)}
-              className={`press flex h-11 w-11 items-center justify-center rounded-full ${
-                set.completed ? "bg-accent text-white" : "border-2 border-ink-3/50 text-transparent"
-              }`}
-            >
-              <Icon name="check" size={20} stroke={2.6} />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={start}
-              className="press flex h-12 items-center gap-1.5 rounded-full bg-accent px-5 text-[16px] font-semibold text-white"
-            >
-              <Icon name="play" size={18} />{" "}
-              {secs > 0 ? t("Resume") : t("Start")}
-            </button>
-          )}
+          <button type="button" onClick={stop} className="press flex h-12 items-center gap-1.5 rounded-full bg-ink px-5 text-[16px] font-semibold text-bg">
+            <Icon name="pause" size={18} /> {t("Stop")}
+          </button>
+        ) : set.completed || !live ? (
+          // Done toggle; in a past workout this is the only control (no stopwatch).
+          <button
+            type="button"
+            aria-label={set.completed ? t("Done. Tap to undo") : t("Mark as done")}
+            onClick={() => toggleSet(set.id)}
+            className={`press flex h-11 w-11 items-center justify-center rounded-full ${
+              set.completed ? "bg-accent text-white" : "border-2 border-ink-3/50 text-transparent"
+            }`}
+          >
+            <Icon name="check" size={20} stroke={2.6} />
+          </button>
+        ) : (
+          <button type="button" onClick={start} className="press flex h-12 items-center gap-1.5 rounded-full bg-accent px-5 text-[16px] font-semibold text-white">
+            <Icon name="play" size={18} /> {secs > 0 ? t("Resume") : t("Start")}
+          </button>
+        )}
       </div>
 
-      {running && activeGoal ? (
-        <div
-          className="mt-3 h-1.5 overflow-hidden rounded-full bg-line"
-          aria-hidden
-        >
-          <div
-            className="h-full rounded-full bg-accent transition-[width] duration-1000"
-            style={{ width: `${Math.min(100, (secs / activeGoal) * 100)}%` }}
-          />
-        </div>
-      ) : null}
+      <TimeSheet
+        open={editing}
+        onClose={() => setEditing(false)}
+        goal={activeGoal}
+        done={set.duration_seconds ?? null}
+        canLog={!running}
+        onGoal={(g) => {
+          setGoal(g);
+          if (running) setCardioGoal(g);
+        }}
+        onLog={(m) => {
+          setCardio(set.id, { duration_seconds: Math.round(m * 60) });
+          if (m > 0) completeSet(set.id);
+        }}
+      />
 
       {live && !set.completed && (
         <div className="mt-2.5 flex items-center gap-1.5">
@@ -301,4 +273,85 @@ function stopAndSave() {
   setCardio(r.setId, { duration_seconds: r.seconds });
   if (r.seconds > 0) completeSet(r.setId);
   track("cardio");
+}
+
+/** Fills toward the goal; without a goal it slowly spins while the clock runs. */
+function Ring({ progress, spinning }: { progress: number | null; spinning: boolean }) {
+  const R = 46;
+  const C = 2 * Math.PI * R;
+  return (
+    <svg width="104" height="104" viewBox="0 0 104 104" className={`absolute inset-0 -rotate-90 ${spinning ? "animate-[spin_3s_linear_infinite]" : ""}`} aria-hidden>
+      <circle cx="52" cy="52" r={R} fill="none" stroke="var(--line)" strokeWidth="7" />
+      {(progress !== null || spinning) && (
+        <circle
+          cx="52"
+          cy="52"
+          r={R}
+          fill="none"
+          stroke="var(--accent)"
+          strokeWidth="7"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={progress !== null ? C * (1 - Math.max(0.005, progress)) : C * 0.75}
+          style={{ transition: "stroke-dashoffset 1s linear" }}
+        />
+      )}
+    </svg>
+  );
+}
+
+/** Tap the time: set your own goal, or type the time you did. */
+function TimeSheet({
+  open,
+  onClose,
+  goal,
+  done,
+  canLog,
+  onGoal,
+  onLog,
+}: {
+  open: boolean;
+  onClose: () => void;
+  goal: number | null;
+  done: number | null;
+  canLog: boolean;
+  onGoal: (seconds: number | null) => void;
+  onLog: (minutes: number) => void;
+}) {
+  const t = useT();
+  const [g, setG] = useState("");
+  const [d, setD] = useState("");
+  const field = "tnum h-14 w-full rounded-[14px] bg-card px-4 text-[22px] font-semibold outline-none";
+  return (
+    <Sheet open={open} onClose={onClose} title={t("Time")}>
+      <form
+        className="space-y-4 pb-3"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const gm = parseNum(g);
+          if (g.trim() !== "") onGoal(gm && gm > 0 ? Math.round(gm * 60) : null);
+          const dm = parseNum(d);
+          if (canLog && dm !== null) onLog(dm);
+          setG("");
+          setD("");
+          haptic(10);
+          onClose();
+        }}
+      >
+        <label className="block">
+          <span className="mb-1.5 block px-1 text-[15px] text-ink-2">{t("Your goal (minutes)")}</span>
+          <input inputMode="decimal" className={field} placeholder={goal ? fmtNum(goal / 60) : t("e.g. 25")} value={g} onChange={(e) => setG(e.target.value)} />
+        </label>
+        {canLog && (
+          <label className="block">
+            <span className="mb-1.5 block px-1 text-[15px] text-ink-2">{t("Or type the time you did (minutes)")}</span>
+            <input inputMode="decimal" className={field} placeholder={done ? fmtNum(Math.round((done / 60) * 10) / 10) : t("e.g. 30")} value={d} onChange={(e) => setD(e.target.value)} />
+          </label>
+        )}
+        <Button type="submit" className="w-full">
+          {t("Save")}
+        </Button>
+      </form>
+    </Sheet>
+  );
 }

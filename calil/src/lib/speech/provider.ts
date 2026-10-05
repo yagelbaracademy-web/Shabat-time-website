@@ -38,7 +38,7 @@ export interface DictationContext {
   /** "what the user says" → library name */
   aliases: Record<string, string>;
   unit: "kg" | "lb";
-  workout: { exercise: string; focused: boolean; sets: { n: number; weight: number | null; reps: number | null; done: boolean }[] }[];
+  workout: { exercise: string; focused: boolean; last_done?: boolean; sets: { n: number; weight: number | null; reps: number | null; done: boolean }[] }[];
 }
 
 export interface Interpreter {

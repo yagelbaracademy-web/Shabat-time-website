@@ -39,7 +39,7 @@ Text introduced as a note ("note:", "הערה:") is mode "note" even if it conta
 Match exercise names to the library even when said in Hebrew, transliterated or in another word order
 ("דמבלס אינקליין" = "Incline Dumbbell Press", "לחיצת חזה" = "Bench Press", "פולי עליון" = "Lat Pulldown").
 Use the exact library spelling. Set is_new_exercise=true only when no library exercise is the same movement; then give a clean English Title Case name and a muscle group.
-If no exercise is mentioned, use "" for exercise (the focused one).
+If no exercise is mentioned, use "" for exercise. A note or remark about effort or how a set went (RIR, RPE, "felt heavy", "שני חזרות ברזרבה") without an exercise name is about the set just done (the exercise marked last_done), not the focused one: use "" and mode "note".
 A LIST of several exercises (typically pasted from notes or a coach's message) is the workout the user is ABOUT TO DO now:
 use mode "plan" for every exercise, even if lines have checkmarks like "- [x]" or are written in past tense. One item per set,
 with that set's weight and reps as the planned values; when a set line only has reps, it uses the previous set's weight, so

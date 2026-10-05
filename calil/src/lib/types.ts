@@ -27,6 +27,10 @@ export interface Profile {
   exercise_names: "en" | "he";
   /** Rest time the user picked per exercise, in seconds (0 = no timer). */
   rest_by_exercise: Record<string, number>;
+  /** Rest after an exercise's last set; null/undefined = same as between sets. */
+  rest_between_exercises?: number | null;
+  /** "Weight per side" overrides by exercise id (true = per side, false = total). */
+  per_side?: Record<string, boolean>;
   /** Version of the terms/privacy policy accepted, and when (consent record). */
   terms_version: string | null;
   terms_accepted_at: string | null;

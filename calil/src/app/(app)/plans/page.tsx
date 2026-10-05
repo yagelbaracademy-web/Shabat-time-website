@@ -16,6 +16,7 @@ import { SortableList } from "@/components/SortableList";
 import { SwipeRow } from "@/components/SwipeRow";
 import { BrandBar, Card, Empty, Screen, Sheet, Skeleton, Title } from "@/components/ui";
 import { locale } from "@/lib/i18n";
+import { useToday } from "@/lib/hooks";
 
 export default function PlansPage() {
   return (
@@ -206,7 +207,7 @@ function Upcoming() {
   const t = useT();
   const lang = useLang();
   const start = useStartWorkout();
-  const [today] = useState(() => new Date());
+  const today = useToday();
   const upcoming = useStore((s) => {
     const out: { date: Date; plans: { id: string; name: string }[]; done: boolean }[] = [];
     for (let i = 0; i < 7; i++) {

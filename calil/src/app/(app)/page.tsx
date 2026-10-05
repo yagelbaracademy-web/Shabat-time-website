@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useNow } from "@/lib/hooks";
+import { useNow, useToday } from "@/lib/hooks";
 import { nextPlan, setPlanDays } from "@/lib/actions";
 import { fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -22,8 +22,10 @@ const HEADLINES = ["Let’s move today.", "Ready for something Calil?", "One set
 export default function Home() {
   const loaded = useStore((s) => s.loaded);
   const name = useStore((s) => s.profile?.name?.split(" ")[0] ?? "");
-  const [today] = useState(() => new Date());
-  const [selected, setSelected] = useState(today);
+  const today = useToday();
+  const [picked, setSelected] = useState<Date | null>(null);
+  // Until a day is picked, the strip follows today (which moves at midnight).
+  const selected = picked ?? today;
   const t = useT();
   const hello = { g: greeting(today).replace(",", name ? `, ${name}` : ","), h: t(HEADLINES[today.getDate() % HEADLINES.length]) };
 
@@ -52,7 +54,8 @@ export default function Home() {
 
 function WeekStrip({ today, selected, onSelect }: { today: Date; selected: Date; onSelect: (d: Date) => void }) {
   const t = useT();
-  const [weekStart, setWeekStart] = useState(() => startOfWeek(today));
+  const [shown, setWeekStart] = useState<Date | null>(null);
+  const weekStart = shown ?? startOfWeek(today);
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i));
   const marks = useStore(
     (s) =>

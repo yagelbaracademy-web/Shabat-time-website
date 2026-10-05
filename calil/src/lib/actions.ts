@@ -253,6 +253,18 @@ export function removeExercise(weId: string) {
   removeRows("workout_exercises", [weId]);
 }
 
+/** Puts an exercise's sets in this order (drag to reorder) and renumbers them. */
+export function reorderSets(ids: string[]) {
+  const s = getState();
+  putRows(
+    "sets",
+    ids
+      .map((id, i) => ({ x: s.sets[id], n: i + 1 }))
+      .filter(({ x, n }) => x && x.set_number !== n)
+      .map(({ x, n }) => ({ ...x!, set_number: n })),
+  );
+}
+
 /** Puts a workout's exercises in this order (drag to reorder). */
 export function reorderWorkoutExercises(ids: string[]) {
   const s = getState();
@@ -489,6 +501,22 @@ export function skipRest() {
 }
 
 /** Rest length for an exercise: the user's choice for it → plan value → profile default. */
+/** Rest to start after ticking a set: between exercises when this one is now complete. */
+export function restAfter(weId: string) {
+  const s = getState();
+  const between = s.profile?.rest_between_exercises;
+  const sets = setsOf(s, weId);
+  if (s.profile?.rest_timer_enabled && between != null && sets.length > 0 && sets.every((x) => x.completed)) return between;
+  return restFor(weId);
+}
+
+/** Switches an exercise between "weight per side" and "total weight". */
+export function setPerSide(exerciseId: string, perSide: boolean) {
+  const p = getState().profile;
+  if (!p) return;
+  saveProfile({ per_side: { ...(p.per_side ?? {}), [exerciseId]: perSide } });
+}
+
 export function restFor(weId: string) {
   const s = getState();
   if (!s.profile?.rest_timer_enabled) return 0;
