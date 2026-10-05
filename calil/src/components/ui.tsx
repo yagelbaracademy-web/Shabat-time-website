@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { createPortal } from "react-dom";
 import {
   useEffect,
   useRef,
@@ -496,8 +497,9 @@ export function Sheet({
     };
   }, [open, onClose]);
 
-  if (!mounted) return null;
-  return (
+  if (!mounted || typeof document === "undefined") return null;
+  // Into <body>: a sheet opened from inside a swiping row or a dragged card must still cover the screen.
+  return createPortal(
     <div
       className="fixed inset-0 z-50"
       role="dialog"
@@ -540,7 +542,8 @@ export function Sheet({
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

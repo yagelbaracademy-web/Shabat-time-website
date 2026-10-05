@@ -233,19 +233,12 @@ function CardioRound({
       >
         <Ring
           size={200}
-          progress={activeGoal ? Math.min(1, secs / activeGoal) : null}
+          progress={activeGoal ? Math.max(0, 1 - secs / activeGoal) : null}
           spinning={!!running && !activeGoal}
         />
         <span className="relative flex flex-col items-center">
           <span className="tnum text-[46px] leading-none font-semibold tracking-[-0.03em]">
             {fmtClock(secs)}
-          </span>
-          <span className="tnum mt-1.5 text-[14px] text-ink-3">
-            {activeGoal
-              ? secs >= activeGoal
-                ? t("Goal reached")
-                : t("{n} min left", { n: Math.ceil((activeGoal - secs) / 60) })
-              : t("tap to edit")}
           </span>
         </span>
       </button>
@@ -367,7 +360,7 @@ function Ring({
         stroke="var(--line)"
         strokeWidth={W}
       />
-      {(progress !== null || spinning) && (
+      {((progress !== null && progress > 0.001) || (progress === null && spinning)) && (
         <circle
           cx={c}
           cy={c}
@@ -378,7 +371,7 @@ function Ring({
           strokeLinecap="round"
           strokeDasharray={C}
           strokeDashoffset={
-            progress !== null ? C * (1 - Math.max(0.005, progress)) : C * 0.75
+            progress !== null ? C * (1 - progress) : C * 0.75
           }
           style={{ transition: "stroke-dashoffset 1s linear" }}
         />
@@ -409,7 +402,7 @@ function TimeSheet({
   const [g, setG] = useState("");
   const [d, setD] = useState("");
   const field =
-    "tnum h-14 w-full rounded-[14px] bg-card px-4 text-[22px] font-semibold outline-none";
+    "tnum h-12 w-full rounded-[14px] bg-card px-4 text-[17px] outline-none placeholder:text-ink-3";
   return (
     <Sheet open={open} onClose={onClose} title={t("Time")}>
       <form
