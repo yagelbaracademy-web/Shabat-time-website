@@ -81,6 +81,15 @@ export function DictationBar({
       mode !== "transcribing",
   );
   const rec = useRef<Recording | null>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const boxRef = useRef<HTMLTextAreaElement>(null);
+  // Fit the box to its text: one line when short, up to ~6 lines, then it scrolls.
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.min(el.scrollHeight, 148)}px`;
+  }, [draft, mode]);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -316,7 +325,9 @@ export function DictationBar({
           setDraft("");
           void run(text);
         }}
-        className="flex h-[60px] items-center gap-2 rounded-full border border-line bg-card pe-2 ps-2 shadow-float"
+        ref={formRef}
+        // Grows with the text (like a chat box); the buttons stay at the bottom edge.
+        className="flex min-h-[60px] items-end gap-2 rounded-[30px] border border-line bg-card py-2 pe-2 ps-2 shadow-float"
       >
         <button
           type="button"
@@ -354,14 +365,14 @@ export function DictationBar({
           <button
             type="button"
             onClick={mode === "recording" ? () => void finish() : undefined}
-            className="min-w-0 flex-1 truncate text-start text-[16px] text-ink-2"
+            className="flex min-h-11 min-w-0 flex-1 items-center truncate text-start text-[16px] text-ink-2"
           >
             {mode === "recording"
               ? t("Listening… tap to stop")
               : t("Writing it down…")}
           </button>
         ) : (
-          <span className="relative flex h-full min-w-0 flex-1 items-center">
+          <span className="relative flex min-h-11 min-w-0 flex-1 items-center">
             {/* Animated example sits over the empty field; the real placeholder takes over once focused. */}
             {learning && !draft && !focused && (
               <span
@@ -372,9 +383,18 @@ export function DictationBar({
                 {t(example)}
               </span>
             )}
-            <input
+            <textarea
+              ref={boxRef}
+              rows={1}
               value={draft}
               dir="auto"
+              onKeyDown={(e) => {
+                // Enter sends (Shift+Enter makes a new line), like a chat box.
+                if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                  e.preventDefault();
+                  formRef.current?.requestSubmit();
+                }
+              }}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               onChange={(e) => {
@@ -399,7 +419,7 @@ export function DictationBar({
                   : t("Dictate or type a set…")
               }
               aria-label={t("Type a set, for example Bench press 80 kg 8 reps")}
-              className="h-full w-full min-w-0 bg-transparent text-[16px] outline-none placeholder:text-ink-3"
+              className="block max-h-[148px] w-full min-w-0 resize-none bg-transparent py-[10px] text-[16px] leading-6 outline-none placeholder:text-ink-3"
               enterKeyHint="send"
               autoComplete="off"
             />
