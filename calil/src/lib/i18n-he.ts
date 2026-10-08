@@ -157,6 +157,7 @@ export const HE: Record<string, string> = {
   "Different machine": "מכונה אחרת",
   "Back to top": "חזרה למעלה",
   "Back to workout": "חזרה לאימון",
+  "All first steps done!": "כל הצעדים הראשונים הושלמו!",
   "Nicely done!": "כל הכבוד!",
   "You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.": "תפסתם את Calil. מכאן הוא זוכר הכל בשבילכם, ונשאר רק להתאמן.",
   "Let's go": "יאללה",

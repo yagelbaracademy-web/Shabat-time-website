@@ -13,6 +13,7 @@ import { Icon, type IconName } from "./icons";
 import { ConsentGate } from "./Consent";
 import { PullToRefresh } from "./PullToRefresh";
 import { Analytics } from "./Analytics";
+import { StepsPop } from "./StepsPop";
 import { Logo, Toaster } from "./ui";
 import { RestPill } from "./workout/RestTimer";
 
@@ -88,6 +89,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <TabBar />
       </Suspense>
       <Toaster />
+      <StepsPop />
     </ConsentGate>
   );
 }
