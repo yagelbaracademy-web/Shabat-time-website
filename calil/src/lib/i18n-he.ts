@@ -335,8 +335,8 @@ export const HE: Record<string, string> = {
   "Your story starts here.": "הסיפור שלך מתחיל כאן.",
   "You’re getting stronger.": "נהיים חזקים יותר.",
   "Keep showing up.": "ממשיכים להגיע.",
-  "No progress yet": "עוד אין התקדמות",
-  "Finish a workout and each exercise gets its own simple graph.": "אחרי האימון הראשון לכל תרגיל יהיה גרף פשוט משלו.",
+  "This is where you watch yourself get stronger": "כאן תראו את עצמכם מתחזקים",
+  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיימו אימון אחד, וכל תרגיל יתחיל להראות לכם כמה התקדמתם.",
   Best: "שיא",
   "Personal record": "שיא אישי",
   "+{n} {unit} on your best": "{n}+ {unit} מעל השיא הקודם",
@@ -592,6 +592,8 @@ export const HE: Record<string, string> = {
  * whose wording is neutral (plural or impersonal).
  */
 export const HE_M: Record<string, string> = {
+  "This is where you watch yourself get stronger": "כאן תראה את עצמך מתחזק",
+  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיים אימון אחד, וכל תרגיל יתחיל להראות לך כמה התקדמת.",
   "How do you train?": "איך אתה מתאמן?",
   "Ready for something Calil?": "מוכן לאימון קליל?",
   "Ready when you are.": "כשתהיה מוכן, נתחיל.",
@@ -620,6 +622,8 @@ export const HE_M: Record<string, string> = {
 };
 
 export const HE_F: Record<string, string> = {
+  "This is where you watch yourself get stronger": "כאן תראי את עצמך מתחזקת",
+  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיימי אימון אחד, וכל תרגיל יתחיל להראות לך כמה התקדמת.",
   "How do you train?": "איך את מתאמנת?",
   "One set at a time.": "סט אחרי סט, קטן עלייך.",
   "Ready for something Calil?": "מוכנה לאימון קליל?",
