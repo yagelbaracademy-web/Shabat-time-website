@@ -7,7 +7,7 @@ import { nextPlan, setPlanDays } from "@/lib/actions";
 import { fmtCardio, fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { exName, locale, useT } from "@/lib/i18n";
-import { addDays, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
+import { addDays, nextPlannedDay, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
 import { clockStartAt, completedWorkouts, isCardio, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
 import { track } from "@/lib/track";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
@@ -149,6 +149,11 @@ function TodayCard() {
   const [picking, setPicking] = useState(false);
   const t = useT();
   const a = start.active;
+  // Nothing for today, but plans with fixed days: say so, and when the next one is.
+  const upcoming = useStore((s) => {
+    const n = nextPlannedDay(s, new Date());
+    return n ? `${n.plans.map((p) => p.name).join(" · ")}|${n.date.toLocaleDateString(locale(), { weekday: "long" })}` : "";
+  });
 
   // A weekly habit that isn't pinned yet: offer to pin it, once, quietly.
   const habitTemplate = next && next.kind === "plan" && next.habitDay !== null && !next.template.weekdays?.length ? next.template : null;
@@ -162,6 +167,28 @@ function TodayCard() {
         ? t("Planned for today")
         : (habitLabel(next) ?? t("Next in your plans"))
       : t("Empty session, add as you go");
+
+  if (!a && !next && upcoming && doneToday.length === 0) {
+    const [names, day] = upcoming.split("|");
+    return (
+      <>
+        <Card className="p-5">
+          <p className="text-[21px] font-semibold tracking-[-0.01em]">{t("No workout planned today")}</p>
+          <p className="mt-0.5 text-[15px] text-ink-2" dir="auto">
+            {t("Next: {names}, {day}", { names, day })}
+          </p>
+          <button
+            type="button"
+            onClick={() => setPicking(true)}
+            className="press mt-3 flex h-11 items-center gap-1.5 rounded-full bg-fill px-4 text-[15px] font-medium text-ink"
+          >
+            <Icon name="plus" size={17} /> {t("Train anyway")}
+          </button>
+        </Card>
+        <NewWorkoutSheet open={picking} onClose={() => setPicking(false)} />
+      </>
+    );
+  }
 
   return (
     <>
@@ -386,14 +413,14 @@ function HowYouTrain() {
 /** First steps, ticked from what you actually did; gone once done (or closed). */
 function FirstSteps() {
   const t = useT();
+  const [picking, setPicking] = useState(false);
   const start = useStartWorkout();
   const ob = useOnboarding();
-  const next = useStore(() => nextPlan());
   const firstSet = useStore((s) => Object.values(s.sets).some((x) => x.completed));
   const finished = useStore((s) => completedWorkouts(s).length);
   const steps = [
     { done: true, label: t("Create your account") },
-    { done: firstSet, label: t("Log your first set"), go: () => (start.active ? start.resume() : next ? start.suggested(next) : start.empty()) },
+    { done: firstSet, label: t("Log your first set"), go: () => (start.active ? start.resume() : setPicking(true)) },
     {
       done: !!ob.dictated,
       label: t("Say a set out loud"),
@@ -403,11 +430,10 @@ function FirstSteps() {
           sessionStorage.setItem("calil:coach-mic", "1");
         } catch {}
         if (start.active) start.resume();
-        else if (next) start.suggested(next);
-        else start.empty();
+        else setPicking(true);
       },
     },
-    { done: finished > 0, label: t("Finish a workout"), go: () => (start.active ? start.resume() : next ? start.suggested(next) : start.empty()) },
+    { done: finished > 0, label: t("Finish a workout"), go: () => (start.active ? start.resume() : setPicking(true)) },
   ];
   const left = steps.filter((x) => !x.done).length;
   if (ob.hideSteps || left === 0 || finished >= 3) return null;
@@ -443,6 +469,7 @@ function FirstSteps() {
           </li>
         ))}
       </ul>
+      <NewWorkoutSheet open={picking} onClose={() => setPicking(false)} />
     </Card>
   );
 }

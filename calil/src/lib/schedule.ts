@@ -37,3 +37,13 @@ export function plannedOn(s: State, d: Date): WorkoutTemplate[] {
 export function weekdayName(day: number, style: "short" | "long" | "narrow" = "short", loc = "en-US") {
   return new Date(2026, 9, 4 + day).toLocaleDateString(loc, { weekday: style }); // 4 Oct 2026 is a Sunday
 }
+
+/** The next day (from tomorrow, within a week) that has a plan pinned to it. */
+export function nextPlannedDay(s: State, from: Date): { date: Date; plans: WorkoutTemplate[] } | null {
+  for (let i = 1; i <= 7; i++) {
+    const d = addDays(from, i);
+    const plans = plannedOn(s, d);
+    if (plans.length) return { date: d, plans };
+  }
+  return null;
+}

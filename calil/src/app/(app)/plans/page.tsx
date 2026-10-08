@@ -184,7 +184,7 @@ function PlanList() {
             <li key={p.slug}>
               <button
                 type="button"
-                onClick={() => router.push(`/plan?id=${templateFromStarter(p)}`)}
+                onClick={() => router.push(`/plan?id=${templateFromStarter(p)}&added=1`)}
                 className="press flex w-full items-center gap-3.5 rounded-[22px] border border-line bg-card p-3.5 text-start shadow-card"
               >
                 <ExerciseIcon kind={p.icon} size={56} />

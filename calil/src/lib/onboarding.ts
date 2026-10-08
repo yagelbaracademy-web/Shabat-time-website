@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from "react";
+import { getState, subscribe as subscribeStore } from "./store";
 
 /**
  * What a person has already seen or done while getting started: one-time tips,
@@ -14,14 +15,21 @@ export interface Onboarding {
   style?: "coach" | "starter" | "free"; // answer to "how do you train?"
 }
 
-const KEY = "calil:onboarding";
+// Per account, and per profile creation, so a reset account gets the welcome again.
+const keyNow = () => {
+  const s = getState();
+  return `calil:onboarding:${s.userId ?? "anon"}:${s.profile?.created_at ?? ""}`;
+};
 let state: Onboarding | null = null;
+let stateKey = "";
 const subs = new Set<() => void>();
 
 function read(): Onboarding {
-  if (state) return state;
+  const key = keyNow();
+  if (state && key === stateKey) return state;
+  stateKey = key;
   try {
-    state = JSON.parse(localStorage.getItem(KEY) ?? "{}") as Onboarding;
+    state = JSON.parse(localStorage.getItem(key) ?? "{}") as Onboarding;
   } catch {
     state = {};
   }
@@ -35,7 +43,7 @@ export function getOnboarding(): Onboarding {
 export function setOnboarding(patch: Partial<Onboarding>) {
   state = { ...read(), ...patch };
   try {
-    localStorage.setItem(KEY, JSON.stringify(state));
+    localStorage.setItem(stateKey || keyNow(), JSON.stringify(state));
   } catch {}
   subs.forEach((f) => f());
 }
@@ -49,7 +57,11 @@ export function useOnboarding(): Onboarding {
   return useSyncExternalStore(
     (f) => {
       subs.add(f);
-      return () => subs.delete(f);
+      const off = subscribeStore(f); // the account (key) can change after sign-in
+      return () => {
+        subs.delete(f);
+        off();
+      };
     },
     () => read(),
     () => EMPTY,

@@ -116,14 +116,16 @@ export function nextPlan(now = new Date()): Suggestion | null {
     return { kind: "repeat", workout: w, name: w.name, habitDay: now.getDay() };
   }
 
-  if (!templates.length) return null;
-  const last = done.find((w) => w.template_id);
-  const start = last ? templates.findIndex((t) => t.id === last.template_id) + 1 : 0;
-  for (let k = 0; k < templates.length; k++) {
-    const t = templates[(start + k) % templates.length];
+  // The rotation is for plans without fixed days; a plan pinned to other days waits for its day.
+  const rotating = templates.filter((t) => !t.weekdays?.length);
+  if (!rotating.length) return null;
+  const last = done.find((w) => w.template_id && rotating.some((t) => t.id === w.template_id));
+  const start = last ? rotating.findIndex((t) => t.id === last.template_id) + 1 : 0;
+  for (let k = 0; k < rotating.length; k++) {
+    const t = rotating[(start + k) % rotating.length];
     if (!doneToday.has(t.id)) return { kind: "plan", template: t, name: t.name, habitDay: null };
   }
-  const t = templates[start % templates.length];
+  const t = rotating[start % rotating.length];
   return { kind: "plan", template: t, name: t.name, habitDay: null };
 }
 

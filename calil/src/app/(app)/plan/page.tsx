@@ -22,7 +22,7 @@ import { EditExerciseSheet } from "@/components/ChangeExercise";
 import { ExercisePicker } from "@/components/ExercisePicker";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
-import { BackLink, Button, Card, Empty, IconButton, Screen, Skeleton } from "@/components/ui";
+import { BackLink, Button, Card, Empty, IconButton, Screen, Skeleton, toast } from "@/components/ui";
 
 export default function PlanPage() {
   return (
@@ -45,6 +45,8 @@ function PlanEditor() {
     [id],
   );
   const [picker, setPicker] = useState(false);
+  // Opened right after creating it (new plan, or a starter just added).
+  const [isNew] = useState(() => params.get("new") === "1" || params.get("added") === "1");
 
   if (!loaded) return <Screen><Skeleton className="mt-16 h-80" /></Screen>;
   if (!plan)
@@ -82,6 +84,7 @@ function PlanEditor() {
         dir="auto"
         className="mt-4 mb-1 w-full bg-transparent text-[32px]! leading-tight font-semibold tracking-[-0.02em] outline-none"
       />
+      <p className="mb-1 text-[13px] text-ink-3">{t("Changes save automatically.")}</p>
       <p className="mb-4 text-[16px] text-ink-2">
         {items.length === 1 ? t("1 exercise") : t("{n} exercises", { n: items.length })} · {t("targets are optional")}
       </p>
@@ -102,11 +105,30 @@ function PlanEditor() {
         <Icon name="plus" size={20} /> {t("Add exercise")}
       </button>
 
-      {items.length > 0 && (
-        <Button className="mt-5 w-full" icon="bolt" onClick={() => start.fromTemplate(id)}>
-          {start.active ? t("Continue current workout") : t("Start this workout")}
-        </Button>
-      )}
+      {/* A new plan is mostly built for later: saving is the main action, starting now the quiet one.
+          An existing plan you open is usually about to be trained: starting stays first. */}
+      {items.length > 0 &&
+        (isNew ? (
+          <>
+            <Button
+              className="mt-5 w-full"
+              icon="check"
+              onClick={() => {
+                toast({ title: t("Plan saved"), icon: "check" });
+                router.push("/plans");
+              }}
+            >
+              {t("Save plan")}
+            </Button>
+            <Button variant="ghost" className="mt-1 w-full" onClick={() => start.fromTemplate(id)}>
+              {start.active ? t("Continue current workout") : t("Start it now")}
+            </Button>
+          </>
+        ) : (
+          <Button className="mt-5 w-full" icon="bolt" onClick={() => start.fromTemplate(id)}>
+            {start.active ? t("Continue current workout") : t("Start this workout")}
+          </Button>
+        ))}
 
       <ExercisePicker
         open={picker}

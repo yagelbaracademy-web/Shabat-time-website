@@ -76,7 +76,7 @@ export function setState(patch: Partial<State> | ((s: State) => Partial<State>))
   schedulePersist();
 }
 
-function subscribe(l: () => void) {
+export function subscribe(l: () => void) {
   listeners.add(l);
   return () => listeners.delete(l);
 }
