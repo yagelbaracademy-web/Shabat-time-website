@@ -336,7 +336,7 @@ export const HE: Record<string, string> = {
   "You’re getting stronger.": "נהיים חזקים יותר.",
   "Keep showing up.": "ממשיכים להגיע.",
   "This is where you watch yourself get stronger": "כאן תראו את עצמכם מתחזקים",
-  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיימו אימון אחד, וכל תרגיל יתחיל להראות לכם כמה התקדמתם.",
+  "Every workout adds insight here. That’s how you learn what works, and get stronger.": "כל אימון מוסיף כאן עוד תובנה. ככה לומדים מה עובד, ומתחזקים.",
   Best: "שיא",
   "Personal record": "שיא אישי",
   "+{n} {unit} on your best": "{n}+ {unit} מעל השיא הקודם",
@@ -593,7 +593,6 @@ export const HE: Record<string, string> = {
  */
 export const HE_M: Record<string, string> = {
   "This is where you watch yourself get stronger": "כאן תראה את עצמך מתחזק",
-  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיים אימון אחד, וכל תרגיל יתחיל להראות לך כמה התקדמת.",
   "How do you train?": "איך אתה מתאמן?",
   "Ready for something Calil?": "מוכן לאימון קליל?",
   "Ready when you are.": "כשתהיה מוכן, נתחיל.",
@@ -623,7 +622,6 @@ export const HE_M: Record<string, string> = {
 
 export const HE_F: Record<string, string> = {
   "This is where you watch yourself get stronger": "כאן תראי את עצמך מתחזקת",
-  "Finish one workout and every exercise starts showing you how far you’ve come.": "סיימי אימון אחד, וכל תרגיל יתחיל להראות לך כמה התקדמת.",
   "How do you train?": "איך את מתאמנת?",
   "One set at a time.": "סט אחרי סט, קטן עלייך.",
   "Ready for something Calil?": "מוכנה לאימון קליל?",

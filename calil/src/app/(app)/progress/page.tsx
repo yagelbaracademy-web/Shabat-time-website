@@ -44,7 +44,7 @@ export default function ProgressPage() {
       {!f ? (
         <Card>
           <Empty icon="chart" title={t("This is where you watch yourself get stronger")} action={{ label: t("Start a workout"), href: "/" }}>
-            {t("Finish one workout and every exercise starts showing you how far you’ve come.")}
+            {t("Every workout adds insight here. That’s how you learn what works, and get stronger.")}
           </Empty>
         </Card>
       ) : (
