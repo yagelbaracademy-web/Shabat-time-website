@@ -118,12 +118,14 @@ function Celebration() {
     const fill = requestAnimationFrame(() => requestAnimationFrame(() => setFilled(true)));
     const pop = setTimeout(() => {
       setBurst(true);
-      haptic(35);
-      setTimeout(() => haptic(25), 160);
+      haptic(30);
     }, 1050);
+    // a tap on each clap (in step with .cel-claps)
+    const claps = [1610, 1975, 2340].map((ms) => setTimeout(() => haptic(22), ms));
     return () => {
       cancelAnimationFrame(fill);
       clearTimeout(pop);
+      claps.forEach(clearTimeout);
     };
   }, []);
   const close = () => {
@@ -140,8 +142,8 @@ function Celebration() {
         <div className="relative mx-auto flex h-[132px] w-[132px] items-center justify-center">
           {burst && <Confetti count={56} />}
           {burst && (
-            <span className="cel-clap select-none text-[104px] leading-none drop-shadow-[0_14px_22px_rgba(28,116,234,0.25)]" aria-hidden>
-              👏
+            <span className="cel-clap select-none text-[104px] leading-none" aria-hidden>
+              <span className="cel-claps inline-block">👏</span>
             </span>
           )}
         </div>
@@ -196,7 +198,7 @@ function Celebration() {
           className="cel-rise press mt-8 flex h-14 w-full items-center justify-center gap-2 rounded-full bg-accent text-[18px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(28,116,234,0.75)]"
           style={{ animationDelay: "1550ms" }}
         >
-          {t("Let’s get going")} ✨
+          {t("Let’s keep going")} ✨
         </button>
       </div>
     </div>,

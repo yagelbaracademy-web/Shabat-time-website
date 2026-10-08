@@ -160,7 +160,7 @@ export const HE: Record<string, string> = {
   "Nicely done": "כל הכבוד",
   "You’ve completed your first steps. From here it’s all Calil.": "השלמתם את הצעדים הראשונים. מכאן יוצאים לדרך, בקליל.",
   "{n} steps done": "{n} צעדים הושלמו",
-  "Let’s get going": "יאללה להתחיל",
+  "Let’s keep going": "יאללה, ממשיכים",
   "All first steps done!": "כל הצעדים הראשונים הושלמו!",
   "Nicely done!": "כל הכבוד!",
   "You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.": "תפסתם את Calil. מכאן הוא זוכר הכל בשבילכם, ונשאר רק להתאמן.",

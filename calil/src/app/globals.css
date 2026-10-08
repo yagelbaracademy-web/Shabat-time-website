@@ -355,6 +355,30 @@ html.workout-mode body {
     transform: scale(1) rotate(0);
   }
 }
+/* three claps once it has landed: the hands squash together, then spring apart */
+.cel-claps {
+  transform-origin: 50% 85%;
+  animation: cel-claps 1100ms ease-in-out 450ms both;
+}
+@keyframes cel-claps {
+  0%,
+  30%,
+  63%,
+  96%,
+  100% {
+    transform: none;
+  }
+  10%,
+  43%,
+  76% {
+    transform: scale(0.84, 0.92) rotate(-8deg);
+  }
+  20%,
+  53%,
+  86% {
+    transform: scale(1.07) rotate(3deg);
+  }
+}
 .cel-check {
   animation: cel-check 420ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
 }
@@ -372,6 +396,7 @@ html.workout-mode body {
   .cel-bg,
   .cel-rise,
   .cel-clap,
+  .cel-claps,
   .cel-check {
     animation: none;
   }
