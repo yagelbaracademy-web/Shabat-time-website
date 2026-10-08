@@ -35,6 +35,8 @@ import type { WorkoutSet } from "@/lib/types";
 import { ExerciseIcon } from "../ExerciseIcon";
 import { EditExerciseSheet } from "../ChangeExercise";
 import { MachineSheet } from "./MachineSheet";
+import { getOnboarding, setOnboarding } from "@/lib/onboarding";
+import { track } from "@/lib/track";
 import { SortableList } from "../SortableList";
 import { CardioRows } from "./CardioRows";
 import { SwipeRow } from "../SwipeRow";
@@ -167,6 +169,23 @@ export const ExerciseCard = memo(function ExerciseCard({
         4500,
       );
       haptic(40);
+    }
+    // Typed it by hand? The first few times, show how it would sound by voice, with these exact numbers.
+    const ob = getOnboarding();
+    if (!pr && isLive && !ob.dictated && (ob.sayHints ?? 0) < 3) {
+      const x2 = getState().sets[x.id];
+      if (x2?.weight && x2.reps) {
+        setOnboarding({ sayHints: (ob.sayHints ?? 0) + 1 });
+        track("say_hint");
+        toast(
+          {
+            title: t("Next time, just say it"),
+            sub: `“${t("{name} {w} kilos {r} reps", { name: exName(exercise), w: fmtNum(x2.weight), r: x2.reps })}”`,
+            icon: "mic",
+          },
+          5000,
+        );
+      }
     }
     if (isLive) startRest(restAfter(weId));
     const after = setsOf(getState(), weId);

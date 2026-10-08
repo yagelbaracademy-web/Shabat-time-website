@@ -60,6 +60,7 @@ interface Stats {
   storage: { db_bytes: number };
   user_list: UserRow[];
   insights?: Insights | null;
+  funnel?: { signed_up: number; consented: number; first_set: number; dictated: number; finished: number; returning: number } | null;
 }
 
 // Measured per-call costs (USD) for the current models; see README.
@@ -343,6 +344,8 @@ export function AdminDashboard() {
         />
       </div>
 
+      {s.funnel && <Funnel f={s.funnel} />}
+
       <AdminInsights
         data={s.insights ?? null}
         withMe={withMe}
@@ -444,5 +447,36 @@ export function AdminDashboard() {
         Every visit to this page is logged.
       </p>
     </main>
+  );
+}
+
+/** How far new people get, step by step (test accounts excluded). */
+function Funnel({ f }: { f: NonNullable<Stats["funnel"]> }) {
+  const steps: [string, number][] = [
+    ["Signed up", f.signed_up],
+    ["Accepted terms", f.consented],
+    ["Logged a first set", f.first_set],
+    ["Used dictation", f.dictated],
+    ["Finished a workout", f.finished],
+    ["Came back (3+ workouts)", f.returning],
+  ];
+  const top = Math.max(1, f.signed_up);
+  return (
+    <section>
+      <h2 className="mt-8 mb-3 text-[15px] font-semibold text-ink-2">Getting started (activation funnel)</h2>
+      <div className="space-y-2 rounded-[20px] border border-line bg-card p-4 shadow-card">
+        {steps.map(([label, n]) => (
+          <div key={label} className="flex items-center gap-3 text-[14px]">
+            <span className="w-48 shrink-0 text-ink-2">{label}</span>
+            <span className="h-2.5 flex-1 overflow-hidden rounded-full bg-fill">
+              <span className="block h-full rounded-full bg-accent" style={{ width: `${(n / top) * 100}%` }} />
+            </span>
+            <span className="tnum w-20 shrink-0 text-end">
+              {n} <span className="text-ink-3">({Math.round((n / top) * 100)}%)</span>
+            </span>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }

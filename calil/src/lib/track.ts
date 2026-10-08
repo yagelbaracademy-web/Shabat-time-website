@@ -24,7 +24,12 @@ export type UsageEvent =
   | "cardio"
   | "plan_days"
   | "repeat_workout"
-  | "habit_pin";
+  | "habit_pin"
+  | "start_coach"
+  | "start_starter"
+  | "start_free"
+  | "mic_primed"
+  | "say_hint";
 
 export function track(event: UsageEvent) {
   try {

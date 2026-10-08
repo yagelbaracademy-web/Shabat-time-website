@@ -13,7 +13,7 @@ import { ExercisePicker } from "@/components/ExercisePicker";
 import { SortableList } from "@/components/SortableList";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
-import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@/components/ui";
+import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, TipOnce, toast } from "@/components/ui";
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { DictationBar } from "@/components/workout/DictationBar";
 import { WorkoutGlow } from "@/components/workout/WorkoutGlow";
@@ -210,6 +210,11 @@ function WorkoutView({ id }: { id: string }) {
         </div>
       </header>
 
+      {live && list.length >= 2 && (
+        <TipOnce id="workout-gestures" className="mb-3">
+          {t("Tip: hold an exercise's name and drag to change the order. Swipe a set sideways to delete it.")}
+        </TipOnce>
+      )}
       {/* Press and hold an exercise's header, then drag to change the order. */}
       <SortableList
         items={list.map((weId) => ({ id: weId }))}

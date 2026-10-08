@@ -14,7 +14,7 @@ import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
 import { SortableList } from "@/components/SortableList";
 import { SwipeRow } from "@/components/SwipeRow";
-import { BrandBar, Card, Empty, Screen, Sheet, Skeleton, Title } from "@/components/ui";
+import { BrandBar, Card, Empty, Screen, Sheet, Skeleton, TipOnce, Title } from "@/components/ui";
 import { locale } from "@/lib/i18n";
 import { useToday } from "@/lib/hooks";
 
@@ -129,6 +129,10 @@ function PlanList() {
           </Empty>
         </Card>
       ) : (
+        <>
+        <TipOnce id="plans-gestures" className="mb-2">
+          {t("Tip: swipe a plan one way to start it, the other way to delete. Hold and drag to reorder.")}
+        </TipOnce>
         <SortableList
           items={templates.map((x) => ({ ...x, id: x.t.id }))}
           onReorder={reorderTemplates}
@@ -169,6 +173,7 @@ function PlanList() {
             </SwipeRow>
           )}
         />
+        </>
       )}
 
       <h2 className="px-1 pt-4 text-[21px] font-semibold tracking-[-0.01em]">{t("Starter plans")}</h2>

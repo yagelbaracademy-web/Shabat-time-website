@@ -9,7 +9,8 @@ import { useStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
 import { PR_TITLE } from "@/lib/stats";
 import { Icon } from "../icons";
-import { Swipeable, toast } from "../ui";
+import { Button, Sheet, Swipeable, TipOnce, toast } from "../ui";
+import { getOnboarding, setOnboarding } from "@/lib/onboarding";
 import { track } from "@/lib/track";
 
 type Mode = "idle" | "recording" | "transcribing" | "result";
@@ -68,6 +69,7 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
   };
 
   const show = (r: ApplyResult) => {
+    if (r.ok && !getOnboarding().dictated) setOnboarding({ dictated: true });
     setResult(r);
     setMode("result");
     haptic(r.ok ? 14 : 30);
@@ -124,7 +126,25 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
     }
   };
 
+  // Before the phone's own permission prompt: say what the mic is for, once.
+  const [priming, setPriming] = useState(false);
+  // Arrived from "Say a set out loud" in First steps: point at the mic.
+  const [coach, setCoach] = useState(() => {
+    try {
+      const on = !!sessionStorage.getItem("calil:coach-mic");
+      sessionStorage.removeItem("calil:coach-mic");
+      return on;
+    } catch {
+      return false;
+    }
+  });
+
   const listen = async () => {
+    setCoach(false);
+    if (micOk && !getOnboarding().micPrimed) {
+      setPriming(true);
+      return;
+    }
     if (!micOk) {
       toast({ title: t("Recording isn’t available here. Type the set instead."), icon: "mic" });
       return;
@@ -189,6 +209,36 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
         </Swipeable>
       )}
 
+      {(coach || !getOnboarding().dictated) && mode === "idle" && !draft && (
+        <TipOnce id="dictation-first" force={coach} className="mb-2 shadow-float">
+          {t("Tap the mic and say a set, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.")}
+        </TipOnce>
+      )}
+      <Sheet open={priming} onClose={() => setPriming(false)} title={t("Log sets by voice")}>
+        <div className="pb-3">
+          <p className="px-1 text-[16px] leading-relaxed text-ink-2">
+            {t("Say the set the way you'd tell a friend, and it's written down for you. Calil listens only after you tap the mic and stops when you stop talking. You see the text before anything is saved.")}
+          </p>
+          <p className="mt-3 rounded-[14px] bg-fill px-4 py-3 text-[16px] font-medium" dir="auto">
+            {t("“Bench press 80 kilos 8 reps”")}
+          </p>
+          <Button
+            className="mt-5 w-full"
+            icon="mic"
+            onClick={() => {
+              setOnboarding({ micPrimed: true });
+              track("mic_primed");
+              setPriming(false);
+              void listen();
+            }}
+          >
+            {t("Turn on the mic")}
+          </Button>
+          <Button variant="ghost" className="mt-1 w-full" onClick={() => setPriming(false)}>
+            {t("Not now")}
+          </Button>
+        </div>
+      </Sheet>
       <form
         onSubmit={(e) => {
           e.preventDefault();

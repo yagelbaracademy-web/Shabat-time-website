@@ -73,7 +73,7 @@ function WorkoutsByWeek() {
 
       {groups.length === 0 ? (
         <Card>
-          <Empty icon="clock" title={t("No workouts yet")}>
+          <Empty icon="clock" title={t("No workouts yet")} action={{ label: t("Start a workout"), href: "/" }}>
             {t("Finished workouts appear here, newest first.")}
           </Empty>
         </Card>

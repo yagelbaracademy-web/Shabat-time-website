@@ -8,13 +8,16 @@ import { fmtCardio, fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@
 import { useStore } from "@/lib/store";
 import { exName, locale, useT } from "@/lib/i18n";
 import { addDays, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
-import { clockStartAt, isCardio, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
+import { clockStartAt, completedWorkouts, isCardio, liveSeconds, monthStats, setsOf, topSet, workoutExercises } from "@/lib/stats";
 import { track } from "@/lib/track";
 import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
 import { MonthBars } from "@/components/charts";
 import { habitLabel, NewWorkoutSheet, useStartWorkout } from "@/components/StartOptions";
 import { BrandBar, Card, CardHeader, Screen, Skeleton, Stat, Title, toast } from "@/components/ui";
+import { useRouter } from "next/navigation";
+import { setOnboarding, useOnboarding } from "@/lib/onboarding";
+import type { IconName } from "@/components/icons";
 
 const HEADLINES = ["Let’s move today.", "Ready for something Calil?", "One set at a time.", "Every set makes you stronger."];
 
@@ -27,6 +30,10 @@ export default function Home() {
   // Until a day is picked, the strip follows today (which moves at midnight).
   const selected = picked ?? today;
   const t = useT();
+  const ob = useOnboarding();
+  const fresh = useStore((s) => Object.keys(s.workout_templates).length === 0 && Object.keys(s.workouts).length === 0);
+  const asking = fresh && !ob.style;
+  const hasHistory = useStore((s) => completedWorkouts(s).length > 0);
   const hello = { g: greeting(today).replace(",", name ? `, ${name}` : ","), h: t(HEADLINES[today.getDate() % HEADLINES.length]) };
 
   return (
@@ -35,9 +42,12 @@ export default function Home() {
       <Title eyebrow={hello.g}>{hello.h}</Title>
       {loaded ? (
         <div className="space-y-3">
+          <HowYouTrain />
           <WeekStrip today={today} selected={selected} onSelect={setSelected} />
-          {sameDay(selected, today) ? <TodayCard /> : <DayCard day={selected} today={today} />}
-          <ThisMonth />
+          {/* While "How do you train?" is up, it is the way to start; no second start card. */}
+          {sameDay(selected, today) ? !asking && <TodayCard /> : <DayCard day={selected} today={today} />}
+          <FirstSteps />
+          {hasHistory && <ThisMonth />}
         </div>
       ) : (
         <div className="space-y-3">
@@ -322,6 +332,117 @@ function ThisMonth() {
         <Stat value={fmtVolume(m.volume)} label={t("Volume ({unit})", { unit: t(unit) })} />
       </div>
       <MonthBars days={m.days} label={m.label} />
+    </Card>
+  );
+}
+
+/* ───────────────────────────── getting started ───────────────────────────── */
+
+/** One question for a brand-new account, so the first screen points at the right first step. */
+function HowYouTrain() {
+  const t = useT();
+  const router = useRouter();
+  const start = useStartWorkout();
+  const ob = useOnboarding();
+  const fresh = useStore((s) => Object.keys(s.workout_templates).length === 0 && Object.keys(s.workouts).length === 0);
+  if (!fresh || ob.style) return null;
+  const pick = (style: "coach" | "starter" | "free", go: () => void) => {
+    setOnboarding({ style });
+    track(`start_${style}` as "start_coach");
+    go();
+  };
+  const options: { icon: IconName; title: string; sub: string; go: () => void; style: "coach" | "starter" | "free" }[] = [
+    { icon: "copy", title: t("I have a program from a coach"), sub: t("Paste it or upload a screenshot"), style: "coach", go: () => router.push("/import") },
+    { icon: "list", title: t("I'd like a ready plan"), sub: t("Pick one and start in a tap"), style: "starter", go: () => router.push("/plans") },
+    { icon: "bolt", title: t("I just train"), sub: t("Start empty and add as you go"), style: "free", go: start.empty },
+  ];
+  return (
+    <Card className="p-5">
+      <p className="text-[19px] font-semibold">{t("How do you train?")}</p>
+      <p className="mt-0.5 mb-3 text-[15px] text-ink-2">{t("So we start you in the right place.")}</p>
+      <div className="space-y-2">
+        {options.map((o) => (
+          <button
+            key={o.style}
+            type="button"
+            onClick={() => pick(o.style, o.go)}
+            className="press flex min-h-[64px] w-full items-center gap-3.5 rounded-[16px] bg-fill px-3.5 text-start"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-card text-accent">
+              <Icon name={o.icon} size={20} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[16px] font-semibold">{o.title}</span>
+              <span className="block text-[14px] text-ink-2">{o.sub}</span>
+            </span>
+            <Icon name="chevronRight" size={18} className="text-ink-3" />
+          </button>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
+/** First steps, ticked from what you actually did; gone once done (or closed). */
+function FirstSteps() {
+  const t = useT();
+  const start = useStartWorkout();
+  const ob = useOnboarding();
+  const next = useStore(() => nextPlan());
+  const firstSet = useStore((s) => Object.values(s.sets).some((x) => x.completed));
+  const finished = useStore((s) => completedWorkouts(s).length);
+  const steps = [
+    { done: true, label: t("Create your account") },
+    { done: firstSet, label: t("Log your first set"), go: () => (start.active ? start.resume() : next ? start.suggested(next) : start.empty()) },
+    {
+      done: !!ob.dictated,
+      label: t("Say a set out loud"),
+      go: () => {
+        // The workout screen points at the microphone once it opens.
+        try {
+          sessionStorage.setItem("calil:coach-mic", "1");
+        } catch {}
+        if (start.active) start.resume();
+        else if (next) start.suggested(next);
+        else start.empty();
+      },
+    },
+    { done: finished > 0, label: t("Finish a workout"), go: () => (start.active ? start.resume() : next ? start.suggested(next) : start.empty()) },
+  ];
+  const left = steps.filter((x) => !x.done).length;
+  if (ob.hideSteps || left === 0 || finished >= 3) return null;
+  return (
+    <Card className="p-5">
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div>
+          <p className="text-[19px] font-semibold">{t("First steps")}</p>
+          <p className="tnum text-[14px] text-ink-2">{t("{done} of {total} done", { done: steps.length - left, total: steps.length })}</p>
+        </div>
+        <button type="button" onClick={() => setOnboarding({ hideSteps: true })} className="press -me-1 rounded-full px-2 py-1 text-[14px] text-ink-3">
+          {t("Hide")}
+        </button>
+      </div>
+      <div className="mb-3 h-1.5 overflow-hidden rounded-full bg-fill" dir="ltr">
+        <div className="h-full rounded-full bg-accent transition-[width] duration-500" style={{ width: `${((steps.length - left) / steps.length) * 100}%` }} />
+      </div>
+      <ul className="space-y-1">
+        {steps.map((x) => (
+          <li key={x.label}>
+            <button
+              type="button"
+              disabled={x.done}
+              onClick={x.go}
+              className="press flex min-h-[48px] w-full items-center gap-3 rounded-[12px] px-1 text-start disabled:opacity-100"
+            >
+              <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full ${x.done ? "bg-accent text-white" : "border-2 border-ink-3/40"}`}>
+                {x.done && <Icon name="check" size={14} stroke={3} />}
+              </span>
+              <span className={`flex-1 text-[16px] ${x.done ? "text-ink-3 line-through" : "font-medium"}`}>{x.label}</span>
+              {!x.done && <Icon name="chevronRight" size={18} className="text-ink-3" />}
+            </button>
+          </li>
+        ))}
+      </ul>
     </Card>
   );
 }

@@ -43,7 +43,7 @@ export default function ProgressPage() {
 
       {!f ? (
         <Card>
-          <Empty icon="chart" title={t("No progress yet")}>
+          <Empty icon="chart" title={t("No progress yet")} action={{ label: t("Start a workout"), href: "/" }}>
             {t("Finish a workout and each exercise gets its own simple graph.")}
           </Empty>
         </Card>

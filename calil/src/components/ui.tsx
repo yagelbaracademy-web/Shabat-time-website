@@ -12,6 +12,7 @@ import {
 import { Icon, type IconName } from "./icons";
 import { useStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
+import { markSeen, useOnboarding } from "@/lib/onboarding";
 
 /* ───────────────────────────── brand ───────────────────────────── */
 
@@ -771,10 +772,13 @@ export function Empty({
   icon,
   title,
   children,
+  action,
 }: {
   icon: IconName;
   title: string;
   children?: ReactNode;
+  /** One clear next step. */
+  action?: { label: string; href: string };
 }) {
   return (
     <div className="flex flex-col items-center px-6 py-10 text-center">
@@ -785,6 +789,11 @@ export function Empty({
       {children && (
         <div className="mt-1 text-[15px] text-ink-2">{children}</div>
       )}
+      {action && (
+        <Link href={action.href} className="press mt-4 inline-flex h-11 items-center rounded-full bg-accent px-5 text-[15px] font-semibold text-white">
+          {action.label}
+        </Link>
+      )}
     </div>
   );
 }
@@ -792,5 +801,26 @@ export function Empty({
 export function Skeleton({ className = "" }: { className?: string }) {
   return (
     <div className={`animate-pulse rounded-[24px] bg-fill ${className}`} />
+  );
+}
+
+/* ───────────────────────────── one-time tips ───────────────────────────── */
+
+/**
+ * A small tip shown once, where the thing it explains lives. Closing it (or `force`
+ * turning off) hides it for good on this device.
+ */
+export function TipOnce({ id, children, force = false, className = "" }: { id: string; children: ReactNode; force?: boolean; className?: string }) {
+  const ob = useOnboarding();
+  const t = useT();
+  if (!force && ob.seen?.[id]) return null;
+  return (
+    <div role="note" className={`rise flex items-start gap-2.5 rounded-[16px] bg-accent-soft px-3.5 py-3 text-[15px] leading-snug text-accent-ink ${className}`}>
+      <Icon name="bolt" size={17} className="mt-0.5 shrink-0" />
+      <span className="min-w-0 flex-1">{children}</span>
+      <button type="button" aria-label={t("Got it")} onClick={() => markSeen(id)} className="press -m-1.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
+        <Icon name="close" size={16} />
+      </button>
+    </div>
   );
 }
