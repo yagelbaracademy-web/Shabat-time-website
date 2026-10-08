@@ -46,7 +46,18 @@ export function StepsPop() {
     return () => [show, hide, clear].forEach(clearTimeout);
   }, [key, loaded, relevant]);
 
+  // ?celebrate replays the celebration (to see it again after it was closed)
+  const [replay, setReplay] = useState(() => typeof window !== "undefined" && new URLSearchParams(location.search).has("celebrate"));
   const allDone = !key.includes("0");
+  if (loaded && replay)
+    return (
+      <Celebration
+        onClose={() => {
+          setReplay(false);
+          history.replaceState(null, "", location.pathname);
+        }}
+      />
+    );
   if (loaded && allDone && relevant) return <Celebration />;
   if (!shown) return null;
   const labels = [t("Create your account"), t("Log your first set"), t("Say a set out loud"), t("Finish a workout")];
@@ -103,7 +114,7 @@ export function StepsPop() {
  * Every first step done: a full screen that plays in beats. The bar fills fast, the
  * checks land one by one, then 👏 pops in with confetti and the words rise.
  */
-function Celebration() {
+function Celebration({ onClose }: { onClose?: () => void }) {
   const t = useT();
   const name = useStore((s) => s.profile?.name?.split(" ")[0] ?? "");
   const [filled, setFilled] = useState(false);
@@ -131,6 +142,7 @@ function Celebration() {
   const close = () => {
     haptic(12);
     setOnboarding({ stepsDone: true });
+    onClose?.();
   };
 
   return createPortal(
