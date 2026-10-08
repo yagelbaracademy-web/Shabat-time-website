@@ -426,7 +426,7 @@ function FirstSteps() {
     { done: firstSet, label: t("Log your first set"), go: () => (start.active ? start.resume() : setPicking(true)) },
     {
       done: !!ob.dictated,
-      label: t("Say a set out loud"),
+      label: t("Try smart voice logging"),
       go: () => {
         // The workout screen points at the microphone once it opens.
         try {

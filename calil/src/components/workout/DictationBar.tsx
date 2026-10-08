@@ -177,7 +177,7 @@ export function DictationBar({
 
   // Before the phone's own permission prompt: say what the mic is for, once.
   const [priming, setPriming] = useState(false);
-  // Arrived from "Say a set out loud" in First steps: point at the mic.
+  // Arrived from "Try smart voice logging" in First steps: point at the mic.
   const [coach, setCoach] = useState(() => {
     try {
       const on = !!sessionStorage.getItem("calil:coach-mic");
@@ -275,27 +275,35 @@ export function DictationBar({
           style={{ marginBottom: resting ? 84 : 8 }}
         >
           {t(
-            "Tap the mic and say a set, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.",
+            "Tap the mic and tell it what you did, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.",
           )}
         </TipOnce>
       )}
       <Sheet
         open={priming}
         onClose={() => setPriming(false)}
-        title={t("Log sets by voice")}
+        title={t("Log by voice")}
       >
         <div className="pb-3">
           <p className="px-1 text-[16px] leading-relaxed text-ink-2">
             {t(
-              "Say the set the way you'd tell a friend, and it's written down for you. Calil listens only after you tap the mic and stops when you stop talking. You see the text before anything is saved.",
+              "Say what you did the way you'd tell a friend, and it's all written down for you. Calil listens only after you tap the mic. You see the text before anything is saved.",
             )}
           </p>
-          <p
-            className="mt-3 rounded-[14px] bg-fill px-4 py-3 text-[16px] font-medium"
-            dir="auto"
-          >
-            {t("“Bench press 80 kilos 8 reps”")}
-          </p>
+          <ul className="mt-3 divide-y divide-line rounded-[14px] bg-fill px-4 text-[16px]">
+            {[
+              [t("“Bench press 80 kilos 8 reps”"), t("Set")],
+              [t("“Add squat, 3 sets of 10”"), t("Exercise")],
+              [t("“Note: seat at height 4”"), t("Note")],
+            ].map(([example, kind]) => (
+              <li key={kind} className="flex items-center justify-between gap-3 py-3">
+                <span className="font-medium" dir="auto">
+                  {example}
+                </span>
+                <span className="shrink-0 text-[13px] text-ink-3">{kind}</span>
+              </li>
+            ))}
+          </ul>
           <Button
             className="mt-5 w-full"
             icon="mic"

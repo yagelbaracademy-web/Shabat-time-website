@@ -60,7 +60,7 @@ export function StepsPop() {
     );
   if (loaded && allDone && relevant) return <Celebration />;
   if (!shown) return null;
-  const labels = [t("Create your account"), t("Log your first set"), t("Say a set out loud"), t("Finish a workout")];
+  const labels = [t("Create your account"), t("Log your first set"), t("Try smart voice logging"), t("Finish a workout")];
   const count = done.filter(Boolean).length;
 
   return (
@@ -122,7 +122,7 @@ function Celebration({ onClose }: { onClose?: () => void }) {
   const steps: { icon: IconName; label: string }[] = [
     { icon: "user", label: t("Create your account") },
     { icon: "check", label: t("Log your first set") },
-    { icon: "mic", label: t("Say a set out loud") },
+    { icon: "mic", label: t("Try smart voice logging") },
     { icon: "trophy", label: t("Finish a workout") },
   ];
   useEffect(() => {
