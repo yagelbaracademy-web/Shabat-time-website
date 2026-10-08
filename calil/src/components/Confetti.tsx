@@ -42,7 +42,7 @@ export function Confetti({ count = 48 }: { count?: number }) {
     <span ref={anchor} aria-hidden className="absolute inset-0">
       {at &&
         createPortal(
-          <span aria-hidden className="confetti pointer-events-none fixed inset-0 z-[60] overflow-hidden">
+          <span aria-hidden className="confetti pointer-events-none fixed inset-0 z-[75] overflow-hidden">
             <span className="absolute" style={{ left: at.x, top: at.y }}>
               {bits.map((b, i) => (
                 <i

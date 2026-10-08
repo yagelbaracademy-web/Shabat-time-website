@@ -313,3 +313,66 @@ html.workout-mode body {
     display: none;
   }
 }
+
+/* ───────── first-steps celebration: bar fills, checks land, 👏 pops with confetti, text rises ───────── */
+.cel-bg {
+  background:
+    radial-gradient(120% 70% at 50% 0%, #dcebff 0%, rgba(220, 235, 255, 0) 70%),
+    linear-gradient(180deg, #eef5ff 0%, #f7faff 55%, #ffffff 100%);
+  animation: cel-fade 380ms ease-out both;
+}
+@keyframes cel-fade {
+  from {
+    opacity: 0;
+  }
+}
+.cel-rise {
+  animation: cel-rise 620ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes cel-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+.cel-clap {
+  animation: cel-clap 900ms cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+@keyframes cel-clap {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-12deg);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.18) rotate(6deg);
+  }
+  75% {
+    transform: scale(0.96) rotate(-4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+.cel-check {
+  animation: cel-check 420ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+}
+@keyframes cel-check {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cel-bg,
+  .cel-rise,
+  .cel-clap,
+  .cel-check {
+    animation: none;
+  }
+}

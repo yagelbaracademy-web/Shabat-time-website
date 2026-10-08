@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNow, useToday } from "@/lib/hooks";
 import { nextPlan, setPlanDays } from "@/lib/actions";
-import { fmtCardio, fmtClock, fmtDuration, fmtNum, fmtVolume, greeting, haptic } from "@/lib/format";
+import { fmtCardio, fmtClock, fmtDuration, fmtNum, fmtVolume, greeting } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { exName, locale, useT } from "@/lib/i18n";
 import { addDays, nextPlannedDay, plannedOn, sameDay, startOfWeek, workoutsOn } from "@/lib/schedule";
@@ -14,8 +14,7 @@ import { ExerciseIcon } from "@/components/ExerciseIcon";
 import { Icon } from "@/components/icons";
 import { MonthBars } from "@/components/charts";
 import { habitLabel, NewWorkoutSheet, useStartWorkout } from "@/components/StartOptions";
-import { BrandBar, Button, Card, CardHeader, Screen, Skeleton, Stat, Title, toast } from "@/components/ui";
-import { Confetti } from "@/components/Confetti";
+import { BrandBar, Card, CardHeader, Screen, Skeleton, Stat, Title, toast } from "@/components/ui";
 import { useRouter } from "next/navigation";
 import { setOnboarding, useOnboarding } from "@/lib/onboarding";
 import type { IconName } from "@/components/icons";
@@ -440,8 +439,6 @@ function FirstSteps() {
     { done: finished > 0, label: t("Finish a workout"), go: () => (start.active ? start.resume() : setPicking(true)) },
   ];
   const left = steps.filter((x) => !x.done).length;
-  // All done: a moment to celebrate, which stays until it's closed.
-  if (left === 0 && !ob.stepsDone && !ob.hideSteps && finished < 10) return <StepsDone />;
   if (ob.hideSteps || left === 0 || finished >= 3) return null;
   return (
     <Card className="p-5">
@@ -479,33 +476,6 @@ function FirstSteps() {
         ))}
       </ul>
       <NewWorkoutSheet open={picking} onClose={() => setPicking(false)} />
-    </Card>
-  );
-}
-
-/** The first steps are done: a small, warm win, then out of the way. */
-function StepsDone() {
-  const t = useT();
-  useEffect(() => {
-    haptic(30);
-    const id = setTimeout(() => haptic(20), 180);
-    return () => clearTimeout(id);
-  }, []);
-  return (
-    <Card className="relative overflow-hidden p-6 text-center">
-      <div className="relative mx-auto mb-4 flex h-20 w-20 items-center justify-center">
-        <Confetti />
-        <span className="pop flex h-20 w-20 items-center justify-center rounded-full bg-accent text-white shadow-[0_12px_30px_-10px_rgba(28,116,234,0.7)]">
-          <Icon name="check" size={38} stroke={2.8} />
-        </span>
-      </div>
-      <p className="text-[24px] font-semibold tracking-[-0.01em]">{t("Nicely done!")}</p>
-      <p className="mx-auto mt-1 max-w-[300px] text-[16px] text-ink-2">
-        {t("You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.")}
-      </p>
-      <Button className="mt-5 w-full" onClick={() => setOnboarding({ stepsDone: true })}>
-        {t("Let's go")}
-      </Button>
     </Card>
   );
 }

@@ -157,6 +157,10 @@ export const HE: Record<string, string> = {
   "Different machine": "מכונה אחרת",
   "Back to top": "חזרה למעלה",
   "Back to workout": "חזרה לאימון",
+  "Nicely done": "כל הכבוד",
+  "You’ve completed your first steps. From here it’s all Calil.": "השלמתם את הצעדים הראשונים. מכאן יוצאים לדרך, בקליל.",
+  "{n} steps done": "{n} צעדים הושלמו",
+  "Let’s get going": "יאללה להתחיל",
   "All first steps done!": "כל הצעדים הראשונים הושלמו!",
   "Nicely done!": "כל הכבוד!",
   "You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.": "תפסתם את Calil. מכאן הוא זוכר הכל בשבילכם, ונשאר רק להתאמן.",
@@ -596,6 +600,7 @@ export const HE: Record<string, string> = {
  * whose wording is neutral (plural or impersonal).
  */
 export const HE_M: Record<string, string> = {
+  "You’ve completed your first steps. From here it’s all Calil.": "השלמת את הצעדים הראשונים. מכאן יוצאים לדרך, בקליל.",
   "You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.": "תפסת את Calil. מכאן הוא זוכר הכל בשבילך, ונשאר רק להתאמן.",
   "This is where you watch yourself get stronger": "כאן תראה את עצמך מתחזק",
   "How do you train?": "איך אתה מתאמן?",
@@ -626,6 +631,7 @@ export const HE_M: Record<string, string> = {
 };
 
 export const HE_F: Record<string, string> = {
+  "You’ve completed your first steps. From here it’s all Calil.": "השלמת את הצעדים הראשונים. מכאן יוצאים לדרך, בקליל.",
   "You've got the hang of Calil. From here it remembers everything for you. All that's left is to train.": "תפסת את Calil. מכאן הוא זוכר הכל בשבילך, ונשאר רק להתאמן.",
   "This is where you watch yourself get stronger": "כאן תראי את עצמך מתחזקת",
   "How do you train?": "איך את מתאמנת?",

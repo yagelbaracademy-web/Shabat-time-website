@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { haptic } from "@/lib/format";
 import { useT } from "@/lib/i18n";
-import { useOnboarding } from "@/lib/onboarding";
+import { setOnboarding, useOnboarding } from "@/lib/onboarding";
+import { createPortal } from "react-dom";
+import type { IconName } from "./icons";
 import { completedWorkouts } from "@/lib/stats";
 import { useStore } from "@/lib/store";
 import { Confetti } from "./Confetti";
@@ -44,6 +46,8 @@ export function StepsPop() {
     return () => [show, hide, clear].forEach(clearTimeout);
   }, [key, loaded, relevant]);
 
+  const allDone = !key.includes("0");
+  if (loaded && allDone && relevant) return <Celebration />;
   if (!shown) return null;
   const labels = [t("Create your account"), t("Log your first set"), t("Say a set out loud"), t("Finish a workout")];
   const count = done.filter(Boolean).length;
@@ -92,5 +96,110 @@ export function StepsPop() {
         </ul>
       </button>
     </div>
+  );
+}
+
+/**
+ * Every first step done: a full screen that plays in beats. The bar fills fast, the
+ * checks land one by one, then 👏 pops in with confetti and the words rise.
+ */
+function Celebration() {
+  const t = useT();
+  const name = useStore((s) => s.profile?.name?.split(" ")[0] ?? "");
+  const [filled, setFilled] = useState(false);
+  const [burst, setBurst] = useState(false);
+  const steps: { icon: IconName; label: string }[] = [
+    { icon: "user", label: t("Create your account") },
+    { icon: "check", label: t("Log your first set") },
+    { icon: "mic", label: t("Say a set out loud") },
+    { icon: "trophy", label: t("Finish a workout") },
+  ];
+  useEffect(() => {
+    const fill = requestAnimationFrame(() => requestAnimationFrame(() => setFilled(true)));
+    const pop = setTimeout(() => {
+      setBurst(true);
+      haptic(35);
+      setTimeout(() => haptic(25), 160);
+    }, 1050);
+    return () => {
+      cancelAnimationFrame(fill);
+      clearTimeout(pop);
+    };
+  }, []);
+  const close = () => {
+    haptic(12);
+    setOnboarding({ stepsDone: true });
+  };
+
+  return createPortal(
+    <div role="dialog" aria-modal="true" aria-label={t("All first steps done!")} className="cel-bg fixed inset-0 z-[70] overflow-y-auto">
+      <div
+        className="mx-auto flex min-h-full max-w-[460px] flex-col px-6 text-center"
+        style={{ paddingTop: "calc(var(--sat) + 9vh)", paddingBottom: "calc(var(--sab) + 24px)" }}
+      >
+        <div className="relative mx-auto flex h-[132px] w-[132px] items-center justify-center">
+          {burst && <Confetti count={56} />}
+          {burst && (
+            <span className="cel-clap select-none text-[104px] leading-none drop-shadow-[0_14px_22px_rgba(28,116,234,0.25)]" aria-hidden>
+              👏
+            </span>
+          )}
+        </div>
+
+        <h1 className="cel-rise mt-6 text-[32px] leading-tight font-semibold tracking-[-0.02em]" style={{ animationDelay: "1250ms" }}>
+          {name ? (
+            <>
+              {t("Nicely done")}, <span dir="auto">{name}</span>
+              <span className="text-accent">.</span>
+            </>
+          ) : (
+            <>
+              {t("Nicely done")}
+              <span className="text-accent">!</span>
+            </>
+          )}
+        </h1>
+        <p className="cel-rise mx-auto mt-2 max-w-[320px] text-[17px] leading-snug text-ink-2" style={{ animationDelay: "1380ms" }}>
+          {t("You’ve completed your first steps. From here it’s all Calil.")}
+        </p>
+
+        <div className="cel-rise mt-8 rounded-[24px] border border-white/80 bg-white/80 p-5 text-start shadow-[0_10px_30px_-12px_rgba(28,116,234,0.25)]" style={{ animationDelay: "60ms" }}>
+          <p className="text-[17px] font-semibold">{t("{n} steps done", { n: steps.length })}</p>
+          <div className="mt-3 mb-4 h-2 overflow-hidden rounded-full bg-accent-soft" dir="ltr">
+            <div
+              className="h-full rounded-full bg-accent"
+              style={{ width: filled ? "100%" : "0%", transition: "width 850ms cubic-bezier(0.3, 0.7, 0.2, 1) 150ms" }}
+            />
+          </div>
+          <ul className="space-y-3">
+            {steps.map((x, i) => (
+              <li key={x.label} className="flex items-center gap-3">
+                <span
+                  className="cel-check flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+                  style={{ animationDelay: `${300 + i * 170}ms` }}
+                >
+                  <Icon name="check" size={15} stroke={3} />
+                </span>
+                <span className="flex-1 text-[16px]">{x.label}</span>
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent">
+                  <Icon name={x.icon} size={18} />
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex-1" />
+        <button
+          type="button"
+          onClick={close}
+          className="cel-rise press mt-8 flex h-14 w-full items-center justify-center gap-2 rounded-full bg-accent text-[18px] font-semibold text-white shadow-[0_12px_28px_-12px_rgba(28,116,234,0.75)]"
+          style={{ animationDelay: "1550ms" }}
+        >
+          {t("Let’s get going")} ✨
+        </button>
+      </div>
+    </div>,
+    document.body,
   );
 }
