@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { applyInterpretation, dictate, interpret, type ApplyResult } from "@/lib/speech/apply";
+import {
+  applyInterpretation,
+  dictate,
+  interpret,
+  type ApplyResult,
+} from "@/lib/speech/apply";
 import type { Interpretation } from "@/lib/speech/provider";
-import { canRecord, startRecording, type Recording } from "@/lib/speech/provider";
+import {
+  canRecord,
+  startRecording,
+  type Recording,
+} from "@/lib/speech/provider";
 import { haptic } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { useT } from "@/lib/i18n";
@@ -28,7 +37,11 @@ const EXAMPLES = [
 function useRotatingHint(active: boolean) {
   const [i, setI] = useState(0);
   useEffect(() => {
-    if (!active || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      !active ||
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
     const id = setInterval(() => setI((x) => (x + 1) % EXAMPLES.length), 4000);
     return () => clearInterval(id);
   }, [active]);
@@ -39,19 +52,34 @@ function useRotatingHint(active: boolean) {
  * Mic → speak → what was heard lands in the box, like a chat app. Fix a word if needed,
  * press Send, and the set is filled in. Typing the same sentence works the same way.
  */
-export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focusWeId: string | null }) {
+export function DictationBar({
+  workoutId,
+  focusWeId,
+}: {
+  workoutId: string;
+  focusWeId: string | null;
+}) {
   const resting = useStore((s) => !!s.rest);
   const t = useT();
   const [mode, setMode] = useState<Mode>("idle");
   const [draft, setDraft] = useState("");
   // What the recording was understood as, kept until Send: unchanged text needs no second call.
-  const [heard, setHeard] = useState<{ text: string; interp: Interpretation } | null>(null);
+  const [heard, setHeard] = useState<{
+    text: string;
+    interp: Interpretation;
+  } | null>(null);
   const [level, setLevel] = useState(0);
   const [result, setResult] = useState<ApplyResult | null>(null);
   const [micOk] = useState(() => canRecord());
   const [focused, setFocused] = useState(false);
   const learning = true; // examples stay: they're the only hint of everything the bar can do
-  const example = useRotatingHint(learning && !focused && !draft && mode !== "recording" && mode !== "transcribing");
+  const example = useRotatingHint(
+    learning &&
+      !focused &&
+      !draft &&
+      mode !== "recording" &&
+      mode !== "transcribing",
+  );
   const rec = useRef<Recording | null>(null);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -65,7 +93,10 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
 
   const scheduleHide = () => {
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    hideTimer.current = setTimeout(() => setMode((m) => (m === "result" ? "idle" : m)), 7000);
+    hideTimer.current = setTimeout(
+      () => setMode((m) => (m === "result" ? "idle" : m)),
+      7000,
+    );
   };
 
   const show = (r: ApplyResult) => {
@@ -73,7 +104,16 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
     setResult(r);
     setMode("result");
     haptic(r.ok ? 14 : 30);
-    if (r.pr) toast({ title: t(PR_TITLE[r.pr]), sub: r.summary.split("\n")[0], icon: "trophy", tone: "pr" }, 4500);
+    if (r.pr)
+      toast(
+        {
+          title: t(PR_TITLE[r.pr]),
+          sub: r.summary.split("\n")[0],
+          icon: "trophy",
+          tone: "pr",
+        },
+        4500,
+      );
     scheduleHide();
   };
 
@@ -146,7 +186,10 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
       return;
     }
     if (!micOk) {
-      toast({ title: t("Recording isn’t available here. Type the set instead."), icon: "mic" });
+      toast({
+        title: t("Recording isn’t available here. Type the set instead."),
+        icon: "mic",
+      });
       return;
     }
     haptic(10);
@@ -175,7 +218,10 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
   const busy = mode === "recording" || mode === "transcribing";
 
   return (
-    <div className="fixed inset-x-0 z-40 mx-auto max-w-[560px] px-4" style={{ bottom: "calc(var(--tabbar-h) + var(--sab) + 10px)" }}>
+    <div
+      className="fixed inset-x-0 z-40 mx-auto max-w-[560px] px-4"
+      style={{ bottom: "calc(var(--tabbar-h) + var(--sab) + 10px)" }}
+    >
       {mode === "result" && result && (
         <Swipeable
           onDismiss={() => setMode("idle")}
@@ -189,7 +235,9 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
               <Icon name={result.ok ? "check" : "mic"} size={15} stroke={2.6} />
             </span>
             <div className="min-w-0 flex-1">
-              <p className={`max-h-[30vh] overflow-y-auto text-[15px] whitespace-pre-line ${result.ok ? "font-semibold" : "text-ink-2"}`}>
+              <p
+                className={`max-h-[30vh] overflow-y-auto text-[15px] whitespace-pre-line ${result.ok ? "font-semibold" : "text-ink-2"}`}
+              >
                 {result.summary}
               </p>
             </div>
@@ -210,16 +258,33 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
       )}
 
       {(coach || !getOnboarding().dictated) && mode === "idle" && !draft && (
-        <TipOnce id="dictation-first" force={coach} className="mb-2 shadow-float">
-          {t("Tap the mic and say a set, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.")}
+        // Sits above the rest timer while it shows (same as the result card), back down after.
+        <TipOnce
+          id="dictation-first"
+          force={coach}
+          className="shadow-float transition-[margin] duration-300"
+          style={{ marginBottom: resting ? 84 : 8 }}
+        >
+          {t(
+            "Tap the mic and say a set, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.",
+          )}
         </TipOnce>
       )}
-      <Sheet open={priming} onClose={() => setPriming(false)} title={t("Log sets by voice")}>
+      <Sheet
+        open={priming}
+        onClose={() => setPriming(false)}
+        title={t("Log sets by voice")}
+      >
         <div className="pb-3">
           <p className="px-1 text-[16px] leading-relaxed text-ink-2">
-            {t("Say the set the way you'd tell a friend, and it's written down for you. Calil listens only after you tap the mic and stops when you stop talking. You see the text before anything is saved.")}
+            {t(
+              "Say the set the way you'd tell a friend, and it's written down for you. Calil listens only after you tap the mic and stops when you stop talking. You see the text before anything is saved.",
+            )}
           </p>
-          <p className="mt-3 rounded-[14px] bg-fill px-4 py-3 text-[16px] font-medium" dir="auto">
+          <p
+            className="mt-3 rounded-[14px] bg-fill px-4 py-3 text-[16px] font-medium"
+            dir="auto"
+          >
             {t("“Bench press 80 kilos 8 reps”")}
           </p>
           <Button
@@ -234,7 +299,11 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
           >
             {t("Turn on the mic")}
           </Button>
-          <Button variant="ghost" className="mt-1 w-full" onClick={() => setPriming(false)}>
+          <Button
+            variant="ghost"
+            className="mt-1 w-full"
+            onClick={() => setPriming(false)}
+          >
             {t("Not now")}
           </Button>
         </div>
@@ -251,12 +320,26 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
       >
         <button
           type="button"
-          onClick={mode === "recording" ? () => void finish() : mode === "transcribing" ? undefined : () => void listen()}
-          aria-label={mode === "recording" ? t("Stop recording") : t("Dictate a set")}
+          onClick={
+            mode === "recording"
+              ? () => void finish()
+              : mode === "transcribing"
+                ? undefined
+                : () => void listen()
+          }
+          aria-label={
+            mode === "recording" ? t("Stop recording") : t("Dictate a set")
+          }
           className={`press flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
-            mode === "recording" ? "bg-accent text-white" : "bg-accent-soft text-accent"
+            mode === "recording"
+              ? "bg-accent text-white"
+              : "bg-accent-soft text-accent"
           }`}
-          style={mode === "recording" ? { boxShadow: `0 0 0 ${4 + level * 12}px rgba(28,116,234,0.18)` } : undefined}
+          style={
+            mode === "recording"
+              ? { boxShadow: `0 0 0 ${4 + level * 12}px rgba(28,116,234,0.18)` }
+              : undefined
+          }
         >
           {mode === "recording" ? (
             <span className="h-3.5 w-3.5 rounded-[3px] bg-white" />
@@ -273,7 +356,9 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
             onClick={mode === "recording" ? () => void finish() : undefined}
             className="min-w-0 flex-1 truncate text-start text-[16px] text-ink-2"
           >
-            {mode === "recording" ? t("Listening… tap to stop") : t("Writing it down…")}
+            {mode === "recording"
+              ? t("Listening… tap to stop")
+              : t("Writing it down…")}
           </button>
         ) : (
           <span className="relative flex h-full min-w-0 flex-1 items-center">
@@ -306,7 +391,13 @@ export function DictationBar({ workoutId, focusWeId }: { workoutId: string; focu
                   void run(pasted);
                 }
               }}
-              placeholder={learning ? (focused ? t(example) : "") : t("Dictate or type a set…")}
+              placeholder={
+                learning
+                  ? focused
+                    ? t(example)
+                    : ""
+                  : t("Dictate or type a set…")
+              }
               aria-label={t("Type a set, for example Bench press 80 kg 8 reps")}
               className="h-full w-full min-w-0 bg-transparent text-[16px] outline-none placeholder:text-ink-3"
               enterKeyHint="send"

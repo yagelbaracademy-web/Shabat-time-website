@@ -810,12 +810,24 @@ export function Skeleton({ className = "" }: { className?: string }) {
  * A small tip shown once, where the thing it explains lives. Closing it (or `force`
  * turning off) hides it for good on this device.
  */
-export function TipOnce({ id, children, force = false, className = "" }: { id: string; children: ReactNode; force?: boolean; className?: string }) {
+export function TipOnce({
+  id,
+  children,
+  force = false,
+  className = "",
+  style,
+}: {
+  id: string;
+  children: ReactNode;
+  force?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
   const ob = useOnboarding();
   const t = useT();
   if (!force && ob.seen?.[id]) return null;
   return (
-    <div role="note" className={`rise flex items-start gap-2.5 rounded-[16px] bg-accent-soft px-3.5 py-3 text-[15px] leading-snug text-accent-ink ${className}`}>
+    <div role="note" style={style} className={`rise flex items-start gap-2.5 rounded-[16px] bg-accent-soft px-3.5 py-3 text-[15px] leading-snug text-accent-ink ${className}`}>
       <Icon name="bolt" size={17} className="mt-0.5 shrink-0" />
       <span className="min-w-0 flex-1">{children}</span>
       <button type="button" aria-label={t("Got it")} onClick={() => markSeen(id)} className="press -m-1.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full">

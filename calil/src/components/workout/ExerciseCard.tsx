@@ -172,7 +172,8 @@ export const ExerciseCard = memo(function ExerciseCard({
     }
     // Typed it by hand? The first few times, show how it would sound by voice, with these exact numbers.
     const ob = getOnboarding();
-    if (!pr && isLive && !ob.dictated && (ob.sayHints ?? 0) < 3) {
+    // Only after the mic tip is closed: until then the tip already says this.
+    if (!pr && isLive && !ob.dictated && ob.seen?.["dictation-first"] && (ob.sayHints ?? 0) < 3) {
       const x2 = getState().sets[x.id];
       if (x2?.weight && x2.reps) {
         setOnboarding({ sayHints: (ob.sayHints ?? 0) + 1 });
@@ -180,7 +181,8 @@ export const ExerciseCard = memo(function ExerciseCard({
         toast(
           {
             title: t("Next time, just say it"),
-            sub: `“${t("{name} {w} kilos {r} reps", { name: exName(exercise), w: fmtNum(x2.weight), r: x2.reps })}”`,
+            // Isolate the name so an English exercise name doesn't scramble the Hebrew order.
+            sub: `“${t("{name} {w} kilos {r} reps", { name: `\u2068${exName(exercise)}\u2069`, w: fmtNum(x2.weight), r: x2.reps })}”`,
             icon: "mic",
           },
           5000,
