@@ -10,6 +10,7 @@ export interface Onboarding {
   dictated?: boolean; // used dictation at least once
   micPrimed?: boolean; // saw our explanation before the system's microphone prompt
   hideSteps?: boolean; // closed the first-steps card
+  stepsDone?: boolean; // saw (and closed) the "first steps done" celebration
   seen?: Record<string, boolean>; // one-time tips by id
   sayHints?: number; // "next time, just say…" hints shown so far
   style?: "coach" | "starter" | "free"; // answer to "how do you train?"

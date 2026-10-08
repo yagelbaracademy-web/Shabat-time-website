@@ -285,3 +285,31 @@
 html.workout-mode body {
   background: transparent;
 }
+
+/* ───────── confetti: a one-off burst from the middle, then it falls and fades ───────── */
+.confetti i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetti-burst 1300ms cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+@keyframes confetti-burst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0);
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), calc(var(--y) + 80px)) rotate(var(--r));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .confetti {
+    display: none;
+  }
+}
