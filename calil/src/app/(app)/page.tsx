@@ -30,9 +30,8 @@ export default function Home() {
   // Until a day is picked, the strip follows today (which moves at midnight).
   const selected = picked ?? today;
   const t = useT();
-  const ob = useOnboarding();
   const fresh = useStore((s) => Object.keys(s.workout_templates).length === 0 && Object.keys(s.workouts).length === 0);
-  const asking = fresh && !ob.style;
+  const asking = fresh;
   const hasHistory = useStore((s) => completedWorkouts(s).length > 0);
   const hello = { g: greeting(today).replace(",", name ? `, ${name}` : ","), h: t(HEADLINES[today.getDate() % HEADLINES.length]) };
 
@@ -372,7 +371,8 @@ function HowYouTrain() {
   const start = useStartWorkout();
   const ob = useOnboarding();
   const fresh = useStore((s) => Object.keys(s.workout_templates).length === 0 && Object.keys(s.workouts).length === 0);
-  if (!fresh || ob.style) return null;
+  // Stays until the account has a plan or a workout, so a choice can be changed after coming back.
+  if (!fresh) return null;
   const pick = (style: "coach" | "starter" | "free", go: () => void) => {
     setOnboarding({ style });
     track(`start_${style}` as "start_coach");
@@ -393,7 +393,10 @@ function HowYouTrain() {
             key={o.style}
             type="button"
             onClick={() => pick(o.style, o.go)}
-            className="press flex min-h-[64px] w-full items-center gap-3.5 rounded-[16px] bg-fill px-3.5 text-start"
+            aria-pressed={ob.style === o.style}
+            className={`press flex min-h-[64px] w-full items-center gap-3.5 rounded-[16px] px-3.5 text-start ${
+              ob.style === o.style ? "bg-accent-soft ring-1 ring-accent/30" : "bg-fill"
+            }`}
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[12px] bg-card text-accent">
               <Icon name={o.icon} size={20} />
