@@ -39,6 +39,11 @@ const OUTCOMES: Record<string, string> = {
   workout_discard: "Discarded a workout",
   pr: "Hit a personal record",
   cardio: "Used the cardio stopwatch",
+  ai_build: "Asked Calil to build a workout",
+  ai_change: "Asked Calil to change a workout",
+  ai_answer: "Asked Calil a question",
+  ai_build_saved: "Saved a built workout as a plan",
+  start_suggested: "Started a suggested plan",
 };
 
 const SCREENS: Record<string, string> = {

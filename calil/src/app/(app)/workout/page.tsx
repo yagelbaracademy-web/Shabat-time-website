@@ -13,9 +13,9 @@ import { ExercisePicker } from "@/components/ExercisePicker";
 import { SortableList } from "@/components/SortableList";
 import { Icon } from "@/components/icons";
 import { useStartWorkout } from "@/components/StartOptions";
-import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, TipOnce, toast } from "@/components/ui";
+import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@/components/ui";
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
-import { DictationBar } from "@/components/workout/DictationBar";
+import { ASK_EVENT, DictationBar } from "@/components/workout/DictationBar";
 import { WorkoutGlow } from "@/components/workout/WorkoutGlow";
 import { track } from "@/lib/track";
 
@@ -210,11 +210,6 @@ function WorkoutView({ id }: { id: string }) {
         </div>
       </header>
 
-      {live && list.length >= 2 && (
-        <TipOnce id="workout-gestures" className="mb-3">
-          {t("Tip: hold an exercise's name and drag to change the order. Swipe a set sideways to delete it.")}
-        </TipOnce>
-      )}
       {/* Press and hold an exercise's header, then drag to change the order. */}
       <SortableList
         items={list.map((weId) => ({ id: weId }))}
@@ -241,7 +236,10 @@ function WorkoutView({ id }: { id: string }) {
       />
 
       {list.length === 0 && (
-        <p className="px-1 pb-3 text-[16px] text-ink-2">{t("Add your first exercise. We’ll remember your numbers for next time.")}</p>
+        <>
+          <p className="px-1 pb-3 text-[16px] text-ink-2">{t("Add your first exercise. We’ll remember your numbers for next time.")}</p>
+          {live && <AskCalil />}
+        </>
       )}
 
       <button
@@ -525,5 +523,32 @@ function FinishSheet({
         </div>
       )}
     </Sheet>
+  );
+}
+
+/** An empty workout: Calil can put one together. Each example goes through the bar below. */
+function AskCalil() {
+  const t = useT();
+  const asks = ["Build me a 40-minute back workout", "I only have dumbbells at home", "Inspired by Spider-Man", "Something to get stronger at pull-ups"];
+  return (
+    <div className="mb-1 rounded-[20px] border border-line bg-card p-4 shadow-card">
+      <p className="flex items-center gap-2 text-[16px] font-semibold">
+        <Icon name="sparkle" size={18} className="text-accent" /> {t("Or ask Calil to build one")}
+      </p>
+      <p className="mt-0.5 text-[14px] text-ink-2">{t("By time, equipment, goal or inspiration, in the bar below. You can ask anything about training too.")}</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        {asks.map((a) => (
+          <button
+            key={a}
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent(ASK_EVENT, { detail: t(a) }))}
+            className="press rounded-full bg-fill px-3.5 py-2 text-start text-[14px] font-medium"
+            dir="auto"
+          >
+            {t(a)}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }

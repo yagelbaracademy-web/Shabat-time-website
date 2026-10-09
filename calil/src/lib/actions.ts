@@ -53,6 +53,22 @@ export function startFromTemplate(templateId: string) {
   return id;
 }
 
+/** Straight into a suggested plan, without adding it to your plans. */
+export function startFromStarter(starter: StarterPlan) {
+  const id = createWorkout(starter.name);
+  for (const e of starter.exercises) {
+    const ex = findExerciseByName(e.name);
+    if (!ex) continue;
+    const plan = { target_sets: e.sets, target_weight: null } as TemplateExercise;
+    const weId = addExercise(id, ex.id, plan);
+    if (isCardio(ex)) continue;
+    // No reps from last time yet: the low end of the range to aim for.
+    const open = setsOf(getState(), weId).filter((x) => x.reps === null && !x.is_warmup);
+    putRows("sets", open.map((x) => ({ ...x, reps: e.min })));
+  }
+  return id;
+}
+
 export function duplicateWorkout(sourceId: string) {
   const s = getState();
   const src = s.workouts[sourceId];
@@ -717,7 +733,9 @@ export function templateFromWorkout(workoutId: string) {
   if (!w) return null;
   const id = createTemplate(w.name);
   for (const we of workoutExercises(s, workoutId)) {
-    const sets = setsOf(s, we.id).filter((x) => x.completed);
+    const done = setsOf(s, we.id).filter((x) => x.completed);
+    // Nothing done yet (a workout Calil just built): keep what was planned.
+    const sets = done.length ? done : setsOf(s, we.id).filter((x) => !x.is_warmup);
     const reps = sets.map((x) => x.reps ?? 0).filter(Boolean);
     addTemplateExercise(id, we.exercise_id, {
       target_sets: sets.length || 3,

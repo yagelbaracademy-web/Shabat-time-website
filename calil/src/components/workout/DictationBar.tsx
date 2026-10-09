@@ -5,6 +5,7 @@ import {
   applyInterpretation,
   dictate,
   interpret,
+  remember,
   type ApplyResult,
 } from "@/lib/speech/apply";
 import type { Interpretation } from "@/lib/speech/provider";
@@ -21,12 +22,18 @@ import { Icon } from "../icons";
 import { Button, Sheet, Swipeable, TipOnce, toast } from "../ui";
 import { getOnboarding, setOnboarding } from "@/lib/onboarding";
 import { track } from "@/lib/track";
+import { templateFromWorkout } from "@/lib/actions";
+
+/** Something else on the screen (an example request) sends text through the bar. */
+export const ASK_EVENT = "calil:ask";
 
 type Mode = "idle" | "recording" | "transcribing" | "result";
 
 /** What the bar can do, shown as gently rotating examples whenever the field is empty. */
 const EXAMPLES = [
   "Bench press 80 kg 8 reps",
+  "Build me a 40-minute back workout",
+  "How long should I rest between sets?",
   "Third set 82.5 by 8, wide grip",
   "Note: seat on 4",
   "Add squat, 3 sets of 10",
@@ -108,11 +115,20 @@ export function DictationBar({
     );
   };
 
+  const [saved, setSaved] = useState(false);
   const show = (r: ApplyResult) => {
     if (r.ok && !getOnboarding().dictated) setOnboarding({ dictated: true });
+    remember(r.transcript, r.reply ?? r.summary);
     setResult(r);
+    setSaved(false);
     setMode("result");
     haptic(r.ok ? 14 : 30);
+    if (r.reply) {
+      // Calil's words take a moment to read: they stay until dismissed.
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+      track(r.built ? "ai_build" : r.summary ? "ai_change" : "ai_answer");
+      return;
+    }
     if (r.pr)
       toast(
         {
@@ -146,6 +162,19 @@ export function DictationBar({
     setMode("transcribing");
     show(await dictate({ text: t }, workoutId, focusWeId));
   };
+
+  const runRef = useRef(run);
+  useEffect(() => {
+    runRef.current = run;
+  });
+  useEffect(() => {
+    const onAsk = (e: Event) => {
+      const text = (e as CustomEvent<string>).detail;
+      if (text) void runRef.current(text);
+    };
+    window.addEventListener(ASK_EVENT, onAsk);
+    return () => window.removeEventListener(ASK_EVENT, onAsk);
+  }, []);
 
   const finish = async () => {
     const r = rec.current;
@@ -241,14 +270,37 @@ export function DictationBar({
             <span
               className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${result.ok ? "bg-accent text-white" : "bg-fill text-ink-2"}`}
             >
-              <Icon name={result.ok ? "check" : "mic"} size={15} stroke={2.6} />
+              <Icon name={result.reply ? "sparkle" : result.ok ? "check" : "mic"} size={15} stroke={result.reply ? 2 : 2.6} />
             </span>
-            <div className="min-w-0 flex-1">
-              <p
-                className={`max-h-[30vh] overflow-y-auto text-[15px] whitespace-pre-line ${result.ok ? "font-semibold" : "text-ink-2"}`}
-              >
-                {result.summary}
-              </p>
+            <div className="max-h-[38vh] min-w-0 flex-1 overflow-y-auto">
+              {result.reply && (
+                <p className="text-[16px] leading-snug" dir="auto">
+                  {result.reply}
+                </p>
+              )}
+              {result.summary && (
+                <p
+                  className={`text-[15px] whitespace-pre-line ${result.reply ? "mt-2 text-[14px] text-ink-2" : result.ok ? "font-semibold" : "text-ink-2"}`}
+                >
+                  {result.summary}
+                </p>
+              )}
+              {result.built && (
+                <button
+                  type="button"
+                  disabled={saved}
+                  onClick={() => {
+                    templateFromWorkout(workoutId);
+                    track("ai_build_saved");
+                    setSaved(true);
+                    haptic(12);
+                  }}
+                  className="press mt-2.5 inline-flex h-9 items-center gap-1.5 rounded-full bg-accent-soft px-3.5 text-[14px] font-semibold text-accent-ink disabled:opacity-70"
+                >
+                  <Icon name={saved ? "check" : "plus"} size={15} />
+                  {saved ? t("Saved to your plans") : t("Save as a plan")}
+                </button>
+              )}
             </div>
             {result.undo && (
               <button

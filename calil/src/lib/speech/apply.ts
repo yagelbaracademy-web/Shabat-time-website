@@ -1,6 +1,6 @@
 "use client";
 
-import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, restAfter, skipRest, startRest } from "../actions";
+import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, removeExercise, renameWorkout, restAfter, skipRest, startRest } from "../actions";
 import { fmtCardio, fmtNum } from "../format";
 import { exName, tr } from "../i18n";
 import { getState, putRows, removeRows } from "../store";
@@ -13,6 +13,10 @@ export interface ApplyResult {
   ok: boolean;
   transcript: string;
   summary: string;
+  /** Calil's own words, shown above the summary. */
+  reply?: string | null;
+  /** Calil put the workout together (it can be kept as a plan). */
+  built?: boolean;
   pr?: PRKind | null;
   undo?: () => void;
 }
@@ -29,13 +33,22 @@ function lastDoneWe(workoutId: string): string | null {
   return best?.id ?? null;
 }
 
+/** What was said in the bar and what Calil answered, newest last (this session only). */
+const history: { said: string; reply: string }[] = [];
+export function remember(said: string, reply: string) {
+  history.push({ said: said.slice(0, 500), reply: reply.slice(0, 800) });
+  if (history.length > 6) history.shift();
+}
+
 function buildContext(workoutId: string, focusWeId: string | null): DictationContext {
   const s = getState();
   const lastDone = lastDoneWe(workoutId);
   return {
+    history: [...history],
     library: Object.values(s.exercises).map((e) => e.name),
     aliases: Object.fromEntries(Object.values(s.exercises).flatMap((e) => aliasesOf(s, e.id).map((a) => [a, e.name]))),
     unit: s.profile?.weight_unit ?? "kg",
+    address: s.profile?.address === "m" || s.profile?.address === "f" ? s.profile.address : null,
     workout: workoutExercises(s, workoutId).map((we) => ({
       exercise: s.exercises[we.exercise_id]?.name ?? "",
       focused: we.id === focusWeId,
@@ -166,7 +179,9 @@ const fmtAny = (x: { weight: number | null; reps: number | null; duration_second
 
 export function applyInterpretation(interp: Interpretation, workoutId: string, focusWeId: string | null): ApplyResult {
   const transcript = interp.transcript;
-  if (!interp.operations.length) return { ok: false, transcript, summary: tr("Didn’t find workout data in that.") };
+  const reply = interp.reply?.trim() || null;
+  if (!interp.operations.length)
+    return reply ? { ok: true, transcript, summary: "", reply } : { ok: false, transcript, summary: tr("Didn’t find workout data in that.") };
 
   const s0 = getState();
   const wes0 = workoutExercises(s0, workoutId);
@@ -178,7 +193,24 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
   let pr: PRKind | null = null;
   let restWe: string | null = null;
 
+  const nameBefore = s0.workouts[workoutId]?.name ?? "";
+  const anyDone = wes0.some((we) => setsOf(s0, we.id).some((x) => x.completed));
+  // A workout Calil built gets its name, unless it's already under way.
+  const retitle = !!interp.title && !anyDone;
+  if (retitle) renameWorkout(workoutId, interp.title!);
+
   for (const op of interp.operations) {
+    if (op.mode === "remove") {
+      // Only exercises not started yet come out.
+      const ex = op.exercise ? findExercise(op.exercise) : null;
+      const s = getState();
+      const target = ex && [...workoutExercises(s, workoutId)].reverse().find((we) => we.exercise_id === ex.id);
+      if (target && !setsOf(s, target.id).some((x) => x.completed)) {
+        removeExercise(target.id);
+        lines.push(`${exName(ex)} · ${tr("removed")}`);
+      }
+      continue;
+    }
     const we = resolveWe(op, workoutId, focusWeId);
     if (!we) continue;
     const name = exName(getState().exercises[we.exercise_id]);
@@ -202,7 +234,9 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
       putRows("sets", left.map((x, i) => ({ ...x, set_number: i + 1 })).filter((x, i) => x.set_number !== left[i].set_number));
       const same = op.sets.every((p) => p.weight === op.sets[0].weight && p.reps === op.sets[0].reps && !p.minutes && !p.distance);
       lines.push(
-        same
+        same && op.sets[0].weight === null && op.sets[0].reps !== null
+          ? `${name} · ${tr("{n} sets of {r} reps", { n: op.sets.length, r: op.sets[0].reps })}`
+          : same
           ? `${name} · ${tr("{n} sets of {set}", { n: op.sets.length, set: fmtSet(op.sets[0].weight, op.sets[0].reps) })}`
           : `${name} · ${touched.map(fmtAny).join(", ")}`,
       );
@@ -238,7 +272,8 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
     }
   }
 
-  if (!lines.length) return { ok: false, transcript, summary: tr("Didn’t find workout data in that.") };
+  if (!lines.length)
+    return reply ? { ok: true, transcript, summary: "", reply } : { ok: false, transcript, summary: tr("Didn’t find workout data in that.") };
   if (restWe) startRest(restAfter(restWe));
 
   const undo = () => {
@@ -254,7 +289,8 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
     putRows("sets", [...beforeSets.values()].filter((x) => JSON.stringify(x) !== JSON.stringify(now.sets[x.id])));
     removeRows("exercises", Object.keys(getState().exercises).filter((id) => !exercisesBefore.has(id)));
     if (restWe) skipRest();
+    if (retitle) renameWorkout(workoutId, nameBefore);
   };
 
-  return { ok: true, transcript, summary: lines.join("\n"), pr, undo };
+  return { ok: true, transcript, summary: lines.join("\n"), reply, built: retitle, pr, undo };
 }

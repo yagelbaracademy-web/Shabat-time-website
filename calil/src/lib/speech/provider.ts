@@ -23,13 +23,17 @@ export interface DictationOp {
   exercise: string; // library name, a new name, or "" for the focused exercise
   is_new_exercise: boolean;
   muscle_group: string | null;
-  mode: "log" | "plan" | "note";
+  mode: "log" | "plan" | "note" | "remove";
   sets: DictationSet[];
   note: string | null;
 }
 
 export interface Interpretation {
   transcript: string;
+  /** Calil's own words: the idea behind a workout it built, or a short answer to a question. */
+  reply?: string | null;
+  /** A name for a workout Calil built. */
+  title?: string | null;
   operations: DictationOp[];
 }
 
@@ -38,6 +42,10 @@ export interface DictationContext {
   /** "what the user says" → library name */
   aliases: Record<string, string>;
   unit: "kg" | "lb";
+  /** How to address the user in Hebrew. */
+  address?: "m" | "f" | null;
+  /** The last few exchanges in the bar, so follow-ups make sense. */
+  history?: { said: string; reply: string }[];
   workout: { exercise: string; focused: boolean; last_done?: boolean; sets: { n: number; weight: number | null; reps: number | null; done: boolean }[] }[];
 }
 

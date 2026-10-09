@@ -4,7 +4,7 @@ import { getUser, json, markFailed, takeQuota } from "../../server/auth.js";
 // Turns a spoken (audio) or typed sentence into structured workout operations.
 // Body: { audio?: base64, mime?: string, text?: string, context: { library: string[], workout: [...], unit } }
 // Auth: the user's Supabase access token.
-// Returns: { transcript, operations: [{ exercise, is_new_exercise, muscle_group, mode, sets, note }] }
+// Returns: { transcript, reply, title, operations: [{ exercise, is_new_exercise, muscle_group, mode, sets, note }] }
 //
 // Only this file knows about the model; swap `callModel` to change provider.
 
@@ -21,6 +21,8 @@ const LONG = [
 ];
 const MAX_TEXT = 4000;
 const isList = (text) => text.length > 160 || (text.match(/\n/g) ?? []).length >= 3;
+// Asking Calil to put a workout together is a longer answer: the careful model.
+const isBuild = (text) => /אימון|תבנה|תכין|תציע|תחליף|למה|איך|מה |כמה|האם|workout|build|make me|routine|swap|instead|\?/i.test(text);
 
 /** A positive number from the model's string, or null. */
 const num = (v, max) => {
@@ -47,7 +49,25 @@ write that weight explicitly. Remarks about a specific set or exercise go in tha
 Only a short report of what was just performed ("bench 80 kilos 8 reps") is "log".
 Cardio (running, treadmill, walking, bike, elliptical, rowing, stairs, jump rope; "ריצה", "הליכון", "אופניים") is logged with minutes and distance (km, or miles if said) instead of weight and reps; one item per bout, weight empty, reps null. "20 דקות" = minutes "20", "חצי שעה" = "30", "3 ק״מ" = distance "3". Use the library's cardio names (Treadmill, Running, Stationary Bike…).
 Warm-up sets ("warm-up", "סט חימום", "חימום", "empty bar"/"מוט ריק" before working sets) get warmup=true; an empty Olympic bar is 20 kg.
-set_number only when the user says which set. weight is a plain decimal string like "82.5" (no units), or "" when not said.`;
+set_number only when the user says which set. weight is a plain decimal string like "82.5" (no units), or "" when not said.
+
+The user can also ask Calil, a friendly training buddy, to BUILD a workout ("תבנה לי אימון גב של 40 דקות", "make me a Spider-Man workout",
+"אימון כמו של טום הולנד", "something quick for legs, no machines"). Then design a sensible, safe gym workout that fits the request and its time
+(about 2.5 minutes per working set including rest; 4-8 exercises), use mode "plan" for every exercise, one item per working set with reps
+(seconds for holds like Plank) and weight "" (the app fills weights from the user's history). Prefer library exercises.
+For a character, film or celebrity, understand what that physique or role needs (Spider-Man / Tom Holland: lean, athletic, bodyweight
+strength, agility, core and pulling) and build a workout inspired by it. Fill "reply" with 1-2 short, warm sentences in the user's language
+explaining the idea, saying it is inspired by them (never claim it is their actual program), and "title": a workout name of 1-3 words in the user's language (e.g. "ספיידרמן", "גב ב־40 דקות").
+To CHANGE the workout ("less jumping", "תוריד את הסקוואט", "swap X for something easier", "add abs"), look at Current workout:
+use mode "remove" (sets: []) for each exercise to take out, and mode "plan" for each one to add. Only remove exercises with no done sets. Short reply.
+Calil is a knowledgeable, warm assistant for everything around training: technique and form cues, which exercise or weight to pick,
+rest, progression, programming, warm-ups, injuries to work around (suggest seeing a professional for pain), recovery, sleep, nutrition and
+protein, motivation, the gym itself. Any such question or request with nothing to log: answer in "reply" (up to 5 short sentences, plain
+text, no markdown), operations []. Be concrete and useful, like a friend who is a great coach. If it asks for changes to the workout, also give the operations.
+Use "Recent conversation" for context: follow-ups ("less of that", "and why?", "make it shorter", "עוד אחד כזה") refer to it.
+Something unrelated to training, health or the app: one friendly sentence in "reply" that you're here for training, operations [].
+Never invent what the user did. Reply in the language the user wrote or spoke.
+"reply" and "title" are null for plain logging, notes and pasted lists.`;
 
 const SCHEMA = {
   type: "object",
@@ -61,7 +81,7 @@ const SCHEMA = {
           exercise: { type: "string" },
           is_new_exercise: { type: "boolean" },
           muscle_group: { type: "string", nullable: true },
-          mode: { type: "string", enum: ["log", "plan", "note"] },
+          mode: { type: "string", enum: ["log", "plan", "note", "remove"] },
           sets: {
             type: "array",
             items: {
@@ -81,6 +101,8 @@ const SCHEMA = {
         required: ["exercise", "is_new_exercise", "mode", "sets"],
       },
     },
+    reply: { type: "string", nullable: true },
+    title: { type: "string", nullable: true },
   },
   required: ["transcript", "operations"],
 };
@@ -89,11 +111,13 @@ function clean(out) {
   const ops = Array.isArray(out?.operations) ? out.operations : [];
   return {
     transcript: String(out?.transcript ?? "").trim(),
+    reply: out?.reply ? String(out.reply).trim().slice(0, 600) || null : null,
+    title: out?.title ? String(out.title).trim().slice(0, 60) || null : null,
     operations: ops.slice(0, 30).map((o) => ({
       exercise: String(o.exercise ?? "").trim(),
       is_new_exercise: !!o.is_new_exercise,
       muscle_group: o.muscle_group ?? null,
-      mode: ["log", "plan", "note"].includes(o.mode) ? o.mode : "log",
+      mode: ["log", "plan", "note", "remove"].includes(o.mode) ? o.mode : "log",
       sets: (Array.isArray(o.sets) ? o.sets : []).slice(0, 20).map((s) => {
         const w = parseFloat(String(s.weight ?? "").replace(",", "."));
         const reps = Number.isInteger(s.reps) && s.reps >= 0 && s.reps < 1000 ? s.reps : null;
@@ -157,7 +181,9 @@ export async function onRequestPost({ request, env }) {
     `Library: ${JSON.stringify((context?.library ?? []).slice(0, 400))}\n` +
     `User's own names (said → library name): ${JSON.stringify(context?.aliases ?? {}).slice(0, 3000)}\n` +
     `Weight unit: ${context?.unit === "lb" ? "lb" : "kg"}\n` +
+    `Address the user in Hebrew replies as: ${context?.address === "m" ? "masculine singular" : context?.address === "f" ? "feminine singular" : "plural (אתם), gender neutral"}\n` +
     `Current workout: ${JSON.stringify(context?.workout ?? []).slice(0, 6000)}\n` +
+    `Recent conversation (oldest first): ${JSON.stringify(context?.history ?? []).slice(0, 4000)}\n` +
     `Put the exact words of the input in "transcript": every word, including the exercise name, in the language it was spoken (Hebrew stays in Hebrew, never translate), numbers as digits. The user reads and edits this text before sending. Then produce operations.`;
   const parts = audio
     ? [{ text: ctx + "\nInput (audio):" }, { inline_data: { mime_type: String(mime || "audio/mp4").split(";")[0], data: audio } }]
@@ -166,7 +192,7 @@ export async function onRequestPost({ request, env }) {
   if (!(await takeQuota(user, "dictate", env))) return json({ error: "limit", message: "You've reached today's dictation limit. Typing in the table still works." }, 429);
 
   let lastError = "";
-  const models = text && isList(String(text)) ? LONG : SHORT;
+  const models = text && (isList(String(text)) || isBuild(String(text))) ? LONG : SHORT;
   for (const m of models) {
     try {
       return json(await callModel(m, parts, env));
