@@ -23,6 +23,7 @@ export function ScrubCell({
   label,
   done,
   hintLabel,
+  cleared = null,
   onCommit,
 }: {
   value: number | null;
@@ -30,6 +31,8 @@ export function ScrubCell({
   hint: number | null;
   /** Faint text instead of the hint number, e.g. a rep range "8–12". */
   hintLabel?: string | null;
+  /** What erasing it means: nothing (null, the default), or e.g. 0 = "no added weight". */
+  cleared?: number | null;
   step: number;
   min?: number;
   max: number;
@@ -190,7 +193,7 @@ export function ScrubCell({
           const v = e.target.value.replace(/[^\d.,-]/g, "");
           setTyping(v);
           const n = parseNum(v.replace("-", ""));
-          if (v === "") onCommit(null);
+          if (v === "") onCommit(cleared);
           else if (n !== null) onCommit(clamp(v.startsWith("-") ? -n : n));
         }}
         onFocus={(e) => {

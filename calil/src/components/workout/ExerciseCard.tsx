@@ -567,7 +567,7 @@ export const ExerciseCard = memo(function ExerciseCard({
         where="workout"
       />
 
-      <SetSheet setId={setSheet} onClose={() => setSetSheet(null)} />
+      <SetSheet setId={setSheet} addOn={bodyweight && showWeight} onClose={() => setSetSheet(null)} />
 
       <MachineSheet
         open={machineOpen}
@@ -610,6 +610,8 @@ interface WeightScale {
   format: (v: number) => string;
   /** What an empty cell shows when there's no hint. */
   emptyLabel: string | null;
+  /** Erasing a bodyweight add-on means 0 for that set (so it stops taking the set above's). */
+  cleared: number | null;
 }
 function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
   const bodyweight = equipment === "bodyweight";
@@ -617,6 +619,7 @@ function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
     step: unit === "lb" ? 1 : 0.5,
     format: (v) => (bodyweight ? (v ? `+${fmtNum(v)}` : "—") : fmtNum(v)),
     emptyLabel: bodyweight ? "—" : null,
+    cleared: bodyweight ? 0 : null,
   };
 }
 
@@ -665,6 +668,7 @@ const SetRow = memo(function SetRow({
                 value={set.weight}
                 hint={weightHint}
                 hintLabel={weightHint === null ? weight.emptyLabel : null}
+                cleared={weight.cleared}
                 step={weight.step}
                 min={0}
                 max={1000}
@@ -802,9 +806,12 @@ function RestSheet({
 
 function SetSheet({
   setId,
+  addOn,
   onClose,
 }: {
   setId: string | null;
+  /** A bodyweight exercise with added weight: offer "no add-on" for this one set. */
+  addOn: boolean;
   onClose: () => void;
 }) {
   const set = useStore((s) => (setId ? s.sets[setId] : undefined), [setId]);
@@ -860,6 +867,17 @@ function SetSheet({
           >
             {set.is_warmup ? t("Make it a working set") : t("Warm-up set")}
           </SheetAction>
+          {addOn && set.weight !== 0 && (
+            <SheetAction
+              icon="close"
+              onClick={() => {
+                updateSet(set.id, { weight: 0 });
+                onClose();
+              }}
+            >
+              {t("No added weight in this set")}
+            </SheetAction>
+          )}
           <SheetAction
             icon="copy"
             onClick={() => {
