@@ -205,7 +205,7 @@ export const HE: Record<string, string> = {
   removed: "הוסר",
   "Added ({unit})": "תוספת ({unit})",
   "Add weight": "להוסיף משקל",
-  "No added weight": "בלי תוספת משקל",
+  "Bodyweight only": "משקל גוף בלבד",
   More: "יותר",
   Less: "פחות",
   added: "נוסף",

@@ -98,7 +98,8 @@ export const ExerciseCard = memo(function ExerciseCard({
     [we?.exercise_id],
   );
   const [setSheet, setSetSheet] = useState<string | null>(null);
-  const [addingWeight, setAddingWeight] = useState(false);
+  // Bodyweight exercises: follow last time ("auto"), or what was chosen here.
+  const [weightMode, setWeightMode] = useState<"auto" | "show" | "hide">("auto");
 
   const perSide = useStore((s) => isPerSide(s, exercise), [exercise?.id]);
   const timeKey = useStore(
@@ -145,7 +146,9 @@ export const ExerciseCard = memo(function ExerciseCard({
   // Bodyweight exercises show reps only, unless weight is added (now, last time, or asked for).
   const bodyweight = exercise.equipment === "bodyweight";
   const added = sets.some((x) => (x.weight ?? 0) > 0) || lastWork.some((x) => (x.weight ?? 0) > 0);
-  const showWeight = !bodyweight || added || addingWeight;
+  // A set already done with added weight keeps the column, whatever was chosen.
+  const doneWithWeight = sets.some((x) => x.completed && (x.weight ?? 0) > 0);
+  const showWeight = !bodyweight || doneWithWeight || (weightMode === "auto" ? added : weightMode === "show");
   const cols = showWeight ? "grid-cols-[48px_1fr_1fr_56px]" : "grid-cols-[48px_1fr_56px]";
 
   const onToggle = (
@@ -222,7 +225,7 @@ export const ExerciseCard = memo(function ExerciseCard({
       const above: { weight: number | null; reps: number | null } | null =
         prev && prev.weight !== null ? prev : null;
       const fill: { weight: number | null; reps: number | null } = {
-        weight: x.weight ?? above?.weight ?? last?.weight ?? null,
+        weight: bodyweight && !showWeight ? null : (x.weight ?? above?.weight ?? last?.weight ?? null),
         reps:
           x.reps ??
           above?.reps ??
@@ -404,13 +407,20 @@ export const ExerciseCard = memo(function ExerciseCard({
               >
                 <Icon name="plus" size={19} /> {t("Add set")}
               </button>
-              {bodyweight && !added && isLive && (
+              {bodyweight && isLive && !(showWeight && doneWithWeight) && (
                 <button
                   type="button"
-                  onClick={() => setAddingWeight(!addingWeight)}
+                  onClick={() => {
+                    if (showWeight) {
+                      // Bodyweight only today: the sets still to do lose the added weight.
+                      for (const x of sets) if (!x.completed && x.weight !== null) updateSet(x.id, { weight: null });
+                      setWeightMode("hide");
+                    } else setWeightMode("show");
+                    haptic(8);
+                  }}
                   className="press mx-auto mt-1 block px-3 py-2 text-[14px] font-medium text-accent-ink"
                 >
-                  {addingWeight ? t("No added weight") : `+ ${t("Add weight")}`}
+                  {showWeight ? t("Bodyweight only") : `+ ${t("Add weight")}`}
                 </button>
               )}
             </>
