@@ -580,6 +580,8 @@ interface WeightScale {
   step: number;
   min: number;
   format: (v: number) => string;
+  /** Bodyweight exercises: the tag that takes added weight back off. */
+  resetLabel: string | null;
 }
 function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
   const bodyweight = equipment === "bodyweight";
@@ -588,6 +590,7 @@ function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
     min: 0,
     // On a bodyweight exercise the weight is what you add: empty or 0 reads "BW", 5 reads "+5".
     format: (v) => (bodyweight ? (v === 0 ? tr("BW") : `+${fmtNum(v)}`) : fmtNum(v)),
+    resetLabel: bodyweight ? tr("Bodyweight") : null,
   };
 }
 
@@ -638,6 +641,7 @@ const SetRow = memo(function SetRow({
               max={1000}
               decimal
               format={weight.format}
+              resetLabel={weight.resetLabel}
               done={set.completed}
               onCommit={(v) => updateSet(set.id, { weight: v })}
             />

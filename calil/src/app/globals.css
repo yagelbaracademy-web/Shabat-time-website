@@ -423,3 +423,23 @@ html.workout-mode body {
     animation: none;
   }
 }
+
+/* The "Bodyweight" tag above an awake cell: rises a touch and fades in, centred over it. */
+.tag-in {
+  transform: translate(-50%, -100%);
+  animation: tag-in 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.tag-in:active {
+  transform: translate(-50%, -100%) scale(0.96);
+}
+@keyframes tag-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-100% + 6px)) scale(0.96);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tag-in {
+    animation: none;
+  }
+}

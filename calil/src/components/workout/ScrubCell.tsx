@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { fmtNum, haptic, parseNum } from "@/lib/format";
 import { tr } from "@/lib/i18n";
+import { Icon } from "../icons";
 
 const PX = 36; // finger travel per step, and the gap between the faint neighbours
 const SLOP = 7; // less than this is a tap, more sideways is a swipe
@@ -27,6 +29,7 @@ export function ScrubCell({
   done,
   peek,
   hintLabel,
+  resetLabel,
   onCommit,
 }: {
   value: number | null;
@@ -43,6 +46,8 @@ export function ScrubCell({
   done: boolean;
   /** Nudge once to show that it can be changed in place. */
   peek?: boolean;
+  /** While awake with a value above 0, a tag above the cell sets it back to 0 (e.g. "Bodyweight"). */
+  resetLabel?: string | null;
   onCommit: (v: number | null) => void;
 }) {
   const id = useId();
@@ -52,6 +57,8 @@ export function ScrubCell({
   const [scrub, setScrub] = useState<{ base: number; dx: number } | null>(null);
   const [typing, setTyping] = useState<string | null>(null);
   const [active, setActive] = useState(false);
+  const [rect, setRect] = useState<DOMRect | null>(null);
+  const tag = useRef<HTMLButtonElement>(null);
   const swallowClick = useRef(false);
   const idle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const repeat = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -81,6 +88,7 @@ export function ScrubCell({
   };
   const activate = () => {
     setActive(true);
+    setRect(box.current?.getBoundingClientRect() ?? null);
     wake();
     window.dispatchEvent(new CustomEvent(ACTIVE_EVENT, { detail: id }));
   };
@@ -89,12 +97,18 @@ export function ScrubCell({
   useEffect(() => {
     if (!active) return;
     const other = (e: Event) => (e as CustomEvent).detail !== id && setActive(false);
-    const outside = (e: PointerEvent) => !box.current?.contains(e.target as Node) && setActive(false);
+    const outside = (e: PointerEvent) =>
+      !box.current?.contains(e.target as Node) && !tag.current?.contains(e.target as Node) && setActive(false);
+    const follow = () => setRect(box.current?.getBoundingClientRect() ?? null); // the tag stays on its cell
     window.addEventListener(ACTIVE_EVENT, other);
     document.addEventListener("pointerdown", outside, true);
+    window.addEventListener("scroll", follow, { passive: true });
+    window.addEventListener("resize", follow);
     return () => {
       window.removeEventListener(ACTIVE_EVENT, other);
       document.removeEventListener("pointerdown", outside, true);
+      window.removeEventListener("scroll", follow);
+      window.removeEventListener("resize", follow);
     };
   }, [active, id]);
   useEffect(
@@ -279,6 +293,40 @@ export function ScrubCell({
           {stepButton(1)}
         </>
       )}
+
+      {/* Back to plain bodyweight in one tap: a small tag floating just above the cell. */}
+      {resetLabel &&
+        active &&
+        !scrub &&
+        typing === null &&
+        rect &&
+        value !== null &&
+        value > 0 &&
+        createPortal(
+          <button
+            ref={tag}
+            type="button"
+            onClick={() => {
+              current.current = 0;
+              haptic(10);
+              onCommit(0);
+              wake();
+            }}
+            style={{ position: "fixed", left: rect.left + rect.width / 2, top: rect.top - 10, WebkitTapHighlightColor: "transparent" }}
+            className="tag-in z-[46] flex h-9 items-center gap-1.5 rounded-full border border-line bg-card ps-2 pe-3.5 text-[14px] font-semibold whitespace-nowrap text-ink shadow-float"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent-soft text-accent">
+              <Icon name="user" size={14} stroke={2.2} />
+            </span>
+            {resetLabel}
+            {/* A little pointer down to the cell it belongs to. */}
+            <span
+              aria-hidden
+              className="absolute top-full left-1/2 -mt-[5px] h-2.5 w-2.5 -translate-x-1/2 rotate-45 border-e border-b border-line bg-card"
+            />
+          </button>,
+          document.body,
+        )}
 
       {typing === null &&
         (scrub ? (
