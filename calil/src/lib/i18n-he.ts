@@ -203,6 +203,8 @@ export const HE: Record<string, string> = {
   "Save as a plan": "שמירה כתוכנית",
   "Saved to your plans": "נשמר בתוכניות",
   removed: "הוסר",
+  More: "יותר",
+  Less: "פחות",
   "Add a weight instead": "במקום זה להוסיף משקל",
   added: "נוסף",
   "Still training?": "עדיין מתאמנים?",
