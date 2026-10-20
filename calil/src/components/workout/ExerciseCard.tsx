@@ -375,7 +375,11 @@ export const ExerciseCard = memo(function ExerciseCard({
                           ? String(shown.get(x.id)!.reps)
                           : repHint
                       }
-                      onToggle={() => onToggle(x, shown.get(x.id))}
+                      // No weight column (bodyweight only): ticking mustn't bring back last time's added weight.
+                      onToggle={() => {
+                        const fill = shown.get(x.id);
+                        onToggle(x, showWeight || !fill ? fill : { ...fill, weight: null });
+                      }}
                       onMenu={() => setSetSheet(x.id)}
                       weight={showWeight ? weightScaleNow : null}
                       cols={cols}
