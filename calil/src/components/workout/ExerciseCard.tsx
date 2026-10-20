@@ -98,6 +98,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     [we?.exercise_id],
   );
   const [setSheet, setSetSheet] = useState<string | null>(null);
+  const [addingWeight, setAddingWeight] = useState(false);
 
   const perSide = useStore((s) => isPerSide(s, exercise), [exercise?.id]);
   const timeKey = useStore(
@@ -128,7 +129,11 @@ export const ExerciseCard = memo(function ExerciseCard({
     .map((x) =>
       cardio
         ? fmtCardio(x, distUnit)
-        : `${x.weight ? `${exercise.equipment === "bodyweight" ? "+" : ""}${fmtNum(x.weight)}` : exercise.equipment === "bodyweight" ? t("BW") : "–"}×${x.reps}`,
+        : exercise.equipment === "bodyweight"
+          ? x.weight
+            ? `+${fmtNum(x.weight)}×${x.reps}`
+            : t("{n} reps", { n: x.reps ?? 0 })
+          : `${fmtNum(x.weight) || "–"}×${x.reps}`,
     )
     .join("  ·  ");
   const cardioTotal = sets.reduce(
@@ -137,6 +142,11 @@ export const ExerciseCard = memo(function ExerciseCard({
   );
   const isLive = !workout?.completed_at;
   const weightScaleNow = weightScale(exercise.equipment, unit);
+  // Bodyweight exercises show reps only, unless weight is added (now, last time, or asked for).
+  const bodyweight = exercise.equipment === "bodyweight";
+  const added = sets.some((x) => (x.weight ?? 0) > 0) || lastWork.some((x) => (x.weight ?? 0) > 0);
+  const showWeight = !bodyweight || added || addingWeight;
+  const cols = showWeight ? "grid-cols-[48px_1fr_1fr_56px]" : "grid-cols-[48px_1fr_56px]";
 
   const onToggle = (
     x: WorkoutSet,
@@ -212,7 +222,7 @@ export const ExerciseCard = memo(function ExerciseCard({
       const above: { weight: number | null; reps: number | null } | null =
         prev && prev.weight !== null ? prev : null;
       const fill: { weight: number | null; reps: number | null } = {
-        weight: x.weight ?? above?.weight ?? last?.weight ?? (exercise.equipment === "bodyweight" ? 0 : null),
+        weight: x.weight ?? above?.weight ?? last?.weight ?? null,
         reps:
           x.reps ??
           above?.reps ??
@@ -327,15 +337,19 @@ export const ExerciseCard = memo(function ExerciseCard({
             <>
               {/* The set table keeps one layout in every language: Set · Weight · Reps · Done (Done on the right). */}
               <div
-                className="grid grid-cols-[48px_1fr_1fr_56px] px-1 pb-1 text-[13px] text-ink-3"
+                className={`grid ${cols} px-1 pb-1 text-[13px] text-ink-3`}
                 dir="ltr"
               >
                 <span className="text-center">{t("Set")}</span>
-                <span className="text-center">
-                  {perSide
-                    ? t("Per side ({unit})", { unit: t(unit) })
-                    : t("Weight ({unit})", { unit: t(unit) })}
-                </span>
+                {showWeight && (
+                  <span className="text-center">
+                    {bodyweight
+                      ? t("Added ({unit})", { unit: t(unit) })
+                      : perSide
+                        ? t("Per side ({unit})", { unit: t(unit) })
+                        : t("Weight ({unit})", { unit: t(unit) })}
+                  </span>
+                )}
                 <span className="text-center">{t("Reps")}</span>
                 <span className="text-center">{t("Done")}</span>
               </div>
@@ -360,7 +374,8 @@ export const ExerciseCard = memo(function ExerciseCard({
                       }
                       onToggle={() => onToggle(x, shown.get(x.id))}
                       onMenu={() => setSetSheet(x.id)}
-                      weight={weightScaleNow}
+                      weight={showWeight ? weightScaleNow : null}
+                      cols={cols}
                       onDelete={() => {
                         const removed = deleteSet(x.id);
                         if (removed)
@@ -389,6 +404,15 @@ export const ExerciseCard = memo(function ExerciseCard({
               >
                 <Icon name="plus" size={19} /> {t("Add set")}
               </button>
+              {bodyweight && !added && isLive && (
+                <button
+                  type="button"
+                  onClick={() => setAddingWeight(!addingWeight)}
+                  className="press mx-auto mt-1 block px-3 py-2 text-[14px] font-medium text-accent-ink"
+                >
+                  {addingWeight ? t("No added weight") : `+ ${t("Add weight")}`}
+                </button>
+              )}
             </>
           )}
         </div>
@@ -410,7 +434,9 @@ export const ExerciseCard = memo(function ExerciseCard({
                 {cardio
                   ? fmtCardio(x, distUnit) || "—"
                   : x.weight !== null || x.reps !== null
-                    ? `${exercise.equipment === "bodyweight" ? (x.weight ? `+${fmtNum(x.weight)}` : t("BW")) : fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
+                    ? exercise.equipment === "bodyweight" && !x.weight
+                      ? t("{n} reps", { n: x.reps ?? "–" })
+                      : `${exercise.equipment === "bodyweight" ? "+" : ""}${fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
                     : "—"}
                 <span
                   className={`flex h-5 w-5 items-center justify-center rounded-full ${x.completed ? "bg-accent text-white" : "border-[1.5px] border-ink-3/60"}`}
@@ -564,22 +590,19 @@ function CoachNote({ text }: { text: string }) {
 
 /* ───────────────────────────── set row ───────────────────────────── */
 
-/** How a weight steps and reads: plates for a bar, whole kilos for dumbbells; 0 is bodyweight. */
+/** How a weight steps and reads. On a bodyweight exercise it's what you add: 5 reads "+5". */
 interface WeightScale {
   step: number;
-  min: number;
   format: (v: number) => string;
-  /** Bodyweight exercises: the tag that takes added weight back off. */
-  resetLabel: string | null;
+  /** What an empty cell shows when there's no hint. */
+  emptyLabel: string | null;
 }
 function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
   const bodyweight = equipment === "bodyweight";
   return {
     step: unit === "lb" ? 1 : 0.5,
-    min: 0,
-    // On a bodyweight exercise the weight is what you add: empty or 0 reads "BW", 5 reads "+5".
-    format: (v) => (bodyweight ? (v === 0 ? tr("BW") : `+${fmtNum(v)}`) : fmtNum(v)),
-    resetLabel: bodyweight ? tr("Bodyweight") : null,
+    format: (v) => (bodyweight ? (v ? `+${fmtNum(v)}` : "—") : fmtNum(v)),
+    emptyLabel: bodyweight ? "—" : null,
   };
 }
 
@@ -592,6 +615,7 @@ const SetRow = memo(function SetRow({
   onMenu,
   onDelete,
   weight,
+  cols,
 }: {
   set: WorkoutSet;
   label: string;
@@ -600,7 +624,9 @@ const SetRow = memo(function SetRow({
   onToggle: () => void;
   onMenu: () => void;
   onDelete: () => void;
-  weight: WeightScale;
+  /** null: no weight column (a bodyweight exercise with nothing added). */
+  weight: WeightScale | null;
+  cols: string;
 }) {
   return (
     <div>
@@ -609,7 +635,7 @@ const SetRow = memo(function SetRow({
         <div
           className={`rounded-[16px] transition-colors duration-200 ${set.completed ? "bg-[#eef5fe]" : "bg-fill"} ${set.is_warmup ? "opacity-70" : ""}`}
         >
-          <div className="grid grid-cols-[48px_1fr_1fr_56px] items-center">
+          <div className={`grid ${cols} items-center`}>
             <button
               type="button"
               onClick={onMenu}
@@ -619,19 +645,21 @@ const SetRow = memo(function SetRow({
             >
               {label}
             </button>
-            <ScrubCell
-              label={tr("Set {n} weight", { n: set.set_number })}
-              value={set.weight}
-              hint={weightHint}
-              step={weight.step}
-              min={weight.min}
-              max={1000}
-              decimal
-              format={weight.format}
-              resetLabel={weight.resetLabel}
-              done={set.completed}
-              onCommit={(v) => updateSet(set.id, { weight: v })}
-            />
+            {weight && (
+              <ScrubCell
+                label={tr("Set {n} weight", { n: set.set_number })}
+                value={set.weight}
+                hint={weightHint}
+                hintLabel={weightHint === null ? weight.emptyLabel : null}
+                step={weight.step}
+                min={0}
+                max={1000}
+                decimal
+                format={weight.format}
+                done={set.completed}
+                onCommit={(v) => updateSet(set.id, { weight: v })}
+              />
+            )}
             <ScrubCell
               label={tr("Set {n} reps", { n: set.set_number })}
               value={set.reps}
