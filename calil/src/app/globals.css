@@ -401,3 +401,25 @@ html.workout-mode body {
     animation: none;
   }
 }
+
+/* A set's number nudges sideways once, to show it can be swiped. */
+.scrub-peek {
+  animation: scrub-peek 1100ms cubic-bezier(0.3, 0.7, 0.3, 1) 700ms both;
+}
+@keyframes scrub-peek {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  35% {
+    transform: translateX(-12px);
+  }
+  65% {
+    transform: translateX(5px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrub-peek {
+    animation: none;
+  }
+}

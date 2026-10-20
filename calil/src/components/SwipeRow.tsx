@@ -89,6 +89,8 @@ export function SwipeRow({
 
   const onDown = (e: React.PointerEvent) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    // A control that uses sideways swipes itself (e.g. a set's number) keeps them.
+    if ((e.target as Element).closest("[data-no-swipe]")) return;
     drag.current = { x: e.clientX, y: e.clientY, base: x, axis: null, pid: e.pointerId };
     setRowW(width());
     if (row.current) {

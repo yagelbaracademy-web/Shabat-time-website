@@ -35,11 +35,11 @@ import type { WorkoutSet } from "@/lib/types";
 import { ExerciseIcon } from "../ExerciseIcon";
 import { EditExerciseSheet } from "../ChangeExercise";
 import { MachineSheet } from "./MachineSheet";
-import { getOnboarding, setOnboarding } from "@/lib/onboarding";
+import { getOnboarding, markSeen, setOnboarding } from "@/lib/onboarding";
 import { track } from "@/lib/track";
 import { SortableList } from "../SortableList";
 import { CardioRows } from "./CardioRows";
-import { SetPicker } from "./SetPicker";
+import { ScrubCell } from "./ScrubCell";
 import { SwipeRow } from "../SwipeRow";
 import { Icon } from "../icons";
 import { Sheet, SheetAction, toast } from "../ui";
@@ -98,12 +98,19 @@ export const ExerciseCard = memo(function ExerciseCard({
     [we?.exercise_id],
   );
   const [setSheet, setSetSheet] = useState<string | null>(null);
-  const [picking, setPicking] = useState<string | null>(null);
+
   const perSide = useStore((s) => isPerSide(s, exercise), [exercise?.id]);
   const timeKey = useStore(
     (s) => (workout?.completed_at ? exerciseTimeKey(s, weId) : ""),
     [weId, workout?.completed_at],
   );
+
+  const canPeek = expanded && !workout?.completed_at && !!exercise && !isCardio(exercise);
+  useEffect(() => {
+    if (!canPeek || getOnboarding().seen?.["scrub-peek"]) return;
+    const t = setTimeout(() => markSeen("scrub-peek"), 2200);
+    return () => clearTimeout(t);
+  }, [canPeek]);
 
   if (!we || !exercise) return null;
 
@@ -136,6 +143,10 @@ export const ExerciseCard = memo(function ExerciseCard({
     0,
   );
   const isLive = !workout?.completed_at;
+  const weightScaleNow = weightScale(exercise.equipment, unit);
+  // The first time sets are on screen, one number nudges sideways to show it slides.
+  const firstOpen = sets.find((x) => !x.completed && !x.is_warmup);
+  const peekId = expanded && isLive && !cardio && !getOnboarding().seen?.["scrub-peek"] ? firstOpen?.id ?? null : null;
 
   const onToggle = (
     x: WorkoutSet,
@@ -359,7 +370,8 @@ export const ExerciseCard = memo(function ExerciseCard({
                       }
                       onToggle={() => onToggle(x, shown.get(x.id))}
                       onMenu={() => setSetSheet(x.id)}
-                      onPick={() => setPicking(x.id)}
+                      weight={weightScaleNow}
+                      peek={peekId === x.id}
                       onDelete={() => {
                         const removed = deleteSet(x.id);
                         if (removed)
@@ -527,13 +539,7 @@ export const ExerciseCard = memo(function ExerciseCard({
       />
 
       <SetSheet setId={setSheet} onClose={() => setSetSheet(null)} />
-      <SetPicker
-        setId={picking}
-        hint={picking ? (shown.get(picking) ?? null) : null}
-        equipment={exercise.equipment}
-        perSide={perSide}
-        onClose={() => setPicking(null)}
-      />
+
       <MachineSheet
         open={machineOpen}
         onClose={() => setMachineOpen(false)}
@@ -569,36 +575,21 @@ function CoachNote({ text }: { text: string }) {
 
 /* ───────────────────────────── set row ───────────────────────────── */
 
-/** A set's number: tap it to pick on a wheel (or type) in the set picker. */
-function NumberCell({
-  value,
-  placeholder,
-  label,
-  done,
-  bodyweight,
-  onTap,
-}: {
-  value: number | null;
-  placeholder: string;
-  label: string;
-  done: boolean;
-  /** 0 means bodyweight here (the weight column). */
-  bodyweight?: boolean;
-  onTap: () => void;
-}) {
-  const shown = value === null ? null : bodyweight && value === 0 ? tr("BW") : fmtNum(value);
-  return (
-    <button
-      type="button"
-      aria-label={`${label}: ${shown ?? placeholder}`}
-      onClick={onTap}
-      className={`press tnum h-12 w-full min-w-0 truncate rounded-[12px] text-center ${
-        shown === null ? "text-[19px] text-ink-3/70" : `${shown.length > 4 ? "text-[15px]" : "text-[19px]"} text-ink ${done ? "font-semibold" : ""}`
-      }`}
-    >
-      {shown ?? placeholder}
-    </button>
-  );
+/** How a weight steps and reads: plates for a bar, whole kilos for dumbbells; 0 is bodyweight. */
+interface WeightScale {
+  step: number;
+  min: number;
+  format: (v: number) => string;
+}
+function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
+  const lb = unit === "lb";
+  const bodyweight = equipment === "bodyweight";
+  return {
+    step: equipment === "dumbbell" || equipment === "kettlebell" ? (lb ? 2.5 : 1) : lb ? 5 : 2.5,
+    // On a bodyweight exercise, below 0 is help (an assisted machine), above it is added weight.
+    min: bodyweight ? -200 : 0,
+    format: (v) => (v === 0 ? tr("BW") : bodyweight ? (v > 0 ? `+${fmtNum(v)}` : `−${fmtNum(-v)}`) : fmtNum(v)),
+  };
 }
 
 const SetRow = memo(function SetRow({
@@ -609,7 +600,8 @@ const SetRow = memo(function SetRow({
   onToggle,
   onMenu,
   onDelete,
-  onPick,
+  weight,
+  peek,
 }: {
   set: WorkoutSet;
   label: string;
@@ -618,7 +610,8 @@ const SetRow = memo(function SetRow({
   onToggle: () => void;
   onMenu: () => void;
   onDelete: () => void;
-  onPick: () => void;
+  weight: WeightScale;
+  peek: boolean;
 }) {
   return (
     <div>
@@ -637,20 +630,29 @@ const SetRow = memo(function SetRow({
             >
               {label}
             </button>
-            <NumberCell
+            <ScrubCell
               label={tr("Set {n} weight", { n: set.set_number })}
               value={set.weight}
-              bodyweight
+              hint={weightHint}
+              step={weight.step}
+              min={weight.min}
+              max={1000}
+              decimal
+              format={weight.format}
               done={set.completed}
-              placeholder={weightHint === 0 ? tr("BW") : weightHint !== null ? fmtNum(weightHint) : "–"}
-              onTap={onPick}
+              onCommit={(v) => updateSet(set.id, { weight: v })}
             />
-            <NumberCell
+            <ScrubCell
               label={tr("Set {n} reps", { n: set.set_number })}
               value={set.reps}
+              hint={repHint !== null && /^\d+$/.test(repHint) ? Number(repHint) : repHint ? parseInt(repHint, 10) || null : null}
+              hintLabel={repHint}
+              step={1}
+              max={500}
+              format={String}
               done={set.completed}
-              placeholder={repHint ?? "–"}
-              onTap={onPick}
+              peek={peek}
+              onCommit={(v) => updateSet(set.id, { reps: v })}
             />
             <div className="flex items-center justify-center">
               <button
@@ -826,6 +828,15 @@ function SetSheet({
             }}
           >
             {set.is_warmup ? t("Make it a working set") : t("Warm-up set")}
+          </SheetAction>
+          <SheetAction
+            icon="user"
+            onClick={() => {
+              updateSet(set.id, { weight: set.weight === 0 ? null : 0 });
+              onClose();
+            }}
+          >
+            {set.weight === 0 ? t("Add a weight instead") : t("Bodyweight")}
           </SheetAction>
           <SheetAction
             icon="copy"
