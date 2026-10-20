@@ -108,8 +108,10 @@ export function ScrubCell({
   const shown = live ?? value;
   const text = shown === null ? null : format(shown);
 
-  const bump = (d: number) => {
-    const next = roundStep(clamp(current.current + d * step));
+  const bump = (d: number, size = step) => {
+    // A bigger step lands on its own grid (e.g. 42.5 → 45, not 45.5).
+    const raw = current.current + d * size;
+    const next = roundStep(clamp(size > step ? (d > 0 ? Math.floor(raw / size) : Math.ceil(raw / size)) * size : raw));
     if (next === current.current && value !== null) return false;
     current.current = next;
     haptic(6);
@@ -121,8 +123,10 @@ export function ScrubCell({
     bump(d);
     wake();
     let delay = 380;
+    let n = 0;
     const tick = () => {
-      if (!bump(d)) return;
+      // Held a while: bigger jumps (×5, 2.5 kg for half-kilo steps), so far numbers come quickly.
+      if (!bump(d, ++n > 8 ? step * 5 : step)) return;
       wake();
       delay = Math.max(70, delay * 0.82);
       repeat.current = setTimeout(tick, delay);

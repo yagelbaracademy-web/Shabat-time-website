@@ -135,7 +135,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     .map((x) =>
       cardio
         ? fmtCardio(x, distUnit)
-        : `${x.weight ? fmtNum(x.weight) : t("BW")}×${x.reps}`,
+        : `${x.weight ? `${exercise.equipment === "bodyweight" ? "+" : ""}${fmtNum(x.weight)}` : exercise.equipment === "bodyweight" ? t("BW") : "–"}×${x.reps}`,
     )
     .join("  ·  ");
   const cardioTotal = sets.reduce(
@@ -421,7 +421,7 @@ export const ExerciseCard = memo(function ExerciseCard({
                 {cardio
                   ? fmtCardio(x, distUnit) || "—"
                   : x.weight !== null || x.reps !== null
-                    ? `${x.weight === 0 || (x.weight === null && exercise.equipment === "bodyweight") ? t("BW") : fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
+                    ? `${exercise.equipment === "bodyweight" ? (x.weight ? `+${fmtNum(x.weight)}` : t("BW")) : fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
                     : "—"}
                 <span
                   className={`flex h-5 w-5 items-center justify-center rounded-full ${x.completed ? "bg-accent text-white" : "border-[1.5px] border-ink-3/60"}`}
@@ -582,13 +582,12 @@ interface WeightScale {
   format: (v: number) => string;
 }
 function weightScale(equipment: string | null, unit: "kg" | "lb"): WeightScale {
-  const lb = unit === "lb";
   const bodyweight = equipment === "bodyweight";
   return {
-    step: equipment === "dumbbell" || equipment === "kettlebell" ? (lb ? 2.5 : 1) : lb ? 5 : 2.5,
-    // On a bodyweight exercise, below 0 is help (an assisted machine), above it is added weight.
-    min: bodyweight ? -200 : 0,
-    format: (v) => (v === 0 ? tr("BW") : bodyweight ? (v > 0 ? `+${fmtNum(v)}` : `−${fmtNum(-v)}`) : fmtNum(v)),
+    step: unit === "lb" ? 1 : 0.5,
+    min: 0,
+    // On a bodyweight exercise the weight is what you add: empty or 0 reads "BW", 5 reads "+5".
+    format: (v) => (bodyweight ? (v === 0 ? tr("BW") : `+${fmtNum(v)}`) : fmtNum(v)),
   };
 }
 
@@ -828,15 +827,6 @@ function SetSheet({
             }}
           >
             {set.is_warmup ? t("Make it a working set") : t("Warm-up set")}
-          </SheetAction>
-          <SheetAction
-            icon="user"
-            onClick={() => {
-              updateSet(set.id, { weight: set.weight === 0 ? null : 0 });
-              onClose();
-            }}
-          >
-            {set.weight === 0 ? t("Add a weight instead") : t("Bodyweight")}
           </SheetAction>
           <SheetAction
             icon="copy"

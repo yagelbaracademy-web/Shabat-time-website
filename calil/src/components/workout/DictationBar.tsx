@@ -30,41 +30,56 @@ export const ASK_EVENT = "calil:ask";
 
 type Mode = "idle" | "recording" | "transcribing" | "result";
 
-/** What the bar can do, shown as gently rotating examples whenever the field is empty. */
-const EXAMPLES = [
-  "Bench press 40 kg 10 reps",
+/**
+ * Examples that fit the moment, rotating whenever the field is empty. An empty workout gets
+ * ways to fill it; a workout under way gets things you'd say about it, with your own
+ * exercise and numbers.
+ */
+const EMPTY_EXAMPLES = [
   "Build me a 40-minute back workout",
-  "Third set 42.5 by 10, wide grip",
-  "How long should I rest between sets?",
-  "Note: seat on 4",
+  "Add bench press, 3 sets of 10",
   "Add a treadmill at the start",
-  "Treadmill 20 minutes 3 km",
   "Paste a whole workout here",
 ];
-/**
- * The first example speaks your language: the exercise in front of you, with the numbers
- * it's showing (or modest ones for a first time), so it reads like something you'd say.
- */
-function useOwnExample(workoutId: string, focusWeId: string | null) {
+function useExamples(workoutId: string, focusWeId: string | null): string[] {
   const t = useT();
-  return useStore((s) => {
-    const wes = workoutExercises(s, workoutId).filter((we) => !isCardio(s.exercises[we.exercise_id]));
-    const we = (focusWeId && wes.find((x) => x.id === focusWeId)) || wes.find((x) => setsOf(s, x.id).some((y) => !y.completed));
-    if (!we) return null;
+  const key = useStore((s) => {
+    const wes = workoutExercises(s, workoutId);
+    if (!wes.length) return "";
+    const we =
+      (focusWeId && wes.find((x) => x.id === focusWeId)) ||
+      wes.find((x) => setsOf(s, x.id).some((y) => !y.completed)) ||
+      wes[wes.length - 1];
+    const ex = s.exercises[we.exercise_id];
+    const name = exName(ex);
+    const other = wes.length > 1 ? exName(s.exercises[wes[0].id === we.id ? wes[1].exercise_id : wes[0].exercise_id]) : "";
+    if (isCardio(ex)) return JSON.stringify({ name, cardio: true, other });
     const sets = setsOf(s, we.id);
     const open = sets.find((y) => !y.completed && !y.is_warmup);
     const ref = open ?? sets[sets.length - 1];
     const last = lastSession(s, we.exercise_id, workoutId)?.sets.find((y) => y.completed && !y.is_warmup);
     const w = ref?.weight ?? sets.find((y) => y.completed)?.weight ?? last?.weight ?? null;
     const r = ref?.reps ?? last?.reps ?? 10;
-    const name = `\u2068${exName(s.exercises[we.exercise_id])}\u2069`;
-    return w ? t("{name} {w} kilos {r} reps", { name, w: fmtNum(w), r }) : t("{name} {r} reps", { name, r });
+    return JSON.stringify({ name, w: ex?.equipment === "bodyweight" ? null : w, r, other });
   }, [workoutId, focusWeId]);
+  if (!key) return EMPTY_EXAMPLES.map((x) => t(x));
+  const k = JSON.parse(key) as { name: string; cardio?: boolean; w?: number | null; r?: number; other: string };
+  const name = `\u2068${k.name}\u2069`; // keeps an English name from scrambling Hebrew order
+  return [
+    k.cardio
+      ? t("{name} 20 minutes", { name })
+      : k.w
+        ? t("{name} {w} kilos {r} reps", { name, w: fmtNum(k.w), r: k.r ?? 10 })
+        : t("{name} {r} reps", { name, r: k.r ?? 10 }),
+    t("Note: seat on 4"),
+    t("How long should I rest between sets?"),
+    ...(k.other ? [t("Move {name} to the end", { name: `\u2068${k.other}\u2069` })] : []),
+    t("Add squat, 3 sets of 10"),
+  ];
 }
 
 /** Rotating example hint: soft fade, pauses while focused, static with reduced motion. */
-function useRotatingHint(active: boolean, own: string | null) {
-  const list = own ? [own, ...EXAMPLES.slice(1)] : EXAMPLES;
+function useRotatingHint(active: boolean, list: string[]) {
   const [i, setI] = useState(0);
   useEffect(() => {
     if (
@@ -103,14 +118,14 @@ export function DictationBar({
   const [micOk] = useState(() => canRecord());
   const [focused, setFocused] = useState(false);
   const learning = true; // examples stay: they're the only hint of everything the bar can do
-  const own = useOwnExample(workoutId, focusWeId);
+  const examples = useExamples(workoutId, focusWeId);
   const example = useRotatingHint(
     learning &&
       !focused &&
       !draft &&
       mode !== "recording" &&
       mode !== "transcribing",
-    own,
+    examples,
   );
   const rec = useRef<Recording | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
