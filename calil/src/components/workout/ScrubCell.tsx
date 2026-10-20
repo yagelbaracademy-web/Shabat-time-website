@@ -6,16 +6,13 @@ import { fmtNum, haptic, parseNum } from "@/lib/format";
 import { tr } from "@/lib/i18n";
 import { Icon } from "../icons";
 
-const PX = 36; // finger travel per step, and the gap between the faint neighbours
-const SLOP = 7; // less than this is a tap, more sideways is a swipe
 const IDLE_MS = 4000; // an active cell settles back after this long untouched
 const ACTIVE_EVENT = "calil:cell-active"; // one active cell at a time
 
 /**
  * A set's weight or reps.
  * Tap: the cell wakes up with − and + on its sides (hold to keep counting).
- * Tap the number again: type it. Swiping sideways steps it too, as a bonus.
- * No browser gestures to fight, so it behaves the same in every phone browser.
+ * Tap the number again: type it. Sideways swipes stay with the row (swipe to delete).
  */
 export function ScrubCell({
   value,
@@ -27,7 +24,6 @@ export function ScrubCell({
   format,
   label,
   done,
-  peek,
   hintLabel,
   resetLabel,
   onCommit,
@@ -44,8 +40,6 @@ export function ScrubCell({
   format: (v: number) => string;
   label: string;
   done: boolean;
-  /** Nudge once to show that it can be changed in place. */
-  peek?: boolean;
   /** While awake with a value above 0, a tag above the cell sets it back to 0 (e.g. "Bodyweight"). */
   resetLabel?: string | null;
   onCommit: (v: number | null) => void;
@@ -53,13 +47,10 @@ export function ScrubCell({
   const id = useId();
   const box = useRef<HTMLDivElement>(null);
   const input = useRef<HTMLInputElement>(null);
-  const press = useRef<{ x: number; y: number; pid: number; base: number; axis: "x" | "y" | null } | null>(null);
-  const [scrub, setScrub] = useState<{ base: number; dx: number } | null>(null);
   const [typing, setTyping] = useState<string | null>(null);
   const [active, setActive] = useState(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
   const tag = useRef<HTMLButtonElement>(null);
-  const swallowClick = useRef(false);
   const idle = useRef<ReturnType<typeof setTimeout> | null>(null);
   const repeat = useRef<ReturnType<typeof setTimeout> | null>(null);
   // The latest value, for the hold-to-repeat loop (it outlives a render).
@@ -70,17 +61,6 @@ export function ScrubCell({
 
   const clamp = (v: number) => Math.min(max, Math.max(min, decimal ? v : Math.round(v)));
   const roundStep = (v: number) => Math.round(v * 100) / 100;
-  const stepsOf = (dx: number) => Math.round(-dx / PX); // swipe left = up
-  const live = scrub ? roundStep(clamp(scrub.base + stepsOf(scrub.dx) * step)) : null;
-  const lastTick = useRef<number | null>(null);
-
-  useEffect(() => {
-    if (live !== null && live !== lastTick.current) {
-      if (lastTick.current !== null) haptic(5);
-      lastTick.current = live;
-    }
-  }, [live]);
-
   /** Keeps the cell awake a little longer after each touch. */
   const wake = () => {
     if (idle.current) clearTimeout(idle.current);
@@ -119,8 +99,7 @@ export function ScrubCell({
     [],
   );
 
-  const shown = live ?? value;
-  const text = shown === null ? null : format(shown);
+  const text = value === null ? null : format(value);
 
   const bump = (d: number, size = step) => {
     // A bigger step lands on its own grid (e.g. 42.5 → 45, not 45.5).
@@ -152,45 +131,9 @@ export function ScrubCell({
     repeat.current = null;
   };
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (typing !== null || (e.pointerType === "mouse" && e.button !== 0)) return;
-    press.current = { x: e.clientX, y: e.clientY, pid: e.pointerId, base: value ?? hint ?? 0, axis: null };
-  };
-  const onPointerMove = (e: React.PointerEvent) => {
-    const p = press.current;
-    if (!p || p.pid !== e.pointerId) return;
-    const dx = e.clientX - p.x;
-    const dy = e.clientY - p.y;
-    if (!p.axis) {
-      if (Math.abs(dx) < SLOP && Math.abs(dy) < SLOP) return;
-      p.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-      if (p.axis === "y") {
-        press.current = null; // a vertical move is the page scrolling
-        return;
-      }
-      e.currentTarget.setPointerCapture(e.pointerId);
-      lastTick.current = null;
-    }
-    setScrub({ base: p.base, dx });
-  };
-  const onPointerUp = () => {
-    const p = press.current;
-    press.current = null;
-    if (!p || p.axis !== "x" || !scrub) return;
-    swallowClick.current = true; // the click that follows a swipe isn't a tap
-    const next = roundStep(clamp(scrub.base + stepsOf(scrub.dx) * step));
-    setScrub(null);
-    if (next !== value) onCommit(next);
-    activate();
-  };
-
   // First tap wakes the cell; a tap on its number while awake opens the keyboard.
   // Focus happens inside the tap itself, so the phone agrees to show the keyboard.
   const onClick = () => {
-    if (swallowClick.current) {
-      swallowClick.current = false;
-      return;
-    }
     if (!active) {
       activate();
       return;
@@ -225,7 +168,6 @@ export function ScrubCell({
   return (
     <div
       ref={box}
-      data-no-swipe
       role="spinbutton"
       aria-label={label}
       aria-valuenow={value ?? undefined}
@@ -241,18 +183,11 @@ export function ScrubCell({
           bump(d);
         } else if (e.key === "Enter") onClick();
       }}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={() => {
-        press.current = null;
-        setScrub(null);
-      }}
       onClick={onClick}
       // No blue tap flash, no text selection or callout from a press on a phone.
       style={{ WebkitTapHighlightColor: "transparent", WebkitTouchCallout: "none", WebkitUserSelect: "none", userSelect: "none" }}
-      className={`relative h-12 w-full min-w-0 touch-pan-y overflow-hidden rounded-[12px] outline-none transition-[background-color,box-shadow] duration-150 focus-visible:shadow-[0_0_0_2px_var(--accent)] ${
-        scrub || active ? "bg-card shadow-[0_0_0_1.5px_rgba(28,116,234,0.45)]" : ""
+      className={`relative h-12 w-full min-w-0 overflow-hidden rounded-[12px] outline-none transition-[background-color,box-shadow] duration-150 focus-visible:shadow-[0_0_0_2px_var(--accent)] ${
+        active ? "bg-card shadow-[0_0_0_1.5px_rgba(28,116,234,0.45)]" : ""
       }`}
     >
       {/* The typed value lives in a real input, focused straight from the tap. */}
@@ -287,7 +222,7 @@ export function ScrubCell({
         }`}
       />
 
-      {typing === null && active && !scrub && (
+      {typing === null && active && (
         <>
           {stepButton(-1)}
           {stepButton(1)}
@@ -297,7 +232,6 @@ export function ScrubCell({
       {/* Back to plain bodyweight in one tap: a small tag floating just above the cell. */}
       {resetLabel &&
         active &&
-        !scrub &&
         typing === null &&
         rect &&
         value !== null &&
@@ -328,36 +262,16 @@ export function ScrubCell({
           document.body,
         )}
 
-      {typing === null &&
-        (scrub ? (
-          // While swiping: the value in the middle, its neighbours faint on both sides.
-          <span aria-hidden className="pointer-events-none absolute inset-0" dir="ltr">
-            {[-2, -1, 0, 1, 2].map((k) => {
-              const v = roundStep((live ?? 0) + k * step);
-              if (v < min || v > max) return null;
-              const frac = -scrub.dx / PX - stepsOf(scrub.dx); // -0.5..0.5 between steps
-              const x = (k - frac) * PX; // moves 1:1 with the finger
-              return (
-                <span
-                  key={k}
-                  className={`tnum absolute top-1/2 left-1/2 whitespace-nowrap ${k === 0 ? "text-[19px] font-semibold text-ink" : "text-[15px] text-ink-3"}`}
-                  style={{ transform: `translate(calc(-50% + ${x}px), -50%)`, opacity: k === 0 ? 1 : Math.max(0, 0.75 - Math.abs(k) * 0.25) }}
-                >
-                  {format(v)}
-                </span>
-              );
-            })}
-          </span>
-        ) : (
+      {typing === null && (
           <span
             aria-hidden
-            className={`tnum pointer-events-none absolute inset-y-0 flex items-center justify-center truncate ${active ? "inset-x-9" : "inset-x-0"} ${peek ? "scrub-peek" : ""} ${
+            className={`tnum pointer-events-none absolute inset-y-0 flex items-center justify-center truncate ${active ? "inset-x-9" : "inset-x-0"} ${
               text === null ? "text-[19px] text-ink-3/70" : `${text.length > 4 || active ? "text-[16px]" : "text-[19px]"} text-ink ${done || active ? "font-semibold" : ""}`
             }`}
           >
             {text ?? hintLabel ?? (hint !== null ? format(hint) : "–")}
           </span>
-        ))}
+      )}
     </div>
   );
 }

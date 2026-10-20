@@ -35,7 +35,7 @@ import type { WorkoutSet } from "@/lib/types";
 import { ExerciseIcon } from "../ExerciseIcon";
 import { EditExerciseSheet } from "../ChangeExercise";
 import { MachineSheet } from "./MachineSheet";
-import { getOnboarding, markSeen, setOnboarding } from "@/lib/onboarding";
+import { getOnboarding, setOnboarding } from "@/lib/onboarding";
 import { track } from "@/lib/track";
 import { SortableList } from "../SortableList";
 import { CardioRows } from "./CardioRows";
@@ -105,13 +105,6 @@ export const ExerciseCard = memo(function ExerciseCard({
     [weId, workout?.completed_at],
   );
 
-  const canPeek = expanded && !workout?.completed_at && !!exercise && !isCardio(exercise);
-  useEffect(() => {
-    if (!canPeek || getOnboarding().seen?.["scrub-peek"]) return;
-    const t = setTimeout(() => markSeen("scrub-peek"), 2200);
-    return () => clearTimeout(t);
-  }, [canPeek]);
-
   if (!we || !exercise) return null;
 
   const repHint =
@@ -144,9 +137,6 @@ export const ExerciseCard = memo(function ExerciseCard({
   );
   const isLive = !workout?.completed_at;
   const weightScaleNow = weightScale(exercise.equipment, unit);
-  // The first time sets are on screen, one number nudges sideways to show it slides.
-  const firstOpen = sets.find((x) => !x.completed && !x.is_warmup);
-  const peekId = expanded && isLive && !cardio && !getOnboarding().seen?.["scrub-peek"] ? firstOpen?.id ?? null : null;
 
   const onToggle = (
     x: WorkoutSet,
@@ -371,7 +361,6 @@ export const ExerciseCard = memo(function ExerciseCard({
                       onToggle={() => onToggle(x, shown.get(x.id))}
                       onMenu={() => setSetSheet(x.id)}
                       weight={weightScaleNow}
-                      peek={peekId === x.id}
                       onDelete={() => {
                         const removed = deleteSet(x.id);
                         if (removed)
@@ -603,7 +592,6 @@ const SetRow = memo(function SetRow({
   onMenu,
   onDelete,
   weight,
-  peek,
 }: {
   set: WorkoutSet;
   label: string;
@@ -613,7 +601,6 @@ const SetRow = memo(function SetRow({
   onMenu: () => void;
   onDelete: () => void;
   weight: WeightScale;
-  peek: boolean;
 }) {
   return (
     <div>
@@ -654,7 +641,6 @@ const SetRow = memo(function SetRow({
               max={500}
               format={String}
               done={set.completed}
-              peek={peek}
               onCommit={(v) => updateSet(set.id, { reps: v })}
             />
             <div className="flex items-center justify-center">
