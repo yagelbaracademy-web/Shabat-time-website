@@ -452,6 +452,14 @@ export function updateSet(setId: string, patch: Partial<Pick<WorkoutSet, "weight
   patchRow("sets", setId, patch);
 }
 
+/** The workout clock starts with the first thing done (a ticked set, or cardio started), once. */
+export function startWorkoutClock(setId: string) {
+  const s = getState();
+  const we = s.sets[setId] && s.workout_exercises[s.sets[setId].workout_exercise_id];
+  const w = we && s.workouts[we.workout_id];
+  if (w && !w.completed_at && !w.clock_started_at) patchRow("workouts", w.id, { clock_started_at: nowIso() });
+}
+
 /** Toggles completion. Returns whether the set is now done and the record it makes, if any. */
 export function toggleSet(setId: string): { done: boolean; pr: PRKind | null } {
   const s = getState();
@@ -459,10 +467,7 @@ export function toggleSet(setId: string): { done: boolean; pr: PRKind | null } {
   if (!x) return { done: false, pr: null };
   const done = !x.completed;
   patchRow("sets", setId, { completed: done, completed_at: done ? nowIso() : null });
-  // The first tick starts the workout clock, once.
-  const we = s.workouts && s.workout_exercises[x.workout_exercise_id];
-  const w = we && s.workouts[we.workout_id];
-  if (done && w && !w.completed_at && !w.clock_started_at) patchRow("workouts", w.id, { clock_started_at: nowIso() });
+  if (done) startWorkoutClock(setId);
   const pr = done ? prOf(setId) : null;
   if (pr) track("pr");
   return { done, pr };

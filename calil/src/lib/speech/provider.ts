@@ -23,7 +23,9 @@ export interface DictationOp {
   exercise: string; // library name, a new name, or "" for the focused exercise
   is_new_exercise: boolean;
   muscle_group: string | null;
-  mode: "log" | "plan" | "note" | "remove";
+  mode: "log" | "plan" | "note" | "remove" | "move";
+  /** 1-based place in the workout, when the user said where it goes. */
+  position?: number | null;
   sets: DictationSet[];
   note: string | null;
 }
@@ -125,10 +127,10 @@ const MIC_ERRORS: Record<string, string> = {
 };
 
 /**
- * Starts recording. Stops by itself after ~1.2s of silence once you've spoken,
- * after 6s if you never speak, or at `maxMs`.
+ * Starts recording. Stops by itself after ~2.5s of silence once you've spoken,
+ * after 8s if you never speak, or at `maxMs`.
  */
-export async function startRecording({ onAutoStop, onLevel, maxMs = 15000 }: RecordOptions): Promise<Recording> {
+export async function startRecording({ onAutoStop, onLevel, maxMs = 60000 }: RecordOptions): Promise<Recording> {
   let stream: MediaStream;
   try {
     stream = await navigator.mediaDevices.getUserMedia({
@@ -174,7 +176,8 @@ export async function startRecording({ onAutoStop, onLevel, maxMs = 15000 }: Rec
       lastLoud = now;
     }
     const reason =
-      spoke && now - lastLoud > 1200 ? "silence" : !spoke && now - started > 6000 ? "no-speech" : now - started > maxMs ? "max" : null;
+      // A pause to think mid-sentence is normal: stop only after a longer silence.
+      spoke && now - lastLoud > 2500 ? "silence" : !spoke && now - started > 8000 ? "no-speech" : now - started > maxMs ? "max" : null;
     if (reason) {
       onAutoStop(reason);
       return;

@@ -1,6 +1,6 @@
 "use client";
 
-import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, removeExercise, renameWorkout, restAfter, skipRest, startRest } from "../actions";
+import { addExercise, addSet, addWarmupSet, completeSet, createExercise, findExerciseByName, removeExercise, renameWorkout, reorderWorkoutExercises, restAfter, skipRest, startRest } from "../actions";
 import { fmtCardio, fmtNum } from "../format";
 import { exName, tr } from "../i18n";
 import { getState, putRows, removeRows } from "../store";
@@ -211,9 +211,21 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
       }
       continue;
     }
+    if (op.mode === "move" && !op.exercise) continue;
     const we = resolveWe(op, workoutId, focusWeId);
     if (!we) continue;
     const name = exName(getState().exercises[we.exercise_id]);
+    if (op.position) {
+      // "Put it first" / "move squat to the end": place it where it was asked.
+      const ids = workoutExercises(getState(), workoutId).map((x) => x.id).filter((id) => id !== we.id);
+      const at = Math.min(op.position - 1, ids.length);
+      ids.splice(at, 0, we.id);
+      reorderWorkoutExercises(ids);
+      if (op.mode === "move") {
+        lines.push(`${name} · ${tr("moved to place {n}", { n: at + 1 })}`);
+        continue;
+      }
+    }
     const touched: WorkoutSet[] = [];
 
     if (op.mode === "plan" && op.sets.length) {
@@ -233,8 +245,11 @@ export function applyInterpretation(interp: Interpretation, workoutId: string, f
       const left = setsOf(getState(), we.id);
       putRows("sets", left.map((x, i) => ({ ...x, set_number: i + 1 })).filter((x, i) => x.set_number !== left[i].set_number));
       const same = op.sets.every((p) => p.weight === op.sets[0].weight && p.reps === op.sets[0].reps && !p.minutes && !p.distance);
+      const empty = op.sets.every((p) => p.weight === null && p.reps === null && !p.minutes && !p.distance);
       lines.push(
-        same && op.sets[0].weight === null && op.sets[0].reps !== null
+        empty
+          ? `${name} · ${tr("added")}`
+          : same && op.sets[0].weight === null && op.sets[0].reps !== null
           ? `${name} · ${tr("{n} sets of {r} reps", { n: op.sets.length, r: op.sets[0].reps })}`
           : same
           ? `${name} · ${tr("{n} sets of {set}", { n: op.sets.length, set: fmtSet(op.sets[0].weight, op.sets[0].reps) })}`

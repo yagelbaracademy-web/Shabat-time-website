@@ -17,6 +17,7 @@ import { BrandBar, Button, Screen, Sheet, SheetAction, Skeleton, toast } from "@
 import { ExerciseCard } from "@/components/workout/ExerciseCard";
 import { ASK_EVENT, DictationBar } from "@/components/workout/DictationBar";
 import { WorkoutGlow } from "@/components/workout/WorkoutGlow";
+import { useCardioRun } from "@/lib/cardio-timer";
 import { track } from "@/lib/track";
 
 export default function WorkoutPage() {
@@ -266,6 +267,8 @@ function WorkoutView({ id }: { id: string }) {
           setTimeout(() => cards.current[weId]?.scrollIntoView({ behavior: "smooth", block: "start" }), 350);
         }}
       />
+
+      {live && !finish && <StillTraining id={id} onFinish={() => setFinish(true)} />}
 
       <FinishSheet
         id={id}
@@ -550,5 +553,103 @@ function AskCalil() {
         ))}
       </div>
     </div>
+  );
+}
+
+const IDLE_MS = 15 * 60 * 1000; // nothing ticked or touched for this long
+const SNOOZE_MS = 20 * 60 * 1000;
+
+/**
+ * Left the workout open? After a quiet stretch (no set ticked, nothing touched, no rest or
+ * cardio running) Calil asks once, kindly, whether you're done. Finishing saves the time up
+ * to the last set, so a forgotten workout doesn't look three hours long. "Still going"
+ * snoozes it, and it asks at most twice per workout.
+ */
+function StillTraining({ id, onFinish }: { id: string; onFinish: () => void }) {
+  const t = useT();
+  const lastAt = useStore(
+    (s) => {
+      const w = s.workouts[id];
+      let at = Math.max(Date.parse(w?.started_at ?? "") || 0, Date.parse(w?.clock_started_at ?? "") || 0);
+      for (const we of workoutExercises(s, id))
+        for (const x of setsOf(s, we.id)) if (x.completed && x.completed_at) at = Math.max(at, Date.parse(x.completed_at));
+      return at;
+    },
+    [id],
+  );
+  const lastSetAt = useStore(
+    (s) => {
+      let at = 0;
+      for (const we of workoutExercises(s, id))
+        for (const x of setsOf(s, we.id)) if (x.completed && x.completed_at) at = Math.max(at, Date.parse(x.completed_at));
+      return at;
+    },
+    [id],
+  );
+  const resting = useStore((s) => !!s.rest);
+  const cardio = useCardioRun();
+  const busy = resting || !!cardio;
+  const [open, setOpen] = useState(false);
+  const [mins, setMins] = useState(0);
+  const touched = useRef(0);
+  const asked = useRef(0);
+  const snoozed = useRef(0);
+
+  useEffect(() => {
+    const touch = () => (touched.current = Date.now());
+    const check = () => {
+      if (document.hidden || busy || asked.current >= 2) return;
+      const now = Date.now();
+      if (now < snoozed.current || now - Math.max(lastAt, touched.current) < IDLE_MS) return;
+      asked.current++;
+      setMins(Math.round((now - (lastSetAt || lastAt)) / 60000));
+      setOpen(true);
+      haptic(10);
+    };
+    const timer = setInterval(check, 30000);
+    // Coming back to the app is the moment it matters most.
+    const onShow = () => !document.hidden && setTimeout(check, 600);
+    document.addEventListener("visibilitychange", onShow);
+    document.addEventListener("pointerdown", touch, { passive: true });
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener("visibilitychange", onShow);
+      document.removeEventListener("pointerdown", touch);
+    };
+  }, [busy, lastAt, lastSetAt]);
+
+  const keepGoing = () => {
+    snoozed.current = Date.now() + SNOOZE_MS;
+    touched.current = Date.now();
+    setOpen(false);
+  };
+
+  return (
+    <Sheet open={open} onClose={keepGoing}>
+      <div className="pb-3 text-center">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent-soft text-accent">
+          <Icon name="clock" size={30} stroke={1.8} />
+        </span>
+        <h2 className="mt-4 text-[22px] font-semibold tracking-[-0.01em]">{t("Still training?")}</h2>
+        <p className="mx-auto mt-1.5 max-w-[320px] text-[16px] leading-snug text-ink-2">
+          {lastSetAt
+            ? t("Your last set was {n} min ago. If you’re done, we’ll save the workout up to that set, so the time stays accurate.", { n: mins })
+            : t("Nothing’s been ticked yet. Keep going, or close it for now.")}
+        </p>
+        <Button
+          className="mt-6 w-full"
+          onClick={() => {
+            setOpen(false);
+            track("idle_finish");
+            onFinish();
+          }}
+        >
+          {lastSetAt ? t("I’m done, save it") : t("Close the workout")}
+        </Button>
+        <Button variant="ghost" className="mt-1 w-full" onClick={keepGoing}>
+          {t("Still going")}
+        </Button>
+      </div>
+    </Sheet>
   );
 }

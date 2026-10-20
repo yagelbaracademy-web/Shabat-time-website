@@ -6,6 +6,7 @@ const paths = {
   chevronLeft: "M15 6l-6 6 6 6",
   chevronDown: "M6 9l6 6 6-6",
   plus: "M12 5v14M5 12h14",
+  arrowUp: "M12 19V5M6 11l6-6 6 6",
   calendar: "M7 3v3M17 3v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z",
   copy: "M9 9h9a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2V9zM15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3",
   user: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5",

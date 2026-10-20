@@ -88,7 +88,7 @@ export function RestPill() {
           />
         </svg>
         <div className="min-w-0 flex-1">
-          <p className="tnum text-[22px] leading-none font-semibold tracking-[-0.01em]">{done ? t("Go") : fmtClock(secs)}</p>
+          <p className="tnum truncate text-[22px] leading-none font-semibold tracking-[-0.01em]">{done ? t("Go") : fmtClock(secs)}</p>
           <p className={`mt-1 text-[13px] ${done ? "text-white/80" : "text-ink-2"}`}>{done ? t("Rest is over") : paused ? t("Paused") : t("Rest")}</p>
         </div>
         {!done && (

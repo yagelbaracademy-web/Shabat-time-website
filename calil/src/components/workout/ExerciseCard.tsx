@@ -19,7 +19,7 @@ import {
   toggleSet,
   updateSet,
 } from "@/lib/actions";
-import { fmtCardio, fmtDuration, fmtNum, haptic, parseNum } from "@/lib/format";
+import { fmtCardio, fmtDuration, fmtNum, haptic } from "@/lib/format";
 import { getState, useStore } from "@/lib/store";
 import { exName, tr, useT } from "@/lib/i18n";
 import {
@@ -39,6 +39,7 @@ import { getOnboarding, setOnboarding } from "@/lib/onboarding";
 import { track } from "@/lib/track";
 import { SortableList } from "../SortableList";
 import { CardioRows } from "./CardioRows";
+import { SetPicker } from "./SetPicker";
 import { SwipeRow } from "../SwipeRow";
 import { Icon } from "../icons";
 import { Sheet, SheetAction, toast } from "../ui";
@@ -97,6 +98,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     [we?.exercise_id],
   );
   const [setSheet, setSetSheet] = useState<string | null>(null);
+  const [picking, setPicking] = useState<string | null>(null);
   const perSide = useStore((s) => isPerSide(s, exercise), [exercise?.id]);
   const timeKey = useStore(
     (s) => (workout?.completed_at ? exerciseTimeKey(s, weId) : ""),
@@ -126,7 +128,7 @@ export const ExerciseCard = memo(function ExerciseCard({
     .map((x) =>
       cardio
         ? fmtCardio(x, distUnit)
-        : `${fmtNum(x.weight) || t("BW")}×${x.reps}`,
+        : `${x.weight ? fmtNum(x.weight) : t("BW")}×${x.reps}`,
     )
     .join("  ·  ");
   const cardioTotal = sets.reduce(
@@ -209,7 +211,7 @@ export const ExerciseCard = memo(function ExerciseCard({
       const above: { weight: number | null; reps: number | null } | null =
         prev && prev.weight !== null ? prev : null;
       const fill: { weight: number | null; reps: number | null } = {
-        weight: x.weight ?? above?.weight ?? last?.weight ?? null,
+        weight: x.weight ?? above?.weight ?? last?.weight ?? (exercise.equipment === "bodyweight" ? 0 : null),
         reps:
           x.reps ??
           above?.reps ??
@@ -357,6 +359,7 @@ export const ExerciseCard = memo(function ExerciseCard({
                       }
                       onToggle={() => onToggle(x, shown.get(x.id))}
                       onMenu={() => setSetSheet(x.id)}
+                      onPick={() => setPicking(x.id)}
                       onDelete={() => {
                         const removed = deleteSet(x.id);
                         if (removed)
@@ -406,7 +409,7 @@ export const ExerciseCard = memo(function ExerciseCard({
                 {cardio
                   ? fmtCardio(x, distUnit) || "—"
                   : x.weight !== null || x.reps !== null
-                    ? `${fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
+                    ? `${x.weight === 0 || (x.weight === null && exercise.equipment === "bodyweight") ? t("BW") : fmtNum(x.weight) || "–"} × ${x.reps ?? "–"}`
                     : "—"}
                 <span
                   className={`flex h-5 w-5 items-center justify-center rounded-full ${x.completed ? "bg-accent text-white" : "border-[1.5px] border-ink-3/60"}`}
@@ -524,6 +527,13 @@ export const ExerciseCard = memo(function ExerciseCard({
       />
 
       <SetSheet setId={setSheet} onClose={() => setSetSheet(null)} />
+      <SetPicker
+        setId={picking}
+        hint={picking ? (shown.get(picking) ?? null) : null}
+        equipment={exercise.equipment}
+        perSide={perSide}
+        onClose={() => setPicking(null)}
+      />
       <MachineSheet
         open={machineOpen}
         onClose={() => setMachineOpen(false)}
@@ -559,66 +569,35 @@ function CoachNote({ text }: { text: string }) {
 
 /* ───────────────────────────── set row ───────────────────────────── */
 
+/** A set's number: tap it to pick on a wheel (or type) in the set picker. */
 function NumberCell({
   value,
-  onCommit,
   placeholder,
-  decimal,
   label,
   done,
+  bodyweight,
+  onTap,
 }: {
   value: number | null;
-  onCommit: (v: number | null) => void;
   placeholder: string;
-  decimal?: boolean;
   label: string;
   done: boolean;
+  /** 0 means bodyweight here (the weight column). */
+  bodyweight?: boolean;
+  onTap: () => void;
 }) {
-  const [text, setText] = useState(fmtNum(value));
-  const focused = useRef(false);
-  useEffect(() => {
-    if (!focused.current) setText(fmtNum(value));
-  }, [value]);
-
+  const shown = value === null ? null : bodyweight && value === 0 ? tr("BW") : fmtNum(value);
   return (
-    <input
-      aria-label={label}
-      inputMode={decimal ? "decimal" : "numeric"}
-      enterKeyHint="next"
-      autoComplete="off"
-      value={text}
-      placeholder={placeholder}
-      onFocus={(e) => {
-        focused.current = true;
-        const el = e.currentTarget;
-        requestAnimationFrame(() => el.select());
-      }}
-      onChange={(e) => {
-        const v = e.target.value.replace(/[^\d.,]/g, "");
-        setText(v);
-        const n = parseNum(v);
-        if (v === "" || n !== null)
-          onCommit(n === null ? null : decimal ? n : Math.round(n));
-      }}
-      onBlur={() => {
-        focused.current = false;
-        setText(fmtNum(value));
-      }}
-      onKeyDown={(e) => {
-        if (e.key !== "Enter") return;
-        e.preventDefault();
-        const inputs = [
-          ...document.querySelectorAll<HTMLInputElement>("input[data-cell]"),
-        ];
-        const i = inputs.indexOf(e.currentTarget);
-        if (inputs[i + 1]) inputs[i + 1].focus();
-        else e.currentTarget.blur();
-      }}
-      data-cell
-      className={`tnum h-12 w-full min-w-0 rounded-[12px] bg-transparent text-center text-[19px] outline-none transition-colors placeholder:text-ink-3/70 focus:bg-card focus:shadow-[0_0_0_2px_var(--accent)] ${
-        done ? "font-semibold text-ink" : "text-ink"
+    <button
+      type="button"
+      aria-label={`${label}: ${shown ?? placeholder}`}
+      onClick={onTap}
+      className={`press tnum h-12 w-full min-w-0 truncate rounded-[12px] text-center ${
+        shown === null ? "text-[19px] text-ink-3/70" : `${shown.length > 4 ? "text-[15px]" : "text-[19px]"} text-ink ${done ? "font-semibold" : ""}`
       }`}
-    />
+    >
+      {shown ?? placeholder}
+    </button>
   );
 }
 
@@ -630,6 +609,7 @@ const SetRow = memo(function SetRow({
   onToggle,
   onMenu,
   onDelete,
+  onPick,
 }: {
   set: WorkoutSet;
   label: string;
@@ -638,6 +618,7 @@ const SetRow = memo(function SetRow({
   onToggle: () => void;
   onMenu: () => void;
   onDelete: () => void;
+  onPick: () => void;
 }) {
   return (
     <div>
@@ -659,17 +640,17 @@ const SetRow = memo(function SetRow({
             <NumberCell
               label={tr("Set {n} weight", { n: set.set_number })}
               value={set.weight}
-              decimal
+              bodyweight
               done={set.completed}
-              placeholder={weightHint !== null ? fmtNum(weightHint) : "–"}
-              onCommit={(v) => updateSet(set.id, { weight: v })}
+              placeholder={weightHint === 0 ? tr("BW") : weightHint !== null ? fmtNum(weightHint) : "–"}
+              onTap={onPick}
             />
             <NumberCell
               label={tr("Set {n} reps", { n: set.set_number })}
               value={set.reps}
               done={set.completed}
               placeholder={repHint ?? "–"}
-              onCommit={(v) => updateSet(set.id, { reps: v })}
+              onTap={onPick}
             />
             <div className="flex items-center justify-center">
               <button

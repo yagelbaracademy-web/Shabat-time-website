@@ -7,6 +7,7 @@ import {
   deleteSet,
   restoreSet,
   setCardio,
+  startWorkoutClock,
   toggleSet,
 } from "@/lib/actions";
 import {
@@ -152,6 +153,7 @@ function CardioRound({
   const start = () => {
     if (busy) stopAndSave(); // only one clock at a time: finish the other round first
     startCardio(set.id, set.duration_seconds ?? 0, goal);
+    startWorkoutClock(set.id);
     haptic(15);
   };
   const stop = () => {
@@ -237,8 +239,13 @@ function CardioRound({
           spinning={!!running && !activeGoal}
         />
         <span className="relative flex flex-col items-center">
+          {/* With a goal it counts down to zero, then shows the extra time with a "+". */}
           <span className="tnum text-[46px] leading-none font-semibold tracking-[-0.03em]">
-            {fmtClock(secs)}
+            {activeGoal
+              ? secs <= activeGoal
+                ? fmtClock(activeGoal - secs)
+                : `+${fmtClock(secs - activeGoal)}`
+              : fmtClock(secs)}
           </span>
         </span>
       </button>
@@ -330,7 +337,7 @@ function stopAndSave() {
   track("cardio");
 }
 
-/** Fills toward the goal; without a goal it slowly spins while the clock runs. */
+/** Empties toward the goal; without a goal it slowly spins while the clock runs. */
 function Ring({
   progress,
   spinning,
@@ -370,8 +377,9 @@ function Ring({
           strokeWidth={W}
           strokeLinecap="round"
           strokeDasharray={C}
+          // The empty part grows clockwise from the top, like a timer running out.
           strokeDashoffset={
-            progress !== null ? C * (1 - progress) : C * 0.75
+            progress !== null ? -C * (1 - progress) : C * 0.75
           }
           style={{ transition: "stroke-dashoffset 1s linear" }}
         />

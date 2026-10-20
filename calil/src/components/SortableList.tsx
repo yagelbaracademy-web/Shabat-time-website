@@ -29,7 +29,9 @@ export function SortableList<T extends { id: string }>({
 }) {
   const refs = useRef(new Map<string, HTMLLIElement>());
   const press = useRef<{ id: string; x: number; y: number; pid: number; timer: ReturnType<typeof setTimeout> } | null>(null);
-  const drag = useRef<{ id: string; from: number; startY: number; tops: number[]; heights: number[]; pid: number } | null>(null);
+  // Positions are in page coordinates (viewport + scroll), so the page can scroll under a lifted row.
+  const drag = useRef<{ id: string; from: number; startY: number; tops: number[]; heights: number[]; pid: number; clientY: number } | null>(null);
+  const scrollRaf = useRef(0);
   const justDropped = useRef(false);
   const [state, setState] = useState<{ id: string; dy: number; over: number; from: number; height: number } | null>(null);
 
@@ -57,11 +59,13 @@ export function SortableList<T extends { id: string }>({
     drag.current = {
       id,
       from,
-      startY: y,
-      tops: els.map((e) => e.getBoundingClientRect().top),
+      startY: y + window.scrollY,
+      tops: els.map((e) => e.getBoundingClientRect().top + window.scrollY),
       heights: els.map((e) => e.offsetHeight),
       pid,
+      clientY: y,
     };
+    autoScroll();
     try {
       els[from].setPointerCapture(pid);
     } catch {}
@@ -77,12 +81,11 @@ export function SortableList<T extends { id: string }>({
     press.current = { id, x, y, pid, timer: setTimeout(() => lift(id, pid, y), HOLD_MS) };
   };
 
-  const onPointerMove = (e: React.PointerEvent) => {
-    const p = press.current;
-    if (p && !drag.current && Math.hypot(e.clientX - p.x, e.clientY - p.y) > SLOP) cancelPress();
+  /** Follows the finger: where the lifted row is and which slot it's over. */
+  const place = () => {
     const d = drag.current;
-    if (!d || e.pointerId !== d.pid) return;
-    const dy = e.clientY - d.startY;
+    if (!d) return;
+    const dy = d.clientY + window.scrollY - d.startY;
     // Where would the lifted row's center land?
     const center = d.tops[d.from] + d.heights[d.from] / 2 + dy;
     let over = 0;
@@ -95,11 +98,41 @@ export function SortableList<T extends { id: string }>({
     });
   };
 
+  // Near the top or bottom edge the page scrolls along, faster the closer the finger gets.
+  const autoScroll = () => {
+    cancelAnimationFrame(scrollRaf.current);
+    const step = () => {
+      const d = drag.current;
+      if (!d) return;
+      const edge = 110;
+      const top = d.clientY - edge;
+      const bottom = d.clientY - (window.innerHeight - edge - 90); // above the tab bar and chat
+      const speed = top < 0 ? Math.max(-18, top / 5) : bottom > 0 ? Math.min(18, bottom / 5) : 0;
+      if (speed) {
+        const before = window.scrollY;
+        window.scrollBy(0, speed);
+        if (window.scrollY !== before) place();
+      }
+      scrollRaf.current = requestAnimationFrame(step);
+    };
+    scrollRaf.current = requestAnimationFrame(step);
+  };
+
+  const onPointerMove = (e: React.PointerEvent) => {
+    const p = press.current;
+    if (p && !drag.current && Math.hypot(e.clientX - p.x, e.clientY - p.y) > SLOP) cancelPress();
+    const d = drag.current;
+    if (!d || e.pointerId !== d.pid) return;
+    d.clientY = e.clientY;
+    place();
+  };
+
   const onPointerUp = () => {
     cancelPress();
     const d = drag.current;
     if (!d) return;
     drag.current = null;
+    cancelAnimationFrame(scrollRaf.current);
     justDropped.current = true; // swallow the click that follows the drop
     setTimeout(() => (justDropped.current = false), 50);
     setState((s) => {

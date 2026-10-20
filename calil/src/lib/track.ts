@@ -13,6 +13,7 @@ export type UsageEvent =
   | "ai_answer"
   | "ai_build_saved"
   | "start_suggested"
+  | "idle_finish"
   | "paste_list"
   | "import_file"
   | "swipe_start"

@@ -16,8 +16,9 @@ import {
 } from "@/lib/speech/provider";
 import { haptic } from "@/lib/format";
 import { useStore } from "@/lib/store";
-import { useT } from "@/lib/i18n";
-import { PR_TITLE } from "@/lib/stats";
+import { exName, useT } from "@/lib/i18n";
+import { isCardio, lastSession, PR_TITLE, setsOf, workoutExercises } from "@/lib/stats";
+import { fmtNum } from "@/lib/format";
 import { Icon } from "../icons";
 import { Button, Sheet, Swipeable, TipOnce, toast } from "../ui";
 import { getOnboarding, setOnboarding } from "@/lib/onboarding";
@@ -31,17 +32,39 @@ type Mode = "idle" | "recording" | "transcribing" | "result";
 
 /** What the bar can do, shown as gently rotating examples whenever the field is empty. */
 const EXAMPLES = [
-  "Bench press 80 kg 8 reps",
+  "Bench press 40 kg 10 reps",
   "Build me a 40-minute back workout",
+  "Third set 42.5 by 10, wide grip",
   "How long should I rest between sets?",
-  "Third set 82.5 by 8, wide grip",
   "Note: seat on 4",
-  "Add squat, 3 sets of 10",
+  "Add a treadmill at the start",
   "Treadmill 20 minutes 3 km",
   "Paste a whole workout here",
 ];
+/**
+ * The first example speaks your language: the exercise in front of you, with the numbers
+ * it's showing (or modest ones for a first time), so it reads like something you'd say.
+ */
+function useOwnExample(workoutId: string, focusWeId: string | null) {
+  const t = useT();
+  return useStore((s) => {
+    const wes = workoutExercises(s, workoutId).filter((we) => !isCardio(s.exercises[we.exercise_id]));
+    const we = (focusWeId && wes.find((x) => x.id === focusWeId)) || wes.find((x) => setsOf(s, x.id).some((y) => !y.completed));
+    if (!we) return null;
+    const sets = setsOf(s, we.id);
+    const open = sets.find((y) => !y.completed && !y.is_warmup);
+    const ref = open ?? sets[sets.length - 1];
+    const last = lastSession(s, we.exercise_id, workoutId)?.sets.find((y) => y.completed && !y.is_warmup);
+    const w = ref?.weight ?? sets.find((y) => y.completed)?.weight ?? last?.weight ?? null;
+    const r = ref?.reps ?? last?.reps ?? 10;
+    const name = `\u2068${exName(s.exercises[we.exercise_id])}\u2069`;
+    return w ? t("{name} {w} kilos {r} reps", { name, w: fmtNum(w), r }) : t("{name} {r} reps", { name, r });
+  }, [workoutId, focusWeId]);
+}
+
 /** Rotating example hint: soft fade, pauses while focused, static with reduced motion. */
-function useRotatingHint(active: boolean) {
+function useRotatingHint(active: boolean, own: string | null) {
+  const list = own ? [own, ...EXAMPLES.slice(1)] : EXAMPLES;
   const [i, setI] = useState(0);
   useEffect(() => {
     if (
@@ -49,10 +72,10 @@ function useRotatingHint(active: boolean) {
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
     )
       return;
-    const id = setInterval(() => setI((x) => (x + 1) % EXAMPLES.length), 4000);
+    const id = setInterval(() => setI((x) => x + 1), 4000);
     return () => clearInterval(id);
   }, [active]);
-  return EXAMPLES[i];
+  return list[i % list.length];
 }
 
 /**
@@ -80,12 +103,14 @@ export function DictationBar({
   const [micOk] = useState(() => canRecord());
   const [focused, setFocused] = useState(false);
   const learning = true; // examples stay: they're the only hint of everything the bar can do
+  const own = useOwnExample(workoutId, focusWeId);
   const example = useRotatingHint(
     learning &&
       !focused &&
       !draft &&
       mode !== "recording" &&
       mode !== "transcribing",
+    own,
   );
   const rec = useRef<Recording | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -278,6 +303,9 @@ export function DictationBar({
                   {result.reply}
                 </p>
               )}
+              {result.ok && !result.reply && (
+                <p className="mb-0.5 text-[13px] text-ink-2">{t("Updated in your workout")}</p>
+              )}
               {result.summary && (
                 <p
                   className={`text-[15px] whitespace-pre-line ${result.reply ? "mt-2 text-[14px] text-ink-2" : result.ok ? "font-semibold" : "text-ink-2"}`}
@@ -327,9 +355,17 @@ export function DictationBar({
           style={{ marginBottom: resting ? 84 : 8 }}
         >
           {t(
-            "Tap the mic and tell it what you did, for example: “Bench press 80 kilos 8 reps”. It lands here, then press send.",
+            "Tap the mic and tell it what you did, for example: “Bench press 40 kilos 10 reps”. It lands here, then press send.",
           )}
         </TipOnce>
+      )}
+      {heard && draft && mode === "idle" && (
+        <p
+          className="rise mx-auto mb-2 w-fit max-w-full rounded-full border border-line bg-card/95 px-3.5 py-1.5 text-center text-[14px] text-ink-2 shadow-float backdrop-blur"
+          style={{ marginBottom: resting ? 84 : 8 }}
+        >
+          {t("Here’s what I heard. Fix anything, then tap ↑")}
+        </p>
       )}
       <Sheet
         open={priming}
@@ -344,7 +380,7 @@ export function DictationBar({
           </p>
           <ul className="mt-3 divide-y divide-line rounded-[14px] bg-fill px-4 text-[16px]">
             {[
-              [t("“Bench press 80 kilos 8 reps”"), t("Set")],
+              [t("“Bench press 40 kilos 10 reps”"), t("Set")],
               [t("“Add squat, 3 sets of 10”"), t("Exercise")],
               [t("“Note: seat at height 4”"), t("Note")],
             ].map(([example, kind]) => (
@@ -478,7 +514,7 @@ export function DictationBar({
                     : ""
                   : t("Dictate or type a set…")
               }
-              aria-label={t("Type a set, for example Bench press 80 kg 8 reps")}
+              aria-label={t("Type a set, for example Bench press 40 kg 10 reps")}
               className="block max-h-[148px] w-full min-w-0 resize-none bg-transparent py-[10px] text-[16px] leading-6 outline-none placeholder:text-ink-3"
               enterKeyHint="send"
               autoComplete="off"
@@ -506,7 +542,7 @@ export function DictationBar({
             aria-label={t("Send")}
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-white"
           >
-            <Icon name="send" size={19} />
+            <Icon name="arrowUp" size={21} stroke={2.4} />
           </button>
         )}
       </form>

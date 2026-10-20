@@ -44,6 +44,7 @@ const OUTCOMES: Record<string, string> = {
   ai_answer: "Asked Calil a question",
   ai_build_saved: "Saved a built workout as a plan",
   start_suggested: "Started a suggested plan",
+  idle_finish: "Finished from the “still training?” prompt",
 };
 
 const SCREENS: Record<string, string> = {

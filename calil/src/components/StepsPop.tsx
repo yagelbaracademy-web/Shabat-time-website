@@ -65,7 +65,7 @@ export function StepsPop() {
 
   return (
     <div
-      className="fixed inset-x-0 z-[58] mx-auto max-w-[560px] px-4"
+      className="fixed inset-x-0 z-[45] mx-auto max-w-[560px] px-4" // above the chat bar, under sheets
       style={{
         bottom: "calc(var(--tabbar-h) + var(--sab) + 12px + var(--dock, 0px))",
         transform: visible ? "translateY(0)" : "translateY(calc(100% + 120px))",

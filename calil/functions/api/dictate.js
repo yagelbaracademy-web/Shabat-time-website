@@ -22,7 +22,7 @@ const LONG = [
 const MAX_TEXT = 4000;
 const isList = (text) => text.length > 160 || (text.match(/\n/g) ?? []).length >= 3;
 // Asking Calil to put a workout together is a longer answer: the careful model.
-const isBuild = (text) => /אימון|תבנה|תכין|תציע|תחליף|למה|איך|מה |כמה|האם|workout|build|make me|routine|swap|instead|\?/i.test(text);
+const isBuild = (text) => /אימון|תבנה|תכין|תציע|תחליף|תעביר|תזיז|בהתחלה|בסוף|לפני|אחרי|למה|איך|מה |כמה|האם|workout|build|make me|routine|swap|instead|move|put it|to the end|before|after|\?/i.test(text);
 
 /** A positive number from the model's string, or null. */
 const num = (v, max) => {
@@ -67,6 +67,9 @@ text, no markdown), operations []. Be concrete and useful, like a friend who is 
 Use "Recent conversation" for context: follow-ups ("less of that", "and why?", "make it shorter", "עוד אחד כזה") refer to it.
 Something unrelated to training, health or the app: one friendly sentence in "reply" that you're here for training, operations [].
 Never invent what the user did. Reply in the language the user wrote or spoke.
+Where an exercise goes: "position" is its 1-based place in the workout when the user says where ("put it first", "בהתחלה" = 1,
+"at the end" / "בסוף" = number of exercises after the change, "before squat" = squat's current place, "second" = 2); otherwise null.
+To only MOVE an exercise already in the workout ("move squat to the end", "תעביר את הלחיצה להתחלה"): mode "move", sets [], with position.
 "reply" and "title" are null for plain logging, notes and pasted lists.`;
 
 const SCHEMA = {
@@ -81,7 +84,8 @@ const SCHEMA = {
           exercise: { type: "string" },
           is_new_exercise: { type: "boolean" },
           muscle_group: { type: "string", nullable: true },
-          mode: { type: "string", enum: ["log", "plan", "note", "remove"] },
+          mode: { type: "string", enum: ["log", "plan", "note", "remove", "move"] },
+          position: { type: "integer", nullable: true },
           sets: {
             type: "array",
             items: {
@@ -117,7 +121,8 @@ function clean(out) {
       exercise: String(o.exercise ?? "").trim(),
       is_new_exercise: !!o.is_new_exercise,
       muscle_group: o.muscle_group ?? null,
-      mode: ["log", "plan", "note", "remove"].includes(o.mode) ? o.mode : "log",
+      mode: ["log", "plan", "note", "remove", "move"].includes(o.mode) ? o.mode : "log",
+      position: Number.isInteger(o.position) && o.position > 0 && o.position < 100 ? o.position : null,
       sets: (Array.isArray(o.sets) ? o.sets : []).slice(0, 20).map((s) => {
         const w = parseFloat(String(s.weight ?? "").replace(",", "."));
         const reps = Number.isInteger(s.reps) && s.reps >= 0 && s.reps < 1000 ? s.reps : null;
