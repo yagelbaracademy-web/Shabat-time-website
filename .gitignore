@@ -1,3 +1,43 @@
 node_modules/
 .DS_Store
 .claude/
+*.env
+booking-platform/.supabase-token
+speakski/.dev.vars
+speakski/.wrangler/
+videohost/.wrangler/
+speakski/.secrets.local
+speakski/.cf-token
+speakski/.brevo
+speakski/.clarity-token
+speakski/.clarity-course-token
+
+# SpeakSki: paid course content and review exports. The repo is public, and
+# transcripts are the product people pay for.
+speakski/course-export/
+speakski/deliverables/
+speakski/.demo-user
+
+speakski/.grow-webhook-url
+speakski/lesson-assets/
+speakski/tests/out/
+speakski/intro-video/
+speakski/tomer-video/
+podcast-adi/
+podcast-adi-solo/
+speakski/promo-video/
+speakski/vertical-video/
+speakski/sales-assets/clarity/
+
+# private call recordings/agreements
+speakski/agreements/
+
+# הצעות מחיר ללקוחות (פרטי)
+הצעות מחיר/
+omer-adam-remix/
+
+# Secrets anywhere in the repo (generic safety net)
+**/.dev.vars
+**/.secrets.local
+**/.*-token
+**/.supabase-token
