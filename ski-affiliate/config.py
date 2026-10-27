@@ -1,5 +1,10 @@
 MIN_ORDERS = 400
 MIN_SALE_PRICE_USD = 5
+# Products whose title matches any of these are never collected. Helmets are
+# excluded (2026-10-27): safety gear we don't want to recommend without being
+# able to vouch for its certification.
+BLOCKED_TITLE_PATTERNS = [r"helmet", r"קסד"]
+
 MAX_PER_KEYWORD = 1  # at most 1 product per keyword per run, so variety comes
                       # from different keywords, not depth within one keyword
 
@@ -30,7 +35,6 @@ CATEGORIES = [
         "keywords": [
             "ski goggles",
             "snowboard goggles",
-            "ski helmet",
             "snowboard bindings",
             "ski poles",
             "snowboard wax kit",

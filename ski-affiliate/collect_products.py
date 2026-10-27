@@ -2,6 +2,7 @@ import argparse
 import json
 import os
 import random
+import re
 import time
 from datetime import date
 from pathlib import Path
@@ -11,6 +12,7 @@ from aliexpress_api import AliexpressApi, models
 
 from concepts import classify_concept
 from config import (
+    BLOCKED_TITLE_PATTERNS,
     CATEGORIES,
     MIN_ORDERS,
     MIN_SALE_PRICE_USD,
@@ -24,6 +26,10 @@ load_dotenv()
 
 STATE_PATH = Path(__file__).parent / "state.json"
 BUFFER_THRESHOLD = 5
+
+
+def is_blocked_title(title):
+    return any(re.search(pat, title, re.IGNORECASE) for pat in BLOCKED_TITLE_PATTERNS)
 
 
 def load_state():
@@ -101,6 +107,7 @@ def collect(dry_run=False):
                 and p.product_id not in {x.product_id for x in family_pool}
                 and p.product_title not in seen_titles
                 and p.product_title not in pool_titles
+                and not is_blocked_title(p.product_title)
             ]
             qualifying = qualifying[:MAX_PER_KEYWORD]
             family_pool.extend(qualifying)
